@@ -15,6 +15,6 @@ Next JS
 Imagx
 ```
 
-Entity Relationship Diagram
+> Entity Relationship Diagram
 
-Class Diagram
+> Class Diagram
