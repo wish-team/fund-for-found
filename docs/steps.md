@@ -1,8 +1,8 @@
 ## Fundamental
 
-- [ ] initialize the website
-- [ ] content
-- [ ] ERD completion
+- [ ] Initialize the website
+- [ ] Content
+- [ ] Entity relationship diagram completion
 - [ ] Multiple payment system based on IP or crypto (the main problem)
 - [ ] Multiple language (Persian or English)
 
