@@ -11,7 +11,7 @@ While many stand by, watching this tragedy unfold and pointing fingers at the sy
 ## Project Structure
 
 ```
-Flowbite
+DaisyUI
 Astro
 Next JS
 Imagx
@@ -25,4 +25,4 @@ Imagx
 
 ## Document
 
-[Notion](https://www.notion.so/Statement-of-Purpose-89ba453d44c8434ba896b33ff645e9a7ss)
+[Notion](https://www.notion.so/Statement-of-Purpose-89ba453d44c8434ba896b33ff645e9a7)
