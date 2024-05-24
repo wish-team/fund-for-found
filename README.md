@@ -1,8 +1,10 @@
-# Open Matn
+# Fund For Found Special Project
+
+![Fund For Found](3F.svg)
 
 ## Motivation
 
-In many countries suffering from international sanctions, funding creative and innovative projects is exceedingly challenging. This is a widely acknowledged issue, yet it often goes unaddressed and action is seldom taken to rectify it. As a result, an alarming number of these projects - more than a million each year - fail to take off and are prematurely terminated. These projects are frequently victims of political strife and the crippling effects of sanctions.
+In many countries suffering from international sanctions, or having trouble access to payment gateways, funding creative and innovative projects is exceedingly challenging. This is a widely acknowledged issue, yet it often goes unaddressed and action is seldom taken to rectify it. As a result, an alarming number of these projects - more than a million each year - fail to take off and are prematurely terminated. These projects are frequently victims of political strife and the crippling effects of sanctions.
 
 While many stand by, watching this tragedy unfold and pointing fingers at the system, we will not stand idly by. We are the change-makers, the difference-makers, the tech savages, the hackers and painters, the ones who dare to rewrite the narrative. Our mission is not merely a statement; it's a commitment to shatter these obstacles and champion these promising projects. We are here to help them rise, realize their full potential, prevent preposterous failures, and make a lasting impact on their communities. So, as we stand on the precipice of change, we ask: **_Are you ready to help in this journey?_**
 
