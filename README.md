@@ -11,18 +11,48 @@ While many stand by, watching this tragedy unfold and pointing fingers at the sy
 ## Project Structure
 
 ```
-DaisyUI
-Astro
-Next JS
-Imagx
+
+|__3F-Front
+|__Blockchain
+|__3F-Back
+|__Docs
+|__3F-Dashboard
+
 ```
+
+## Technologies
+
+#### Frameworks:
+
+```
+Astro
+Nest
+Next
+```
+
+#### Payment
+
+```
+TON
+Time Coin
+```
+
+#### Deploy
+
+```
+Render
+Netlify
+```
+
+TODO
 
 > Entity Relationship Diagram
 
 > Class Diagram
 
->
+> Payment
 
 ## Document
 
-[Notion](https://www.notion.so/Statement-of-Purpose-89ba453d44c8434ba896b33ff645e9a7)
+[Statement of Purpose](https://volcano-fairy-a6b.notion.site/Statement-of-Purpose-89ba453d44c8434ba896b33ff645e9a7)
+[Education](https://volcano-fairy-a6b.notion.site/Education-be43aff02ea349e2930b572937561e7c)

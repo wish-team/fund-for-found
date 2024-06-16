@@ -1,0 +1,3 @@
+[submodule "3F-Back"]
+	path = 3F-Back
+	url = git@github.com:wish-team/3F-Back.git
