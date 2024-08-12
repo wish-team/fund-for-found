@@ -1,0 +1,15 @@
+{
+  "index.fa": "توضیح اولیه",
+  "another.fa": "صفحه‌ای دیگر",
+  "advanced.fa": "پیشرفته",
+  "about": {
+    "title": "درباره",
+    "type": "page"
+  },
+  "contact": {
+    "title": "تماس ↗",
+    "type": "page",
+    "href": "https://twitter.com/shuding_",
+    "newWindow": true
+  }
+}
