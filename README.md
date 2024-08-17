@@ -14,7 +14,7 @@ While many stand by, watching this tragedy unfold and pointing fingers at the sy
 
 ```
 
-|__3F-Front
+|__3f-commercial
 |__Blockchain
 |__3F-Back
 |__Docs
@@ -23,6 +23,10 @@ While many stand by, watching this tragedy unfold and pointing fingers at the sy
 ```
 
 ## Technologies
+
+```
+Nextra
+```
 
 #### Frameworks:
 
@@ -35,6 +39,7 @@ Next
 #### Payment
 
 ```
+Default Payment Systems
 TON
 Time Coin
 ```
@@ -42,6 +47,7 @@ Time Coin
 #### Deploy
 
 ```
+Cloudflare
 Render
 Netlify
 ```
