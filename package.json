@@ -1,0 +1,10 @@
+{
+  "name": "fund-for-found",
+  "version": "0.0.1",
+  "scripts": {
+    "commercial": "cd 3f-commercial && astro dev NODE_ENV=development",
+    "3f-back": "cd 3f-back && nest start",
+    "3f-front": "astro check && astro build",
+    "3f-auth": "cd 3f-auth && npm run dev"
+  }
+}
