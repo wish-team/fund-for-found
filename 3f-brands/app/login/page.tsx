@@ -75,7 +75,6 @@ export default function Login({
       </Link>
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-      <h1 className="text-xl">Dive in with your email or phone number</h1>
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -102,7 +101,6 @@ export default function Login({
         >
           Sign In
         </SubmitButton>
-        Don't have one?
         <SubmitButton
           formAction={signUp}
           className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
