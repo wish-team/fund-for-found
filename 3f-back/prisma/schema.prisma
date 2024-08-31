@@ -11,10 +11,12 @@ generator client {
 model Brand {
   id        Int     @id @default(autoincrement())
   name     String
+  logo     String?
   description   String?
-  tiers Tier[]
+  tiers Tier?
   owner User  @relation(fields: [id], references: [userId])
-  balance String
+  balance String @default("0")
+  tag_line String
 }
 
 
@@ -34,9 +36,9 @@ model Campaign {
 
 model User {
   id    Int     @id @default(autoincrement())
-  userId Int    @unique
-  email String  @unique
-  name  String?
+  userId    Int    @unique
+  email     String  @unique
+  name      String?
   phone_number Int
   brands Brand[]
   Account Account @relation(fields:[userId], references:[id])
@@ -47,4 +49,6 @@ model Account {
   id    Int     @id @default(autoincrement())
   user User? 
   balance String
+  photo String
 }
+

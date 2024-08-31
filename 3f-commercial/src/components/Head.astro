@@ -1,0 +1,174 @@
+---
+import GlobalStyles from "../components/GlobalStyles.astro";
+import { Schema } from "astro-seo-schema";
+const { title, description, banner } = Astro.props;
+let bannerBool;
+if (!banner) {
+    bannerBool = false;
+} else {
+    bannerBool = true;
+}
+// const analyticsUrl = import.meta.env.PUBLIC_ANALYTICS_URL;
+---
+
+<meta charset="utf-8" />
+<!-- <link href="/favicon-light.png" rel="icon" media="(prefers-color-scheme: light)" /> -->
+<link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/apple-touch-icon.png"
+    media="(prefers-color-scheme: light)"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon-32x32.png"
+    media="(prefers-color-scheme: light)"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon-16x16.png"
+    media="(prefers-color-scheme: light)"
+/>
+<link
+    rel="manifest"
+    href="/site-dark.webmanifest"
+    media="(prefers-color-scheme: light)"
+/>
+
+<!-- <link href="/favicon-light.png" rel="icon" media="(prefers-color-scheme: dark)" /> -->
+<link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/apple-touch-icon-dark.png"
+    media="(prefers-color-scheme: dark)"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon-32x32-dark.png"
+    media="(prefers-color-scheme: dark)"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon-16x16-dark.png"
+    media="(prefers-color-scheme: dark)"
+/>
+<link
+    rel="manifest"
+    href="/site-dark.webmanifest"
+    media="(prefers-color-scheme: dark)"
+/>
+
+<meta property="type" content="website" />
+<meta property="title" content={title} />
+<meta name="description" property="og:description" content={description} />
+<meta property="url" content="https://wishwork.org" />
+
+{
+    bannerBool ? (
+        <meta property="image" content={"https://wishwork.org" + banner} />
+    ) : (
+        <meta property="image" content="https://wishwork.org/og-banner.png" />
+    )
+}
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=0"
+/>
+
+<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<GlobalStyles />
+<link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/apple-touch-icon-dark.png"
+    media="(prefers-color-scheme: dark)"
+/><link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon-32x32-dark.png"
+    media="(prefers-color-scheme: dark)"
+/><link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon-16x16-dark.png"
+    media="(prefers-color-scheme: dark)"
+/><link
+    rel="manifest"
+    href="/site-dark.webmanifest"
+    media="(prefers-color-scheme: dark)"
+/><meta property="og:type" content="website" /><meta
+    property="og:title"
+    content={title}
+/><meta property="og:url" content="https://wishwork.org" />
+
+{
+    bannerBool ? (
+        <meta property="og:image" content={"https://wishwork.org" + banner} />
+    ) : (
+        <meta property="image" content="https://wishwork.org/og-banner.png" />
+    )
+}
+
+<meta name="viewport" content="width=device-width" /><meta
+    name="generator"
+    content={Astro.generator}
+/><link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css"
+/><title>{title}</title>
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<Schema
+    item={{
+        "@context": "https://schema.org",
+        "@type": "Corporation",
+        name: "Wish Work",
+        description:
+            "Wish Work is a technology partner company helping brands transcend with design and technology.",
+        url: "https://wishwork.org",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "British Columbia",
+            addressCountry: "Canada",
+            postalCode: "1802-1185",
+            streetAddress: "The High St, Coquitlam",
+        },
+        email: "mailto:info@wishwork.org",
+        logo: "https://www.wishwork.org/wish-work-logo.png",
+        sameAs: [
+            "https://www.linkedin.com/company/wishwork/",
+            "https://instagram.com/wishworkofficial/",
+            "https://www.youtube.com/@wishwork",
+            "https://twitter.com/wishworkCo",
+            "https://github.com/wish-team",
+            "https://www.crunchbase.com/organization/wish-work",
+            "https://g.co/kgs/sw4ydg6",
+        ],
+    }}
+/>
+
+<!-- Google tag (gtag.js) -->
+<script src="https://www.googletagmanager.com/gtag/js?id=G-35KWQGYX81"
+></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-35KWQGYX81");
+</script>
