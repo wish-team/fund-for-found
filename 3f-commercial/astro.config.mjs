@@ -13,6 +13,6 @@ dotenv.config({
 export default defineConfig({
   site: "https://fundforfound.com",
   integrations: [tailwind({
-    applyBaseStyles: true
+    applyBaseStyles: false
   }), react(), sitemap(), robotsTxt()]
 });

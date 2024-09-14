@@ -6,5 +6,12 @@
     "3f-back": "cd 3f-back && nest start",
     "3f-front": "astro check && astro build",
     "3f-auth": "cd 3f-auth && npm run dev"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.437.0",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   }
 }
