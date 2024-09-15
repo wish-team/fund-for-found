@@ -3,22 +3,22 @@ import type { NavMenuConfig } from "@/types";
 export const navMenuConfig: NavMenuConfig = {
   pagesNav: [
     {
-      title: "Pages",
+      title: "Product",
       items: [
         {
-          title: "Landing",
+          title: "How it Works",
           href: "/landing",
           description: "A landing page template with differents sections.",
           image: "/images/examples/landing.jpg",
         },
         {
-          title: "Changelog",
+          title: "FAQ",
           href: "/releases",
           description: "A reproduction of Starlog template with Tailwind CSS.",
           image: "/images/examples/changelog.jpg",
         },
         {
-          title: "Waitlists",
+          title: "Zero Tax",
           href: "/waitlist",
           description:
             "A waitlist form using Astro DB, React Hook Form & Sonner. Static page.",
@@ -31,28 +31,28 @@ export const navMenuConfig: NavMenuConfig = {
           description: "Pricing cards, FAQs and more content with price.",
           image: "/images/examples/pricing.jpg",
         },
-        {
-          title: "About",
-          href: "/about",
-          description: "A simple page with a masonry gallery and little text.",
-          image: "/images/examples/about.jpg",
-        },
-        {
-          title: "Newsletter",
-          href: "/newsletter",
-          description:
-            "A newsletter form using Astro DB & Simple Stack Form. Counter display!",
-          image: "/images/examples/newsletter.jpg",
-        },
+        // {
+        //   title: "About",
+        //   href: "/about",
+        //   description: "A simple page with a masonry gallery and little text.",
+        //   image: "/images/examples/about.jpg",
+        // },
+        // {
+        //   title: "Newsletter",
+        //   href: "/newsletter",
+        //   description:
+        //     "A newsletter form using Astro DB & Simple Stack Form. Counter display!",
+        //   image: "/images/examples/newsletter.jpg",
+        // },
       ],
     },
   ],
   examplesNav: [
     {
-      title: "Examples",
+      title: "Company",
       items: [
         {
-          title: "Static Blog",
+          title: "Blog",
           href: "/blog",
           description: "A Markdown/MDX blog built using Content Collections.",
           image: "/images/examples/static-blog.jpg",
@@ -65,7 +65,7 @@ export const navMenuConfig: NavMenuConfig = {
           image: "/images/examples/documentation.jpg",
         },
         {
-          title: "Anime List",
+          title: "Brand or Organization",
           href: "/animes",
           description:
             "Fetch anime content from an graphql endpoint. Tabs component.",
@@ -73,7 +73,7 @@ export const navMenuConfig: NavMenuConfig = {
           launched: true,
         },
         {
-          title: "Blog DB",
+          title: "Creative Projects",
           href: "/blog-db",
           description:
             "Blog built using Astro DB. With categories, views & likes.",
@@ -81,14 +81,14 @@ export const navMenuConfig: NavMenuConfig = {
           disabled: true,
         },
         {
-          title: "Ecommerce",
+          title: "Fiat Currencies",
           href: "/products",
           disabled: true,
           description: "Ecommerce pages fetching data from an API.",
           // image: "/images/examples/ecommerce.jpg",
         },
         {
-          title: "Authentification",
+          title: "About 3F",
           href: "/auth",
           description: "Implement an authentification using Astro DB & Lucia",
           // image: "/images/examples/auth.jpg",
@@ -98,11 +98,11 @@ export const navMenuConfig: NavMenuConfig = {
     },
   ],
   links: [
-    // {
-    //   title: "Example",
-    //   href: "/example",
-    //   description: "Example description",
-    //   image: "/images/examples/image.jpg",
-    // },
+    {
+      title: "Help and Support",
+      href: "/example",
+      description: "Example description",
+      image: "/images/examples/image.jpg",
+    },
   ],
 };

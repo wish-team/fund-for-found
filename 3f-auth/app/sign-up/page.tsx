@@ -2,11 +2,10 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
+import { SubmitButton } from "../login/submit-button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 
 export default function Login({
   searchParams,
@@ -26,7 +25,6 @@ export default function Login({
     });
 
     if (error) {
-      console.log(error)
       return redirect("/login?message=Could not authenticate user");
     }
 
@@ -40,7 +38,7 @@ export default function Login({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
-
+    console.log()
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -48,6 +46,7 @@ export default function Login({
         emailRedirectTo: `${origin}/auth/callback`,
       },
     });
+    console.log(error)
 
     if (error) {
       console.log(error)
@@ -82,13 +81,13 @@ export default function Login({
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
       <h1 className="text-xl">Dive in with your email or phone number</h1>
-          {/* <LabelInputContainer>
+          <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
             <Input id="firstname" name="firstname" placeholder="Amirhosein" type="text" required/>
-          </LabelInputContainer> */}
+          </LabelInputContainer>
           <LabelInputContainer>
-            <Label htmlFor="Email">Email or Phone Number</Label>
-            <Input name="email" placeholder="example@example.com" type="email" autoComplete="false" required/>
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" placeholder="example@example.com" type="email" autoComplete="off" required/>
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="password">Password</Label>
@@ -112,9 +111,13 @@ export default function Login({
           Sign In
         </SubmitButton>
         Don't have one?
-        <Button asChild>
-        <Link href="/sign-up">Sign Up</Link>
-        </Button>
+        <SubmitButton
+          formAction={signUp}
+          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          pendingText="Signing Up..."
+        >
+          Sign Up
+        </SubmitButton>
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}

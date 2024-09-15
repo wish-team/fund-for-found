@@ -5,17 +5,19 @@ import HeroLanding from "@/components/sections/hero-landing.astro";
 import InfoLanding from "@/components/sections/info-landing.astro";
 import PreviewLanding from "@/components/sections/preview-landing.astro";
 import Testimonials from "@/components/sections/testimonials.astro";
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 import { infos } from "@/config/landing";
 import MainLayout from "@/layouts/main-layout.astro";
 ---
 
-<MainLayout title="Landing">
+<MainLayout title="3F" description="Crowdfunding in a new way">
   <HeroLanding />
   <!-- <PreviewLanding /> -->
   <BentoGrid />
   <InfoLanding data={infos[0]} reverse={true} />
   <!-- <InfoLanding data={infos[1]} /> -->
   <Features />
-  <Testimonials />
+  <TextHoverEffect text="3F" client:load/>
+  <!-- <Testimonials /> -->
 </MainLayout>

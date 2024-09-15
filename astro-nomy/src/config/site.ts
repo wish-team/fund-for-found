@@ -1,9 +1,9 @@
 import type { SidebarNavItem, SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-  name: "Astronomy",
+  name: "Fund For Found",
   description:
-    "An modern example app built using Astro v4 & shadcn/ui. Inspired by shadcn/taxonomy.",
+    "Crowdfunding in a new way",
   url: "https://astro-nomy.vercel.app",
   ogImage: "https://astro-nomy.vercel.app/og.jpg",
   links: {
