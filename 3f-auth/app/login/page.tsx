@@ -8,11 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+const Login = ({ searchParams }: { searchParams: { message: string } }) => {
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -81,6 +77,7 @@ export default function Login({
       </Link>
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+<<<<<<< Updated upstream
       <h1 className="text-xl">Dive in with your email or phone number</h1>
           {/* <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
@@ -95,6 +92,19 @@ export default function Login({
             <Input id="password" name="password" placeholder="••••••••" type="password" autoComplete="off" required/>
           </LabelInputContainer>
         {/* <label className="text-md" htmlFor="password">
+=======
+        <h1 className="text-xl">Dive in with your email or phone number</h1>
+        <label className="text-md" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          name="email"
+          placeholder="you@example.com"
+          required
+        />
+        <label className="text-md" htmlFor="password">
+>>>>>>> Stashed changes
           Password
         </label>
         <input
@@ -123,6 +133,7 @@ export default function Login({
       </form>
     </div>
   );
+<<<<<<< Updated upstream
 }
 
 const LabelInputContainer = ({
@@ -138,3 +149,8 @@ const LabelInputContainer = ({
     </div>
   );
 };
+=======
+};
+
+export default Login;
+>>>>>>> Stashed changes
