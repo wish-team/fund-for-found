@@ -1,63 +1,39 @@
-import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+/* eslint-disable react/no-unescaped-entities */
+import Link from 'next/link'
+import { headers } from 'next/headers'
+import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
+import { SubmitButton } from './submit-button'
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
 
-const Login = ({ searchParams }: { searchParams: { message: string } }) => {
+export default function Login({ searchParams }: { searchParams: { message: string } }) {
   const signIn = async (formData: FormData) => {
-    "use server";
+    'use server'
 
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const supabase = createClient()
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    });
+    })
 
     if (error) {
-      console.log(error)
-      return redirect("/login?message=Could not authenticate user");
+      return redirect('/login?message=Could not authenticate user')
     }
 
-    return redirect("/protected");
-  };
-
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      console.log(error)
-      return redirect("/login?message=Could not authenticate user");
-    }
-
-    return redirect("/login?message=Check email to continue sign in process");
-  };
+    return redirect('/protected')
+  }
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <Link
+    <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
+      {/* <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="group absolute left-8 top-8 flex items-center rounded-md bg-btn-background px-4 py-2 text-sm text-foreground no-underline hover:bg-btn-background-hover"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -72,85 +48,69 @@ const Login = ({ searchParams }: { searchParams: { message: string } }) => {
           className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
         >
           <polyline points="15 18 9 12 15 6" />
-        </svg>{" "}
+        </svg>{' '}
         Back
-      </Link>
-
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-<<<<<<< Updated upstream
-      <h1 className="text-xl">Dive in with your email or phone number</h1>
-          {/* <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" name="firstname" placeholder="Amirhosein" type="text" required/>
-          </LabelInputContainer> */}
-          <LabelInputContainer>
-            <Label htmlFor="Email">Email or Phone Number</Label>
-            <Input name="email" placeholder="example@example.com" type="email" autoComplete="false" required/>
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" name="password" placeholder="••••••••" type="password" autoComplete="off" required/>
-          </LabelInputContainer>
-        {/* <label className="text-md" htmlFor="password">
-=======
-        <h1 className="text-xl">Dive in with your email or phone number</h1>
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md" htmlFor="password">
->>>>>>> Stashed changes
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        /> */}
+      </Link> */}
+      <div>
+        sign in with google
+      </div>
+      <div className="text-gray-2 flex items-center justify-center gap-x-3 text-base">
+        <div className="bg-gray-1 h-px flex-grow"></div>
+        or
+        <div className="bg-gray-1 h-px flex-grow"></div>
+      </div>
+      <form className="flex w-full flex-1 flex-col items-center justify-center gap-2 text-foreground">
+        <LabelInputContainer>
+          <Label htmlFor="Email">Mobile number or email address</Label>
+          <Input
+            name="email"
+            className="border-purple-2 border"
+            placeholder="e.g., 09120000000 or yourname@yahoo.com"
+            type="email"
+            autoComplete="false"
+            required
+          />
+        </LabelInputContainer>
+        <LabelInputContainer>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            type="password"
+            autoComplete="off"
+            required
+          />
+        </LabelInputContainer>
         <SubmitButton
           formAction={signIn}
-          // className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-purple-1 mb-2 w-full rounded-[4px] px-4 py-2 text-white"
           pendingText="Signing In..."
         >
-          Sign In
+          Continue
         </SubmitButton>
-        Don't have one?
+        <h2>Don't have one?</h2>
         <Button asChild>
-        <Link href="/sign-up">Sign Up</Link>
+          <Link href="/sign-up" className="text-purple-1">
+            Create an account
+          </Link>
         </Button>
         {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+          <p className="mt-4 bg-foreground/10 p-4 text-center text-foreground">
             {searchParams.message}
           </p>
         )}
       </form>
     </div>
-  );
-<<<<<<< Updated upstream
+  )
 }
 
 const LabelInputContainer = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
-};
-=======
-};
-
-export default Login;
->>>>>>> Stashed changes
+  return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
+}
