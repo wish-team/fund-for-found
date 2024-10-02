@@ -79,7 +79,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
         >
           Sign In
         </SubmitButton>
-        Don't have one?
+        Dont have one?
         <SubmitButton
           formAction={signUp}
           className="mb-2 rounded-md border border-foreground/20 px-4 py-2 text-foreground"

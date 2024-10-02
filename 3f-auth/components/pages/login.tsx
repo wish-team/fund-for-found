@@ -1,0 +1,115 @@
+import Link from 'next/link'
+import { headers } from 'next/headers'
+import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
+import { SubmitButton } from '../common/submit-button'
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+
+const Header = () => {
+  return (
+    <div>
+      <h1 className="font-inter text-[44px] font-medium leading-10 text-purple-1">
+        FUND FOR FOUND
+      </h1>
+      <div className="font-inter font-medium">Create an account or sign in to start creating</div>
+    </div>
+  )
+}
+
+const Google = () => {
+  return (
+    <div>
+      <h1> Sign in with Google</h1>
+    </div>
+  )
+}
+
+const Form = ({ searchParams }: { searchParams: { message: string } }) => {
+  const signIn = async (formData: FormData) => {
+    'use server'
+
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const supabase = createClient()
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      return redirect('/login?message=Could not authenticate user')
+    }
+
+    return redirect('/protected')
+  }
+
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-2 px-8 sm:max-w-md">
+      <div className="flex w-full flex-col items-center justify-center gap-2">
+        <div className="flex w-full items-center justify-center gap-x-3 text-base text-gray-2">
+          <div className="h-px flex-grow bg-gray-1"></div>
+          or
+          <div className="h-px flex-grow bg-gray-1"></div>
+        </div>
+      </div>
+      <form className="text-foreground flex w-full flex-col items-center justify-center gap-2">
+        <LabelInputContainer>
+          <Label htmlFor="Email">Mobile number or email address</Label>
+          <Input
+            name="email"
+            className="border border-purple-2"
+            placeholder="e.g., 09120000000 or yourname@yahoo.com"
+            type="email"
+            autoComplete="false"
+            required
+          />
+        </LabelInputContainer>
+        <LabelInputContainer>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            type="password"
+            autoComplete="off"
+            required
+          />
+        </LabelInputContainer>
+        <SubmitButton
+          formAction={signIn}
+          className="mb-2 w-full rounded-[4px] bg-purple-1 px-4 py-2 text-white"
+          pendingText="Signing In..."
+        >
+          Continue
+        </SubmitButton>
+        <h2>Dont have one?</h2>
+        <Button asChild>
+          <Link href="/sign-up" className="text-purple-1">
+            Create an account
+          </Link>
+        </Button>
+        {searchParams?.message && (
+          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
+            {searchParams.message}
+          </p>
+        )}
+      </form>
+    </div>
+  )
+}
+
+const LabelInputContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) => {
+  return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
+}
+
+export { Header, Google, Form }
