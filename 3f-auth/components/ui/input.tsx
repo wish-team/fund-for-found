@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 // Input component extends from shadcnui - https://ui.shadcn.com/docs/components/input
 'use client'
 import * as React from 'react'
@@ -12,11 +11,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const radius = 100 // change this to increase the rdaius of the hover effect
     const [visible, setVisible] = React.useState(false)
 
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
+    let mouseX = useMotionValue(0)
+    let mouseY = useMotionValue(0)
 
     function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-      const { left, top } = currentTarget.getBoundingClientRect()
+      let { left, top } = currentTarget.getBoundingClientRect()
 
       mouseX.set(clientX - left)
       mouseY.set(clientY - top)

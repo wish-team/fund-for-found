@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { headers } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
@@ -7,14 +8,17 @@ import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import logo from '@/public/icons/logo.svg'
+
 
 const Header = () => {
   return (
-    <div>
-      <h1 className="font-inter text-[44px] font-medium leading-10 text-purple-1">
+    <div className='font-inter flex justify-center items-center flex-col'>
+      <h1 className="text-[44px] font-medium leading-10 text-purple-1">
         FUND FOR FOUND
       </h1>
-      <div className="font-inter font-medium">Create an account or sign in to start creating</div>
+      <h2 className="text-[20px] font-medium">Create an account or sign in to start creating</h2>
+      <Image src={logo} alt="logo" />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { Header, Google, Form } from '@/components/pages/login'
 
 const Page = () => {
   return (
-    <div>
+    <div className=''>
       <Header  />
       <Google /> 
       <Form searchParams={{ message: '' }} />
