@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { headers } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import { SubmitButton } from '../login/submit-button'
+import { SubmitButton } from '@/components/common/submit-button'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -72,13 +72,13 @@ export default function Login({ searchParams }: { searchParams: { message: strin
           placeholder="••••••••"
           required
         /> */}
-        <SubmitButton
+        {/* <SubmitButton
           formAction={signIn}
           // className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
           pendingText="Signing In..."
         >
           Sign In
-        </SubmitButton>
+        </SubmitButton> */}
         Dont have one?
         <SubmitButton
           formAction={signUp}

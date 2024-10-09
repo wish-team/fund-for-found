@@ -1,22 +1,18 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { headers } from 'next/headers'
-import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
 import { SubmitButton } from '../common/submit-button'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { signInWithPassword, signInWithGoogle } from '@/server/login'
 import logo from '@/public/icons/logo.svg'
-
 
 const Header = () => {
   return (
-    <div className='font-inter flex justify-center items-center flex-col'>
-      <h1 className="text-[44px] font-medium leading-10 text-purple-1">
-        FUND FOR FOUND
-      </h1>
+    <div className="flex flex-col items-center justify-center font-inter">
+      <h1 className="text-[44px] font-medium leading-10 text-purple-1">FUND FOR FOUND</h1>
       <h2 className="text-[20px] font-medium">Create an account or sign in to start creating</h2>
       <Image src={logo} alt="logo" />
     </div>
@@ -26,31 +22,17 @@ const Header = () => {
 const Google = () => {
   return (
     <div>
-      <h1> Sign in with Google</h1>
+      <button
+        onClick={signInWithGoogle}
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+      >
+        Sign in with Google
+      </button>
     </div>
   )
 }
 
 const Form = ({ searchParams }: { searchParams: { message: string } }) => {
-  const signIn = async (formData: FormData) => {
-    'use server'
-
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const supabase = createClient()
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    if (error) {
-      return redirect('/login?message=Could not authenticate user')
-    }
-
-    return redirect('/protected')
-  }
-
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-2 px-8 sm:max-w-md">
       <div className="flex w-full flex-col items-center justify-center gap-2">
@@ -84,7 +66,7 @@ const Form = ({ searchParams }: { searchParams: { message: string } }) => {
           />
         </LabelInputContainer>
         <SubmitButton
-          formAction={signIn}
+          formAction={signInWithPassword}
           className="mb-2 w-full rounded-[4px] bg-purple-1 px-4 py-2 text-white"
           pendingText="Signing In..."
         >
