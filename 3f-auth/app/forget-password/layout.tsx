@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'login page',
+  title: 'forget password',
   description: 'logineheeh',
 }
 

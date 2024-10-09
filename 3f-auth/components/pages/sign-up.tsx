@@ -1,5 +1,5 @@
-import { SubmitButton } from '@/components/common/submit-button'
-import { cn } from '@/lib/utils'
+import SubmitButton from '@/components/common/SubmitButton'
+import LabelInputContainer from '../common/LabelInputContainer'
 import Image from 'next/image'
 import logo from '@/public/icons/logo.svg'
 import { Input } from '@/components/ui/input'
@@ -9,8 +9,10 @@ import { SignUpWithPassword } from '@/server/sign-up'
 const Header = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center font-inter">
-      <h2 className="text-[20px] md:text-[32px] font-medium">Create your personal account</h2>
-      <h1 className="text-[32px] md:text-[44px] font-medium leading-10 text-purple-1 md:my-10 my-5">FUND FOR FOUND</h1>
+      <h2 className="text-[20px] font-medium md:text-[32px]">Create your personal account</h2>
+      <h1 className="my-5 text-[32px] font-medium leading-10 text-purple-1 md:my-10 md:text-[44px]">
+        FUND FOR FOUND
+      </h1>
       <Image src={logo} alt="logo" className="mb-10" />
     </div>
   )
@@ -63,16 +65,6 @@ const EmailSignUp = ({ searchParams }: { searchParams: { message: string } }) =>
       )}
     </form>
   )
-}
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) => {
-  return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
 }
 
 export { Header, EmailSignUp }

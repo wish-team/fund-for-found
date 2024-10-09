@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
   const next = searchParams.get('next') ?? '/'
   const redirectTo = request.nextUrl.clone()
   redirectTo.pathname = next
-  console.log('ehhehehehehehhehehheheh: ', redirectTo)
   if (token_hash && type) {
     const supabase = createClient()
 

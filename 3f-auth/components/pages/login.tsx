@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { SubmitButton } from '../common/submit-button'
-import { cn } from '@/lib/utils'
+import SubmitButton from '../common/SubmitButton'
+import LabelInputContainer from '../common/LabelInputContainer'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SignInWithPassword, SignInWithGoogle } from '@/server/login'
@@ -97,16 +97,6 @@ const EmailSignIn = ({ searchParams }: { searchParams: { message: string } }) =>
       )}
     </form>
   )
-}
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) => {
-  return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
 }
 
 export { Header, GoogleSignIn, Partition, EmailSignIn }

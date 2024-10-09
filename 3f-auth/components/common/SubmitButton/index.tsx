@@ -2,13 +2,13 @@
 
 import { useFormStatus } from 'react-dom'
 import { type ComponentProps } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 
 type Props = ComponentProps<'button'> & {
   pendingText?: string
 }
 
-export function SubmitButton({ children, className, pendingText, ...props }: Props) {
+const SubmitButton = ({ children, className, pendingText, ...props }: Props) => {
   const { pending, action } = useFormStatus()
 
   const isPending = pending && action === props.formAction
@@ -19,3 +19,4 @@ export function SubmitButton({ children, className, pendingText, ...props }: Pro
     </Button>
   )
 }
+export default SubmitButton
