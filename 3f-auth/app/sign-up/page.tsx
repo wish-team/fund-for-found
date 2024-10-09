@@ -1,10 +1,12 @@
-import { Header, GoogleSignUp, EmailSignUp } from '@/components/pages/sign-up'
+import { Header, EmailSignUp } from '@/components/pages/sign-up'
+import { GoogleSignIn, Partition } from '@/components/pages/login'
 
 const Page = () => {
   return (
     <div>
       <Header />
-      <GoogleSignUp />
+      <GoogleSignIn />
+      <Partition />
       <EmailSignUp searchParams={{ message: '' }} />
     </div>
   )

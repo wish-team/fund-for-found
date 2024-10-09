@@ -4,5 +4,5 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col min-h-screen lg:w-1/4 md:w-1/3 sm:w-1/2  w-11/12 mx-auto   ">{children}</div>
+  return     <div className="mx-auto flex min-h-screen w-11/12 flex-col sm:w-7/12 md:w-5/12 lg:w-4/12">{children}</div>
 }

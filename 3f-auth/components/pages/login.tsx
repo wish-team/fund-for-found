@@ -4,7 +4,6 @@ import { SubmitButton } from '../common/submit-button'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
 import { SignInWithPassword, SignInWithGoogle } from '@/server/login'
 import logo from '@/public/icons/logo.svg'
 import googleIcon from '@/public/icons/google.svg'
@@ -94,9 +93,7 @@ const EmailSignIn = ({ searchParams }: { searchParams: { message: string } }) =>
         </Link>
       </div>
       {searchParams?.message && (
-        <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
-          {searchParams.message}
-        </p>
+        <p className="mt-4 p-4 text-center">{searchParams.message}</p>
       )}
     </form>
   )
