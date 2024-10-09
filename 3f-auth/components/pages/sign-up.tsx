@@ -18,13 +18,14 @@ const Header = () => {
 const GoogleSignUp = () => {
   return (
     <div>
-      <form action={SignUpWithGoogle} method="post">
-        <button
-          type="submit"
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+      <form>
+        <SubmitButton
+          formAction={SignUpWithGoogle}
+          className="border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2"
+          pendingText="Signing Up..."
         >
-          Sign in with Google
-        </button>
+          Sign Up
+        </SubmitButton>
       </form>
     </div>
   )

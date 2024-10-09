@@ -15,6 +15,8 @@ module.exports = {
 
         'gray-1': '#E7E7E7',
         'gray-2': '#959595',
+        'gray-3': '#F5F5F5',
+        'gray-4': '#C7C6C6',
       },
     },
     plugins: [require('tailwindcss-animate'), addVariablesForColors],

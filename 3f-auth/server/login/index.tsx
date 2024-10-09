@@ -1,5 +1,6 @@
 'use server'
 import { createClient } from '@/utils/supabase/server'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 const SignInWithPassword = async (formData: FormData) => {
@@ -20,17 +21,22 @@ const SignInWithPassword = async (formData: FormData) => {
 }
 
 const SignInWithGoogle = async () => {
+  const origin = headers().get('origin')
   const supabase = createClient()
-  const provider = 'google'
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider,
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+      redirectTo: `${origin}/auth/callback`,
+    },
   })
 
-  if (error) {
-    return redirect('/login?message=Could not authenticate user')
+  if (data.url) {
+    redirect(data.url) // use the redirect API for your server framework
   }
-
-  return redirect('/protected')
 }
 
 export { SignInWithPassword, SignInWithGoogle }
