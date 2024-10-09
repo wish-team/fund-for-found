@@ -2,9 +2,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 
-const signInWithPassword = async (formData: FormData) => {
-  'use server'
-
+const SignInWithPassword = async (formData: FormData) => {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const supabase = createClient()
@@ -21,8 +19,7 @@ const signInWithPassword = async (formData: FormData) => {
   return redirect('/protected')
 }
 
-const signInWithGoogle = async () => {
-  'use server'
+const SignInWithGoogle = async () => {
   const supabase = createClient()
   const provider = 'google'
   const { error } = await supabase.auth.signInWithOAuth({
@@ -36,4 +33,4 @@ const signInWithGoogle = async () => {
   return redirect('/protected')
 }
 
-export { signInWithPassword, signInWithGoogle }
+export { SignInWithPassword, SignInWithGoogle }

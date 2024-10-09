@@ -1,13 +1,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { createClient } from '@supabase/supabase-js'
-import { headers } from 'next/headers'
 import { SubmitButton } from '../common/submit-button'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { signInWithPassword, signInWithGoogle } from '@/server/login'
+import { SignInWithPassword, SignInWithGoogle } from '@/server/login'
 import logo from '@/public/icons/logo.svg'
 
 const Header = () => {
@@ -20,11 +18,11 @@ const Header = () => {
   )
 }
 
-const Google = () => {
+const GoogleSignIn = () => {
   return (
     <div>
       <button
-        onClick={signInWithGoogle}
+        onClick={SignInWithGoogle}
         className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
       >
         Sign in with Google
@@ -33,7 +31,7 @@ const Google = () => {
   )
 }
 
-const Form = ({ searchParams }: { searchParams: { message: string } }) => {
+const EmailSignIn = ({ searchParams }: { searchParams: { message: string } }) => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-2 px-8 sm:max-w-md">
       <div className="flex w-full flex-col items-center justify-center gap-2">
@@ -67,7 +65,7 @@ const Form = ({ searchParams }: { searchParams: { message: string } }) => {
           />
         </LabelInputContainer>
         <SubmitButton
-          formAction={signInWithPassword}
+          formAction={SignInWithPassword}
           className="mb-2 w-full rounded-[4px] bg-purple-1 px-4 py-2 text-white"
           pendingText="Signing In..."
         >
@@ -99,4 +97,4 @@ const LabelInputContainer = ({
   return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
 }
 
-export { Header, Google, Form }
+export { Header, GoogleSignIn, EmailSignIn }

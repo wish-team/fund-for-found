@@ -1,10 +1,36 @@
 import { SubmitButton } from '@/components/common/submit-button'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import logo from '@/public/icons/logo.svg'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SignUpWithPassword } from '@/server/sign-up'
+import { SignUpWithGoogle, SignUpWithPassword } from '@/server/sign-up'
 
-const SignUp = ({ searchParams }: { searchParams: { message: string } }) => {
+const Header = () => {
+  return (
+    <div className="flex flex-col items-center justify-center font-inter">
+      <h2 className="text-[20px] font-medium">Create your personal account</h2>
+      <h1 className="text-[44px] font-medium leading-10 text-purple-1">FUND FOR FOUND</h1>
+      <Image src={logo} alt="logo" />
+    </div>
+  )
+}
+const GoogleSignUp = () => {
+  return (
+    <div>
+      <form action={SignUpWithGoogle} method="post">
+        <button
+          type="submit"
+          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        >
+          Sign in with Google
+        </button>
+      </form>
+    </div>
+  )
+}
+
+const EmailSignUp = ({ searchParams }: { searchParams: { message: string } }) => {
   return (
     <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
       <form className="text-foreground flex w-full flex-1 flex-col justify-center gap-2">
@@ -34,24 +60,6 @@ const SignUp = ({ searchParams }: { searchParams: { message: string } }) => {
             required
           />
         </LabelInputContainer>
-        {/* <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        /> */}
-        {/* <SubmitButton
-          formAction={signIn}
-          // className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing In..."
-        >
-          Sign In
-        </SubmitButton> */}
-        Dont have one?
         <SubmitButton
           formAction={SignUpWithPassword}
           className="border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2"
@@ -79,4 +87,4 @@ const LabelInputContainer = ({
   return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>
 }
 
-export {SignUp}
+export { Header, GoogleSignUp, EmailSignUp }
