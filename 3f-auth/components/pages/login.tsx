@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { createClient } from '@supabase/supabase-js'
 import { headers } from 'next/headers'
 import { SubmitButton } from '../common/submit-button'
 import { cn } from '@/lib/utils'
