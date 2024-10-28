@@ -1,73 +1,4 @@
-// import {
-//     Navbar,
-//     NavbarBrand,
-//     NavbarContent,
-//     NavbarItem,
-//     Link,
-//     DropdownItem,
-//     DropdownTrigger,
-//     Dropdown,
-//     DropdownMenu,
-//     Avatar,
-//   } from "@nextui-org/react";
-//   import Inputs from "../Input";
-//   import Image from "next/image";
-//   import logo from "@/app/images/logo.svg";
-//   import { LuSearch } from "react-icons/lu";
-// import Search from "../Search";
-  
-//   // Define a type for the props if needed (currently no props are passed)
-//   type NavigationBarProps = {};
-  
-//   const NavigationBar: React.FC<NavigationBarProps> = () => {
-//     return (
-//       <Navbar isBordered>
-//         <NavbarContent justify="start">
-//           <NavbarBrand className="mr-4">
-//             <Image src={logo} alt="Logo" />
-//           </NavbarBrand>
-//           <NavbarContent className="flex justify-center sm:flex gap-3">
-//             {["Home", "Explore", "About Us" , "Help & Support"].map((item, index) => (
-//               <NavbarItem key={index}  isActive={item === "Customers"}>
-//                 <Link className="px-2 text-gray-500" color={item === "Customers" ? "secondary" : "foreground"} href="#">
-//                   {item}
-//                 </Link>
-//               </NavbarItem>
-//             ))}
-//           </NavbarContent>
-//         </NavbarContent>
-  
-//         <NavbarContent as="div" className="items-center" justify="end">
-//           <Search />
-//           <Dropdown placement="bottom-end">
-//             <DropdownTrigger>
-//               <Avatar
-//                 isBordered
-//                 as="button"
-//                 className="transition-transform"
-//                 color="primary"
-//                 name="Jason Hughes"
-//                 size="sm"
-//                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-//               />
-//             </DropdownTrigger>
-//             <DropdownMenu aria-label="Profile Actions" variant="flat">
-//               <DropdownItem key="profile">Signed in as zoey@example.com</DropdownItem>
-//               <DropdownItem key="settings">My Settings</DropdownItem>
-//               <DropdownItem key="logout" color="danger">Log Out</DropdownItem>
-//             </DropdownMenu>
-//           </Dropdown>
-//         </NavbarContent>
-//       </Navbar>
-//     );
-//   };
-  
-//   export default NavigationBar;
-
-
-
-
-
+'use client';
 import {
   Navbar,
   NavbarBrand,
@@ -80,7 +11,6 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
-import Inputs from "../Input";
 import Image from "next/image";
 import logo from "@/app/images/logo.svg";
 import { LuSearch } from "react-icons/lu";
