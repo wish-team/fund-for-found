@@ -12,7 +12,7 @@ import TranslateBtn from "./TranslateBtn";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-light4 w-full rounded-t-3xl">
-      <div className="max-w-6xl mx-auto py-16 px-4 ">
+      <div className="max-w-6xl mx-auto py-16 px-4 ps-16">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           <div>
             <h4 className="text-base text-gray2 font-semibold">ABOUT</h4>
@@ -50,11 +50,11 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="border-t flex items-baseline justify-center gap-12 border-gray-200 mt-8 py-4">
-        <div>
+      <div className="border-t flex flex-wrap items-baseline justify-center space-x-6 gap-4 border-gray-200 mt-8 py-4">
+        <div >
             <TranslateBtn />
         </div>
-        <div>
+        <div className="hidden md:block">
           <ul className="mt-2 flex items-start space-x-8 gap-1">
             <Links href="/about" text="Trust & safety" textColor="text-gray2" />
             <Links href="/about" text="Terms of use" textColor="text-gray2" />
@@ -68,6 +68,13 @@ const Footer: React.FC = () => {
             <a href="#"><BsDiscord /></a>
             <a href="#"><FaLinkedin /></a>
             <a href="#"><MdEmail /></a>
+          </ul>
+        </div>
+        <div className="block md:hidden">
+          <ul className="mt-2 flex items-start space-x-8 gap-1">
+            <Links href="/about" text="Trust & safety" textColor="text-gray2" />
+            <Links href="/about" text="Terms of use" textColor="text-gray2" />
+            <Links href="/about" text="Privacy Policy" textColor="text-gray2" />
           </ul>
         </div>
       </div>
