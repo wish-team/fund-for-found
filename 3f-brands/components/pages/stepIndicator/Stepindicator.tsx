@@ -10,11 +10,10 @@ interface StepIndicatorProps {
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   return (
-    <div className="flex items-center justify-center shadow w-screen pb-4">
+    <div className="flex flex-grow items-center justify-center pb-8">
       {steps.map((step, index) => (
         <div key={index} className="flex flex-col items-center">
           <StepCircle isActive={index + 1 <= currentStep} index={index + 1} />
-          <div className="text-center">{step}</div>
         </div>
       ))}
     </div>
