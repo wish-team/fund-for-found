@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.4.2",
     "@nextui-org/dropdown": "^2.1.31",
     "@nextui-org/react": "^2.4.8",
     "@nextui-org/system": "^2.2.6",
@@ -14,7 +15,6 @@
     "@supabase/supabase-js": "latest",
     "algoliasearch": "^4.24.0",
     "autoprefixer": "10.4.17",
-    "framer-motion": "^11.11.8",
     "geist": "^1.2.1",
     "next": "^14.2.15",
     "postcss": "8.4.33",

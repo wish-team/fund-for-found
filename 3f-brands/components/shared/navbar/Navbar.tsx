@@ -34,7 +34,7 @@ export default function NavigationBar() {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="border">
       <NavbarContent>
           <Image src={logo} alt="Logo" />
       </NavbarContent>

@@ -12,7 +12,7 @@ export default async function Index() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <NavigationBar />
+       
 
       <div className="flex-1 flex flex-col gap-20 max-w-5xl px-6 md:p-6">
         <main className="flex-1 flex items-center flex-col gap-6">
@@ -23,7 +23,6 @@ export default async function Index() {
         </main>
       </div>
 
-      <Footer />
     </div>
   );
 }
