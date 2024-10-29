@@ -6,14 +6,22 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.4.2",
+    "@nextui-org/dropdown": "^2.1.31",
+    "@nextui-org/react": "^2.4.8",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/theme": "^2.2.11",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "algoliasearch": "^4.24.0",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
-    "next": "latest",
+    "next": "^15.0.1",
     "postcss": "8.4.33",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^5.3.0",
+    "react-instantsearch": "^7.13.4",
     "tailwindcss": "3.4.1",
     "typescript": "5.3.3"
   },

@@ -1,0 +1,16 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  text-align: center;
+  margin: 0 5px;
+}
