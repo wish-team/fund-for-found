@@ -6,8 +6,8 @@ import Links from "@/components/shared/Links";
 
 const Card = () => {
   return (
-    <section className="border mt-24 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[460px] w-[320px]">
-      <div className="py-14">
+    <section className="border mt-12 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[420px] w-[320px]">
+      <div className="py-10">
         <Image src={cardImage} alt="Business Card" className="w-[88px] h-[88px]" />
       </div>
       <div className="px-8 flex flex-col items-center w-full text-justify">
@@ -18,7 +18,8 @@ const Card = () => {
           fontSize="text-2xl"
           descSize="text-sm"
         />
-        <Button text="Start" />
+        <Button text="Start" href="/steps/1" />
+
         <Links href="/about" text="Learn more" />
       </div>
     </section>
