@@ -2,11 +2,10 @@
 import React from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import Inputs from "../../shared/Input";
-import Button from "@/components/shared/Button";
 import CountryInput from "./CountryInput"; // Import the new CountryInput component
 import BrandInput from "./BrandInput";
-
-
+import Link from "next/link";
+import { Button } from "@nextui-org/react";
 
 const countriesMock = [
   "United States",
@@ -34,7 +33,6 @@ const subCategoriesMock = [
   "Cloud Computing",
 ];
 
-
 const BrandItems = [
   "designer",
   "webDeveloper",
@@ -42,9 +40,6 @@ const BrandItems = [
   "podcaster",
   "Cloud Computing",
 ];
-
-
-
 
 interface FormData {
   name: string;
@@ -65,43 +60,93 @@ const FormStep1: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4 py-6 grid">
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className="space-y-4 py-6 grid"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="col-span-1 md:col-span-1">
             <Inputs
               label="Brand/Organisation Name *"
               type="text"
               className="mt-1"
-              inputClassName={methods.formState.errors.name ? "border-red-500" : "border-light3"}
-              {...methods.register("name", { required: "Brand or organization is required" })}
+              inputClassName={
+                methods.formState.errors.name
+                  ? "border-red-500"
+                  : "border-light3"
+              }
+              {...methods.register("name", {
+                required: "Brand or organization is required",
+              })}
             />
-            {methods.formState.errors.name && <p className="text-red-500">{methods.formState.errors.name.message}</p>}
+            {methods.formState.errors.name && (
+              <p className="text-red-500">
+                {methods.formState.errors.name.message}
+              </p>
+            )}
           </div>
           <div className="col-span-1 md:col-span-1">
-            <CountryInput data={countriesMock} label="Country" fieldName="country" />
-            {methods.formState.errors.country && <p className="text-red-500">{methods.formState.errors.country.message}</p>}
+            <CountryInput
+              data={countriesMock}
+              label="Country"
+              fieldName="country"
+            />
+            {methods.formState.errors.country && (
+              <p className="text-red-500">
+                {methods.formState.errors.country.message}
+              </p>
+            )}
           </div>
         </div>
 
         <p className="text-light1 font-light">
-          Select the primary category that best describes your brand or organization. Then select the subcategory that further defines your brand or organization.
+          Select the primary category that best describes your brand or
+          organization. Then select the subcategory that further defines your
+          brand or organization.
         </p>
-
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="col-span-1 md:col-span-1">
-          <CountryInput data={categoriesMock} label="Category" fieldName="category" />
-            {methods.formState.errors.name && <p className="text-red-500">{methods.formState.errors.name.message}</p>}
+            <CountryInput
+              data={categoriesMock}
+              label="Category"
+              fieldName="category"
+            />
+            {methods.formState.errors.name && (
+              <p className="text-red-500">
+                {methods.formState.errors.name.message}
+              </p>
+            )}
           </div>
           <div className="col-span-1 md:col-span-1">
-          <CountryInput data={subCategoriesMock} label="Subcategory" fieldName="subcategory" />
-            {methods.formState.errors.country && <p className="text-red-500">{methods.formState.errors.country.message}</p>}
+            <CountryInput
+              data={subCategoriesMock}
+              label="Subcategory"
+              fieldName="subcategory"
+            />
+            {methods.formState.errors.country && (
+              <p className="text-red-500">
+                {methods.formState.errors.country.message}
+              </p>
+            )}
           </div>
         </div>
         <BrandInput data={BrandItems} label="Brands" fieldName="brands" />
-        {methods.formState.errors.brandTags && <p className="text-red-500">{methods.formState.errors.brandTags.message}</p>}
-        
-        <Button text="Continue" href="/steps/2" />
+        {methods.formState.errors.brandTags && (
+          <p className="text-red-500">
+            {methods.formState.errors.brandTags.message}
+          </p>
+        )}
+
+        <Link href="/steps/2">
+          <Button
+            color="secondary"
+            variant="solid"
+            className="font-light my-4 px-12 bg-primary mb-1 text-white rounded-lg border border-light2"
+          >
+            Continue
+          </Button>
+        </Link>
       </form>
     </FormProvider>
   );

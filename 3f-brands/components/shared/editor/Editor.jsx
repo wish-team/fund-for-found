@@ -88,7 +88,7 @@ const Editor = ({ onSave }) => {
     <div className="border border-light3 shadow-lg hover:border-purple-500 focus:border-purple-500 rounded-lg my-4 relative">
       <div className="editor-content relative" ref={editorRef}>
         {isEmpty && (
-          <div className="multiline-placeholder max-h[300px] overflow-auto px-4">
+          <div className="multiline-placeholder max-h-[300px] overflow-auto px-4">
             <p className="text-lg font-bold pe-2">Short Summary</p>
             <ul className="list-disc ps-6 py-2 text-base font-light">
               <li>
