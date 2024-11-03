@@ -5,8 +5,8 @@ import StepIndicator from "@/components/pages/stepIndicator/Stepindicator";
 import BackButton from "@/components/pages/stepIndicator/BackBtton";
 
 // Import your step components
-import Step1 from "@/components/steps/Step1";
-import Step2 from "@/components/steps/Step2";
+import Step1 from "@/components/steps/step1/Step1";
+import Step2 from "@/components/steps/Step2/Step2";
 import Step3 from "@/components/steps/Step3";
 import Step4 from "@/components/steps/Step4";
 

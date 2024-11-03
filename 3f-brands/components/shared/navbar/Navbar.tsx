@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "@/app/images/logo.svg";
-import Search from "../Search";
+// import Search from "../Search";
 import AvatarDropdown from "./Avatar"; // Import the new component
 
 import {
@@ -63,7 +63,7 @@ export default function NavigationBar() {
       </NavbarContent>
       <NavbarContent justify="end">
         <div className="hidden md:block">
-          <Search />
+          {/* <Search /> */}
         </div>
         <NavbarItem >
           <AvatarDropdown userName="Jason Hughes" userEmail="zoey@example.com" /> 
