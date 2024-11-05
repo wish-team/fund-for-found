@@ -12,75 +12,90 @@ import { Button } from "@nextui-org/react";
 
 const Editor = ({ onSave }) => {
   const editorRef = useRef(null);
+  const editorInstance = useRef(null); // Ref to store the editor instance
   const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
-    const editor = new EditorJS({
-      holder: editorRef.current,
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true,
-          config: {
-            placeholder: "Header",
+    // Initialize EditorJS
+    try {
+      editorInstance.current = new EditorJS({
+        holder: editorRef.current,
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            config: {
+              placeholder: "Header",
+            },
+          },
+          list: {
+            class: List,
+            inlineToolbar: true,
+            config: {
+              placeholder: "List",
+            },
+          },
+          image: {
+            class: Image,
+            inlineToolbar: true,
+            config: {
+              placeholder: "Image",
+            },
+          },
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+          },
+          delimiter: {
+            class: Delimiter,
+            inlineToolbar: true,
+          },
+          embed: {
+            class: Embed,
+            inlineToolbar: true,
+            config: {
+              placeholder: "Embed",
+            },
+          },
+          table: {
+            class: Table,
+            inlineToolbar: true,
+            config: {
+              placeholder: "Table",
+            },
           },
         },
-        list: {
-          class: List,
-          inlineToolbar: true,
-          config: {
-            placeholder: "List",
-          },
+        onReady: () => {
+          console.log("Editor.js is ready to work!");
         },
-        image: {
-          class: Image,
-          inlineToolbar: true,
-          config: {
-            placeholder: "Image",
-          },
+        onChange: () => {
+          editorInstance.current.save().then((outputData) => {
+            setIsEmpty(Object.keys(outputData.blocks).length === 0);
+          });
         },
-        paragraph: {
-          class: Paragraph,
-          inlineToolbar: true,
-        },
-        delimiter: {
-          class: Delimiter,
-          inlineToolbar: true,
-        },
-        embed: {
-          class: Embed,
-          inlineToolbar: true,
-          config: {
-            placeholder: "Embed",
-          },
-        },
-        table: {
-          class: Table,
-          inlineToolbar: true,
-          config: {
-            placeholder: "Table",
-          },
-        },
-      },
-      onReady: () => {
-        console.log("Editor.js is ready to work!");
-      },
-      onChange: () => {
-        editor.save().then((outputData) => {
-          setIsEmpty(Object.keys(outputData.blocks).length === 0);
-        });
-      },
-    });
+      });
+    } catch (error) {
+      console.error("Failed to initialize EditorJS:", error);
+    }
 
     return () => {
-      editor.destroy();
+      // Clean up the editor instance
+      if (editorInstance.current && typeof editorInstance.current.destroy === 'function') {
+        editorInstance.current.destroy();
+      } else {
+        console.warn("Editor instance not available or destroy method not found.");
+      }
     };
   }, []);
 
   const saveData = async () => {
-    const savedData = await editor.save();
-    if (onSave) {
-      onSave(savedData);
+    try {
+      const savedData = await editorInstance.current.save();
+      if (onSave) {
+        onSave(savedData);
+      }
+    } catch (error) {
+      console.error("Failed to save data:", error);
     }
   };
 
@@ -145,9 +160,8 @@ const Editor = ({ onSave }) => {
           variant="solid"
           className="font-light bg-primary mb-1 text-white rounded-lg border border-light2"
         >
-          save
+          Save
         </Button>
-
       </div>
       <style jsx>{`
         .multiline-placeholder {
