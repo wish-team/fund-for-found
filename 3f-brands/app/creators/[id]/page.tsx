@@ -1,6 +1,7 @@
 // app/creators/[id]/page.tsx
 'use client';
 import About from "@/components/pages/creators/about/About";
+import CoverImageEditor from "@/components/pages/creators/Banner/Banner";
 import AccordionMenu from "@/components/pages/creators/FAQ/AccordionMenu";
 
 
@@ -14,6 +15,7 @@ const CreatorProfile = () => {
 
   return (
     <div>
+      <CoverImageEditor />
       <About />
       <AccordionMenu />
       {/* Add more details about the creator */}
