@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlus, FaTrashCan, FaPencil , FaSquare } from "react-icons/fa6";
+import CreatorsTitle from "../title/CreatorsTitle";
 
 // Define types for accordion items
 interface AccordionItemType {
@@ -85,10 +86,7 @@ const AccordionMenu: React.FC = () => {
 
   return (
     <section className="w-[400px] lg:w-[935px] md:w-[715px] sm:w-[500px] flex flex-col mx-auto p-4 text-gray3 text-sm my-8">
-      <h1 className="flex items-center p-2">
-        <span><FaSquare className="text-primary" /></span>
-        <span className="text-lg ps-2">FAQ</span>
-      </h1>
+      <CreatorsTitle title="FAQ" />
       <Accordion variant="splitted">
         {accordionItems.map((item, index) => (
           <AccordionItem

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SocialInput from "./SocialInput"; // Adjust the import path as needed
-import FormStem2 from "./FormStem2"; // Adjust the import path as needed
+import SocialInput from "./SocialInput";
+import FormStem2 from "./FormStem2";
 import { Button } from "@nextui-org/react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -16,25 +16,25 @@ const AddSocialBtn: React.FC = () => {
   };
 
   return (
-    <div>
-      <FormStem2>
+    <FormStem2>
+      <div className="flex flex-col">
         {socialInputs.map((input) => (
           <SocialInput
             key={input.id}
             onRemove={() => removeSocialInput(input.id)}
           />
         ))}
-      </FormStem2>
-      <Button
-        onClick={addSocialInput}
-        color="primary"
-        variant="bordered"
-        className="bg-light4 font-light rounded-lg border border-light2"
-        startContent={<IoMdAdd />}
-      >
-        Add social link
-      </Button>
-    </div>
+        <Button
+          onClick={addSocialInput}
+          color="primary"
+          variant="bordered"
+          className="bg-light4 font-light rounded-lg border border-light2 w-[250px]"
+          startContent={<IoMdAdd />}
+        >
+          Add social link
+        </Button>
+      </div>
+    </FormStem2>
   );
 };
 
