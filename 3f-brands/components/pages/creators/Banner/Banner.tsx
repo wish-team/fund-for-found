@@ -1,8 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@nextui-org/react';
 import { Pencil, ZoomIn, ZoomOut, Type } from 'lucide-react';
-import ProfileEditor from './ProfileEdit';
-import SocialLinkEditor from '../../social-links/components/SocialLinkEditor';
+import SocialLinkEditor from '../social-links/components/SocialLinkEditor';
+import ProfileEditor from '../profile-editor';
 
 // Types
 interface CoverImageEditorProps {
