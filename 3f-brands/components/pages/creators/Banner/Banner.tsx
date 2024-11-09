@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@nextui-org/react';
 import { Pencil, ZoomIn, ZoomOut, Type } from 'lucide-react';
+import ProfileEdit from './ProfileEdit';
+import EditProfilePicture from './ProfileEdit';
 // Types
 interface CoverImageEditorProps {
   defaultImage?: string;
@@ -241,6 +243,7 @@ const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
+      {/* <EditProfilePicture /> */}
     </>
   );
 };
