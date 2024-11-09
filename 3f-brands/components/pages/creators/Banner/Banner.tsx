@@ -1,8 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@nextui-org/react';
 import { Pencil, ZoomIn, ZoomOut, Type } from 'lucide-react';
-import ProfileEdit from './ProfileEdit';
-import EditProfilePicture from './ProfileEdit';
+import ProfileEditor from './ProfileEdit';
+import SocialLinkEditor from '../../social-links/components/SocialLinkEditor';
+
 // Types
 interface CoverImageEditorProps {
   defaultImage?: string;
@@ -23,7 +24,7 @@ const DEFAULT_ZOOM = {
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 // Use a placeholder image URL instead of relative path
-const DEFAULT_IMAGE = '/app/images/creators/brandBanner.svg';
+const DEFAULT_IMAGE = 'https://dummyjson.com/image/200x100';
 
 const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   defaultImage = DEFAULT_IMAGE,
@@ -243,7 +244,8 @@ const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* <EditProfilePicture /> */}
+      <ProfileEditor />
+      <SocialLinkEditor />
     </>
   );
 };
