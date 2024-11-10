@@ -1,3 +1,4 @@
+
 import {
     Modal,
     ModalContent,
@@ -74,7 +75,7 @@ import {
   
     return (
       <>
-        <div className="flex items-center">
+        <div className="flex items-center mt-40">
           <CreatorsTitle title="About" />
           <Button onPress={onOpen}>edit</Button>
         </div>

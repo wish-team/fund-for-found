@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-import { Select, SelectItem, Button, Input } from "@nextui-org/react";
+import {
+  Select,
+  SelectItem,
+  Button,
+  Input,
+  SelectSection,
+} from "@nextui-org/react";
 import { IoMdAdd } from "react-icons/io";
 import { FaTimes } from "react-icons/fa";
 import { SOCIAL_OPTIONS } from "../constants";
@@ -125,7 +131,7 @@ export const SocialLinkForm: React.FC<SocialLinkFormProps> = ({ form }) => {
                   onSelectionChange={(keys) =>
                     handleSocialTypeChange(keys as Set<string>, index)
                   }
-                  className="w-1/3 rounded-lg text-sm text-gray4 border border-light3 hover:border-purple-500"
+                  className="w-1/3 p-0  rounded-lg text-sm text-gray4 border border-light3 hover:border-purple-500"
                   startContent={getIcon(currentType)}
                   aria-label="Select social platform"
                   isOpen={openSelect === index}
@@ -134,20 +140,23 @@ export const SocialLinkForm: React.FC<SocialLinkFormProps> = ({ form }) => {
                     trigger: "cursor-pointer",
                   }}
                 >
-                  {availableOptions.map((option) => (
-                    <SelectItem
-                      key={option.value}
-                      value={option.value}
-                      startContent={option.icon}
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  <SelectSection className="bg-white border border-light3 rounded-lg text-sm w-full">
+                    {availableOptions.map((option) => (
+                      <SelectItem
+                        className="bg-white text-gray4 hover:text-primary text-sm"
+                        key={option.value}
+                        value={option.value}
+                        startContent={option.icon}
+                      >
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectSection>
                 </Select>
 
                 <div className="flex-1">
                   <Input
-                  className="rounded-lg text-sm text-gray4 border border-light3 hover:border-purple-500 focus:border-purple-500"
+                    className="rounded-lg text-sm text-gray4 border border-light3 hover:border-purple-500 focus:border-purple-500"
                     value={form.watch(`socialLinks.${index}.url`)}
                     onChange={(e) => handleUrlChange(e, index)}
                     placeholder={`Enter ${socialOption?.label} URL`}
