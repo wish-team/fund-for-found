@@ -1,7 +1,7 @@
 // app/creators/[id]/page.tsx
 'use client';
 import About from "@/components/pages/creators/about/About";
-import CoverImageEditor from "@/components/pages/creators/Banner/Banner";
+import CoverImageEditor from "@/components/pages/creators/Banner/components/CoverImageEditor";
 import AccordionMenu from "@/components/pages/creators/FAQ/AccordionMenu";
 
 
