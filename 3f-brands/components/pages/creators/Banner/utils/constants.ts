@@ -10,6 +10,7 @@ export const ZOOM_SETTINGS = {
     'image/png',
     'image/gif',
     'image/webp',
+    'image/svg',
   ] as const;
   
   export const DEFAULT_IMAGE = 'https://dummyjson.com/image/200x100';
