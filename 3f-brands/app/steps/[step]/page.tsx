@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import StepIndicator from "@/components/pages/creators/stepIndicator/Stepindicator";
+import StepIndicator from "@/components/pages/stepIndicator/Stepindicator";
 import BackButton from "@/components/pages/stepIndicator/BackBtton";
 
 // Import your step components

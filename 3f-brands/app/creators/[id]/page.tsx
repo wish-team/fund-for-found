@@ -2,8 +2,9 @@
 'use client';
 import About from "@/components/pages/creators/about/About";
 import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
+import { TierForm } from "@/components/pages/creators/contributors/components/TierForm";
+import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
 import AccordionMenu from "@/components/pages/creators/FAQ/AccordionMenu";
-
 
 const CreatorProfile = () => {
 
@@ -16,6 +17,10 @@ const CreatorProfile = () => {
   return (
     <div>
       <CreatorBanner />
+      <div className="mt-36">
+      <TierManagement />
+      
+      </div>
       <About />
       <AccordionMenu />
       {/* Add more details about the creator */}
