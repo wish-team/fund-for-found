@@ -1,14 +1,19 @@
 import Image from "next/image";
 import cardImage from "@/app/images/card/businessCard.svg";
 import Title from "@/components/shared/Title";
-import Button from "@/components/shared/Button";
+import { Button } from "@nextui-org/react";
 import Links from "@/components/shared/Links";
+import Link from "next/link";
 
 const Card = () => {
   return (
-    <section className="border mt-24 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[460px] w-[320px]">
-      <div className="py-14">
-        <Image src={cardImage} alt="Business Card" className="w-[88px] h-[88px]" />
+    <section className="border mt-12 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[380px] w-[320px]">
+      <div className="py-10">
+        <Image
+          src={cardImage}
+          alt="Business Card"
+          className="w-[88px] h-[88px]"
+        />
       </div>
       <div className="px-8 flex flex-col items-center w-full text-justify">
         <Title
@@ -18,7 +23,16 @@ const Card = () => {
           fontSize="text-2xl"
           descSize="text-sm"
         />
-        <Button text="Start" />
+        <Link href="/steps/1">
+          <Button
+            color="secondary"
+            variant="solid"
+            className="font-light my-4 px-28 bg-primary mb-1 text-white rounded-lg border border-light2"
+          >
+            Start
+          </Button>
+        </Link>
+
         <Links href="/about" text="Learn more" />
       </div>
     </section>
