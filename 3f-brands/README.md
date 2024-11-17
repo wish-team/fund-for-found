@@ -142,3 +142,22 @@ src/components/creators/invite-member/
 └── index.tsx
 
 
+
+
+
+folder structure for steps section:
+src/components/pages/steps/step1/
+├── components/
+│   ├── AutocompleteInput.tsx
+│   ├── MultiSelectInput.tsx
+│   └── FormStep1.tsx
+├── hooks/
+│   ├── useDropdown.ts
+│   └── useFormStep1.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   └── mockData.ts
+└── index.tsx
+
+

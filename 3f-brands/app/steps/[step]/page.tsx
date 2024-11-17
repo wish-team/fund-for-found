@@ -61,6 +61,7 @@ import Step1 from '@/components/steps/step1/Step1';
 import Step2 from '@/components/steps/Step2/Step2';
 import Step3 from '@/components/steps/Step3';
 import Step4 from '@/components/steps/Step4';
+import Step1Form from '@/components/pages/steps/step1';
 
 interface PageProps {
   params: Promise<{
@@ -75,7 +76,7 @@ const Index: React.FC<PageProps> = ({ params }) => {
   const renderStepComponent = () => {
     switch (currentStep) {
       case 1:
-        return <Step1 />;
+        return <Step1Form />;
       case 2:
         return <Step2 />;
       case 3:
