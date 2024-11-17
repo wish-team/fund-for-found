@@ -11,7 +11,7 @@ const Step1Form: React.FC = () => {
       <h3 className="text-gray3 py-2 font-bold">
         Tell about your Brand/organization
       </h3>
-      <p className="text-light1 font-light">
+      <p className="text-light1 text-justify font-light">
         Provide an overview of the brand or organization you want to register on
         3F.
       </p>

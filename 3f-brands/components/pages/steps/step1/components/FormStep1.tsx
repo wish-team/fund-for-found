@@ -30,7 +30,7 @@ export const FormStep1: React.FC = () => {
           />
         </div>
 
-        <p className="text-light1 font-light">
+        <p className="text-light1 font-light text-justify">
           Select the primary category that best describes your brand or
           organization. Then select the subcategory that further defines your
           brand or organization.
