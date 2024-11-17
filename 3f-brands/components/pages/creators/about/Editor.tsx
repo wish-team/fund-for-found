@@ -1,4 +1,3 @@
-// components/Editor.js
 import React, { useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
@@ -10,9 +9,9 @@ import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
 import { Button } from "@nextui-org/react";
 
-const Editor = ({ onSave }) => {
+const Editor = ({ initialData, onSave }) => {
   const editorRef = useRef(null);
-  const editorInstance = useRef(null); // Ref to store the editor instance
+  const editorInstance = useRef(null);
   const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
@@ -20,6 +19,7 @@ const Editor = ({ onSave }) => {
     try {
       editorInstance.current = new EditorJS({
         holder: editorRef.current,
+        data: initialData,
         tools: {
           header: {
             class: Header,
@@ -86,7 +86,7 @@ const Editor = ({ onSave }) => {
         console.warn("Editor instance not available or destroy method not found.");
       }
     };
-  }, []);
+  }, [initialData]);
 
   const saveData = async () => {
     try {
@@ -101,18 +101,7 @@ const Editor = ({ onSave }) => {
 
   return (
     <div className="border border-light3 shadow-lg hover:border-purple-500 focus:border-purple-500 rounded-lg my-4 relative">
-     
       <div className="flex justify-end space-x-2 p-2">
-        <Button
-          color="primary"
-          variant="bordered"
-          className="bg-light4 font-light rounded-lg border border-light2"
-          onClick={() => {
-            /* Add edit functionality here */
-          }}
-        >
-          Edit
-        </Button>
         <Button
           onClick={saveData}
           color="secondary"
@@ -122,19 +111,7 @@ const Editor = ({ onSave }) => {
           Save
         </Button>
       </div>
-      <style jsx>{`
-        .multiline-placeholder {
-          color: #999; /* Placeholder text color */
-          position: absolute;
-          top: 10px; /* Adjust as needed */
-          left: 10px; /* Adjust as needed */
-          pointer-events: none; /* Prevent interaction */
-        }
-        .editor-content {
-          min-height: 200px; /* Set height for the editor */
-          position: relative; /* Required for absolute positioning of the placeholder */
-        }
-      `}</style>
+      <div className="editor-content" ref={editorRef} />
     </div>
   );
 };

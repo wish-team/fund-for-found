@@ -1,10 +1,23 @@
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   fastRefresh: true,
+//   reactStrictMode: true,
+//   // Add this if you're using app directory
+//   experimental: {
+//     reactRefresh: true,
+//     appDir: true,
+//   },
+// };
+
+// module.exports = nextConfig;
+
+
+
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
-    fastRefresh: true,
-    // Add this if you're using app directory
-    experimental: {
-      appDir: true
-    }
-  };
-  
-  module.exports = nextConfig;
+  /* config options here */
+}
+ 
+module.exports = nextConfig

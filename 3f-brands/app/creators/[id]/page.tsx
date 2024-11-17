@@ -6,6 +6,8 @@ import { TierForm } from "@/components/pages/creators/contributors/components/Ti
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
 import AccordionMenu from "@/components/pages/creators/FAQ/AccordionMenu";
 
+// import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
+
 const CreatorProfile = () => {
 
   // Fetch creator data based on the id (you can use SWR, React Query, etc.)
@@ -19,10 +21,11 @@ const CreatorProfile = () => {
       <CreatorBanner />
       <div className="mt-36">
       <TierManagement />
+      {/* <TeamMemberInvite /> */}
       
       </div>
-      <About />
-      <AccordionMenu />
+      {/* <About /> */}
+      {/* <AccordionMenu /> */}
       {/* Add more details about the creator */}
     </div>
   );

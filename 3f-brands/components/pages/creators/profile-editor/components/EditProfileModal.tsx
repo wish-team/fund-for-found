@@ -26,7 +26,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   title,
   onSave,
   onReset,
-  onImageUpload,
+  onImageUpload
 }) => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

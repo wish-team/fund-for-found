@@ -1,16 +1,16 @@
-import CoverImageEditor from "../banner-editor/components/CoverImageEditor"
-import ProfileEditor from "../profile-editor"
-import SocialLinkEditor from "../social-links/components/SocialLinkEditor"
+import CoverImageEditor from "../banner-editor/components/CoverImageEditor";
+import ProfileEditor from "../profile-editor";
+import SocialLinkEditor from "../social-links/components/SocialLinkEditor";
 
 const CreatorBanner = () => {
   return (
-    <section className="relative">
-        <CoverImageEditor />
-        <div className="flex items-center absolute bottom-[-120px]">
-            <ProfileEditor />
-            <SocialLinkEditor />
-        </div>
+    <section className="relative mx-auto">
+      <CoverImageEditor />
+      <div className="flex items-center absolute bottom-[-90px] md:bottom-[-120px]">
+        <ProfileEditor />
+        <SocialLinkEditor />
+      </div>
     </section>
-  )
-}
-export default CreatorBanner
+  );
+};
+export default CreatorBanner;

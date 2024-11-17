@@ -123,3 +123,22 @@ src/
         TierManagement.tsx
 
 
+invitation section:
+src/components/creators/invite-member/
+├── components/
+│   ├── AddMemberCard.tsx
+│   ├── DescriptionText.tsx
+│   ├── InviteModal.tsx
+│   ├── PreviewCard.tsx
+│   └── TeamMemberForm.tsx
+├── hooks/
+│   ├── useTeamMembers.ts
+│   └── useFormData.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── validators.ts
+└── index.tsx
+
+
