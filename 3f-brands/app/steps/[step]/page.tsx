@@ -57,7 +57,6 @@
 
 import React from 'react';
 import { StepLayout } from '@/components/pages/start/step-indicator/components/StepLayout';
-import Step1 from '@/components/steps/step1/Step1';
 import Step2 from '@/components/steps/Step2/Step2';
 import Step3 from '@/components/steps/Step3';
 import Step4 from '@/components/steps/Step4';

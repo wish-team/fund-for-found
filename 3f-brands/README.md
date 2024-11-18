@@ -161,3 +161,25 @@ src/components/pages/steps/step1/
 └── index.tsx
 
 
+
+step2/
+src/components/pages/steps/step2/
+├── api/
+│   └── step2Api.ts
+├── components/
+│   ├── Editor/
+│   │   ├── EditorComponent.tsx
+│   │   └── EditorPlaceholder.tsx
+│   └── SocialInputs/
+│       ├── SocialInputList.tsx
+│       └── SocialInputItem.tsx
+├── hooks/
+│   ├── useEditor.ts
+│   └── useSocialInputs.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── editorTools.ts
+└── Step2.tsx
+
