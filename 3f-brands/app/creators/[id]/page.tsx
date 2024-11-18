@@ -3,7 +3,8 @@
 import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
 import FAQ from "@/components/pages/creators/faq-section/FAQsection";
-import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
+import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
+// import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
 
 
 // import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
@@ -21,6 +22,7 @@ const CreatorProfile = () => {
       <CreatorBanner />
       <div className="mt-36">
       <TierManagement />
+      {/* <TeamMemberInvite /> */}
       <TeamMemberInvite />
       </div>
       <FAQ />
