@@ -143,6 +143,27 @@ src/components/creators/invite-member/
 
 
 
+FAQ section:
+src/components/pages/creators/FAQ/
+│
+├── types/
+│   └── accordion.ts
+│
+├── components/
+│   ├── AccordionItem.tsx
+│   ├── EditModal.tsx
+│   └── AddQuestionModal.tsx
+│
+├── hooks/
+│   └── useAccordionState.ts
+│
+├── utils/
+│   └── accordionHelpers.ts
+│
+└── FAQ.tsx
+
+
+
 
 
 folder structure for steps section:
