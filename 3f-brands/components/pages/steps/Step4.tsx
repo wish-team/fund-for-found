@@ -1,6 +1,6 @@
-import Title from "../shared/Title";
+import Title from "../../shared/Title";
 import Image from "next/image";
-import Step4Img from "../../app/images/steps/brandStep4.svg";
+import Step4Img from "../../../app/images/steps/brandStep4.svg";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 

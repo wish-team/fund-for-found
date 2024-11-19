@@ -1,4 +1,3 @@
-
 import Title from "@/components/shared/Title";
 import Card from "@/components/pages/start/Card";
 

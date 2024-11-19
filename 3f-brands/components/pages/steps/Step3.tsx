@@ -1,6 +1,6 @@
-import Title from "../shared/Title";
+import Title from "../../shared/Title";
 import Image from "next/image";
-import Step3Img from "../../app/images/steps/brandStep3.svg"
+import Step3Img from "../../../app/images/steps/brandStep3.svg"
 
 const Step3 = () => {
   return (

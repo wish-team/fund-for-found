@@ -1,12 +1,16 @@
 import { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import Image from "@editorjs/image";
-import Paragraph from "@editorjs/paragraph";
-import Delimiter from "@editorjs/delimiter";
-import Embed from "@editorjs/embed";
-import Table from "@editorjs/table";
+
+// Dynamic imports to handle potential module resolution issues
+const importTool = async (importFn: () => Promise<any>) => {
+  try {
+    const module = await importFn();
+    return module.default || module;
+  } catch (error) {
+    console.error('Error importing tool:', error);
+    return null;
+  }
+};
 
 export const useEditor = (
   onContentChange: (content: any) => void,
@@ -32,12 +36,29 @@ export const useEditor = (
   };
 
   useEffect(() => {
-    if (!editorRef.current) return;
+    const initializeEditor = async () => {
+      if (!editorRef.current) return;
 
-    const editor = new EditorJS({
-      holder: editorRef.current,
-      data: initialData,
-      tools: {
+      // Dynamically import tools
+      const [
+        Header, 
+        List, 
+        Image, 
+        Paragraph, 
+        Delimiter, 
+        Embed, 
+        Table
+      ] = await Promise.all([
+        importTool(() => import("@editorjs/header")),
+        importTool(() => import("@editorjs/list")),
+        importTool(() => import("@editorjs/image")),
+        importTool(() => import("@editorjs/paragraph")),
+        importTool(() => import("@editorjs/delimiter")),
+        importTool(() => import("@editorjs/embed")),
+        importTool(() => import("@editorjs/table"))
+      ]);
+
+      const tools = {
         header: {
           class: Header,
           inlineToolbar: true,
@@ -60,7 +81,6 @@ export const useEditor = (
               uploadByFile: handleImageUpload,
               uploadByUrl: async (url: string) => {
                 try {
-                  // Fetch the image and convert to base64
                   const response = await fetch(url);
                   const blob = await response.blob();
                   return handleImageUpload(blob as File);
@@ -81,7 +101,9 @@ export const useEditor = (
           class: Paragraph,
           inlineToolbar: true
         },
-        delimiter: Delimiter,
+        delimiter: {
+          class: Delimiter
+        },
         embed: {
           class: Embed,
           inlineToolbar: true,
@@ -100,31 +122,38 @@ export const useEditor = (
             cols: 3,
           },
         }
-      },
-      onReady: () => {
-        console.log('Editor.js is ready to work!');
-      },
-      onChange: async (api, event) => {
-        const savedData = await editor.save();
-        onContentChange(savedData);
-      },
-      autofocus: true,
-    //   placeholder: 'Press Tab for commands or start writing',
-    });
+      };
 
-    editorInstance.current = editor;
+      const editor = new EditorJS({
+        holder: editorRef.current,
+        data: initialData,
+        tools,
+        onReady: () => {
+          console.log('Editor.js is ready to work!');
+        },
+        onChange: async (api, event) => {
+          const savedData = await editor.save();
+          onContentChange(savedData);
+        },
+        autofocus: true,
+      });
+
+      editorInstance.current = editor;
+    };
+
+    initializeEditor().catch(console.error);
 
     return () => {
       if (editorInstance.current) {
-        editor.isReady
+        editorInstance.current.isReady
           .then(() => {
-            editor.destroy();
+            editorInstance.current?.destroy();
             editorInstance.current = null;
           })
           .catch(e => console.error('ERROR destroying editor:', e));
       }
     };
-  }, []); // Empty dependency array to ensure editor is only initialized once
+  }, []); 
 
   return {
     editorRef,

@@ -3,25 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaAngleDown, FaTrashCan } from 'react-icons/fa6';
 import { SOCIAL_MEDIA_OPTIONS } from '../utils/constants';
 import { dropdownVariants, arrowVariants, listItemVariants } from '../utils/animations';
-
-// Update Icon type to include SVGProps
-import { IconType } from 'react-icons';
-
-// Update the SocialMediaOption interface to use IconType
-interface SocialMediaOption {
-  key: string;
-  label: string;
-  Icon: IconType;  // Using IconType from react-icons
-  baseUrl: string;
-}
-
-interface SocialInputFieldProps {
-  id: number;
-  onRemove: (id: number) => void;
-  onChange: (id: number, platform: string, url: string) => void;
-  initialPlatform?: string;
-  initialUrl?: string;
-}
+import { SocialMediaOption, SocialInputFieldProps } from '../types/index';
 
 export const SocialInputField: React.FC<SocialInputFieldProps> = ({
   id,
@@ -58,7 +40,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
   };
 
   const SelectedIcon = SOCIAL_MEDIA_OPTIONS.find(
-    option => option.key === selectedKey
+    (option: SocialMediaOption) => option.key === selectedKey
   )?.Icon;
 
   return (
@@ -72,7 +54,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         >
           <span className="flex items-center gap-2">
             {SelectedIcon && <SelectedIcon className="text-gray4" size={20} />}
-            {SOCIAL_MEDIA_OPTIONS.find(option => option.key === selectedKey)?.label}
+            {SOCIAL_MEDIA_OPTIONS.find((option: SocialMediaOption) => option.key === selectedKey)?.label}
           </span>
           <motion.span
             variants={arrowVariants}
