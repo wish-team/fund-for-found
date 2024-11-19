@@ -4,11 +4,12 @@ import { InputProps } from "../types";
 import { useDropdown } from "../hooks/useDropdown";
 import Inputs from "../../../../shared/Input";
 
-export const AutocompleteInput: React.FC<InputProps> = ({
+export const AutocompleteInput: React.FC<InputProps & { placeholder?: string }> = ({
   data,
   label,
   fieldName,
   error,
+  placeholder = `Select ${label}`,
 }) => {
   const { register, setValue, watch } = useFormContext();
   const value = watch(fieldName) || "";
@@ -39,6 +40,7 @@ export const AutocompleteInput: React.FC<InputProps> = ({
         label={label}
         extraLabel="*"
         value={value}
+        placeholder={placeholder}
         {...register(fieldName, { required: `${label} is required` })}
         onChange={handleInputChange}
         onFocus={() => toggleDropdown(true)}
