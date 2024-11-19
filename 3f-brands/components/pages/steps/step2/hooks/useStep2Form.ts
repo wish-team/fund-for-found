@@ -1,44 +1,45 @@
 import { useState } from "react";
-import { Step2FormData, SocialInputData } from "../types";
+import { Step2FormData, EditorData, SocialInput } from "../types";
 
 export const useStep2Form = () => {
   const [formData, setFormData] = useState<Step2FormData>({
-    mission: "",
+    content: {} as EditorData,
     socialLinks: [],
   });
 
-  const updateMission = (content: string) => {
-    setFormData((prev) => ({ ...prev, mission: content }));
+  const updateContent = (content: EditorData) => {
+    setFormData((prev) => ({ ...prev, content }));
   };
 
-  const addSocialLink = (socialLink: SocialInputData) => {
-    setFormData((prev) => ({
-      ...prev,
-      socialLinks: [...prev.socialLinks, socialLink],
-    }));
+  const updateSocialLinks = (links: SocialInput[]) => {
+    setFormData((prev) => ({ ...prev, socialLinks: links }));
   };
 
-  const removeSocialLink = (id: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      socialLinks: prev.socialLinks.filter((link) => link.id !== id),
-    }));
-  };
+  const submitForm = async () => {
+    try {
+      const response = await fetch("/api/steps/2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  const updateSocialLink = (id: number, data: Partial<SocialInputData>) => {
-    setFormData((prev) => ({
-      ...prev,
-      socialLinks: prev.socialLinks.map((link) =>
-        link.id === id ? { ...link, ...data } : link
-      ),
-    }));
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      throw error;
+    }
   };
 
   return {
     formData,
-    updateMission,
-    addSocialLink,
-    removeSocialLink,
-    updateSocialLink,
+    updateContent,
+    updateSocialLinks,
+    submitForm,
   };
 };

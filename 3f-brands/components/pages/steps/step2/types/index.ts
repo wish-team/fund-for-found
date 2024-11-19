@@ -5,13 +5,19 @@ export interface SocialMediaOption {
   baseUrl: string;
 }
 
-export interface SocialInputData {
+export interface SocialInput {
   id: number;
   platform: string;
   url: string;
 }
 
+export interface EditorData {
+  blocks: any[];
+  time: number;
+  version: string;
+}
+
 export interface Step2FormData {
-  mission: string;
-  socialLinks: SocialInputData[];
+  content: EditorData;
+  socialLinks: SocialInput[];
 }
