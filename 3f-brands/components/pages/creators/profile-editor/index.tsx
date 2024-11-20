@@ -40,7 +40,7 @@ const ProfileEditor: React.FC = () => {
           title={title}
           onEditClick={handleOpenModal}
         />
-        <h2 className="text-xl font-semibold text-gray3 ps-2">{title}</h2>
+        <h2 className="md:text-xl text-sm font-semibold text-gray3 ps-2">{title}</h2>
       </div>
 
       <EditProfileModal

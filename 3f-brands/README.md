@@ -123,3 +123,84 @@ src/
         TierManagement.tsx
 
 
+invitation section:
+src/components/creators/invite-member/
+├── components/
+│   ├── AddMemberCard.tsx
+│   ├── DescriptionText.tsx
+│   ├── InviteModal.tsx
+│   ├── PreviewCard.tsx
+│   └── TeamMemberForm.tsx
+├── hooks/
+│   ├── useTeamMembers.ts
+│   └── useFormData.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── validators.ts
+└── index.tsx
+
+
+
+FAQ section:
+src/components/pages/creators/FAQ/
+│
+├── types/
+│   └── accordion.ts
+│
+├── components/
+│   ├── AccordionItem.tsx
+│   ├── EditModal.tsx
+│   └── AddQuestionModal.tsx
+│
+├── hooks/
+│   └── useAccordionState.ts
+│
+├── utils/
+│   └── accordionHelpers.ts
+│
+└── FAQ.tsx
+
+
+
+
+
+folder structure for steps section:
+src/components/pages/steps/step1/
+├── components/
+│   ├── AutocompleteInput.tsx
+│   ├── MultiSelectInput.tsx
+│   └── FormStep1.tsx
+├── hooks/
+│   ├── useDropdown.ts
+│   └── useFormStep1.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   └── mockData.ts
+└── index.tsx
+
+
+
+step2/
+src/components/pages/steps/step2/
+├── api/
+│   └── step2Api.ts
+├── components/
+│   ├── Editor/
+│   │   ├── EditorComponent.tsx
+│   │   └── EditorPlaceholder.tsx
+│   └── SocialInputs/
+│       ├── SocialInputList.tsx
+│       └── SocialInputItem.tsx
+├── hooks/
+│   ├── useEditor.ts
+│   └── useSocialInputs.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── editorTools.ts
+└── Step2.tsx
+

@@ -1,10 +1,13 @@
 // app/creators/[id]/page.tsx
 'use client';
-import About from "@/components/pages/creators/about/About";
 import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
-import { TierForm } from "@/components/pages/creators/contributors/components/TierForm";
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
-import AccordionMenu from "@/components/pages/creators/FAQ/AccordionMenu";
+import FAQ from "@/components/pages/creators/faq-section/FAQsection";
+import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
+// import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
+
+
+// import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
 
 const CreatorProfile = () => {
 
@@ -19,10 +22,10 @@ const CreatorProfile = () => {
       <CreatorBanner />
       <div className="mt-36">
       <TierManagement />
-      
+      {/* <TeamMemberInvite /> */}
+      <TeamMemberInvite />
       </div>
-      <About />
-      <AccordionMenu />
+      <FAQ />
       {/* Add more details about the creator */}
     </div>
   );

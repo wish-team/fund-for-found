@@ -11,6 +11,7 @@ interface InputsProps {
   labelClassName?: string; 
   inputClassName?: string; 
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; 
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   value: string; 
 }
 

@@ -15,8 +15,8 @@ export const handleImageChange = (
   field: { onChange: (file: File) => void },
   setImagePreview: (preview: string) => void
 ) => {
-  const { files } = e.target;
-  if (files?.length > 0) {
+  const files = e.target.files;
+  if (files && files.length > 0) {
     field.onChange(files[0]);
     const reader = new FileReader();
     reader.onloadend = () => {
