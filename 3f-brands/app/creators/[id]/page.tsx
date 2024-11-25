@@ -26,7 +26,6 @@ const CreatorProfile = () => {
       <TeamMemberInvite />
       </div>
       <FAQ />
-      {/* Add more details about the creator */}
     </div>
   );
 };

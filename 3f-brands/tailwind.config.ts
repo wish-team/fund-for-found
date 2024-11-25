@@ -43,6 +43,10 @@ module.exports = {
       boxShadow: {
         shadow1: "-2px 2px 10px 1px rgba(149, 149, 149, 0.15)",
       },
+      zIndex: {
+        'sticky': '1200',
+       
+      },
     },
     darkMode: "class",
     plugins: [nextui()]
