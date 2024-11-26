@@ -12,7 +12,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   onEdit,
   onDelete,
 }) => (
-  <div className="bg-white flex flex-col justify-between rounded-lg border border-gray-200 overflow-hidden h-[400px] hover:border-purple-500 w-[250px] md:min-w-[250px]">
+  <div className="bg-white flex flex-col justify-between rounded-lg border h-[420px] border-gray-200 overflow-hidden  hover:border-purple-500 w-[280px] md:min-w-[280px]">
     <div className="p-6">
       <div className="flex justify-end">
         {showEdit && typeof index === "number" && (

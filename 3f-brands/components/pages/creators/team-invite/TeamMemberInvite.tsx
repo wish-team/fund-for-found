@@ -21,6 +21,7 @@ import { AddMemberCard } from "./components/AddMemberCard";
 import { TeamMember, FormData } from "./types/team";
 import { ROLE_OPTIONS, MIN_DESCRIPTION_LENGTH } from "./utils/constants";
 import { validateDescription, validateEmail } from "./utils/validation";
+import CreatorsTitle from "../title/CreatorsTitle";
 
 export default function TeamMemberInvite(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -94,11 +95,12 @@ export default function TeamMemberInvite(): JSX.Element {
   return (
     <div className="p-6">
       <div className="max-w-[1048px] mx-auto relative">
-        <div className="flex flex-row gap-2 overflow-x-auto">
-          <div className="sticky left-0 z-10 bg-white">
+        <CreatorsTitle title="Team" />
+        <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
+          <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
             <AddMemberCard onAddMember={() => setIsOpen(true)} />
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col md:flex-row gap-3 items-center w-full">
             {teamMembers.map((member, index) => (
               <PreviewCard
                 key={index}

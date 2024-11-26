@@ -13,7 +13,6 @@ import { Menu } from "lucide-react";
 import Info from "@/components/pages/dashboard/info/Info";
 import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
 import { Contributions } from "@/components/pages/dashboard/contributions/Contributions";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { IoMdSettings } from "react-icons/io";
 import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
@@ -25,7 +24,6 @@ const PublicProfile = () => (
     <p>Public profile information goes here</p>
   </div>
 );
-
 
 const Updates = () => (
   <div className="p-4">
@@ -127,10 +125,10 @@ export default function FundForFoundDashboard() {
   );
 
   return (
-    <div className="max-w-6xl  mx-auto p-6 ">
+    <div className="max-w-6xl mx-auto p-6">
       {/* Mobile Settings Button */}
       {!isDesktop && (
-        <div className="flex bg-white mt-0 left-0 right-0 pe-16 items-center fixed gap-1 z-sticky justify-between">
+        <div className="flex bg-white mt-0 left-0 right-0 pe-16 items-center fixed gap-1 z-50 justify-between">
           <Button
             onPress={() => setIsSidebarOpen(true)}
             className="rounded-e-lg z-50 border-l-4 border-primary bg-primary100"
@@ -146,7 +144,7 @@ export default function FundForFoundDashboard() {
       <div className="flex gap-8">
         {/* Desktop Sidebar */}
         {isDesktop && (
-          <div className="w-64 shrink-0 max-h-[520px] mt-10 rounded-xl py-4 shadow-shadow1 border border-light3">
+          <div className="w-64 shrink-0 max-h-[520px] mt-10 rounded-xl py-4 shadow-shadow1 border border-light3 sticky top-28">
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
               FUND FOR FOUND
             </h1>
@@ -181,7 +179,7 @@ export default function FundForFoundDashboard() {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 min-h-[500px] bg-white rounded-lg shadow-sm p-6 mt-20 md:mt-0">
+        <div className="flex-1 min-h-[500px] bg-white rounded-lg shadow-sm p-6 mt-20 md:mt-0 overflow-y-auto">
           {renderTabContent()}
         </div>
       </div>
