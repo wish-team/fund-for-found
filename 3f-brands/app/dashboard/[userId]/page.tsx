@@ -15,6 +15,7 @@ import { IoMdSettings } from "react-icons/io";
 import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
 import Team from "@/components/pages/dashboard/team/Team";
+import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
 
 // Mock components remain the same
 const PublicProfile = () => (
@@ -45,24 +46,7 @@ const PayOut = () => (
   </div>
 );
 
-// Custom hook for media query
-const useMediaQuery = () => {
-  const [matches, setMatches] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 768 : true
-  );
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const handler = (e) => setMatches(e.matches);
-
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  return matches;
-};
 
 export default function FundForFoundDashboard() {
   const [selectedTab, setSelectedTab] = useState("public-profile");

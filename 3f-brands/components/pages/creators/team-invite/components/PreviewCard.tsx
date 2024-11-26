@@ -22,7 +22,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   };
 
   const handleConfirmDelete = () => {
-    // Ensure index is always passed
+    // Use default value of -1 if index is undefined
     if (onDelete && index !== undefined) {
       onDelete(index);
     }
@@ -39,7 +39,8 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                 <Button
                   isIconOnly
                   variant="light"
-                  onPress={() => onEdit?.(member, index)}
+                  // Use nullish coalescing to provide a default index
+                  onPress={() => onEdit?.(member, index ?? -1)}
                   className="text-gray-400 hover:text-gray-600 text-right"
                 >
                   <LuPencil className="w-4 h-4" />
