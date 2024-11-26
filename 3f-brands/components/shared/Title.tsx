@@ -1,11 +1,11 @@
 interface TitleProps {
   title: string;
   desc?: string; // Optional description
-  fontWeight: string;
-  textColor: string;
-  fontSize: string;
-  descSize: string;
-  justify: string;
+  fontWeight?: string;
+  textColor?: string;
+  fontSize?: string;
+  descSize?: string;
+  justify?: string;
 }
 
 const Title: React.FC<TitleProps> = ({
@@ -18,7 +18,7 @@ const Title: React.FC<TitleProps> = ({
 }) => {
   return (
     <>
-      <h1 className={`text-primary ${fontSize} ${fontWeight} text-center`}>
+      <h1 className={`text-primary ${fontSize} ${fontWeight}`}>
         {title}
       </h1>
       {desc && (

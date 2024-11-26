@@ -6,8 +6,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
      "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
+  
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '1.5rem',
+          lg: '2rem',
+        },
+      },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
@@ -34,9 +43,12 @@ module.exports = {
       boxShadow: {
         shadow1: "-2px 2px 10px 1px rgba(149, 149, 149, 0.15)",
       },
+      zIndex: {
+        'sticky': '1200',
+       
+      },
     },
     darkMode: "class",
     plugins: [nextui()]
   },
-  plugins: [],
 };
