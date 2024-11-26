@@ -10,7 +10,7 @@ export interface FormData extends TeamMember {}
 
 export interface PreviewCardProps {
   member: TeamMember;
-  index?: number;
+  index: number;
   showEdit?: boolean;
   onEdit?: (member: TeamMember, index: number) => void;
   onDelete?: (index: number) => void;

@@ -4,7 +4,6 @@ import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
 import FAQ from "@/components/pages/creators/faq-section/FAQsection";
 import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
-import PaginationCardComponent from "@/components/pages/creators/updates-section/Updates";
 // import TeamMemberInvite from "@/components/pages/creators/teamInvite/TeamMemberInvite";
 
 
@@ -27,7 +26,7 @@ const CreatorProfile = () => {
       <TeamMemberInvite />
       </div>
       <FAQ />
-      <PaginationCardComponent />
+
     </div>
   );
 };
