@@ -9,7 +9,7 @@ interface AddMemberCardProps {
 export const AddMemberCard: React.FC<AddMemberCardProps> = ({
   onAddMember,
 }) => (
-  <div className="min-w-[250px] md:min-w-[250px] flex-shrink-0">
+  <div className="min-w-[250px] md:min-w-[250px] h-[420px] flex-shrink-0">
     <Button
       onPress={onAddMember}
       className="w-full h-full min-h-[400px] bg-white rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-4 hover:border-purple-300 hover:bg-purple-50 transition-colors"

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { FaUser } from "react-icons/fa";
-import { Pencil, Trash } from "lucide-react";
 import { DescriptionText } from "./DescriptionText";
 import { PreviewCardProps } from "../types/team";
+import { LuPencil, LuTrash } from "react-icons/lu";
 import { DeleteConfirmationModal } from "../../../../shared/DeleteConfirmationModal";
 import { AdminDeletePopover } from "./AdminDeletePopover";
 
@@ -42,7 +42,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                   onPress={() => onEdit?.(member, index)}
                   className="text-gray-400 hover:text-gray-600 text-right"
                 >
-                  <Pencil className="w-4 h-4" />
+                  <LuPencil className="w-4 h-4" />
                 </Button>
                 {member.role === "Admin" ? (
                   <AdminDeletePopover />
@@ -51,9 +51,9 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                     isIconOnly
                     variant="light"
                     onPress={handleDeleteClick}
-                    className="text-gray-400 hover:text-gray-600 text-right"
+                    className="text-gray-400 hover:text-gray-600 -z-0 text-right"
                   >
-                    <Trash className="w-4 h-4" />
+                    <LuTrash className="w-4 h-4" />
                   </Button>
                 )}
               </div>
