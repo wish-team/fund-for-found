@@ -79,5 +79,13 @@ const supportedCoins = [
       unit: 'AVAX',
       priceUnit: 'wei',
     },
+    {
+        coin: 'rial',
+        network : ['zarinpal'],
+        api: 'https://api.zarinpal.com/payment/',
+        gasMethod: 'get_commission',
+        unit: 'TOMAN',
+        price: "RIAL"
+    }
   ];
   
