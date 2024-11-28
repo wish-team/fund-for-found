@@ -21,7 +21,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   index = 0,
   imagePreview,
 }) => (
-  <div className="border rounded-lg overflow-hidden shadow-sm w-full relative">
+  <div className="border h-[480px] hover:shadow-shadow1 rounded-lg overflow-hidden shadow-sm w-full relative">
     <div className="bg-primary text-white p-2 text-center relative">
       {data.name || "Silver Sponsor"}
       {!preview && index !== undefined && (

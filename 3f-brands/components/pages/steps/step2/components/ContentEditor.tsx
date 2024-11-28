@@ -92,9 +92,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
 
   return (
     <div className="border border-light3 shadow-lg hover:border-purple-500 focus:border-purple-500 rounded-lg my-4 relative">
-      <div className="min-h-[200px] relative">
+      <div className="min-h-[580px] border border-red-600 md:min-h-[300px] relative">
         <div 
-          className="editor-content p-4 min-h-[200px] relative" 
+          className="editor-content border border-green-600  p-4 min-h-[590px] md:min-h-[300px] relative" 
           ref={editorRef}
           onClick={() => {
             if (editorInstance.current && isEmpty) {
@@ -104,7 +104,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         />
         
         {isEmpty && (
-          <div className="absolute top-0 left-0 w-full p-4 pointer-events-none text-gray-400 max-h-[300px] overflow-auto bg-white">
+          <div className="absolute top-0 left-0 w-full p-4 pointer-events-none border border-blue-600  text-gray-400 max-h-[580px] md:min-h-[300px] overflow-auto bg-white">
             {placeholderSections.map((section, index) => (
               <PlaceholderSection
                 key={index}

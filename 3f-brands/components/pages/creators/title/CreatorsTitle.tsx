@@ -7,7 +7,7 @@ interface CreatorsTitleProps {
 
 const CreatorsTitle: React.FC<CreatorsTitleProps> = ({ title }) => {
   return (
-    <h1 className="flex items-center p-2 py-6">
+    <h1 className="flex items-center p-2 py-4">
       <span>
         <FaSquare className="text-primary" />
       </span>

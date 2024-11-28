@@ -49,7 +49,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="w-[400px] lg:w-[935px] md:w-[715px] sm:w-[500px] flex flex-col mx-auto p-4 text-gray3 text-sm my-8">
+    <section className="w-[400px] lg:w-[1048px] md:w-[715px] sm:w-[500px] flex flex-col mx-auto text-gray3 text-sm my-8">
       <CreatorsTitle title="FAQ" />
       <Accordion 
       variant="splitted" 

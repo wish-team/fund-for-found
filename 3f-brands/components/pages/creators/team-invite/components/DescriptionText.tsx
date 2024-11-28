@@ -1,4 +1,3 @@
-// src/components/pages/creators/invite-team/components/DescriptionText.tsx
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 
@@ -12,15 +11,20 @@ export const DescriptionText: React.FC<DescriptionTextProps> = ({
   index,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const shouldShowReadMore = description.length > 100;
+  const MAX_LENGTH = 60;
+  const shouldShowReadMore = description.length > MAX_LENGTH;
 
   return (
     <p className="text-sm text-light1 mt-4">
-      {isExpanded ? description : `${description.slice(0, 100)}...`}
-      {typeof index === "number" && shouldShowReadMore && (
+      {shouldShowReadMore ? (
+        isExpanded ? description : `${description.slice(0, MAX_LENGTH)}...`
+      ) : (
+        description
+      )}
+      {shouldShowReadMore && (
         <Button
           color="secondary"
-          className="m-0 p-0 text-sm text-primary200 hover:text-primary"
+          className="ml-2 m-0 p-0 text-sm text-primary200 transition-all hover:text-primary"
           onPress={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? "Read Less" : "Read More"}
