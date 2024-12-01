@@ -91,3 +91,116 @@ Please file feedback and issues over on the [Supabase GitHub org](https://github
 - [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
 - [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
 - [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+
+
+
+
+## sama
+folder structure for brand section:
+
+contributors section:
+src/components/creators/contributors/
+src/
+  components/
+    creators/
+      contributors/
+        components/
+          AddTierButton.tsx
+          PreviewCard.tsx
+          TierForm.tsx
+          TierList.tsx
+          TierModal.tsx
+        hooks/
+          useDeleteConfirmation.ts
+          useImagePreview.ts
+          useTierModal.ts
+          useTierStorage.ts
+        types/
+          tier.ts
+        utils/
+          constants.ts
+          validation.ts
+        TierManagement.tsx
+
+
+invitation section:
+src/components/creators/invite-member/
+├── components/
+│   ├── AddMemberCard.tsx
+│   ├── DescriptionText.tsx
+│   ├── InviteModal.tsx
+│   ├── PreviewCard.tsx
+│   └── TeamMemberForm.tsx
+├── hooks/
+│   ├── useTeamMembers.ts
+│   └── useFormData.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── validators.ts
+└── index.tsx
+
+
+
+FAQ section:
+src/components/pages/creators/FAQ/
+│
+├── types/
+│   └── accordion.ts
+│
+├── components/
+│   ├── AccordionItem.tsx
+│   ├── EditModal.tsx
+│   └── AddQuestionModal.tsx
+│
+├── hooks/
+│   └── useAccordionState.ts
+│
+├── utils/
+│   └── accordionHelpers.ts
+│
+└── FAQ.tsx
+
+
+
+
+
+folder structure for steps section:
+src/components/pages/steps/step1/
+├── components/
+│   ├── AutocompleteInput.tsx
+│   ├── MultiSelectInput.tsx
+│   └── FormStep1.tsx
+├── hooks/
+│   ├── useDropdown.ts
+│   └── useFormStep1.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   └── mockData.ts
+└── index.tsx
+
+
+
+step2/
+src/components/pages/steps/step2/
+├── api/
+│   └── step2Api.ts
+├── components/
+│   ├── Editor/
+│   │   ├── EditorComponent.tsx
+│   │   └── EditorPlaceholder.tsx
+│   └── SocialInputs/
+│       ├── SocialInputList.tsx
+│       └── SocialInputItem.tsx
+├── hooks/
+│   ├── useEditor.ts
+│   └── useSocialInputs.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   ├── constants.ts
+│   └── editorTools.ts
+└── Step2.tsx
+

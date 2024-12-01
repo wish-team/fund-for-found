@@ -1,24 +1,43 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
-import { BrandService } from './brand.service';
-import { Brand as BrandModel } from '@prisma/client';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+// brands.controller.ts
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
+import { BrandsService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
+import { UpdateBrandDto } from './dto/update-brand.dto';
 
-@Controller('brand')
-export class BrandController {
-  constructor(private readonly brandService: BrandService) {}
+@Controller('brands')
+export class BrandsController {
+  constructor(private readonly brandsService: BrandsService) {}
+
+  @Get()
+  getAllBrands() {
+    return this.brandsService.findAll();
+  }
+
   @Get(':id')
-  async getBrandById(@Param('id') id: string): Promise<BrandModel> {
-    return this.brandService.brand({ id: Number(id) });
+  getBrand(@Param('id') id: string) {
+    return this.brandsService.findOne(id);
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create brand' })
-  @ApiResponse({
-    status: 201,
-    description: 'The created record',
-  })
-  async createBrand(@Body() brandData: CreateBrandDto): Promise<BrandModel> {
-    return this.brandService.createBrand(brandData);
+  createBrand(@Body() createBrandDto: CreateBrandDto) {
+    return this.brandsService.create(createBrandDto);
+  }
+
+  @Put(':id')
+  updateBrand(@Param('id') id: string, @Body() updateBrandDto: UpdateBrandDto) {
+    return this.brandsService.update(id, updateBrandDto);
+  }
+
+  @Delete(':id')
+  deleteBrand(@Param('id') id: string) {
+    return this.brandsService.remove(id);
   }
 }
