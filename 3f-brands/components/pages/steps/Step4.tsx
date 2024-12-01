@@ -2,9 +2,19 @@ import Title from "../../shared/Title";
 import Image from "next/image";
 import Step4Img from "../../../app/images/steps/brandStep4.svg";
 import { Button } from "@nextui-org/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Step4 = () => {
+  const router = useRouter();
+
+ 
+  // This should be replaced with authentication context
+  const userId = "1"; 
+
+  const handleProfileNavigation = () => {
+    router.push(`/creators/${userId}`);
+  };
+
   return (
     <section className="mt-12 flex flex-col items-center">
       <Title title="Congratulation!" fontWeight="font-light" />
@@ -19,16 +29,16 @@ const Step4 = () => {
       <p className="text-gray4 font-light text-sm pt-2">
         Welcome aboard! Let's dive in and get started
       </p>
-      <Link href='/creators/1'>
-        <Button
-          color="secondary"
-          variant="bordered"
-          className="text-white bg-primary text-sm px-6 mt-4 font-light rounded-lg border border-light2"
-        >
-          Go to my profile
-        </Button>
-      </Link>
+      <Button
+        color="secondary"
+        variant="bordered"
+        onClick={handleProfileNavigation}
+        className="text-white bg-primary text-sm px-6 mt-4 font-light rounded-lg border border-light2"
+      >
+        Go to my profile
+      </Button>
     </section>
   );
 };
+
 export default Step4;
