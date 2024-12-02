@@ -6,6 +6,7 @@ interface TitleProps {
   fontSize?: string;
   descSize?: string;
   justify?: string;
+  paddingTop?: string;
 }
 
 const Title: React.FC<TitleProps> = ({
@@ -13,12 +14,13 @@ const Title: React.FC<TitleProps> = ({
   desc,
   fontWeight = "font-semibold",
   textColor = "text-gray4",
-  fontSize = "text-3xl",
+  fontSize = "md:text-4xl text-2xl",
   descSize = "text-[20px]",
+  paddingTop = "pt-3"
 }) => {
   return (
     <>
-      <h1 className={`text-primary ${fontSize} ${fontWeight}`}>
+      <h1 className={`text-primary ${fontSize} ${fontWeight} ${paddingTop} text-justify`}>
         {title}
       </h1>
       {desc && (

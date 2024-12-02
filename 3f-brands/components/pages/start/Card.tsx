@@ -15,8 +15,8 @@ const Card = () => {
   };
 
   return (
-    <section className="border mt-12 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[380px] w-[320px]">
-      <div className="py-10">
+    <section className="border mt-8 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[380px] w-[320px]">
+      <div className="py-8">
         <Image
           src={cardImage}
           alt="Business Card"
@@ -30,6 +30,7 @@ const Card = () => {
           fontWeight="font-light"
           fontSize="text-2xl"
           descSize="text-sm"
+          paddingTop="p-0"
         />
         <Button
           color="secondary"
