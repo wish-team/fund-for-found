@@ -94,7 +94,7 @@ export const AboutContentDisplay: React.FC<AboutContentDisplayProps> = ({
   onEditClick,
 }) => {
   return (
-    <div className="w-full mt-36 mx-auto">
+    <div className="w-full  mx-auto">
       <div className="flex items-center gap-6">
         <CreatorsTitle title="About" />
         <Button
