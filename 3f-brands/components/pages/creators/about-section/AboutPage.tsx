@@ -21,7 +21,7 @@ const AboutPage: React.FC = () => {
   };
 
   return (
-    <>
+    <section className="mt-20">
       {/* Content Display */}
       <AboutContentDisplay content={content} onEditClick={onOpen} />
 
@@ -33,7 +33,7 @@ const AboutPage: React.FC = () => {
         content={content}
         mainImage={mainImage}
       />
-    </>
+    </section>
   );
 };
 

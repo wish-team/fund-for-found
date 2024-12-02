@@ -93,8 +93,8 @@ export default function TeamMemberInvite(): JSX.Element {
   };
 
   return (
-    <div className="p-6">
-      <div className="max-w-[1048px] mx-auto relative">
+    <div className="mt-20">
+      <div className="mx-auto relative">
         <CreatorsTitle title="Team" />
         <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
           <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
