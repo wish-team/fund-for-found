@@ -60,8 +60,8 @@ export const TierManagement = () => {
   };
 
   return (
-    <div className="p-6">
-      <div className="max-w-[1048px] mx-auto">
+    <div className="mt-36">
+      <div className="max-w-[1240px] mx-auto">
         <CreatorsTitle title='Contribution Tier' />
         <h2 className='ps-2 mx-2 mb-6 text-lg text-gray2 border-s-4 border-primary'>Recurring or One time </h2>
         <div className="flex flex-col md:flex-row gap-6">
