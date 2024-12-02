@@ -14,7 +14,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
   title,
   onEditClick,
 }) => (
-  <div className="relative md:w-32 md:h-32 w-20 h-20 group">
+  <div className="relative md:w-32 md:h-32 w-24 h-24 group">
     <div className="absolute inset-0 bg-primary rounded-2xl"></div>
     <div className="relative w-full h-full rounded-2xl overflow-hidden">
       {image ? (
