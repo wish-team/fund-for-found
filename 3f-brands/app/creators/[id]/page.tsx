@@ -22,7 +22,7 @@ const CreatorProfile = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col gap-20'>
       <CreatorBanner />
       <div className="text-gray3 bg-white z-10 mt-20  flex justify-center md:space-x-12 py-4 border-b overflow-x-scroll space-x-4">
         <button onClick={() => handleTabClick(contributionTierRef)}>CONTRIBUTION TIER</button>

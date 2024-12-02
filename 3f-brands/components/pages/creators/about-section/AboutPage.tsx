@@ -21,7 +21,7 @@ const AboutPage: React.FC = () => {
   };
 
   return (
-    <section className="mt-20">
+    <section>
       {/* Content Display */}
       <AboutContentDisplay content={content} onEditClick={onOpen} />
 
