@@ -16,6 +16,7 @@ import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
 import Team from "@/components/pages/dashboard/team/Team";
 import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
+import Updates from "@/components/pages/creators/updates-section/Updates";
 
 // Mock components remain the same
 const PublicProfile = () => (
@@ -25,12 +26,7 @@ const PublicProfile = () => (
   </div>
 );
 
-const Updates = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Updates</h2>
-    <p>Latest updates go here</p>
-  </div>
-);
+
 
 const Expenses = () => (
   <div className="p-4">

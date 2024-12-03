@@ -6,7 +6,7 @@ import sampleImg from "@/app/images/logo.svg";
 import Image from "next/image";
 const Updates = () => {
   return (
-    <section className="mb-6">
+    <section className="mb-6 mt-3">
       <CreatorsTitle title="Updates" />
       <div className="p-8 border shadow-shadow1 rounded-lg hover:border-purple-500 transition-all">
         <div className="flex items-center gap-4 justify-between">
