@@ -5,7 +5,7 @@ import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
 import FAQ from "@/components/pages/creators/faq-section/FAQsection";
 import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
-// import Updates from "@/components/pages/creators/updates-section/Updates";
+import Updates from '@/components/pages/creators/updates-section/Updates';
 
 const CreatorProfile = () => {
   const contributionTierRef = useRef<HTMLDivElement>(null);
@@ -47,9 +47,9 @@ const CreatorProfile = () => {
       <div ref={faqRef}>
         <FAQ />
       </div>
-      {/* <div ref={updatesRef}>
+      <div ref={updatesRef}>
         <Updates />
-      </div> */}
+      </div>
     </div>
   );
 };

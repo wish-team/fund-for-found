@@ -6,7 +6,7 @@ import { FormStep1 } from "./components/FormStep1";
 
 const Step1Form: React.FC = () => {
   return (
-    <section className="py-8 text-start mx-auto max-w-[1024px]">
+    <section className="pb-2 text-start mx-auto max-w-[1024px]">
       <Title title="Basic Info" />
       <h3 className="text-gray3 py-2 font-bold">
         Tell about your Brand/organization
