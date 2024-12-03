@@ -1,5 +1,5 @@
 {
-  "name": "3-f-back",
+  "name": "3f-back",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -22,13 +22,10 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/mapped-types": "*",
-    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
-    "@supabase/supabase-js": "^2.46.1",
-    "class-transformer": "^0.5.1",
+    "@supabase/supabase-js": "^2.46.2",
     "class-validator": "^0.14.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.6",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
