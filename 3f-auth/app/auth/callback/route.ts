@@ -8,21 +8,28 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      const forwardedHost = request.headers.get('x-forwarded-host') // original origin before load balancer
-      const isLocalEnv = process.env.NODE_ENV === 'development'
-      
-      // Use plain string values here instead of complex objects
-      const redirectUrl = isLocalEnv
-        ? `${origin}${next}`
-        : forwardedHost
-          ? `https://${forwardedHost}${next}`
-          : `${origin}${next}`
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
-      return NextResponse.redirect(redirectUrl) // Use a plain string URL
+    if (error) {
+      console.error('Error exchanging code for session:', error.message)
+      return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+    }
+
+    if (data) {
+      // Log the access token for debugging purposes
+      console.log('Access token:', data.session?.access_token)
+
+      // Optionally, set a secure cookie with the token (or session)
+      const response = NextResponse.redirect(`${origin}${next}`)
+      response.cookies.set('access_token', data.session?.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+      })
+      return response
     }
   }
 
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`) // Plain string here too
+  console.error('OAuth code is missing or invalid.')
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }
