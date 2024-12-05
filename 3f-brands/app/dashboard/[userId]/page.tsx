@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Tabs,
   Tab,
@@ -16,21 +16,8 @@ import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
 import Team from "@/components/pages/dashboard/team/Team";
 import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
-
-// Mock components remain the same
-const PublicProfile = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Public Profile</h2>
-    <p>Public profile information goes here</p>
-  </div>
-);
-
-const Updates = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Updates</h2>
-    <p>Latest updates go here</p>
-  </div>
-);
+import Updates from "@/components/pages/creators/updates-section/Updates";
+import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
 
 const Expenses = () => (
   <div className="p-4">
@@ -46,17 +33,13 @@ const PayOut = () => (
   </div>
 );
 
-
-
 export default function FundForFoundDashboard() {
-  const [selectedTab, setSelectedTab] = useState("public-profile");
+  const [selectedTab, setSelectedTab] = useState("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isDesktop = useMediaQuery();
 
   const renderTabContent = () => {
     switch (selectedTab) {
-      case "public-profile":
-        return <PublicProfile />;
       case "info":
         return <Info />;
       case "contribution-tiers":
@@ -96,7 +79,6 @@ export default function FundForFoundDashboard() {
         tabContent: "font-medium",
       }}
     >
-      <Tab key="public-profile" title="Public profile" />
       <Tab key="info" title="Info" />
       <Tab key="contribution-tiers" title="Contribution tiers" />
       <Tab key="about" title="About" />
@@ -131,6 +113,7 @@ export default function FundForFoundDashboard() {
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
               FUND FOR FOUND
             </h1>
+            <PublicProfileButton />
             <NavigationTabs />
           </div>
         )}
@@ -155,6 +138,7 @@ export default function FundForFoundDashboard() {
                 </h1>
               </ModalHeader>
               <ModalBody>
+                <PublicProfileButton />
                 <NavigationTabs />
               </ModalBody>
             </ModalContent>

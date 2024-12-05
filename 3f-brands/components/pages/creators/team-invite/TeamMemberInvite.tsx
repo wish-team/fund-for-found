@@ -93,8 +93,8 @@ export default function TeamMemberInvite(): JSX.Element {
   };
 
   return (
-    <div className="p-6">
-      <div className="max-w-[1048px] mx-auto relative">
+    <div>
+      <div className="mx-auto relative">
         <CreatorsTitle title="Team" />
         <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
           <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
@@ -252,18 +252,18 @@ export default function TeamMemberInvite(): JSX.Element {
         <ModalContent>
           <ModalBody>
             <div className="text-center py-6">
-              <div className="w-16 h-16 bg-purple-100 rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <MdOutlineDone />
+              <div className="w-16 h-16  border-4 border-primary300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <MdOutlineDone className="text-primary300 text-4xl" />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 We have sent an invitation email to
               </h3>
-              <p className="text-purple-600 text-xl font-medium mb-4">
+              <p className="text-primary300 text-xl font-medium mb-4">
                 {invitedMember?.name}
               </p>
               <Button
-                color="secondary"
                 variant="light"
+                className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                 onPress={() => setShowInviteModal(false)}
               >
                 Ok, continue

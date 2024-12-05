@@ -5,6 +5,7 @@ import { SocialInputField } from "../../steps/step2/components/SocialInputField"
 import Title from "../../../shared/Title";
 import { Button } from "@nextui-org/react";
 import CreatorsTitle from "../../creators/title/CreatorsTitle";
+import AboutPage from "../../creators/about-section/AboutPage";
 
 const Step2: React.FC = () => {
   const { formData, updateContent, updateSocialLinks, submitForm } =
@@ -45,11 +46,12 @@ const Step2: React.FC = () => {
 
   return (
     <section className="py-8 text-start max-w-[1024px]">
-      <CreatorsTitle title="About" />
+      {/* <CreatorsTitle title="About" />
       <h3 className="text-gray3 py-2 font-bold">
       Tell people why they should be exited for backing your brand. tell about your story, your plan and any thing that may encourage them to contribute.
-      </h3>
-      <ContentEditor onContentChange={updateContent} />
+      </h3> */}
+      {/* <ContentEditor onContentChange={updateContent} /> */}
+      <AboutPage />
 
     </section>
   );

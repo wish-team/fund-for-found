@@ -1,9 +1,10 @@
 import React from "react";
 import { useStep2Form } from "./hooks/useStep2Form";
-import { ContentEditor } from "./components/ContentEditor";
+// import { ContentEditor } from "./components/ContentEditor";
 import { SocialInputField } from "./components/SocialInputField";
 import Title from "../../../shared/Title";
 import { Button } from "@nextui-org/react";
+import AboutPage from "../../creators/about-section/AboutPage";
 
 const Step2: React.FC = () => {
   const { formData, updateContent, updateSocialLinks, submitForm } =
@@ -52,10 +53,11 @@ const Step2: React.FC = () => {
         Be more specific about it, as it will be published as your deck on the
         3F(150-300 characters). read more
       </p>
+      <AboutPage />
+{/* 
+      <ContentEditor onContentChange={updateContent} /> */}
 
-      <ContentEditor onContentChange={updateContent} />
-
-      <h3 className="text-gray3 py-2 font-bold">
+      <h3 className="text-gray3 pb-2 pt-8 font-bold">
         Help your contributors find you faster (at least 3 options)
       </h3>
       <p className="text-light1 font-light pb-4">
