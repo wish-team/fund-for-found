@@ -1,7 +1,7 @@
 # Fund For Found Special Project
 
 <p align="center">
-  <img src="3F.svg" alt="3F logo" width="200"/>
+  <img src="3F.png" alt="3F logo" width="200"/>
 </p>
 
 ## Motivation
