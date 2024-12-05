@@ -73,7 +73,7 @@ export class PaymentService {
       );
     }
 
-    const receivedAmount = parseFloat(ethers.utils.formatEther(tx.value));
+    const receivedAmount = parseFloat(ethers.formatEther(tx.value));
 
     // Calculate commission and brand amount
     const commissionAmount = (receivedAmount * this.commissionPercentage) / 100;
@@ -82,7 +82,7 @@ export class PaymentService {
     // Send remaining funds to the brand
     const brandTransaction = await this.masterWallet.sendTransaction({
       to: transaction.brand_wallet_address,
-      value: ethers.utils.parseEther(brandAmount.toString()),
+      value: ethers.parseEther(brandAmount.toString()),
     });
 
     // Update Supabase with processed details
