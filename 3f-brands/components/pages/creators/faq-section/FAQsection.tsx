@@ -13,6 +13,7 @@ import { FaPlus, FaTrashCan, FaPencil } from "react-icons/fa6";
 import { useAccordionState } from './hooks/useAccordionState';
 import { EditModal } from './components/EditModal';
 import { AddQuestionModal } from './components/AddQuestionModal';
+import DeleteConfirmationModal from '../../../shared/DeleteConfirmationModal'; 
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AccordionItemType } from './types/accordion';
 
@@ -34,8 +35,10 @@ const FAQ: React.FC = () => {
 
   const editModal = useDisclosure();
   const addModal = useDisclosure();
+  const deleteModal = useDisclosure();
 
   const [selectedItem, setSelectedItem] = React.useState<AccordionItemType | null>(null);
+  const [itemToDelete, setItemToDelete] = React.useState<string | null>(null);
 
   const handleEdit = (item: AccordionItemType) => {
     setSelectedItem(item);
@@ -48,14 +51,27 @@ const FAQ: React.FC = () => {
     addModal.onOpen();
   };
 
+  const confirmDelete = () => {
+    if (itemToDelete) {
+      deleteItem(itemToDelete);
+      deleteModal.onClose();
+      setItemToDelete(null);
+    }
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setItemToDelete(id);
+    deleteModal.onOpen();
+  };
+
   return (
-    <section className="w-[400px] lg:w-[1048px] md:w-[715px] sm:w-[500px] flex flex-col mx-auto text-gray3 text-sm my-8">
+    <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
       <CreatorsTitle title="FAQ" />
       <Accordion 
-      variant="splitted" 
-      selectedKeys={selectedKeys}
-      onSelectionChange={(keys) => setSelectedKeys(new Set(Array.from(keys).map(String)))}
-    >
+        variant="splitted" 
+        selectedKeys={selectedKeys}
+        onSelectionChange={(keys) => setSelectedKeys(new Set(Array.from(keys).map(String)))}
+      >
         {accordionItems.map((item) => (
           <NextUIAccordionItem
             key={item.id}
@@ -77,7 +93,7 @@ const FAQ: React.FC = () => {
                 startContent={<FaTrashCan />}
                 variant="bordered"
                 className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                onPress={() => deleteItem(item.id)}
+                onPress={() => handleDeleteClick(item.id)}
                 size="sm"
               >
                 Delete
@@ -110,6 +126,14 @@ const FAQ: React.FC = () => {
           />
         </>
       )}
+
+      <DeleteConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={deleteModal.onClose}
+        onConfirm={confirmDelete}
+        title="Delete FAQ Item"
+        message="Are you sure you want to delete this FAQ item? This action cannot be undone."
+      />
     </section>
   );
 };

@@ -143,6 +143,27 @@ src/components/creators/invite-member/
 
 
 
+about section:
+```
+~~└── about/
+    ├── types/
+    │   ├── content.types.ts
+    │   └── editor.types.ts
+    ├── hooks/
+    │   ├── useEditorContent.ts
+    │   └── useImageUpload.ts
+    ├── utils/
+    │   ├── content-renderer.tsx
+    │   └── editor-config.ts
+    ├── components/
+    │   ├── AboutContentDisplay.tsx
+    │   ├── AboutContentEditor.tsx
+    │   └── ImageUploader.tsx
+    └── AboutPage.tsx
+```
+
+
+
 FAQ section:
 src/components/pages/creators/FAQ/
 │
