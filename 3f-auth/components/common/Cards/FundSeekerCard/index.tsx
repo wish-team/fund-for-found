@@ -3,7 +3,7 @@ import React from 'react'
 interface ProfileCardProps {
   name: string
   description: string
-  icon?: string // Optional icon prop, defaulting to 👤
+  icon?: string
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ name, description, icon = '👤' }) => {
