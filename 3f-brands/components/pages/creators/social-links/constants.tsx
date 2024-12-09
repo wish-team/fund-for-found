@@ -1,4 +1,3 @@
-// src/components/pages/social-links/constants.ts
 import {
     FaDiscord,
     FaInstagram,
@@ -8,7 +7,7 @@ import {
     FaTelegram,
     FaFacebook,
     FaLinkedinIn
-  } from "react-icons/fa6";  // Note: changed from fa to fa6
+  } from "react-icons/fa6"; 
   import { SocialOption } from './types';
   import { FaGlobeAmericas } from "react-icons/fa";
   
@@ -20,7 +19,7 @@ import {
       label: "Website",
       value: "website",
       defaultUrl: "https://",
-      icon: <FaGlobeAmericas size={17} />,  // Changed from FaGlobe to FaGlobeAmericas
+      icon: <FaGlobeAmericas size={17} />, 
     },
     {
       label: "Discord",

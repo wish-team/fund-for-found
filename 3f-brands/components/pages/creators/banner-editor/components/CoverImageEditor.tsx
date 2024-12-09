@@ -1,11 +1,19 @@
-import React, { useRef, useCallback, memo } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
-import { Pencil } from 'lucide-react';
-import { CoverImageEditorProps } from '../types';
-import { DEFAULT_IMAGE, ACCEPTED_IMAGE_TYPES } from '../utils/constants';
-import { useImageEditor } from '../hooks/useImageEditor';
-import { ImagePreview } from './ImagePreview';
-import { ZoomControl } from './ZoomControl';
+import React, { useRef, useCallback, memo } from "react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "@nextui-org/react";
+import { Pencil } from "lucide-react";
+import { CoverImageEditorProps } from "../types";
+import { DEFAULT_IMAGE, ACCEPTED_IMAGE_TYPES } from "../utils/constants";
+import { useImageEditor } from "../hooks/useImageEditor";
+import { ImagePreview } from "./ImagePreview";
+import { ZoomControl } from "./ZoomControl";
+import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
 
 export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   defaultImage = DEFAULT_IMAGE,
@@ -58,94 +66,97 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   };
 
   return (
-    <>
-      <div className="relative my-2">
-        <ImagePreview
-          imageUrl={currentImage}
-          imageZoom={currentZoom}
-          title={currentTitle}
-        />
-
-        <Button
-          onPress={handleOpenModal}
-          className="absolute top-4 right-4 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-          color="primary"
-          variant="flat"
-          startContent={<Pencil size={16} />}
-        >
-          Edit cover
-        </Button>
-      </div>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={handleCloseModal}
-        size="2xl"
-        backdrop="blur"
-        scrollBehavior="inside"
-        className="bg-white max-w-[800px] rounded-xl shadow-shadow1"
-      >
-        <ModalContent>
-          <ModalHeader className="text-center text-gray3">
-            Add cover image
-          </ModalHeader>
-
-          <ModalBody>
+    <AuthWrapper>
+      {(user) => (
+        <div>
+          <div className="relative my-2">
             <ImagePreview
-              imageUrl={tempImage}
-              imageZoom={tempZoom}
-              title={tempTitle}
-              isModal
-              isEditingTitle={isEditingTitle}
-              onTitleClick={handleTitleClick}
-              onTitleChange={setTempTitle}
-              onTitleBlur={handleTitleBlur}
-              titleInputRef={titleInputRef}
+              imageUrl={currentImage}
+              imageZoom={currentZoom}
+              title={currentTitle}
             />
-
-            {error && <div className="text-danger text-sm mt-2">{error}</div>}
-
-            <ZoomControl
-              value={tempZoom}
-              onChange={setTempZoom}
-            />
-          </ModalBody>
-
-          <ModalFooter className="flex justify-between">
-            <div className="flex gap-2">
+            {user && (
               <Button
-                color="secondary"
-                onPress={handleSave}
-                className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
+                onPress={handleOpenModal}
+                className="absolute top-4 right-4 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
+                color="primary"
+                variant="flat"
+                startContent={<Pencil size={16} />}
               >
-                Save
+                Edit cover
               </Button>
-              <Button
-                variant="bordered"
-                className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                onPress={handleReset}
-              >
-                Reset
-              </Button>
-            </div>
-            <Button
-              variant="bordered"
-              className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-              onPress={() => fileInputRef.current?.click()}
-            >
-              Upload new image
-            </Button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept={ACCEPTED_IMAGE_TYPES.join(",")}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+            )}
+          </div>
+          <Modal
+            isOpen={isOpen}
+            onClose={handleCloseModal}
+            size="2xl"
+            backdrop="blur"
+            scrollBehavior="inside"
+            className="bg-white max-w-[800px] rounded-xl shadow-shadow1"
+          >
+            <ModalContent>
+              <ModalHeader className="text-center text-gray3">
+                Add cover image
+              </ModalHeader>
+
+              <ModalBody>
+                <ImagePreview
+                  imageUrl={tempImage}
+                  imageZoom={tempZoom}
+                  title={tempTitle}
+                  isModal
+                  isEditingTitle={isEditingTitle}
+                  onTitleClick={handleTitleClick}
+                  onTitleChange={setTempTitle}
+                  onTitleBlur={handleTitleBlur}
+                  titleInputRef={titleInputRef}
+                />
+
+                {error && (
+                  <div className="text-danger text-sm mt-2">{error}</div>
+                )}
+
+                <ZoomControl value={tempZoom} onChange={setTempZoom} />
+              </ModalBody>
+
+              <ModalFooter className="flex justify-between">
+                <div className="flex gap-2">
+                  <Button
+                    color="secondary"
+                    onPress={handleSave}
+                    className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    variant="bordered"
+                    className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
+                    onPress={handleReset}
+                  >
+                    Reset
+                  </Button>
+                </div>
+                <Button
+                  variant="bordered"
+                  className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
+                  onPress={() => fileInputRef.current?.click()}
+                >
+                  Upload new image
+                </Button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </div>
+      )}
+    </AuthWrapper>
   );
 };
 

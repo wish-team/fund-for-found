@@ -1,4 +1,3 @@
-// src/components/pages/creators/about/AboutPage.tsx
 "use client";
 
 import React from "react";
