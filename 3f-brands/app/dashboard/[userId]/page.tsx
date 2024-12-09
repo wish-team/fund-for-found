@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Tabs,
   Tab,
@@ -9,28 +9,15 @@ import {
   ModalHeader,
   ModalBody,
 } from "@nextui-org/react";
-import { Menu } from "lucide-react";
 import Info from "@/components/pages/dashboard/info/Info";
-import TeamMemberInvite from "@/components/pages/creators/team-invite/TeamMemberInvite";
 import { Contributions } from "@/components/pages/dashboard/contributions/Contributions";
 import { IoMdSettings } from "react-icons/io";
 import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
-
-// Mock components remain the same
-const PublicProfile = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Public Profile</h2>
-    <p>Public profile information goes here</p>
-  </div>
-);
-
-const Updates = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Updates</h2>
-    <p>Latest updates go here</p>
-  </div>
-);
+import Team from "@/components/pages/dashboard/team/Team";
+import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
+import Updates from "@/components/pages/creators/updates-section/Updates";
+import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
 
 const Expenses = () => (
   <div className="p-4">
@@ -46,34 +33,13 @@ const PayOut = () => (
   </div>
 );
 
-// Custom hook for media query
-const useMediaQuery = () => {
-  const [matches, setMatches] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 768 : true
-  );
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const handler = (e) => setMatches(e.matches);
-
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  return matches;
-};
-
 export default function FundForFoundDashboard() {
-  const [selectedTab, setSelectedTab] = useState("public-profile");
+  const [selectedTab, setSelectedTab] = useState("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isDesktop = useMediaQuery();
 
   const renderTabContent = () => {
     switch (selectedTab) {
-      case "public-profile":
-        return <PublicProfile />;
       case "info":
         return <Info />;
       case "contribution-tiers":
@@ -81,7 +47,7 @@ export default function FundForFoundDashboard() {
       case "about":
         return <Step2 />;
       case "team":
-        return <TeamMemberInvite />;
+        return <Team />;
       case "updates":
         return <Updates />;
       case "expenses":
@@ -113,7 +79,6 @@ export default function FundForFoundDashboard() {
         tabContent: "font-medium",
       }}
     >
-      <Tab key="public-profile" title="Public profile" />
       <Tab key="info" title="Info" />
       <Tab key="contribution-tiers" title="Contribution tiers" />
       <Tab key="about" title="About" />
@@ -125,7 +90,7 @@ export default function FundForFoundDashboard() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-2">
       {/* Mobile Settings Button */}
       {!isDesktop && (
         <div className="flex bg-white mt-0 left-0 right-0 pe-16 items-center fixed gap-1 z-50 justify-between">
@@ -148,6 +113,7 @@ export default function FundForFoundDashboard() {
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
               FUND FOR FOUND
             </h1>
+            <PublicProfileButton />
             <NavigationTabs />
           </div>
         )}
@@ -172,6 +138,7 @@ export default function FundForFoundDashboard() {
                 </h1>
               </ModalHeader>
               <ModalBody>
+                <PublicProfileButton />
                 <NavigationTabs />
               </ModalBody>
             </ModalContent>
@@ -179,7 +146,7 @@ export default function FundForFoundDashboard() {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 min-h-[500px] bg-white rounded-lg shadow-sm p-6 mt-20 md:mt-0 overflow-y-auto">
+        <div className="flex-1 bg-white p-2 mt-20 md:mt-0 overflow-y-auto">
           {renderTabContent()}
         </div>
       </div>

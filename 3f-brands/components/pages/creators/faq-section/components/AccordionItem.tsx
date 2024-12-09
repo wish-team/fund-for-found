@@ -1,4 +1,3 @@
-// src/components/pages/creators/FAQ/components/AccordionItem.tsx
 import React from 'react';
 import { AccordionItem as NextUIAccordionItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
@@ -25,7 +24,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
       <div>{item.content}</div>
       <div className="action-buttons">
         <Button
-          onPress={() => onEdit(item)}
+          onClick={() => onEdit(item)}
           size="sm"
           startContent={<FaPencil />}
           className="edit-button"
@@ -35,7 +34,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         <Button
           startContent={<FaTrashCan />}
           className="delete-button"
-          onPress={() => onDelete(item.id)}
+          onClick={() => onDelete(item.id)}
           size="sm"
         >
           Delete

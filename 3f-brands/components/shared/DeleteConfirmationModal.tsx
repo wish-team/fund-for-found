@@ -28,7 +28,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
   confirmText = "Delete",
 }) => {
   return (
-    <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal backdrop="blur" className="shadow border" isOpen={isOpen} onClose={onClose} size="sm">
       <ModalContent className="bg-white rounded-lg shadow p-3">
         <ModalHeader className="text-gray3">{title}</ModalHeader>
         <ModalBody>
