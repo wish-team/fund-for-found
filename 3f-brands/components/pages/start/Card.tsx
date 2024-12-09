@@ -15,7 +15,7 @@ const Card = () => {
   };
 
   return (
-    <section className="border mt-8 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[380px] w-[320px]">
+    <section className="border my-8 border-primary shadow-shadow1 rounded-2xl flex flex-col items-center h-[380px] w-[320px]">
       <div className="py-8">
         <Image
           src={cardImage}
