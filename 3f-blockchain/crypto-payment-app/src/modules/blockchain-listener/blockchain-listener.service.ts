@@ -1,17 +1,15 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import { ethers } from 'ethers';
+import { ethers } from 'ethers'; // Importing ethers
 import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
 export class BlockchainListenerService implements OnModuleInit {
-  private provider: ethers.providers.JsonRpcProvider;
+  private provider: ethers.JsonRpcProvider; // Adjusting the type to JsonRpcProvider
   private readonly logger = new Logger(BlockchainListenerService.name);
 
   constructor(private readonly supabaseService: SupabaseService) {
     // Initialize provider (use Infura, Alchemy, or your node URL)
-    this.provider = new ethers.providers.JsonRpcProvider(
-      'https://sepolia.infura.io/v3/YOUR_PROJECT_ID',
-    );
+    this.provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_RPC_URL);
   }
 
   async onModuleInit() {
@@ -28,12 +26,12 @@ export class BlockchainListenerService implements OnModuleInit {
         this.logger.log(`Transaction detected for address: ${wallet.address}`);
 
         // Validate transaction details
-        const receipt = await this.provider.getTransactionReceipt(tx.hash);
+        const transaction = await this.provider.getTransaction(tx.hash);
         if (
-          receipt &&
-          receipt.to.toLowerCase() === wallet.address.toLowerCase()
+          transaction &&
+          transaction.to?.toLowerCase() === wallet.address.toLowerCase()
         ) {
-          const amount = ethers.utils.formatEther(receipt.value);
+          const amount = ethers.formatEther(transaction.value);
 
           // Mark as received in the database
           await this.supabaseService.updateTransactionStatus(
@@ -63,10 +61,11 @@ export class BlockchainListenerService implements OnModuleInit {
     if (!brandAddress)
       throw new Error(`Brand wallet not found for ID ${brandId}`);
 
-    const signer = this.provider.getSigner(); // Replace with actual signer for platform wallet
+    // Await signer before using sendTransaction
+    const signer = await this.provider.getSigner(); // Add 'await' here
     const tx = await signer.sendTransaction({
       to: brandAddress,
-      value: ethers.utils.parseEther(userAmount.toString()),
+      value: ethers.parseEther(userAmount.toString()),
     });
 
     // Log transfer details in the database
