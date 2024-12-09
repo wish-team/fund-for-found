@@ -31,7 +31,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
   return (
     <>
-      <div className="bg-white flex flex-col justify-between rounded-lg border h-[420px] border-gray-200 overflow-hidden hover:border-purple-500 w-[280px] md:min-w-[280px]">
+      <div className="bg-white flex flex-col justify-between rounded-lg border border-gray-200 overflow-hidden hover:border-purple-500 w-[280px] md:min-w-[280px]">
         <div className="p-6">
           <div className="flex justify-end">
             {showEdit && (
@@ -60,7 +60,6 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
               </div>
             )}
           </div>
-          {/* Rest of the component remains the same */}
           <div className="w-16 mx-auto h-16 bg-light4 border-4 border-primary100 rounded-2xl flex items-center justify-center">
             <FaUser className="w-6 h-6 text-primary100" />
           </div>

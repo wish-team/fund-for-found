@@ -4,7 +4,13 @@ import { Button } from "@nextui-org/react";
 import { BsDiscord } from "react-icons/bs";
 import sampleImg from "@/app/images/logo.svg";
 import Image from "next/image";
-const Updates = () => {
+
+// Define the prop types
+interface UpdatesProps {
+  user?: any; // You can replace 'any' with a more specific type if available
+}
+
+const Updates: React.FC<UpdatesProps> = ({ user }) => {
   return (
     <section className="mb-6 mt-3">
       <CreatorsTitle title="Updates" />
@@ -15,10 +21,9 @@ const Updates = () => {
             src={sampleImg}
             alt="profile image"
           />
-            <div className="flex justify-start flex-1 gap-1 text-gray2">
-              <h6 className="text-justify">Amirhossein Shirani <span className="font-thin">published a new update on </span> <strong>Discord</strong></h6>
-              
-            </div>
+          <div className="flex justify-start flex-1 gap-1 text-gray2">
+            <h6 className="text-justify">Amirhossein Shirani <span className="font-thin">published a new update on </span> <strong>Discord</strong></h6>
+          </div>
           <div className="flex justify-between">
             <span className="font-thin text-primary300 text-base">10 july 2024</span>
           </div>
