@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useEffect, RefObject } from 'react';
+import React, { useRef, RefObject } from 'react';
 import AboutPage from "@/components/pages/creators/about-section/AboutPage";
 import CreatorBanner from "@/components/pages/creators/banner/CreatorBanner";
 import { TierManagement } from "@/components/pages/creators/contributors/TierManagement";
@@ -55,3 +55,4 @@ const CreatorProfile = () => {
 };
 
 export default CreatorProfile;
+

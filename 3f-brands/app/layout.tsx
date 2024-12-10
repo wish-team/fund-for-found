@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <Providers>
           <NavigationBar />
-          <main className="min-h-screen flex flex-col items-center">
+          <main className=" flex flex-col items-center">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl">
               {children}
             </div>

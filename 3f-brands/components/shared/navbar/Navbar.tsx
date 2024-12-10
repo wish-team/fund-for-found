@@ -2,8 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "@/app/images/logo.svg";
-import AvatarDropdown from "./Avatar"; 
-import { IoIosSearch } from "react-icons/io";
+import AvatarDropdown from "./Avatar";
 import {
   Navbar,
   NavbarBrand,
@@ -13,16 +12,23 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Link,
+  Button,
 } from "@nextui-org/react";
 import Inputs from "../Input";
+import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { useRouter } from "next/navigation";
 
 export default function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const router = useRouter();
+
+  const handleStartClick = () => {
+    router.push("/login");
+  };
 
   const menuItems = [
     "Explore",
     "Home",
-    "Activity",
     "About us",
     "Help & Support",
     "Login/signup",
@@ -35,7 +41,10 @@ export default function NavigationBar() {
         <Image src={logo} alt="Logo" />
       </NavbarContent>
 
-      <NavbarContent className="hidden text-sm text-gray3 lg:pe-20 space-x-3 sm:flex justify-start gap-4" justify="center">
+      <NavbarContent
+        className="hidden text-sm text-gray3 lg:pe-20 space-x-3 sm:flex justify-start gap-4"
+        justify="center"
+      >
         <NavbarItem>
           <Link color="foreground" href="#">
             Home
@@ -57,17 +66,35 @@ export default function NavigationBar() {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      
+
       <NavbarContent justify="end">
         <div className="hidden md:block">
-          <Inputs 
-            placeholder="Search brand, category, tag or..." 
+          <Inputs
+            placeholder="Search brand, category, tag or..."
             onChange={() => {}} // Add your onChange handler here
             value="" // Set the value accordingly
           />
         </div>
         <NavbarItem>
-          <AvatarDropdown userName="Jason Hughes" userEmail="zoey@example.com" /> 
+          <AuthWrapper>
+            {(user) =>
+              user ? (
+                <AvatarDropdown
+                  userName={user.name || "User"}
+                  userEmail={user.email || ""}
+                />
+              ) : (
+                <Button
+                  color="secondary"
+                  variant="solid"
+                  onClick={handleStartClick}
+                  className="font-light bg-primary mb-1 text-white rounded-lg border-light2"
+                >
+                  Sign in
+                </Button>
+              )
+            }
+          </AuthWrapper>
         </NavbarItem>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
