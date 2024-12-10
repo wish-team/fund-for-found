@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CoinStrategy } from './coin-strategy.interface';
+import * as bip32 from 'bip32';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as bip39 from 'bip39';
+
+// Inside your `generateAddress` method:
 import axios from 'axios';
 import * as ECPairFactory from 'ecpair';
+import * as ecc from 'tiny-secp256k1';
 
 @Injectable()
 export class BitcoinStrategy implements CoinStrategy {
@@ -17,8 +21,8 @@ export class BitcoinStrategy implements CoinStrategy {
         ? bitcoin.networks.bitcoin
         : bitcoin.networks.testnet;
 
-    // Initialize ECPair factory
-    this.ECPair = ECPairFactory.ECPairFactory(bitcoin.crypto);
+    // Initialize ECPair factory with secp256k1
+    this.ECPair = ECPairFactory.ECPairFactory(ecc);
   }
 
   generateAddress(mnemonic: string, index: number): string {
@@ -27,13 +31,19 @@ export class BitcoinStrategy implements CoinStrategy {
     }
 
     const seed = bip39.mnemonicToSeedSync(mnemonic);
-    const root = bitcoin.bip32.fromSeed(seed, this.network);
+
+    // Ensure bip32 is properly used
+    // const bip32API = bip32 as unknown as BIP32API;
+    const BIP32 = bip32.BIP32Factory(ecc); // Initialize with secp256k1
+
+    const root = BIP32.fromSeed(seed, this.network);
     const child = root.derivePath(`m/44'/1'/0'/0/${index}`);
+
+    // Convert publicKey to Buffer
     const { address } = bitcoin.payments.p2wpkh({
-      pubkey: child.publicKey,
+      pubkey: Buffer.from(child.publicKey),
       network: this.network,
     });
-
     if (!address) {
       throw new Error('Failed to generate Bitcoin address.');
     }
@@ -63,6 +73,7 @@ export class BitcoinStrategy implements CoinStrategy {
       throw new Error('Failed to fetch Bitcoin balance.');
     }
   }
+
   async sendTransaction(
     privateKey: string,
     toAddress: string,
@@ -78,7 +89,7 @@ export class BitcoinStrategy implements CoinStrategy {
       const keyPair = this.ECPair.fromWIF(privateKey, this.network);
 
       const { address: fromAddress } = bitcoin.payments.p2wpkh({
-        pubkey: keyPair.publicKey,
+        pubkey: Buffer.from(keyPair.publicKey), // Explicitly convert publicKey to Buffer
         network: this.network,
       });
 
@@ -128,16 +139,12 @@ export class BitcoinStrategy implements CoinStrategy {
         psbt.addOutput({ address: fromAddress, value: change });
       }
 
-      // Convert the publicKey to Buffer and sign the inputs
-      const keyPairBuffer = ECPairFactory.ECPairFactory.fromWIF(privateKey, this.network);
-      const signableKeyPair = ECPairFactory.ECPairFactory.fromPrivateKey(
-        keyPairBuffer.privateKey,
-        {
-          network: this.network,
-        },
-      );
+      // Sign inputs using a custom signer compatible with bitcoinjs-lib
+      psbt.signAllInputs({
+        publicKey: Buffer.from(keyPair.publicKey), // Convert publicKey to Buffer
+        sign: (hash: Buffer) => Buffer.from(keyPair.sign(hash)), // Convert Uint8Array to Buffer
+      });
 
-      psbt.signAllInputs(signableKeyPair); // Use the correct key pair here
       psbt.finalizeAllInputs();
 
       const txHex = psbt.extractTransaction().toHex();

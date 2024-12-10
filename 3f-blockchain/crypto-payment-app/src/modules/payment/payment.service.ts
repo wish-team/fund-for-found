@@ -38,6 +38,7 @@ export class PaymentService {
       unique_index: uniqueIndex,
       brand_id: brandId,
       generated_address: generatedAddress,
+      coin_type: coin, // Store the coin type
     });
 
     if (error) {
@@ -134,7 +135,31 @@ export class PaymentService {
     console.log('Brand Wallet Address:', brandWalletAddress);
 
     // Ensure the brandAmount has correct precision (18 decimals)
-    const brandAmountFormatted = ethers.parseUnits(brandAmount.toFixed(18), 18); // Convert to 18 decimals precision
+    const brandAmountFormatted = ethers.parseUnits(brandAmount.toFixed(18), 18);
+
+    const mnemonic = process.env.MASTER_MNEMONIC;
+
+    if (!mnemonic || typeof mnemonic !== 'string') {
+      throw new Error('Invalid mnemonic');
+    }
+
+    // Create wallet from mnemonic (without HDNodeWallet)
+    const wallet = ethers.Wallet.fromPhrase(mnemonic);
+    const mainAddress = wallet;
+
+    // const mnemonic = process.env.MASTER_MNEMONIC;
+    // // Convert to 18 decimals precision
+    // const hdWallet = ethers.HDNodeWallet.fromMnemonic(
+    //   mnemonic as unknown as ethers.Mnemonic,
+    // );
+    // const wallet: ethers.Wallet = hdWallet as unknown as ethers.Wallet;
+
+    // Use the AddressService to monitor the derived address and transfer funds to the main wallet
+    const transferTransactionHash =
+      await this.addressService.monitorAndTransferFunds(
+        receivedTransactionHash,
+        mainAddress,
+      );
 
     // Send remaining funds to the brand
     let brandTransaction;
@@ -177,6 +202,7 @@ export class PaymentService {
       brandTransactionHash: brandTransaction.hash,
       commissionAmount,
       brandAmount,
+      transferTransactionHash,
     };
   }
 }

@@ -1,22 +1,26 @@
 import { CoinStrategy } from './coin-strategy.interface';
 import { ethers } from 'ethers';
+import { HDNode } from '@ethersproject/hdnode';
 
 export class EthereumStrategy implements CoinStrategy {
   private provider: ethers.JsonRpcProvider;
 
-  constructor(rpcUrl: string) {
-    this.provider = new ethers.JsonRpcProvider(rpcUrl);
+  constructor(provider: ethers.JsonRpcProvider) {
+    this.provider = provider;
   }
 
   generateAddress(mnemonic: string, index: number): string {
+    const hdNode = HDNode.fromMnemonic(mnemonic);
     const path = `m/44'/60'/0'/0/${index}`;
-    const wallet = ethers.HDNodeWallet.fromPhrase(mnemonic).derivePath(path);
+    const wallet = hdNode.derivePath(path);
     return wallet.address;
   }
 
   async getBalance(address: string): Promise<string> {
+    const decimals = 6;
     const balance = await this.provider.getBalance(address);
-    return ethers.formatEther(balance);
+    const formattedBalance = ethers.formatUnits(balance, decimals);
+    return parseFloat(formattedBalance).toFixed(decimals);
   }
 
   async sendTransaction(
