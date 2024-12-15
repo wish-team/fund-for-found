@@ -1,0 +1,328 @@
+{
+  "categories": [
+    {
+      "name": "Technology & Innovation",
+      "subcategories": [
+        {
+          "name": "Software & App",
+          "brands": [
+            {
+              "name": "Notion",
+              "description": "Collaborative productivity and note-taking software",
+              "country": "United States",
+              "moneyRaised": 343000000
+            },
+            {
+              "name": "Figma",
+              "description": "Web-based design and prototyping tool",
+              "country": "United States",
+              "moneyRaised": 333000000
+            },
+            {
+              "name": "Canva",
+              "description": "Graphic design platform",
+              "country": "Australia",
+              "moneyRaised": 760000000
+            }
+          ]
+        },
+        {
+          "name": "Consumer Electronics",
+          "brands": [
+            {
+              "name": "Nothing",
+              "description": "Smartphone and consumer electronics brand",
+              "country": "United Kingdom",
+              "moneyRaised": 204000000
+            },
+            {
+              "name": "Steam Deck",
+              "description": "Handheld gaming computer by Valve",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Analogue",
+              "description": "Retro gaming hardware manufacturer",
+              "country": "Canada",
+              "moneyRaised": 15000000
+            }
+          ]
+        },
+        {
+          "name": "Green Tech & Sustainability",
+          "brands": [
+            {
+              "name": "Impossible Foods",
+              "description": "Plant-based meat alternatives",
+              "country": "United States",
+              "moneyRaised": 1600000000
+            },
+            {
+              "name": "Vestas",
+              "description": "Wind turbine manufacturer",
+              "country": "Denmark",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Beyond Meat",
+              "description": "Plant-based meat substitute company",
+              "country": "United States",
+              "moneyRaised": 1000000000
+            }
+          ]
+        },
+        {
+          "name": "Blockchain & Cryptocurrency",
+          "brands": [
+            {
+              "name": "Coinbase",
+              "description": "Cryptocurrency exchange platform",
+              "country": "United States",
+              "moneyRaised": 4500000000
+            },
+            {
+              "name": "Binance",
+              "description": "Global cryptocurrency exchange",
+              "country": "Cayman Islands",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Ripple",
+              "description": "Blockchain payment protocol",
+              "country": "United States",
+              "moneyRaised": 293000000
+            }
+          ]
+        },
+        {
+          "name": "Biotech & Health Tech",
+          "brands": [
+            {
+              "name": "Moderna",
+              "description": "mRNA technology and vaccine development",
+              "country": "United States",
+              "moneyRaised": 4700000000
+            },
+            {
+              "name": "23andMe",
+              "description": "Genetic testing and personal genomics",
+              "country": "United States",
+              "moneyRaised": 791000000
+            },
+            {
+              "name": "Grail",
+              "description": "Early cancer detection technology",
+              "country": "United States",
+              "moneyRaised": 2000000000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Creative Art & Media",
+      "subcategories": [
+        {
+          "name": "Digital Design",
+          "brands": [
+            {
+              "name": "Adobe",
+              "description": "Creative software and design tools",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Procreate",
+              "description": "Digital illustration app for iPad",
+              "country": "Australia",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Blender Foundation",
+              "description": "Open-source 3D creation suite",
+              "country": "Netherlands",
+              "moneyRaised": 0
+            }
+          ]
+        },
+        {
+          "name": "Digital Media Platforms",
+          "brands": [
+            {
+              "name": "TikTok",
+              "description": "Short-form video sharing platform",
+              "country": "China",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Twitch",
+              "description": "Live streaming platform",
+              "country": "United States",
+              "moneyRaised": 35000000
+            },
+            {
+              "name": "Medium",
+              "description": "Online publishing platform",
+              "country": "United States",
+              "moneyRaised": 132000000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Business & Entrepreneurship",
+      "subcategories": [
+        {
+          "name": "Startup Accelerators",
+          "brands": [
+            {
+              "name": "Y Combinator",
+              "description": "Startup accelerator and venture capital firm",
+              "country": "United States",
+              "moneyRaised": 700000000
+            },
+            {
+              "name": "Techstars",
+              "description": "Global startup accelerator",
+              "country": "United States",
+              "moneyRaised": 300000000
+            },
+            {
+              "name": "500 Startups",
+              "description": "Venture capital firm and startup accelerator",
+              "country": "United States",
+              "moneyRaised": 250000000
+            }
+          ]
+        },
+        {
+          "name": "Business Software",
+          "brands": [
+            {
+              "name": "Slack",
+              "description": "Business communication platform",
+              "country": "United States",
+              "moneyRaised": 1400000000
+            },
+            {
+              "name": "Zoom",
+              "description": "Video conferencing software",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Asana",
+              "description": "Work management platform",
+              "country": "United States",
+              "moneyRaised": 213000000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Games & Entertainment",
+      "subcategories": [
+        {
+          "name": "Gaming Platforms",
+          "brands": [
+            {
+              "name": "Epic Games",
+              "description": "Video game and software developer",
+              "country": "United States",
+              "moneyRaised": 1780000000
+            },
+            {
+              "name": "Roblox",
+              "description": "Online game platform and game creation system",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Unity Technologies",
+              "description": "Game engine development platform",
+              "country": "United States",
+              "moneyRaised": 600000000
+            }
+          ]
+        },
+        {
+          "name": "Streaming Services",
+          "brands": [
+            {
+              "name": "Netflix",
+              "description": "Online streaming platform",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Spotify",
+              "description": "Music and podcast streaming service",
+              "country": "Sweden",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Disney+",
+              "description": "Streaming service for Disney content",
+              "country": "United States",
+              "moneyRaised": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Social Causes & Community",
+      "subcategories": [
+        {
+          "name": "Non-Profit Technology",
+          "brands": [
+            {
+              "name": "Khan Academy",
+              "description": "Free online education platform",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Kiva",
+              "description": "Microfinance and crowdfunding platform",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "DonorsChoose",
+              "description": "Crowdfunding platform for classroom resources",
+              "country": "United States",
+              "moneyRaised": 0
+            }
+          ]
+        },
+        {
+          "name": "Community Platforms",
+          "brands": [
+            {
+              "name": "GoFundMe",
+              "description": "Crowdfunding platform for personal causes",
+              "country": "United States",
+              "moneyRaised": 0
+            },
+            {
+              "name": "Patreon",
+              "description": "Membership platform for creators",
+              "country": "United States",
+              "moneyRaised": 412000000
+            },
+            {
+              "name": "Change.org",
+              "description": "Online petition and social activism platform",
+              "country": "United States",
+              "moneyRaised": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
