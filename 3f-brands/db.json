@@ -4,25 +4,28 @@
       "name": "Technology & Innovation",
       "subcategories": [
         {
-          "name": "Software & App",
+          "name": "Software & Apps",
           "brands": [
             {
-              "name": "Notion",
-              "description": "Collaborative productivity and note-taking software",
+              "name": "CodeCraft Solutions",
+              "description": "Innovative project management software for remote teams",
               "country": "United States",
-              "moneyRaised": 343000000
+              "contributors": 85,
+              "moneyRaised": 2500000
             },
             {
-              "name": "Figma",
-              "description": "Web-based design and prototyping tool",
-              "country": "United States",
-              "moneyRaised": 333000000
+              "name": "MindLink AI",
+              "description": "AI-powered personal productivity assistant",
+              "country": "Canada",
+              "contributors": 42,
+              "moneyRaised": 1750000
             },
             {
-              "name": "Canva",
-              "description": "Graphic design platform",
-              "country": "Australia",
-              "moneyRaised": 760000000
+              "name": "SecureSync Technologies",
+              "description": "Enterprise-level data encryption and collaboration platform",
+              "country": "Israel",
+              "contributors": 65,
+              "moneyRaised": 3200000
             }
           ]
         },
@@ -30,22 +33,25 @@
           "name": "Consumer Electronics",
           "brands": [
             {
-              "name": "Nothing",
-              "description": "Smartphone and consumer electronics brand",
-              "country": "United Kingdom",
-              "moneyRaised": 204000000
+              "name": "NeoTech Wearables",
+              "description": "Smart fitness and health tracking devices",
+              "country": "South Korea",
+              "contributors": 120,
+              "moneyRaised": 4500000
             },
             {
-              "name": "Steam Deck",
-              "description": "Handheld gaming computer by Valve",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "EcoCharge Innovations",
+              "description": "Sustainable and fast-charging mobile accessories",
+              "country": "Germany",
+              "contributors": 55,
+              "moneyRaised": 1200000
             },
             {
-              "name": "Analogue",
-              "description": "Retro gaming hardware manufacturer",
-              "country": "Canada",
-              "moneyRaised": 15000000
+              "name": "AudioSphere",
+              "description": "Advanced noise-canceling wireless earbuds",
+              "country": "Japan",
+              "contributors": 98,
+              "moneyRaised": 2800000
             }
           ]
         },
@@ -53,22 +59,25 @@
           "name": "Green Tech & Sustainability",
           "brands": [
             {
-              "name": "Impossible Foods",
-              "description": "Plant-based meat alternatives",
-              "country": "United States",
-              "moneyRaised": 1600000000
+              "name": "SolarNest Solutions",
+              "description": "Innovative residential solar power systems",
+              "country": "Australia",
+              "contributors": 75,
+              "moneyRaised": 3600000
             },
             {
-              "name": "Vestas",
-              "description": "Wind turbine manufacturer",
-              "country": "Denmark",
-              "moneyRaised": 0
+              "name": "EcoStream",
+              "description": "Water purification and conservation technology",
+              "country": "Netherlands",
+              "contributors": 60,
+              "moneyRaised": 2200000
             },
             {
-              "name": "Beyond Meat",
-              "description": "Plant-based meat substitute company",
+              "name": "GreenTransit",
+              "description": "Electric vehicle charging infrastructure",
               "country": "United States",
-              "moneyRaised": 1000000000
+              "contributors": 110,
+              "moneyRaised": 5000000
             }
           ]
         },
@@ -76,22 +85,25 @@
           "name": "Blockchain & Cryptocurrency",
           "brands": [
             {
-              "name": "Coinbase",
-              "description": "Cryptocurrency exchange platform",
-              "country": "United States",
-              "moneyRaised": 4500000000
+              "name": "CryptoGuard",
+              "description": "Secure blockchain wallet and trading platform",
+              "country": "Singapore",
+              "contributors": 95,
+              "moneyRaised": 4200000
             },
             {
-              "name": "Binance",
-              "description": "Global cryptocurrency exchange",
-              "country": "Cayman Islands",
-              "moneyRaised": 0
+              "name": "TokenBridge",
+              "description": "Cross-border blockchain payment solutions",
+              "country": "United Kingdom",
+              "contributors": 48,
+              "moneyRaised": 1900000
             },
             {
-              "name": "Ripple",
-              "description": "Blockchain payment protocol",
-              "country": "United States",
-              "moneyRaised": 293000000
+              "name": "DecentralArt",
+              "description": "NFT marketplace for digital artists",
+              "country": "Estonia",
+              "contributors": 72,
+              "moneyRaised": 2600000
             }
           ]
         },
@@ -99,22 +111,51 @@
           "name": "Biotech & Health Tech",
           "brands": [
             {
-              "name": "Moderna",
-              "description": "mRNA technology and vaccine development",
+              "name": "GenomePrecision",
+              "description": "Personalized genetic health analysis platform",
               "country": "United States",
-              "moneyRaised": 4700000000
+              "contributors": 130,
+              "moneyRaised": 6500000
             },
             {
-              "name": "23andMe",
-              "description": "Genetic testing and personal genomics",
-              "country": "United States",
-              "moneyRaised": 791000000
+              "name": "NeuroCare Innovations",
+              "description": "AI-driven mental health monitoring app",
+              "country": "Canada",
+              "contributors": 55,
+              "moneyRaised": 2300000
             },
             {
-              "name": "Grail",
-              "description": "Early cancer detection technology",
-              "country": "United States",
-              "moneyRaised": 2000000000
+              "name": "TelemedicaLink",
+              "description": "Comprehensive telemedicine consultation platform",
+              "country": "India",
+              "contributors": 88,
+              "moneyRaised": 3800000
+            }
+          ]
+        },
+        {
+          "name": "Others",
+          "brands": [
+            {
+              "name": "InnovateX",
+              "description": "Cross-industry technology innovation consultancy",
+              "country": "Singapore",
+              "contributors": 45,
+              "moneyRaised": 1500000
+            },
+            {
+              "name": "FutureLab",
+              "description": "Emerging technologies research and development",
+              "country": "Switzerland",
+              "contributors": 35,
+              "moneyRaised": 2100000
+            },
+            {
+              "name": "GlobalTech Solutions",
+              "description": "Diverse technology integration services",
+              "country": "United Arab Emirates",
+              "contributors": 62,
+              "moneyRaised": 2700000
             }
           ]
         }
@@ -124,48 +165,80 @@
       "name": "Creative Art & Media",
       "subcategories": [
         {
-          "name": "Digital Design",
+          "name": "Visual Arts & Design",
           "brands": [
             {
-              "name": "Adobe",
-              "description": "Creative software and design tools",
+              "name": "PixelCraft Studio",
+              "description": "Digital design and illustration platform",
               "country": "United States",
-              "moneyRaised": 0
+              "contributors": 65,
+              "moneyRaised": 1800000
             },
             {
-              "name": "Procreate",
-              "description": "Digital illustration app for iPad",
-              "country": "Australia",
-              "moneyRaised": 0
+              "name": "ArtConnect",
+              "description": "Global marketplace for digital and physical art",
+              "country": "United Kingdom",
+              "contributors": 48,
+              "moneyRaised": 2300000
             },
             {
-              "name": "Blender Foundation",
-              "description": "Open-source 3D creation suite",
-              "country": "Netherlands",
-              "moneyRaised": 0
+              "name": "CreativeCanvas",
+              "description": "AI-assisted design and creative tools",
+              "country": "Canada",
+              "contributors": 55,
+              "moneyRaised": 1600000
             }
           ]
         },
         {
-          "name": "Digital Media Platforms",
+          "name": "Film, Video & Animation",
           "brands": [
             {
-              "name": "TikTok",
-              "description": "Short-form video sharing platform",
-              "country": "China",
-              "moneyRaised": 0
+              "name": "StoryStream Productions",
+              "description": "Independent film and documentary production company",
+              "country": "Australia",
+              "contributors": 42,
+              "moneyRaised": 1200000
             },
             {
-              "name": "Twitch",
-              "description": "Live streaming platform",
-              "country": "United States",
-              "moneyRaised": 35000000
+              "name": "AnimaVerse",
+              "description": "Digital animation and motion graphics studio",
+              "country": "Japan",
+              "contributors": 75,
+              "moneyRaised": 2800000
             },
             {
-              "name": "Medium",
-              "description": "Online publishing platform",
+              "name": "CinemaLink",
+              "description": "Online platform for independent filmmakers",
+              "country": "Germany",
+              "contributors": 58,
+              "moneyRaised": 1900000
+            }
+          ]
+        },
+        {
+          "name": "Music & Audio",
+          "brands": [
+            {
+              "name": "SoundWave Studios",
+              "description": "Music production and collaborative platform",
               "country": "United States",
-              "moneyRaised": 132000000
+              "contributors": 95,
+              "moneyRaised": 3500000
+            },
+            {
+              "name": "AudioCraft",
+              "description": "AI-powered music composition tools",
+              "country": "South Korea",
+              "contributors": 62,
+              "moneyRaised": 2200000
+            },
+            {
+              "name": "MelodyNet",
+              "description": "Music streaming and artist discovery platform",
+              "country": "Sweden",
+              "contributors": 78,
+              "moneyRaised": 2600000
             }
           ]
         }
@@ -175,48 +248,54 @@
       "name": "Business & Entrepreneurship",
       "subcategories": [
         {
-          "name": "Startup Accelerators",
+          "name": "Startups & Small Businesses",
           "brands": [
             {
-              "name": "Y Combinator",
-              "description": "Startup accelerator and venture capital firm",
+              "name": "LaunchPad Accelerator",
+              "description": "Startup incubation and mentorship program",
               "country": "United States",
-              "moneyRaised": 700000000
+              "contributors": 110,
+              "moneyRaised": 4500000
             },
             {
-              "name": "Techstars",
-              "description": "Global startup accelerator",
-              "country": "United States",
-              "moneyRaised": 300000000
+              "name": "EntrepreneurHub",
+              "description": "Online networking and resource platform for entrepreneurs",
+              "country": "United Kingdom",
+              "contributors": 75,
+              "moneyRaised": 2900000
             },
             {
-              "name": "500 Startups",
-              "description": "Venture capital firm and startup accelerator",
-              "country": "United States",
-              "moneyRaised": 250000000
+              "name": "InnovationNest",
+              "description": "Early-stage startup funding and support",
+              "country": "Singapore",
+              "contributors": 55,
+              "moneyRaised": 3200000
             }
           ]
         },
         {
-          "name": "Business Software",
+          "name": "E-commerce & Digital Business",
           "brands": [
             {
-              "name": "Slack",
-              "description": "Business communication platform",
-              "country": "United States",
-              "moneyRaised": 1400000000
+              "name": "GlobalMarketplace",
+              "description": "Cross-border e-commerce platform",
+              "country": "Germany",
+              "contributors": 88,
+              "moneyRaised": 4200000
             },
             {
-              "name": "Zoom",
-              "description": "Video conferencing software",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "DigitalSpark",
+              "description": "Digital marketing and e-commerce solutions",
+              "country": "Canada",
+              "contributors": 62,
+              "moneyRaised": 2500000
             },
             {
-              "name": "Asana",
-              "description": "Work management platform",
-              "country": "United States",
-              "moneyRaised": 213000000
+              "name": "RetailTech Innovations",
+              "description": "AI-powered e-commerce optimization tools",
+              "country": "Israel",
+              "contributors": 45,
+              "moneyRaised": 3600000
             }
           ]
         }
@@ -226,48 +305,80 @@
       "name": "Games & Entertainment",
       "subcategories": [
         {
-          "name": "Gaming Platforms",
+          "name": "Video Games",
           "brands": [
             {
-              "name": "Epic Games",
-              "description": "Video game and software developer",
+              "name": "NexusGaming Studios",
+              "description": "Innovative multiplayer game development",
               "country": "United States",
-              "moneyRaised": 1780000000
+              "contributors": 95,
+              "moneyRaised": 5200000
             },
             {
-              "name": "Roblox",
-              "description": "Online game platform and game creation system",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "MindScape Interactive",
+              "description": "Story-driven indie game production",
+              "country": "Canada",
+              "contributors": 48,
+              "moneyRaised": 2100000
             },
             {
-              "name": "Unity Technologies",
-              "description": "Game engine development platform",
-              "country": "United States",
-              "moneyRaised": 600000000
+              "name": "GameForge",
+              "description": "Mobile and console game development",
+              "country": "Japan",
+              "contributors": 75,
+              "moneyRaised": 3800000
             }
           ]
         },
         {
-          "name": "Streaming Services",
+          "name": "Table Top & Board Games",
           "brands": [
             {
-              "name": "Netflix",
-              "description": "Online streaming platform",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "QuestRealm Games",
+              "description": "Innovative board game design and publishing",
+              "country": "United Kingdom",
+              "contributors": 55,
+              "moneyRaised": 1800000
             },
             {
-              "name": "Spotify",
-              "description": "Music and podcast streaming service",
-              "country": "Sweden",
-              "moneyRaised": 0
+              "name": "StrategyMaster",
+              "description": "Complex strategy board game development",
+              "country": "Germany",
+              "contributors": 42,
+              "moneyRaised": 1500000
             },
             {
-              "name": "Disney+",
-              "description": "Streaming service for Disney content",
+              "name": "TabletopInnovations",
+              "description": "Digital and physical board game platforms",
+              "country": "Australia",
+              "contributors": 38,
+              "moneyRaised": 1200000
+            }
+          ]
+        },
+        {
+          "name": "Interactive Media & VR",
+          "brands": [
+            {
+              "name": "ImmersiveRealms",
+              "description": "Virtual reality experience development",
               "country": "United States",
-              "moneyRaised": 0
+              "contributors": 110,
+              "moneyRaised": 6500000
+            },
+            {
+              "name": "NeuroVR Technologies",
+              "description": "Advanced VR training and simulation platforms",
+              "country": "South Korea",
+              "contributors": 68,
+              "moneyRaised": 3900000
+            },
+            {
+              "name": "InteractiveEdge",
+              "description": "Augmented reality educational tools",
+              "country": "Canada",
+              "contributors": 52,
+              "moneyRaised": 2700000
             }
           ]
         }
@@ -277,48 +388,80 @@
       "name": "Social Causes & Community",
       "subcategories": [
         {
-          "name": "Non-Profit Technology",
+          "name": "Environmental & Sustainability Initiatives",
           "brands": [
             {
-              "name": "Khan Academy",
-              "description": "Free online education platform",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "EarthGuard",
+              "description": "Global environmental conservation platform",
+              "country": "Netherlands",
+              "contributors": 95,
+              "moneyRaised": 4800000
             },
             {
-              "name": "Kiva",
-              "description": "Microfinance and crowdfunding platform",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "CleanOcean Initiative",
+              "description": "Marine pollution reduction and awareness",
+              "country": "Australia",
+              "contributors": 75,
+              "moneyRaised": 3200000
             },
             {
-              "name": "DonorsChoose",
-              "description": "Crowdfunding platform for classroom resources",
-              "country": "United States",
-              "moneyRaised": 0
+              "name": "SustainableCity",
+              "description": "Urban sustainability and green infrastructure",
+              "country": "Canada",
+              "contributors": 62,
+              "moneyRaised": 2900000
             }
           ]
         },
         {
-          "name": "Community Platforms",
+          "name": "Community Development",
           "brands": [
             {
-              "name": "GoFundMe",
-              "description": "Crowdfunding platform for personal causes",
+              "name": "CommunityConnect",
+              "description": "Local community engagement and support platform",
               "country": "United States",
-              "moneyRaised": 0
+              "contributors": 110,
+              "moneyRaised": 3600000
             },
             {
-              "name": "Patreon",
-              "description": "Membership platform for creators",
-              "country": "United States",
-              "moneyRaised": 412000000
+              "name": "GlobalNeighbors",
+              "description": "International community support and collaboration",
+              "country": "United Kingdom",
+              "contributors": 85,
+              "moneyRaised": 2700000
             },
             {
-              "name": "Change.org",
-              "description": "Online petition and social activism platform",
+              "name": "LocalImpact",
+              "description": "Grassroots community development initiatives",
+              "country": "India",
+              "contributors": 72,
+              "moneyRaised": 2300000
+            }
+          ]
+        },
+        {
+          "name": "Education & Youth Empowerment",
+          "brands": [
+            {
+              "name": "LearnBeyond",
+              "description": "Online education and skill development platform",
               "country": "United States",
-              "moneyRaised": 0
+              "contributors": 130,
+              "moneyRaised": 5500000
+            },
+            {
+              "name": "YouthEmpower",
+              "description": "Career guidance and mentorship programs",
+              "country": "Singapore",
+              "contributors": 58,
+              "moneyRaised": 2500000
+            },
+            {
+              "name": "GlobalScholar",
+              "description": "International educational resource network",
+              "country": "Canada",
+              "contributors": 95,
+              "moneyRaised": 3800000
             }
           ]
         }
