@@ -187,7 +187,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
               <Input
                 classNames={{
                   base: "w-full max-w-[300px]",
-                  input: "text-sm",
+                  input: "text-sm border",
                 }}
                 placeholder="Search brand, category, tag or..."
                 startContent={<Search className="w-5 h-5" />}
