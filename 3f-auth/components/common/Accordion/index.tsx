@@ -7,7 +7,7 @@ import {
 
 interface AccordionItem {
   id: string
-  question: string
+question: string
   answer: string
 }
 
