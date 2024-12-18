@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { supabase } from '../../utils/supabase/client'; // Import your Supabase client
+import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoryService {
+  constructor(private readonly supabaseClient: SupabaseClient) {}
   // Get all categories for a specific brand
   async findAll(brandId: string) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('CATEGORY') // Updated table name
       .select('*')
       .eq('BRAND_ID', brandId);
@@ -21,7 +22,7 @@ export class CategoryService {
 
   // Create a new category for a brand
   async create(brandId: string, createCategoryDto: CreateCategoryDto) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('CATEGORY') // Updated table name
       .insert([
         {
@@ -45,7 +46,7 @@ export class CategoryService {
     categoryName: string,
     updateCategoryDto: UpdateCategoryDto,
   ) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('CATEGORY') // Updated table name
       .update({
         CATEGORY_NAME: updateCategoryDto.category_name,
@@ -64,7 +65,7 @@ export class CategoryService {
 
   // Delete a specific category
   async delete(brandId: string, categoryName: string) {
-    const { error } = await supabase
+    const { error } = await this.supabaseClient
       .from('CATEGORY') // Updated table name
       .delete()
       .eq('BRAND_ID', brandId)

@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { supabase } from '../../utils/supabase/client'; // Import your Supabase client
+import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateImpactDto } from './dto/create-impact.dto';
 import { UpdateImpactDto } from './dto/update-impact.dto';
 
 @Injectable()
 export class ImpactService {
+  constructor(private readonly supabaseClient: SupabaseClient) {}
   // Get all impacts for a specific brand
   async findAll(brandId: string) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('IMPACT') // Table name
       .select('*')
       .eq('BRAND_ID', brandId);
@@ -21,7 +22,7 @@ export class ImpactService {
 
   // Add a new impact for a specific brand
   async create(brandId: string, createImpactDto: CreateImpactDto) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('IMPACT') // Table name
       .insert([
         {
@@ -46,7 +47,7 @@ export class ImpactService {
     text: string,
     updateImpactDto: UpdateImpactDto,
   ) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('IMPACT') // Table name
       .update({
         TEXT: updateImpactDto.text,
@@ -66,7 +67,7 @@ export class ImpactService {
 
   // Delete a specific impact of a brand
   async delete(brandId: string, text: string) {
-    const { error } = await supabase
+    const { error } = await this.supabaseClient
       .from('IMPACT') // Table name
       .delete()
       .eq('BRAND_ID', brandId)
