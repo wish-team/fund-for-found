@@ -11,13 +11,13 @@ interface AuthWrapperProps {
 
 export function AuthWrapper({ 
   children, 
-  loadingComponent = <Spinner label="Loading..." /> 
+  // loadingComponent = <Spinner label="Loading..." /> 
 }: AuthWrapperProps) {
   const { user, loading } = useAuth();
 
-  if (loading) {
-    return loadingComponent;
-  }
+  // if (loading) {
+  //   return loadingComponent;
+  // }
 
   // Check if children is a function
   if (typeof children === 'function') {

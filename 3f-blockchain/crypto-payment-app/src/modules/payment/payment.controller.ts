@@ -18,13 +18,28 @@ export class PaymentController {
    * Endpoint to initiate payment by generating a new wallet address for the user.
    */
   @Post('initiate/:brandId')
-  async initiatePayment(@Param('brandId') brandId: number) {
+  async initiatePayment(
+    @Param('brandId') brandId: number,
+    @Body('coin') coin: string, // Accept the coin type from the request body
+  ) {
     try {
-      const uniqueIndex = Math.floor(Math.random() * 1000000); // Generate or fetch a unique index
+      if (!coin) {
+        throw new HttpException(
+          'Coin type is required.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      // Generate a unique index
+      const uniqueIndex = Math.floor(Math.random() * 1000000);
+
+      // Call the payment service with the coin type
       const result = await this.paymentService.initiatePayment(
         brandId,
         uniqueIndex,
+        coin,
       );
+
       return { success: true, ...result };
     } catch (error) {
       throw new HttpException(
