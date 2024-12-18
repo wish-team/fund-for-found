@@ -1,5 +1,11 @@
+import { IsUUID, IsString, IsNotEmpty } from 'class-validator';
+
 export class CreateTeamDto {
-  brand_id: string; // The ID of the brand (Foreign Key from 'BRAND' table)
+  @IsUUID()
+  @IsNotEmpty()
   user_id: string; // The ID of the user (Foreign Key from 'USER' table)
+
+  @IsString()
+  @IsNotEmpty()
   role: string; // Role of the user in the team (e.g., "Admin", "Member")
 }

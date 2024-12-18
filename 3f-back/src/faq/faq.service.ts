@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { supabase } from '../../utils/supabase/client'; // Import your Supabase client
+import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
 
 @Injectable()
 export class FaqService {
+  constructor(private readonly supabaseClient: SupabaseClient) {}
   // Get all FAQs for a specific brand
   async findAll(brandId: string) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('FAQ') // Table name
       .select('*')
       .eq('BRAND_ID', brandId);
@@ -21,7 +22,7 @@ export class FaqService {
 
   // Add a new FAQ for a specific brand
   async create(brandId: string, createFaqDto: CreateFaqDto) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('FAQ') // Table name
       .insert([
         {
@@ -42,7 +43,7 @@ export class FaqService {
 
   // Update a specific FAQ of a brand
   async update(brandId: string, text: string, updateFaqDto: UpdateFaqDto) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('FAQ') // Table name
       .update({
         TEXT: updateFaqDto.text,
@@ -62,7 +63,7 @@ export class FaqService {
 
   // Delete a specific FAQ of a brand
   async delete(brandId: string, text: string) {
-    const { error } = await supabase
+    const { error } = await this.supabaseClient
       .from('FAQ') // Table name
       .delete()
       .eq('BRAND_ID', brandId)
