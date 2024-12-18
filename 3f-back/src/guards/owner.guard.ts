@@ -1,28 +1,38 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  ForbiddenException,
-} from '@nestjs/common';
-import { supabase } from '../../utils/supabase/client'; // Adjust the path to your Supabase client
+import { Injectable } from '@nestjs/common';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { BaseSupabaseAuthGuard } from 'nestjs-supabase-js';
 
 @Injectable()
-export class OwnerGuard implements CanActivate {
-  async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
-    const userId = request.user.id; // User info from middleware
-    const brandId = request.params.brandId;
+export class SupabaseAuthGuard extends BaseSupabaseAuthGuard {
+  protected readonly supabaseClient: SupabaseClient;
 
-    const { data, error } = await supabase
-      .from('BRAND')
-      .select('OWNER_ID')
-      .eq('BRAND_ID', brandId)
-      .single();
+  constructor(supabaseClient: SupabaseClient) {
+    super(supabaseClient);
+    this.supabaseClient = supabaseClient;
+  }
 
-    if (error || data?.OWNER_ID !== userId) {
-      throw new ForbiddenException('You do not own this brand');
+  // Extract the Bearer token from the Authorization header
+  protected extractTokenFromRequest(request: Request): string | undefined {
+    const authHeader = request.headers['authorization'];
+
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      return token;
     }
 
-    return true;
+    return undefined;
+  }
+
+  // Validate the token and return user info
+  protected async validateAccessToken(token: string) {
+    const { data, error } = await this.supabaseClient.auth.getUser(token);
+
+    if (error) {
+      console.error('Token validation failed:', error.message);
+      return null;
+    }
+
+    console.log('Validated User:', data.user);
+    return data.user; // User info is returned if the token is valid
   }
 }

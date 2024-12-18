@@ -1,4 +1,5 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { SupabaseModule } from 'nestjs-supabase-js';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -6,9 +7,8 @@ import { TeamsModule } from './teams/teams.module';
 import { ImpactModule } from './impact/impact.module';
 import { CategoryModule } from './category/category.module';
 import { FaqModule } from './faq/faq.module';
-import { AuthMiddleware } from './middleware/auth.middleware'; // Update this path if needed
+// import { AuthMiddleware } from './middleware/auth.middleware';
 import { BrandsModule } from './brands/brands.module';
-
 @Module({
   imports: [
     UsersModule,
@@ -17,12 +17,12 @@ import { BrandsModule } from './brands/brands.module';
     FaqModule,
     BrandsModule,
     CategoryModule,
+    SupabaseModule.forRoot({
+      supabaseKey: process.env.SUPABASE_ANON_KEY,
+      supabaseUrl: process.env.SUPABASE_URL,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('*'); // Apply middleware to all routes
-  }
-}
+export class AppModule {}

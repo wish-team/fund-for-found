@@ -3,45 +3,43 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Patch,
-  Post,
-  //   Query,
-  ParseUUIDPipe,
+  Req,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { SupabaseAuthGuard } from 'src/guards/owner.guard'; // Assuming you have this guard
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // GET /users/:userId - Get details of a specific user
-  @Get(':userId')
-  findOne(@Param('userId', ParseUUIDPipe) userId: string) {
+  @UseGuards(SupabaseAuthGuard) // Protect this route with SupabaseAuthGuard
+  @Get()
+  findOne(@Req() request: any) {
+    const userId = request.user?.id;
     return this.usersService.findOne(userId);
   }
 
-  // POST /users - Create a new user
-  @Post()
-  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
-  // PUT /users/:userId - Update details of a specific user
-  @Patch(':userId')
+  // PATCH /users/:userId - Update details of a specific user
+  @UseGuards(SupabaseAuthGuard) // Protect this route with SupabaseAuthGuard
+  @Patch()
   update(
-    @Param('userId', ParseUUIDPipe) userId: string,
+    @Req() request: any,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
+    const userId = request.user?.id;
     return this.usersService.update(userId, updateUserDto);
   }
 
   // DELETE /users/:userId - Delete a specific user
-  @Delete(':userId')
-  delete(@Param('userId', ParseUUIDPipe) userId: string) {
+  @UseGuards(SupabaseAuthGuard) // Protect this route with SupabaseAuthGuard
+  @Delete()
+  delete(@Req() request: any) {
+    const userId = request.user?.id;
     return this.usersService.delete(userId);
   }
 }

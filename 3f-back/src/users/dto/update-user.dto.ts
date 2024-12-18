@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
   @IsString()
@@ -16,18 +16,4 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   country?: string;
-
-  @IsEmail()
-  @IsOptional()
-  email?: string;
-
-  @IsString()
-  @IsOptional()
-  password?: string;
-
-  @IsOptional() // Allows for optional creation timestamps
-  created_at?: Date;
-
-  @IsOptional() // Allows for optional update timestamps
-  updated_at?: Date;
 }
