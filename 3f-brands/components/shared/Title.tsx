@@ -20,7 +20,7 @@ const Title: React.FC<TitleProps> = ({
 }) => {
   return (
     <>
-      <h1 className={`text-primary ${fontSize} ${fontWeight} ${paddingTop} text-justify`}>
+      <h1 className={`text-primary ${fontSize} ${fontWeight} ${paddingTop}  text-justify`}>
         {title}
       </h1>
       {desc && (

@@ -1,4 +1,3 @@
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import NavigationBar from "@/components/shared/navbar/Navbar";
 import Footer from "@/components/shared/footer/Footer";
@@ -20,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en">
       <body className="bg-background text-foreground">
         <Providers>
           <NavigationBar />

@@ -27,7 +27,6 @@ const Card = () => {
         <Title
           title="Brand or Organization"
           desc="If your brand is established and you're looking for continuous support, get started now."
-          fontWeight="font-light"
           fontSize="text-2xl"
           descSize="text-sm"
           paddingTop="p-0"
