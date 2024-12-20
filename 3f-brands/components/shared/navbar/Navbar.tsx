@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Navbar,
   NavbarContent,
@@ -34,6 +34,12 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
 
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  React.useEffect(() => {
+    const searchFromUrl = searchParams.get("search") || "";
+    setSearchTerm(searchFromUrl);
+  }, [searchParams]);
 
   const handleStartClick = useCallback(() => {
     router.push("/login");
@@ -42,7 +48,9 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
   const handleSearch = useCallback(
     (term: string) => {
       if (term.trim()) {
-        router.push("/explore");
+        router.push(`/explore?search=${encodeURIComponent(term.trim())}`);
+        setIsSearchFocused(false);
+        setIsSearchModalOpen(false);
       }
     },
     [router]
@@ -90,14 +98,13 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           </Button>
           <div className="bg-white p-2 rounded-full border shadow-md">
             <Input
-              className="text-xl py-0 px-2 text-base w-full shadow-none"
+              className="py-0 px-2 text-base w-full shadow-none"
               placeholder="Search brand, category, tag or..."
               startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoFocus
               onBlur={() => {
-                // Optional: Add a slight delay to handle click events on suggestions
                 setTimeout(() => setIsSearchFocused(false), 200);
               }}
               onKeyDown={(e) => {
@@ -196,6 +203,11 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch(searchTerm);
+                  }
+                }}
               />
             </div>
           )}

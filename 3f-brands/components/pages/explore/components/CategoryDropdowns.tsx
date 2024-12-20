@@ -7,7 +7,7 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-
+import { useSearchParams } from "next/navigation";
 import { useCategoryFilter } from "../hooks/useCategoryFilter";
 import { ActiveFilters } from "./ActiveFilters";
 import { SearchCountryFilter } from "./SearchCountryFilter";
@@ -17,6 +17,7 @@ import Loader from "@/components/shared/loader/Loader";
 const BRANDS_PER_PAGE = 9;
 
 export const CategoryDropdowns: React.FC = () => {
+  const searchParams = useSearchParams();
   const {
     categories,
     isLoading,
@@ -37,6 +38,14 @@ export const CategoryDropdowns: React.FC = () => {
     handleRemoveCountryFilter,
     handleRemoveSearchFilter,
   } = useCategoryFilter(BRANDS_PER_PAGE);
+
+   // Set initial search term from URL
+   useEffect(() => {
+    const searchFromUrl = searchParams.get("search");
+    if (searchFromUrl) {
+      setSearchTerm(searchFromUrl);
+    }
+  }, [searchParams]);
 
   // Fetch categories on component mount
   useEffect(() => {
