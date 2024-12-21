@@ -42,7 +42,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
   }, [searchParams]);
 
   const handleStartClick = useCallback(() => {
-    router.push("/login");
+    router.push("http://localhost:3000/login");
   }, [router]);
 
   const handleSearch = useCallback(
@@ -160,7 +160,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     <>
       <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
         <NavbarContent>
-          <Image src={logo} alt="Logo" />
+          <Image src={logo} alt="found for fund Logo" />
         </NavbarContent>
 
         <NavbarContent
@@ -240,7 +240,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
                     onClick={handleStartClick}
                     className="font-light bg-primary mb-1 text-white rounded-lg border-light2"
                   >
-                    Sign in
+                    Login
                   </Button>
                 )
               }
