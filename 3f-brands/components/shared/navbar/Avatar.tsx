@@ -11,6 +11,7 @@ import { IoBagHandleSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { createClient } from '@supabase/supabase-js';
 
 interface AvatarDropdownProps {
   userName: string;
@@ -21,6 +22,24 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userName,
   userEmail,
 }) => {
+  const handleLogout = async () => {
+    try {
+      // Initialize Supabase client 
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+
+      // Sign out from Supabase
+      await supabase.auth.signOut();
+
+      // Redirect to the auth project's login page
+      window.location.href = 'http://localhost:3000/login';
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <AuthWrapper>
       {(user) => (
@@ -31,7 +50,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <Avatar
                   isBordered
                   as="button"
-                  className="transition-transform "
+                  className="transition-transform"
                   color="primary"
                   name={userName}
                   size="sm"
@@ -81,7 +100,11 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                     <h6 className="flex">Setting</h6>
                   </div>
                 </DropdownItem>
-                <DropdownItem key="logout" textValue="Log Out">
+                <DropdownItem 
+                  key="logout" 
+                  textValue="Log Out"
+                  onClick={handleLogout}
+                >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <TbLogout />
