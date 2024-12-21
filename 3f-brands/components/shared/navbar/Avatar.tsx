@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Avatar,
 } from "@nextui-org/react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
+import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
 
 interface AvatarDropdownProps {
   userName: string;
@@ -22,21 +23,35 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userName,
   userEmail,
 }) => {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  // Listen for profile image updates
+  useEffect(() => {
+    const updateProfileImage = () => {
+      const savedImage = localStorage.getItem('profileImage');
+      setProfileImage(savedImage);
+    };
+
+    // Initial load
+    updateProfileImage();
+
+    // Listen for updates
+    window.addEventListener('profileImageUpdate', updateProfileImage);
+    return () => {
+      window.removeEventListener('profileImageUpdate', updateProfileImage);
+    };
+  }, []);
+
   const handleLogout = async () => {
     try {
-      // Initialize Supabase client 
       const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
-
-      // Sign out from Supabase
       await supabase.auth.signOut();
-
-      // Redirect to the auth project's login page
-      window.location.href = 'http://localhost:3000/login';
+      window.location.href = "http://localhost:3000/login";
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
@@ -52,9 +67,14 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                   as="button"
                   className="transition-transform"
                   color="primary"
-                  name={userName}
+                  name={getFirstLetter(userEmail)}
                   size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src={profileImage || undefined}
+                  fallback={
+                    <div className="bg-primary text-primary200 text-sm font-bold w-full h-full flex items-center justify-center">
+                      {getFirstLetter(userEmail)}
+                    </div>
+                  }
                 />
               </DropdownTrigger>
               <DropdownMenu
@@ -100,8 +120,8 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                     <h6 className="flex">Setting</h6>
                   </div>
                 </DropdownItem>
-                <DropdownItem 
-                  key="logout" 
+                <DropdownItem
+                  key="logout"
                   textValue="Log Out"
                   onClick={handleLogout}
                 >
