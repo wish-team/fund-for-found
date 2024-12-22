@@ -1,4 +1,3 @@
-// src/components/pages/creators/FAQ/hooks/useAccordionState.ts
 import { useState } from "react";
 import { AccordionItemType, AccordionItemUpdate } from "../types/accordion";
 import {
