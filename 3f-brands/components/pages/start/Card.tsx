@@ -6,12 +6,33 @@ import Title from "@/components/shared/Title";
 import { Button } from "@nextui-org/react";
 import Links from "@/components/shared/Links";
 import { useRouter } from "next/navigation";
+import { createBrowserClient } from "@supabase/ssr";
 
 const Card = () => {
   const router = useRouter();
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
-  const handleStartClick = () => {
-    router.push("/steps/1");
+  const handleStartClick = async () => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (session) {
+        // User is authenticated, navigate to steps
+        router.push("/steps/1");
+      } else {
+        // User is not authenticated, redirect to login
+        router.push("http://localhost:3000/login");
+      }
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+      // In case of error, redirect to login as a fallback
+      router.push("/login");
+    }
   };
 
   return (
