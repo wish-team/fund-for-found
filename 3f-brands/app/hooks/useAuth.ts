@@ -6,15 +6,13 @@ import { User } from "@supabase/supabase-js";
 
 // Define a custom user type
 export interface AuthUser {
-    id: string;
-    email?: string;
-    name?: string;
-    role?: string;
-    avatar_url?: string;
-    [key: string]: any;
-  }
-  
-
+  id: string;
+  email?: string;
+  name?: string;
+  role?: string;
+  avatar_url?: string;
+  [key: string]: any;
+}
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);

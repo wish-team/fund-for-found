@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dropdown,
   DropdownItem,
@@ -24,11 +25,12 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userEmail,
 }) => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const router = useRouter();
 
   // Listen for profile image updates
   useEffect(() => {
     const updateProfileImage = () => {
-      const savedImage = localStorage.getItem('profileImage');
+      const savedImage = localStorage.getItem("profileImage");
       setProfileImage(savedImage);
     };
 
@@ -36,9 +38,9 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
     updateProfileImage();
 
     // Listen for updates
-    window.addEventListener('profileImageUpdate', updateProfileImage);
+    window.addEventListener("profileImageUpdate", updateProfileImage);
     return () => {
-      window.removeEventListener('profileImageUpdate', updateProfileImage);
+      window.removeEventListener("profileImageUpdate", updateProfileImage);
     };
   }, []);
 
@@ -53,6 +55,10 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
     } catch (error) {
       console.error("Error logging out:", error);
     }
+  };
+
+  const handleNavigation = (userId: string, path: string) => {
+    router.push(path.replace("[id]", userId).replace("[userId]", userId));
   };
 
   return (
@@ -93,6 +99,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                   key="my-profile"
                   className="flex"
                   textValue="My Profile"
+                  onPress={() => handleNavigation(user.id, "/creators/[id]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
@@ -112,7 +119,13 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                     <h6 className="flex">My brand and organization</h6>
                   </div>
                 </DropdownItem>
-                <DropdownItem key="settings" textValue="Settings">
+                <DropdownItem
+                  key="settings"
+                  textValue="Settings"
+                  onPress={() =>
+                    handleNavigation(user.id, "/dashboard/[userId]")
+                  }
+                >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoMdSettings />

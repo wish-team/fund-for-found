@@ -14,7 +14,7 @@ const PublicProfileButton: React.FC<PublicProfileButtonProps> = ({
   return (
     <Button
       endContent={<FaArrowRightLong />}
-      onClick={() => router.push(`/creators/${userId}`)}
+      onPress={() => router.push(`/creators/${userId}`)}
       className="w-full text-left text-gray2  mt-4 md:mt-0 font-medium px-4 transition-colors"
     >
       Public Profile
