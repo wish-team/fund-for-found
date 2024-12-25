@@ -6,12 +6,13 @@ import { UpdateFaqDto } from './dto/update-faq.dto';
 @Injectable()
 export class FaqService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
+
   // Get all FAQs for a specific brand
   async findAll(brandId: string) {
     const { data, error } = await this.supabaseClient
-      .from('FAQ') // Table name
+      .from('faq')
       .select('*')
-      .eq('BRAND_ID', brandId);
+      .eq('brand_id', brandId);
 
     if (error) {
       throw new Error(error.message);
@@ -23,12 +24,13 @@ export class FaqService {
   // Add a new FAQ for a specific brand
   async create(brandId: string, createFaqDto: CreateFaqDto) {
     const { data, error } = await this.supabaseClient
-      .from('FAQ') // Table name
+      .from('faq')
       .insert([
         {
-          BRAND_ID: brandId,
-          TEXT: createFaqDto.text,
-          PRIORITY: createFaqDto.priority,
+          brand_id: brandId,
+          question: createFaqDto.question,
+          answer: createFaqDto.answer,
+          priority: createFaqDto.priority,
         },
       ])
       .select()
@@ -42,15 +44,15 @@ export class FaqService {
   }
 
   // Update a specific FAQ of a brand
-  async update(brandId: string, text: string, updateFaqDto: UpdateFaqDto) {
+  async update(brandId: string, question: string, updateFaqDto: UpdateFaqDto) {
     const { data, error } = await this.supabaseClient
-      .from('FAQ') // Table name
+      .from('faq')
       .update({
-        TEXT: updateFaqDto.text,
-        PRIORITY: updateFaqDto.priority,
+        question: updateFaqDto.question,
+        priority: updateFaqDto.priority,
       })
-      .eq('BRAND_ID', brandId)
-      .eq('TEXT', text)
+      .eq('brand_id', brandId)
+      .eq('question', question)
       .select()
       .single();
 
@@ -62,12 +64,12 @@ export class FaqService {
   }
 
   // Delete a specific FAQ of a brand
-  async delete(brandId: string, text: string) {
+  async delete(brandId: string, question: string) {
     const { error } = await this.supabaseClient
-      .from('FAQ') // Table name
+      .from('faq')
       .delete()
-      .eq('BRAND_ID', brandId)
-      .eq('TEXT', text);
+      .eq('brand_id', brandId)
+      .eq('question', question);
 
     if (error) {
       throw new NotFoundException('FAQ not found or delete failed');

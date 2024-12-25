@@ -10,9 +10,9 @@ export class TeamsService {
   // GET all team members for a specific brand
   async findAllByBrandId(brandId: string) {
     const { data, error } = await this.supabaseClient
-      .from('TEAM')
+      .from('team')
       .select('*')
-      .eq('BRAND_ID', brandId);
+      .eq('brand_id', brandId);
 
     if (error) {
       throw new Error(`Error fetching team members: ${error.message}`);
@@ -23,14 +23,15 @@ export class TeamsService {
 
   // POST a new team member to a brand
   async create(brandId: string, createTeamDto: CreateTeamDto) {
-    const { user_id, role } = createTeamDto;
+    const { user_id, role, description } = createTeamDto;
     const { data, error } = await this.supabaseClient
-      .from('TEAM')
+      .from('team')
       .insert([
         {
-          BRAND_ID: brandId,
-          USER_ID: user_id,
-          ROLE: role,
+          brand_id: brandId,
+          user_id: user_id,
+          role: role,
+          description: description,
         },
       ])
       .select()
@@ -45,13 +46,13 @@ export class TeamsService {
 
   // PATCH (update) the role of a specific team member for a brand
   async update(brandId: string, userId: string, updateTeamDto: UpdateTeamDto) {
-    const { role } = updateTeamDto;
+    const { role, description } = updateTeamDto;
 
     const { data, error } = await this.supabaseClient
-      .from('TEAM')
-      .update({ ROLE: role })
-      .eq('BRAND_ID', brandId)
-      .eq('USER_ID', userId)
+      .from('team')
+      .update({ role: role, description: description })
+      .eq('brand_id', brandId)
+      .eq('user_id', userId)
       .select()
       .single();
 
@@ -65,10 +66,10 @@ export class TeamsService {
   // DELETE a specific team member from a brand
   async delete(brandId: string, userId: string) {
     const { data, error } = await this.supabaseClient
-      .from('TEAM')
+      .from('team')
       .delete()
-      .eq('BRAND_ID', brandId)
-      .eq('USER_ID', userId)
+      .eq('brand_id', brandId)
+      .eq('user_id', userId)
       .select()
       .single();
 

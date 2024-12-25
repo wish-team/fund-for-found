@@ -7,9 +7,9 @@ export class UsersService {
   // Get details of a specific user
   async findOne(userId: string) {
     const { data, error } = await supabase
-      .from('USER') // Updated table name
+      .from('user') // Updated table name
       .select('*')
-      .eq('USER_ID', userId)
+      .eq('user_id', userId)
       .single();
 
     if (error || !data) {
@@ -22,14 +22,14 @@ export class UsersService {
   // Update details of a specific user
   async update(userId: string, updateUserDto: UpdateUserDto) {
     const { data, error } = await supabase
-      .from('USER') // Updated table name
+      .from('user') // Updated table name
       .update({
-        USER_NAME: updateUserDto.user_name,
-        USER_LAST_NAME: updateUserDto.user_last_name,
-        PHONE_NUMBER: updateUserDto.phone_number,
-        COUNTRY: updateUserDto.country,
+        user_first_name: updateUserDto.user_name,
+        user_last_name: updateUserDto.user_last_name,
+        phone_number: updateUserDto.phone_number,
+        country: updateUserDto.country,
       })
-      .eq('USER_ID', userId)
+      .eq('user_id', userId)
       .select()
       .single();
 
@@ -43,9 +43,9 @@ export class UsersService {
   // Delete a specific user
   async delete(userId: string) {
     const { error } = await supabase
-      .from('USER') // Updated table name
+      .from('user') // Updated table name
       .delete()
-      .eq('USER_ID', userId);
+      .eq('user_id', userId);
 
     if (error) {
       throw new NotFoundException('User not found or delete failed');

@@ -3,9 +3,13 @@ import { IsUUID, IsString, IsNotEmpty } from 'class-validator';
 export class CreateTeamDto {
   @IsUUID()
   @IsNotEmpty()
-  user_id: string; // The ID of the user (Foreign Key from 'USER' table)
+  user_id: string;
 
   @IsString()
   @IsNotEmpty()
-  role: string; // Role of the user in the team (e.g., "Admin", "Member")
+  role: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 }

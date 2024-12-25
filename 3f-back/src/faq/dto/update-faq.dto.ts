@@ -3,9 +3,13 @@ import { IsInt, IsOptional, IsString } from 'class-validator';
 export class UpdateFaqDto {
   @IsString()
   @IsOptional()
-  text?: string; // Optional updated text
+  question?: string;
+
+  @IsString()
+  @IsOptional()
+  answer?: string;
 
   @IsInt()
   @IsOptional()
-  priority?: number; // Optional updated priority
+  priority?: number;
 }

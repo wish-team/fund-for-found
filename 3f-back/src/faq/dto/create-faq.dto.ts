@@ -3,9 +3,13 @@ import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 export class CreateFaqDto {
   @IsString()
   @IsNotEmpty()
-  text: string; // FAQ text
+  question: string;
+
+  @IsString()
+  @IsNotEmpty()
+  answer: string;
 
   @IsInt()
   @IsNotEmpty()
-  priority: number; // FAQ priority
+  priority: number;
 }

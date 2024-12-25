@@ -21,14 +21,12 @@ export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   // GET /brands - Get a list of all brands
-  @UseGuards(SupabaseAuthGuard)
   @Get()
   findAll() {
     return this.brandsService.findAll();
   }
 
   // GET /brands/:id - Get details of a specific brand
-  @UseGuards(SupabaseAuthGuard)
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.brandsService.findOne(id);
