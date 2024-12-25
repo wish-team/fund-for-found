@@ -9,6 +9,8 @@ import { FaqModule } from './faq/faq.module';
 // import { AuthMiddleware } from './middleware/auth.middleware';
 import { BrandsModule } from './brands/brands.module';
 import { TierModule } from './tier/tier.module';
+import { SocialMediaModule } from './social-media/social-media.module';
+import { SocialMediaModule } from './social-media/social-media.module';
 @Module({
   imports: [
     UsersModule,
@@ -20,6 +22,7 @@ import { TierModule } from './tier/tier.module';
       supabaseUrl: process.env.SUPABASE_URL,
     }),
     TierModule,
+    SocialMediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

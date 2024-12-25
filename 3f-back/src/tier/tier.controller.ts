@@ -1,4 +1,62 @@
-import { Controller } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Req,
+  Delete,
+  Param,
+  Body,
+  ParseUUIDPipe,
+  ValidationPipe,
+  UseGuards,
+} from '@nestjs/common';
+import { TierService } from './tier.service';
+import { CreateTierDto } from './dto/create-tier.dto';
+import { UpdateTierDto } from './dto/update-tier.dto';
+import { SupabaseAuthGuard } from 'src/guards/owner.guard';
 
-@Controller('tier')
-export class TierController {}
+@Controller('tiers')
+export class TierController {
+  constructor(private readonly tierService: TierService) {}
+
+  // GET /tiers - Get a list of all tiers
+  @Get()
+  findAll() {
+    return this.tierService.findAll();
+  }
+
+  // GET /tiers/:tier_id - Get details of a specific tier
+  @Get(':tier_id')
+  findOne(@Param('tier_id', ParseUUIDPipe) tier_id: string) {
+    return this.tierService.findOne(tier_id);
+  }
+
+  // POST /tiers - Create a new tier
+  @UseGuards(SupabaseAuthGuard)
+  @Post()
+  create(
+    @Req() request: any,
+    @Body(ValidationPipe) createTierDto: CreateTierDto,
+  ) {
+    const userId = request.user?.id;
+    return this.tierService.create({ ...createTierDto, brand_id: userId });
+  }
+
+  // PUT /tiers/:tier_id - Update a specific tier
+  @UseGuards(SupabaseAuthGuard)
+  @Put(':tier_id')
+  update(
+    @Param('tier_id', ParseUUIDPipe) tier_id: string,
+    @Body(ValidationPipe) updateTierDto: UpdateTierDto,
+  ) {
+    return this.tierService.update(tier_id, updateTierDto);
+  }
+
+  // DELETE /tiers/:tier_id - Delete a specific tier
+  @UseGuards(SupabaseAuthGuard)
+  @Delete(':tier_id')
+  delete(@Param('tier_id', ParseUUIDPipe) tier_id: string) {
+    return this.tierService.delete(tier_id);
+  }
+}
