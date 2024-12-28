@@ -12,12 +12,14 @@ import { FaTimes } from "react-icons/fa";
 import { SOCIAL_OPTIONS } from "../constants";
 import { getIcon, getDefaultUrl } from "../utils/helpers";
 import { SocialLinksSchema } from "../utils/validation";
+import { useSocialLinksStore } from '../store/socialLinksStore';
 
 interface SocialLinkFormProps {
   form: UseFormReturn<SocialLinksSchema>;
 }
 
 export const SocialLinkForm: React.FC<SocialLinkFormProps> = ({ form }) => {
+  const { socialLinks } = useSocialLinksStore();
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "socialLinks",
