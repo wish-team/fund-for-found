@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/react";
 import { Edit, Trash2 } from "lucide-react";
 import { Tier } from "../types/tier";
 import { DEFAULT_IMAGE } from "../utils/constants";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 interface PreviewCardProps {
   data: Partial<Tier>;

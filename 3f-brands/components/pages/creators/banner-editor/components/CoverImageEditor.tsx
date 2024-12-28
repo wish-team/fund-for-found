@@ -13,7 +13,7 @@ import { DEFAULT_IMAGE, ACCEPTED_IMAGE_TYPES } from "../utils/constants";
 import { useImageEditor } from "../hooks/useImageEditor";
 import { ImagePreview } from "./ImagePreview";
 import { ZoomControl } from "./ZoomControl";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   defaultImage = DEFAULT_IMAGE,

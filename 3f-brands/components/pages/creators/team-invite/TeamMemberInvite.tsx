@@ -22,7 +22,7 @@ import { TeamMember, FormData } from "./types/team";
 import { ROLE_OPTIONS, MIN_DESCRIPTION_LENGTH } from "./utils/constants";
 import { validateDescription, validateEmail } from "./utils/validation";
 import CreatorsTitle from "../title/CreatorsTitle";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export default function TeamMemberInvite(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);

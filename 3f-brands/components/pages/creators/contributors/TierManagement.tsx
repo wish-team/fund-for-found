@@ -10,7 +10,7 @@ import { TierList } from "./components/TierList";
 import { TierModal } from "./components/TierModal";
 import DeleteConfirmationModal from "@/components/shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export const TierManagement = () => {
   const { tiers, saveTiers } = useTierStorage();

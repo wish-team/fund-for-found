@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/react";
 import { SocialLinks } from "../types";
 import { getIcon } from "../utils/helpers";
 import { BsPencil } from "react-icons/bs";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 interface SocialLinkDisplayProps {
   links: SocialLinks;

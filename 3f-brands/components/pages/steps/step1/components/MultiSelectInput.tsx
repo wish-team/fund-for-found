@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFormContext, RegisterOptions } from "react-hook-form";
+import { useFormContext} from "react-hook-form";
 import { InputProps } from "../types";
 import { useDropdown } from "../hooks/useDropdown";
 import Inputs from "../../../../shared/Input";

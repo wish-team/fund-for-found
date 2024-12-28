@@ -11,7 +11,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { createClient } from "@supabase/supabase-js";
 import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
 

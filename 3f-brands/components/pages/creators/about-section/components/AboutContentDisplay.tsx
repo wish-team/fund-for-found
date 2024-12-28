@@ -5,7 +5,7 @@ import CreatorsTitle from "../../title/CreatorsTitle";
 import { ContentData, EditorBlock } from "../types/content.types";
 import { renderContentBlock } from "../utils/content-renderer";
 import { OutputBlockData } from "@editorjs/editorjs";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 interface AboutContentDisplayProps {
   content: ContentData;

@@ -19,7 +19,7 @@ import {
 
 import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { Search, X } from "lucide-react";
 
 interface NavigationBarProps {

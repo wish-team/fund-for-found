@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { BsPencil } from "react-icons/bs";
 import { getFirstLetter } from "../utils/imageUtils";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 interface ProfileImageProps {
   image: string | null;

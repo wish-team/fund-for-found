@@ -12,8 +12,7 @@ import { AddQuestionModal } from "./components/AddQuestionModal";
 import DeleteConfirmationModal from "../../../shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AccordionItemType } from "./types/accordion";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
-import { AuthUser } from "@/app/hooks/useAuth";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 const FAQ: React.FC = () => {
   const {
