@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Dropdown,
@@ -12,7 +12,8 @@ import { IoBagHandleSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
-import { createClient } from "@supabase/supabase-js";
+import { useAuthStore } from "@/store/authStore";
+import { useProfileStore } from "../../pages/creators/profile-editor/store/profileStore";
 import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
 
 interface AvatarDropdownProps {
@@ -24,32 +25,24 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userName,
   userEmail,
 }) => {
-  const [profileImage, setProfileImage] = useState<string | null>(null);
   const router = useRouter();
-
-  // Listen for profile image updates
+  const { selectedImage, subscribe } = useProfileStore();
+  const { supabase } = useAuthStore();
+  
   useEffect(() => {
-    const updateProfileImage = () => {
-      const savedImage = localStorage.getItem("profileImage");
-      setProfileImage(savedImage);
-    };
+    // Subscribe to profile image changes
+    const unsubscribe = subscribe(() => {
+      // Component will automatically re-render when selectedImage changes
+      // because it's using the store's state
+    });
 
-    // Initial load
-    updateProfileImage();
-
-    // Listen for updates
-    window.addEventListener("profileImageUpdate", updateProfileImage);
     return () => {
-      window.removeEventListener("profileImageUpdate", updateProfileImage);
+      unsubscribe();
     };
-  }, []);
+  }, [subscribe]);
 
   const handleLogout = async () => {
     try {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
       await supabase.auth.signOut();
       window.location.href = "http://localhost:3000/login";
     } catch (error) {
@@ -75,7 +68,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                   color="primary"
                   name={getFirstLetter(userEmail)}
                   size="sm"
-                  src={profileImage || undefined}
+                  src={selectedImage || undefined}
                   fallback={
                     <div className="bg-primary text-primary200 text-sm font-bold w-full h-full flex items-center justify-center">
                       {getFirstLetter(userEmail)}
@@ -122,9 +115,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <DropdownItem
                   key="settings"
                   textValue="Settings"
-                  onPress={() =>
-                    handleNavigation(user.id, "/dashboard/[userId]")
-                  }
+                  onPress={() => handleNavigation(user.id, "/dashboard/[userId]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">

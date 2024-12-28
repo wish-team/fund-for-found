@@ -8,30 +8,29 @@ import {
 } from '@nextui-org/react';
 import Image from 'next/image';
 import { getFirstLetter, handleImageFileUpload } from '../utils/imageUtils';
+import { useProfileStore } from '../store/profileStore';
 
 interface EditProfileModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  tempImage: string | null;
   title: string;
   onSave: () => void;
   onReset: () => void;
-  onImageUpload: (image: string) => void;
 }
 
 export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   isOpen,
   onOpenChange,
-  tempImage,
   title,
   onSave,
   onReset,
-  onImageUpload
 }) => {
+  const { tempImage, setTempImage } = useProfileStore();
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      handleImageFileUpload(file, onImageUpload);
+      handleImageFileUpload(file, setTempImage);
     }
   };
 
