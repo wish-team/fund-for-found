@@ -90,7 +90,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           </Button>
           <div className="bg-white p-2 rounded-full border shadow-md">
             <Input
-              className="text-xl py-0 px-2 text-base w-full shadow-none"
+              className="py-0 px-2 text-base w-full shadow-none"
               placeholder="Search brand, category, tag or..."
               startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
