@@ -10,7 +10,8 @@ export async function GET(request: Request) {
     const origin = requestUrl.origin;
 
     if (code) {
-      const cookieStore = cookies();
+      // Await the cookies promise
+      const cookieStore = await cookies();
       
       const supabase = createServerClient(
         supabaseConfig.url,
