@@ -27,32 +27,28 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
       <div className="border h-[480px] hover:shadow-shadow1 rounded-lg overflow-hidden shadow-sm w-full relative">
         <div className="bg-primary text-white p-2 text-center relative">
           {data.name || "Silver Sponsor"}
-          {!preview && index !== undefined && (
-            <div>
-              {user && (
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
-                  <Button
-                    isIconOnly
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEdit?.(index);
-                    }}
-                  >
-                    <Edit size={16} />
-                  </Button>
-                  <Button
-                    isIconOnly
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDelete?.(index);
-                    }}
-                  >
-                    <Trash2 size={16} />
-                  </Button>
-                </div>
-              )}
+          {!preview && index !== undefined && user && (
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
+              <Button
+                isIconOnly
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit?.(index);
+                }}
+              >
+                <Edit size={16} />
+              </Button>
+              <Button
+                isIconOnly
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete?.(index);
+                }}
+              >
+                <Trash2 size={16} />
+              </Button>
             </div>
           )}
         </div>
@@ -79,7 +75,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
           </div>
           <p className="text-light1 text-sm text-justify">
             {data.rewardDescription ||
-              "Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the  events."}
+              "Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the events."}
           </p>
           {preview && (
             <Button
