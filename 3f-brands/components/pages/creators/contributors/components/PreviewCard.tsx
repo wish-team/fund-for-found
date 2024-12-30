@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { Edit, Trash2 } from "lucide-react";
 import { Tier } from "../types/tier";
+import { ContributeButton } from './ContributeButton';
 import { DEFAULT_IMAGE } from "../utils/constants";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
@@ -77,16 +78,13 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
             {data.rewardDescription ||
               "Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the events."}
           </p>
-          {preview && (
-            <Button
-              color="primary"
-              className="w-full bg-primary text-white rounded-lg mt-4"
-            >
-              Contribute
-            </Button>
-          )}
+           <ContributeButton 
+            tierId={data.id || ''} 
+            preview={preview} 
+          />
         </div>
-      </div>
+        </div>
+      
     )}
   </AuthWrapper>
 );

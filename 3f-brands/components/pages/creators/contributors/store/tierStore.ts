@@ -1,7 +1,7 @@
-// stores/tierStore.ts
 import { create } from "zustand";
 import { Tier, TierFormData } from "../types/tier";
 import { DEFAULT_IMAGE } from "../utils/constants";
+import { v4 as uuidv4 } from "uuid";
 
 interface TierState {
   tiers: Tier[];
@@ -86,6 +86,7 @@ export const useTierStore = create<TierState>((set, get) => ({
     const { tiers, editingIndex, imagePreview } = get();
     const newTiers = [...tiers];
     const submissionData = {
+      id: editingIndex !== null ? tiers[editingIndex].id : uuidv4(),
       name: data.name,
       rewardDescription: data.rewardDescription,
       amount: data.amount,

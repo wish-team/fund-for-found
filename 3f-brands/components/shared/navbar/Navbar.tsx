@@ -36,7 +36,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
   const pathname = usePathname();
 
   const handleStartClick = useCallback(() => {
-    router.push("/login");
+    router.push("http://localhost:3000/login");
   }, [router]);
 
   const handleSearch = useCallback(
