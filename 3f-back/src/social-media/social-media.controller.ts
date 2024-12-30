@@ -9,22 +9,21 @@ import {
   Body,
   ParseUUIDPipe,
   ValidationPipe,
-  UseGuards,
 } from '@nestjs/common';
 import { SocialMediaService } from './social-media.service';
 import { CreateSocialMediaDto } from './dto/create-social-media.dto';
 import { UpdateSocialMediaDto } from './dto/update-social-media.dto';
-import { SupabaseAuthGuard } from 'src/guards/owner.guard'; // Adjust if the guard is specific to the social media module
+// Adjust if the guard is specific to the social media module
 
-@Controller('social-media')
+@Controller('brands/:brand_id/social-media')
 export class SocialMediaController {
   constructor(private readonly socialMediaService: SocialMediaService) {}
 
   // GET /social-media - Get a list of all social media links
-  @Get()
-  findAll() {
-    return this.socialMediaService.findAll();
-  }
+  // @Get()
+  // findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+  //   return this.socialMediaService.findAll(brandId);
+  // }
 
   // GET /social-media/:id - Get details of a specific social media link by brand_id
   @Get(':id')
@@ -33,7 +32,7 @@ export class SocialMediaController {
   }
 
   // POST /social-media - Create a new social media link
-  @UseGuards(SupabaseAuthGuard)
+
   @Post()
   create(
     @Req() request: any,
@@ -47,7 +46,7 @@ export class SocialMediaController {
   }
 
   // PUT /social-media/:id - Update a specific social media link
-  @UseGuards(SupabaseAuthGuard)
+
   @Put(':id')
   update(
     @Param('id', ParseUUIDPipe) id: string,
@@ -57,7 +56,7 @@ export class SocialMediaController {
   }
 
   // DELETE /social-media/:id - Delete a specific social media link
-  @UseGuards(SupabaseAuthGuard)
+
   @Delete(':id')
   delete(@Param('id', ParseUUIDPipe) id: string) {
     return this.socialMediaService.delete(id);

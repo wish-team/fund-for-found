@@ -9,12 +9,10 @@ import {
   Body,
   ParseUUIDPipe,
   ValidationPipe,
-  UseGuards,
 } from '@nestjs/common';
 import { TierService } from './tier.service';
 import { CreateTierDto } from './dto/create-tier.dto';
 import { UpdateTierDto } from './dto/update-tier.dto';
-import { SupabaseAuthGuard } from 'src/guards/owner.guard';
 
 @Controller('tiers')
 export class TierController {
@@ -33,7 +31,7 @@ export class TierController {
   }
 
   // POST /tiers - Create a new tier
-  @UseGuards(SupabaseAuthGuard)
+
   @Post()
   create(
     @Req() request: any,
@@ -44,7 +42,7 @@ export class TierController {
   }
 
   // PUT /tiers/:tier_id - Update a specific tier
-  @UseGuards(SupabaseAuthGuard)
+
   @Put(':tier_id')
   update(
     @Param('tier_id', ParseUUIDPipe) tier_id: string,
@@ -54,7 +52,7 @@ export class TierController {
   }
 
   // DELETE /tiers/:tier_id - Delete a specific tier
-  @UseGuards(SupabaseAuthGuard)
+
   @Delete(':tier_id')
   delete(@Param('tier_id', ParseUUIDPipe) tier_id: string) {
     return this.tierService.delete(tier_id);
