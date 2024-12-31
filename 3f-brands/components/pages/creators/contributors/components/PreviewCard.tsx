@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+
+import React, { memo, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { Edit, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { Tier } from "../types/tier";
 import { DEFAULT_IMAGE } from "../utils/constants";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { ContributeButton } from "./ContributeButton";
+
 
 interface PreviewCardProps {
   data: Partial<Tier>;
@@ -15,7 +17,7 @@ interface PreviewCardProps {
   imagePreview?: string | null;
 }
 
-export const PreviewCard: React.FC<PreviewCardProps> = ({
+export const PreviewCard= React.memo<PreviewCardProps> (({
   data,
   preview = false,
   onEdit,
@@ -78,6 +80,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                     ? imagePreview || DEFAULT_IMAGE
                     : data.imagePreview || DEFAULT_IMAGE
                 }
+                loading="lazy"
                 alt="Silver Sponsor"
                 className="w-full h-36 object-cover rounded-lg text-2xl text-primary100 flex items-center justify-center"
               />
@@ -129,4 +132,4 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
       )}
     </AuthWrapper>
   );
-};
+});

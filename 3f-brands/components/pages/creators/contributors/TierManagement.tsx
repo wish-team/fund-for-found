@@ -1,4 +1,3 @@
-// TierManagement.tsx
 import React, { useEffect } from "react";
 import { useTierStore } from "./store/tierStore";
 import { AddTierButton } from "./components/AddTierButton";
