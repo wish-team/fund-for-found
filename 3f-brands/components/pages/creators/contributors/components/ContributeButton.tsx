@@ -29,7 +29,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
     <Button
       color="primary"
       className="w-full bg-primary text-white rounded-lg mt-4"
-      onClick={() => router.push(`/payment/${tierId}`)}
+      onClick={() => router.push(`/payment/${tierId}/1`)} // Updated route
     >
       Contribute
     </Button>
