@@ -4,15 +4,17 @@ interface StepCircleProps {
   isActive: boolean;
   index: number;
   label: string;
+  showSubLabel?: boolean;  
 }
 
 export const StepCircle: React.FC<StepCircleProps> = ({
   isActive,
   index,
   label,
+  showSubLabel
 }) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-2">
       <div
         className={`
           w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10
@@ -25,6 +27,10 @@ export const StepCircle: React.FC<StepCircleProps> = ({
       >
         {index}
       </div>
+      {showSubLabel && label && (
+        <span className="text-xs sm:text-sm text-gray-600">{label}</span>
+      )}
     </div>
   );
 };
+
