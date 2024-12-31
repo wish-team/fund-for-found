@@ -18,18 +18,18 @@ const FAQSection: React.FC<FAQSectionProps> = ({ className }) => {
   const faqItems = [
     {
       title: "Is my contribution secure?",
-      content: "Content for security information goes here.",
+      content: "Your contribution is a way to support an entrepreneur, but does not guarantee that you will receive a perk. There is a risk that, despite a creator’s best effort, your reward may not be fulfilled. Therefore, 3f does not guarantee the reward. ",
     },
     {
       title:
         "What's the difference between an individual and an organization profile?",
       content:
-        "Content explaining the differences between profile types goes here.",
+        "Organizations represent a brand or company, while individual profiles represent a person. Organization profiles can have multiple team members (individual profiles) who have access to edit it and make financial contributions in its name. If a contribution or expense is for a brand, it's important to use an organization profile so the correct billing information shows up on receipts and invoices.",
     },
     {
       title: "What are the features of automatic monthly support?",
       content:
-        "Content describing automatic monthly support features goes here.",
+        "By setting up automatic yearly support, you can save time and provide recurring support to your favourite creator instead of just a one-time contribution. You can choose the number of years and the amount yourself. At the beginning of each calendar year, the support will automatically be deducted from the account you specify. If you change your mind, you can cancel the yearly support authorization anytime via a link sent to your email or through your supporter dashboard. This method doesn't support crypto currency.",
     },
   ];
 
