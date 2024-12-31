@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { CompanyLogo } from "./CompanyLogo";
 import { CompanyInfoType } from "../types";
-import { DEFAULT_IMAGE } from "@/components/pages/creators/contributors/utils/constants";
 
 interface CompanyInfoProps {
   company: CompanyInfoType;

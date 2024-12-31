@@ -10,11 +10,10 @@ interface NextStepButtonProps {
 
 export const NextStepButton = memo(function NextStepButton({ 
   onClick,
-  className = "",
   isLoading = false
 }: NextStepButtonProps) {
   return (
-    <div className={`flex justify-center mt-8 ${className}`}>
+    <div className={`flex justify-center mt-4 `}>
       <Button
         onPress={onClick}
         className="bg-primary text-white px-8 py-3 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors"

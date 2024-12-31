@@ -2,14 +2,14 @@
 
 import { memo } from "react";
 import { useRouter } from "next/navigation";
-import { Tier, CompanyInfoType, AdminInfo } from "../types";
+import { RewardTier, CompanyInfoType, AdminInfo } from "../types";
 import { RewardCard } from "./RewardCard";
 import { CompanyInfo as CompanyInfoComponent } from "./CompanyInfo";
 import { AdminAvatar } from "./AdminAvatar";
 import { NextStepButton } from "./NextStepButton";
 
 interface RewardInfoProps {
-  tierDetails: Tier;
+  tierDetails: RewardTier;
   className?: string;
 }
 
@@ -42,7 +42,7 @@ const RewardInfo = memo(function RewardInfo({
 
         <RewardCard tier={tierDetails} />
 
-        <div className="pt-8">
+        <div className="">
           <CompanyInfoComponent company={companyInfo} />
           <AdminAvatar admin={adminInfo} />
         </div>

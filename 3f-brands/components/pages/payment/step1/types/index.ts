@@ -1,7 +1,9 @@
-export interface Tier {
+export interface RewardTier {
   id: string;
   name: string;
   rewardDescription: string;
+  amount: string;  // Add this line
+  imagePreview?: string;  // This property is also used in RewardCard but missing
 }
 
 export interface CompanyInfoType {

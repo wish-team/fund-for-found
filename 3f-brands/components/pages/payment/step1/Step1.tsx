@@ -1,6 +1,6 @@
 import React from "react";
 import { Tier } from "@/components/pages/creators/contributors/types/tier";
-import RewardInfo from "./RewardInfo";
+import RewardInfo from "./components/RewardInfo";
 import FAQSection from "./components/FAQ";
 
 interface Step1Props {
