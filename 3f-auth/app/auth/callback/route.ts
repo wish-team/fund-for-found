@@ -1,19 +1,35 @@
-import { createClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
 
 export async function GET(request: Request) {
-  // The `/auth/callback` route is required for the server-side auth flow implemented
-  // by the SSR package. It exchanges an auth code for the user's session.
-  // https://supabase.com/docs/guides/auth/server-side/nextjs
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
-  const origin = requestUrl.origin;
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  const next = searchParams.get('next') ?? '/'
 
   if (code) {
-    const supabase = createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
+      console.error('Error exchanging code for session:', error.message)
+      return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+    }
+
+    if (data) {
+      // Log the access token for debugging purposes
+      console.log('Access token:', data.session?.access_token)
+
+      // Optionally, set a secure cookie with the token (or session)
+      const response = NextResponse.redirect(`${origin}${next}`)
+      response.cookies.set('access_token', data.session?.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+      })
+      return response
+    }
   }
 
-  // URL to redirect to after sign up process completes
-  return NextResponse.redirect(`${origin}/protected`);
+  console.error('OAuth code is missing or invalid.')
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }

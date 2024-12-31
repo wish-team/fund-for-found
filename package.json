@@ -8,6 +8,7 @@
     "3f-auth": "cd 3f-auth && npm run dev"
   },
   "dependencies": {
+    "@ethersproject/hdnode": "^5.7.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.437.0",

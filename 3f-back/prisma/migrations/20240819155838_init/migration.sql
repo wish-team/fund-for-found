@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Brand" ALTER COLUMN "balance" SET DEFAULT '0',
-ALTER COLUMN "logo" DROP NOT NULL;

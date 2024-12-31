@@ -11,9 +11,10 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    // await supabase.auth.exchangeCodeForSession(code);
   }
 
+  // test
   // URL to redirect to after sign up process completes
   return NextResponse.redirect(`${origin}/protected`);
 }

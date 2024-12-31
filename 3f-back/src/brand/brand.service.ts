@@ -1,39 +1,79 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { Brand, Prisma } from '@prisma/client';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateBrandDto } from './dto/create-brand.dto';
+import { UpdateBrandDto } from './dto/update-brand.dto';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class BrandService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  async brand(
-    brandWhereUniqueInput: Prisma.BrandWhereUniqueInput,
-  ): Promise<Brand | null> {
-    return this.prisma.brand.findUnique({
-      where: brandWhereUniqueInput,
-    });
+  // GET /brand - Get a list of all brand
+  async findAll() {
+    const { data, error } = await this.supabaseClient.from('brand').select('*');
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
   }
 
-  async createBrand(data: Prisma.BrandCreateInput): Promise<Brand> {
-    return this.prisma.brand.create({
-      data,
-    });
+  // GET /brand/:id - Get details of a specific brand
+  async findOne(id: string) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .select()
+      .eq('brand_id', id)
+      .single();
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found');
+    }
+
+    return data;
   }
 
-  async updateBrand(params: {
-    where: Prisma.BrandWhereUniqueInput;
-    data: Prisma.BrandUpdateInput;
-  }): Promise<Brand> {
-    const { where, data } = params;
-    return this.prisma.brand.update({
-      data,
-      where,
+  async create(createBrandDto: CreateBrandDto & { owner_id: string }) {
+    const { data, error } = await this.supabaseClient.from('brand').insert({
+      owner_id: createBrandDto.owner_id,
+      brand_name: createBrandDto.brand_name,
+      brand_image: createBrandDto.brand_image,
     });
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data ?? { message: 'Brand createed successfully ' };
   }
 
-  async deleteBrand(where: Prisma.BrandWhereUniqueInput): Promise<Brand> {
-    return this.prisma.brand.delete({
-      where,
-    });
+  // PUT /brand/:id - Update a specific brand
+  async update(id: string, updateBrandDto: UpdateBrandDto) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .update([
+        {
+          brand_name: updateBrandDto.brand_name,
+          brand_image: updateBrandDto.brand_image,
+        },
+      ])
+      .eq('brand_id', id);
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found or update failed');
+    }
+    return 'data';
+  }
+
+  // DELETE /brand/:id - Delete a specific brand
+  async delete(id: string) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .delete()
+      .eq('owner-id', id);
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found or delete failed');
+    }
+
+    return data;
   }
 }
