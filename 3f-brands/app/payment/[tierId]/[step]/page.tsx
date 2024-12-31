@@ -6,6 +6,10 @@ import { StepLayout } from "@/components/pages/start/step-indicator/components/S
 import { Step } from "@/components/pages/start/step-indicator/types/steps";
 import { Tier } from "@/components/pages/creators/contributors/types/tier";
 
+interface PaymentComponentProps {
+  tierDetails: Tier;
+}
+
 // Pre-load payment step components
 const PaymentInfo = React.lazy(() => import("@/components/pages/payment/Step1"));
 const Review = React.lazy(() => import("@/components/pages/payment/Step2"));
