@@ -9,13 +9,13 @@ import {
   Body,
   ParseUUIDPipe,
   ValidationPipe,
-  UsePipes,
+  // UsePipes,
   UseGuards,
 } from '@nestjs/common';
 import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt.auth.guard';
+import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 
 @Controller('brand')
 export class BrandController {
@@ -35,16 +35,16 @@ export class BrandController {
 
   // POST /brand - Create a new brand
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(MyAuthGuard)
   @Post()
   create(@Req() request, @Body(ValidationPipe) createBrandDto: CreateBrandDto) {
-    const owner_id = request.user.sub;
+    const owner_id = request.user.id;
     console.log(owner_id);
     return this.brandService.create({ ...createBrandDto, owner_id });
   }
 
   // PUT /brand/:id - Update a specific brand
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(MyAuthGuard)
   @Put(':id')
   update(
     @Param('id', ParseUUIDPipe) id: string,
@@ -54,9 +54,10 @@ export class BrandController {
   }
 
   // DELETE /brand/:id - Delete a specific brand
+
+  @UseGuards(MyAuthGuard)
   @Delete(':id')
-  @UsePipes(ValidationPipe)
-  async delete(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.brandService.delete(id);
+  delete(@Param('id', ParseUUIDPipe) id: string) {
+    return this.brandService.delete(id);
   }
 }

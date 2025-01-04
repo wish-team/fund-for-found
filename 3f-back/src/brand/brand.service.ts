@@ -26,7 +26,7 @@ export class BrandService {
       .eq('brand_id', id)
       .single();
 
-    if (error || !data) {
+    if (error) {
       throw new NotFoundException('Brand not found');
     }
 
@@ -57,23 +57,23 @@ export class BrandService {
       ])
       .eq('brand_id', id);
 
-    if (error || !data) {
+    if (error) {
       throw new NotFoundException('Brand not found or update failed');
     }
-    return 'data';
+    return data ?? { message: 'Brand updated successfully' };
   }
 
   // DELETE /brand/:id - Delete a specific brand
   async delete(id: string) {
-    const { data, error } = await this.supabaseClient
+    const { error } = await this.supabaseClient
       .from('brand')
       .delete()
-      .eq('owner-id', id);
+      .eq('brand_id', id);
 
-    if (error || !data) {
+    if (error) {
       throw new NotFoundException('Brand not found or delete failed');
     }
 
-    return data;
+    return { message: 'Brand created successfully' };
   }
 }

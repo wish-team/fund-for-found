@@ -12,8 +12,8 @@ import { TierModule } from './tier/tier.module';
 import { SocialMediaModule } from './social-media/social-media.module';
 import { BrandModule } from './brand/brand.module';
 // Auth
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +21,6 @@ import { ConfigModule } from '@nestjs/config';
       supabaseKey: process.env.SUPABASE_ANON_KEY,
       supabaseUrl: process.env.SUPABASE_URL,
     }),
-    AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     TeamsModule,
@@ -29,6 +28,7 @@ import { ConfigModule } from '@nestjs/config';
     BrandModule,
     TierModule,
     SocialMediaModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
