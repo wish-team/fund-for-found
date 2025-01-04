@@ -14,7 +14,7 @@ interface PaymentComponentProps {
 const PaymentInfo = React.lazy(
   () => import("@/components/pages/payment/step1/Step1")
 );
-const Review = React.lazy(() => import("@/components/pages/payment/Step2"));
+const Review = React.lazy(() => import("@/components/pages/payment/step2/Step2"));
 const Confirmation = React.lazy(
   () => import("@/components/pages/payment/Step3")
 );

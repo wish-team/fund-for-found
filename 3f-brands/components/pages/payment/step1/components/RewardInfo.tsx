@@ -13,20 +13,20 @@ interface RewardInfoProps {
   className?: string;
 }
 
-const RewardInfo = memo(function RewardInfo({ 
+const RewardInfo = memo(function RewardInfo({
   tierDetails,
-  className = ""
+  className = "",
 }: RewardInfoProps) {
   const router = useRouter();
 
   const companyInfo: CompanyInfoType = {
     name: "Wish work",
-    joinDate: "oct 2024"
+    joinDate: "oct 2024",
   };
 
   const adminInfo: AdminInfo = {
     name: "Amirhossein shirani",
-    role: "Admin"
+    role: "Admin",
   };
 
   const handleNext = () => {
@@ -34,21 +34,14 @@ const RewardInfo = memo(function RewardInfo({
   };
 
   return (
-    <div className={`border rounded-xl ${className}`}>
-      <div className="p-6 md:p-8">
-        <h1 className="text-2xl border-b pb-4 text-primary text-center font-medium mb-8">
-          Reward
-        </h1>
-
-        <RewardCard tier={tierDetails} />
-
-        <div className="">
-          <CompanyInfoComponent company={companyInfo} />
-          <AdminAvatar admin={adminInfo} />
-        </div>
-
-        <NextStepButton onClick={handleNext} />
-      </div>
+    <div className={`border rounded-xl p-6 md:p-8 ${className}`}>
+      <h1 className="text-2xl border-b pb-4 text-primary text-center font-medium mb-8">
+        Reward
+      </h1>
+      <RewardCard tier={tierDetails} />
+      <CompanyInfoComponent company={companyInfo} />
+      <AdminAvatar admin={adminInfo} />
+      <NextStepButton onClick={handleNext} />
     </div>
   );
 });
