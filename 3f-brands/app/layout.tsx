@@ -1,17 +1,19 @@
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { Suspense } from "react";
 import NavigationBar from "@/components/shared/navbar/Navbar";
 import Footer from "@/components/shared/footer/Footer";
 import { Providers } from "./providers";
+import Loader from "@/components/shared/loader/Loader";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+  : "http://localhost:3001";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "found for fund",
+  description:
+    "where brands and individuals are committed to offering you ongoing support",
 };
 
 export default function RootLayout({
@@ -20,16 +22,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <Providers>
-          <NavigationBar />
-          <main className=" flex flex-col items-center">
+          <Suspense fallback={<Loader />}>
+            <NavigationBar />
+          </Suspense>
+
+          <main className="flex flex-col items-center min-h-screen">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl">
-              {children}
+              <Suspense fallback={<Loader />}>{children}</Suspense>
             </div>
           </main>
-          <Footer />
+
+          <Suspense fallback={<Loader />}>
+            <Footer />
+          </Suspense>
         </Providers>
       </body>
     </html>

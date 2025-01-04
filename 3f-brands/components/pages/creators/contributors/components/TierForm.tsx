@@ -68,7 +68,7 @@ export const TierForm: React.FC<TierFormProps> = ({
               render={({ field }) => (
                 <Textarea
                   {...field}
-                  placeholder="Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the  events."
+                  placeholder="Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the events."
                   className="border border-light3 min-h-[110px] rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
                   isInvalid={!!errors.rewardDescription}
                   errorMessage={errors.rewardDescription?.message}

@@ -467,5 +467,28 @@
         }
       ]
     }
+  ],
+  "contributors": [
+    {
+      "id": 109,
+      "name": "sama ghavamzadeh",
+      "username": "sama",
+      "email": "sama@example.com",
+      "avatar": "/default-avatar.png"
+    },
+    {
+      "id": 54,
+      "name": "my first brand",
+      "username": "sama",
+      "email": "sama@example.com",
+      "avatar": "/default-avatar.png"
+    },
+    {
+      "id": 594,
+      "name": "my second brand",
+      "username": "sama",
+      "email": "sama@example.com",
+      "avatar": "/default-avatar.png"
+    }
   ]
 }

@@ -1,67 +1,26 @@
-import React from "react";
-import { TierFormData } from "./types/tier";
-import { DEFAULT_IMAGE } from "./utils/constants";
-import { useTierStorage } from "./hooks/useTierStorage";
-import { useImagePreview } from "./hooks/useImagePreview";
-import { useTierModal } from "./hooks/useTierModal";
-import { useDeleteConfirmation } from "./hooks/useDeleteConfirmation";
+import React, { useEffect } from "react";
+import { useTierStore } from "./store/tierStore";
 import { AddTierButton } from "./components/AddTierButton";
 import { TierList } from "./components/TierList";
 import { TierModal } from "./components/TierModal";
 import DeleteConfirmationModal from "@/components/shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export const TierManagement = () => {
-  const { tiers, saveTiers } = useTierStorage();
-  const { imagePreview, handleImageChange, resetImagePreview } =
-    useImagePreview();
-  const { isOpen, editingIndex, openModal, closeModal, editTier } =
-    useTierModal();
-  const { deleteConfirmation, showDeleteConfirmation, hideDeleteConfirmation } =
-    useDeleteConfirmation();
+  const { 
+    tiers,
+    initializeTiers,
+    editTier,
+    deleteTier,
+    deleteConfirmation,
+    hideDeleteConfirmation,
+    confirmDelete
+  } = useTierStore();
 
-  const handleSubmit = (data: TierFormData) => {
-    const newTiers = [...tiers];
-    const submissionData = {
-      name: data.name,
-      rewardDescription: data.rewardDescription,
-      amount: data.amount,
-      imagePreview: imagePreview || DEFAULT_IMAGE,
-    };
-
-    if (editingIndex !== null) {
-      newTiers[editingIndex] = submissionData;
-    } else {
-      newTiers.push(submissionData);
-    }
-
-    saveTiers(newTiers);
-    closeModal();
-    resetImagePreview();
-  };
-
-  const handleEdit = (index: number) => {
-    const tier = editTier(index, tiers[index]);
-    handleImageChange(tier.imagePreview as unknown as File);
-  };
-
-  const handleDelete = (index: number) => {
-    showDeleteConfirmation(index);
-  };
-
-  const confirmDelete = () => {
-    if (deleteConfirmation.index !== null) {
-      const newTiers = tiers.filter((_, i) => i !== deleteConfirmation.index);
-      saveTiers(newTiers);
-    }
-    hideDeleteConfirmation();
-  };
-
-  const handleModalClose = () => {
-    closeModal();
-    resetImagePreview();
-  };
+  useEffect(() => {
+    initializeTiers();
+  }, []);
 
   return (
     <AuthWrapper>
@@ -70,33 +29,23 @@ export const TierManagement = () => {
           <div className="max-w-[1240px] mx-auto">
             <CreatorsTitle title="Contribution Tier" />
             <h2 className="ps-2 mx-2 mb-6 text-lg text-gray2 border-s-4 border-primary">
-              Recurring or One time{" "}
+              Recurring or One time
             </h2>
             <div className="flex flex-col md:flex-row gap-6">
               {user && (
                 <div className="w-full md:w-80 md:flex-none">
-                  <AddTierButton onClick={openModal} />
+                  <AddTierButton />
                 </div>
               )}
               <TierList
                 tiers={tiers}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
+                onEdit={editTier}
+                onDelete={deleteTier}
               />
             </div>
           </div>
 
-          <TierModal
-            isOpen={isOpen}
-            onClose={handleModalClose}
-            onSubmit={handleSubmit}
-            initialValues={
-              editingIndex !== null ? tiers[editingIndex] : undefined
-            }
-            imagePreview={imagePreview}
-            onImageChange={handleImageChange}
-            editingIndex={editingIndex}
-          />
+          <TierModal />
 
           <DeleteConfirmationModal
             isOpen={deleteConfirmation.show}

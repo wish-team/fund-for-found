@@ -1,4 +1,6 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { 
   Modal, 
   ModalContent, 
@@ -8,12 +10,12 @@ import {
   Button, 
   Input 
 } from "@nextui-org/react";
-import { AccordionItemUpdate } from '../types/accordion';
+import { FAQFormData, faqSchema } from '../types/accordion';
 
 interface AddQuestionModalProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
-  onSave: (update: AccordionItemUpdate) => void;
+  onSave: (update: FAQFormData) => void;
 }
 
 export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
@@ -21,14 +23,13 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
   onOpenChange,
   onSave
 }) => {
-  const [title, setTitle] = React.useState('');
-  const [content, setContent] = React.useState('');
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FAQFormData>({
+    resolver: zodResolver(faqSchema)
+  });
 
-  const handleSave = () => {
-    onSave({ title, content });
-    // Reset inputs
-    setTitle('');
-    setContent('');
+  const onSubmit = (data: FAQFormData) => {
+    onSave(data);
+    reset();
   };
 
   return (
@@ -40,45 +41,52 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
     >
       <ModalContent>
         {(onClose) => (
-          <>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <ModalHeader className="flex flex-col gap-1 text-gray3">
               Add New Question
             </ModalHeader>
             <ModalBody>
-              <Input
-                placeholder="Question"
-                value={title}
-                className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <Input
-                placeholder="Answer"
-                value={content}
-                className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
-                onChange={(e) => setContent(e.target.value)}
-              />
+              <div>
+                <Input
+                  {...register('title')}
+                  placeholder="Question"
+                  className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
+                />
+                {errors.title && (
+                  <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
+                )}
+              </div>
+              <div>
+                <Input
+                  {...register('content')}
+                  placeholder="Answer"
+                  className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
+                />
+                {errors.content && (
+                  <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>
+                )}
+              </div>
             </ModalBody>
             <ModalFooter>
               <Button
                 className="text-gray4 text-sm border border-light3 rounded-lg hover:bg-primary50 hover:border-purple-500"
-                color="danger"
                 variant="light"
-                onPress={onClose}
+                onPress={() => {
+                  reset();
+                  onClose();
+                }}
               >
                 Cancel
               </Button>
               <Button
-                className="text-white text-sm rounded-lg hover:bg-primary400"
+                type="submit"
                 color="primary"
-                onPress={() => {
-                  handleSave();
-                  onClose();
-                }}
+                className="text-white text-sm rounded-lg hover:bg-primary400"
               >
                 Save
               </Button>
             </ModalFooter>
-          </>
+          </form>
         )}
       </ModalContent>
     </Modal>

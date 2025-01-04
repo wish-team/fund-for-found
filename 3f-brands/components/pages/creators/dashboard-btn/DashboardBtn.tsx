@@ -1,5 +1,5 @@
 "use client";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { IoSettings } from "react-icons/io5";

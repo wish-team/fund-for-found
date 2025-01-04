@@ -1,6 +1,7 @@
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { IoMdArrowRoundBack } from "react-icons/io";
+
 
 interface BackButtonProps {
   currentStep: number;
@@ -8,12 +9,27 @@ interface BackButtonProps {
 
 export const BackButton: React.FC<BackButtonProps> = ({ currentStep }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleBack = () => {
-    if (currentStep === 1) {
-      router.push("/");
+    // Check if we're in the payment flow
+    if (pathname.includes('/payment/')) {
+      // Extract tierId from the current path
+      const pathParts = pathname.split('/');
+      const tierId = pathParts[pathParts.length - 2]; // Gets tierId from /payment/[tierId]/[step]
+      
+      if (currentStep === 1) {
+        router.push("/"); // Or wherever you want to redirect from the first payment step
+      } else {
+        router.push(`/payment/${tierId}/${currentStep - 1}`);
+      }
     } else {
-      router.push(`/steps/${currentStep - 1}`);
+      // Original steps flow
+      if (currentStep === 1) {
+        router.push("/");
+      } else {
+        router.push(`/steps/${currentStep - 1}`);
+      }
     }
   };
 

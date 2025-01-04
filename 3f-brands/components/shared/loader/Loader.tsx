@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import {CircularProgress} from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
 
 export default function Loader() {
   const [value, setValue] = React.useState(0);
@@ -22,4 +23,3 @@ export default function Loader() {
     />
   );
 }
-

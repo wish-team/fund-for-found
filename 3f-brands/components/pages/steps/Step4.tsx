@@ -32,7 +32,7 @@ const Step4 = () => {
       <Button
         color="secondary"
         variant="bordered"
-        onClick={handleProfileNavigation}
+        onPress={handleProfileNavigation}
         className="text-white bg-primary text-sm px-6 mt-4 font-light rounded-lg border border-light2"
       >
         Go to my profile

@@ -1,37 +1,58 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import { InputProps } from "../types";
-import { useDropdown } from "../hooks/useDropdown";
+import React, { useRef, useCallback, useEffect, memo } from "react";
+import { InputProps, FormData } from "../types";
+import { useRegistrationStore } from "../store/registrationStore";
 import Inputs from "../../../../shared/Input";
 
-export const AutocompleteInput: React.FC<InputProps & { placeholder?: string }> = ({
-  data,
-  label,
-  fieldName,
-  error,
-  placeholder = `Select ${label}`,
-}) => {
-  const { register, setValue, watch } = useFormContext();
-  const value = watch(fieldName) || "";
-
-  const { state, dropdownRef, toggleDropdown, filterItems } = useDropdown({
-    initialState: {
-      isOpen: false,
-      filteredItems: [],
-    },
+export const AutocompleteInput = memo(({ 
+  data, 
+  label, 
+  fieldName, 
+  error, 
+  placeholder = `Select ${label}` 
+}: InputProps & { placeholder?: string }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  // Add type assertion to ensure we get a string value
+  const value = useRegistrationStore((state) => {
+    const fieldValue = state.formData[fieldName];
+    return typeof fieldValue === 'string' ? fieldValue : '';
   });
+  
+  const dropdownState = useRegistrationStore((state) => state.dropdowns[fieldName]);
+  const {
+    initDropdown,
+    removeDropdown,
+    setDropdownState,
+    filterDropdownItems,
+    setFormField
+  } = useRegistrationStore();
 
-  const handleItemSelect = (item: string) => {
-    setValue(fieldName, item);
-    toggleDropdown(false);
-  };
+  useEffect(() => {
+    initDropdown(fieldName);
+    return () => removeDropdown(fieldName);
+  }, [fieldName, initDropdown, removeDropdown]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setDropdownState(fieldName, { isOpen: false });
+    }
+  }, [fieldName, setDropdownState]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
+
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    filterItems(data, inputValue);
-    setValue(fieldName, inputValue);
-    toggleDropdown(true);
-  };
+    filterDropdownItems(fieldName, data, inputValue);
+    setFormField(fieldName as keyof FormData, inputValue);
+    setDropdownState(fieldName, { isOpen: true });
+  }, [fieldName, data, filterDropdownItems, setFormField, setDropdownState]);
+
+  const handleItemSelect = useCallback((item: string) => {
+    setFormField(fieldName as keyof FormData, item);
+    setDropdownState(fieldName, { isOpen: false });
+  }, [fieldName, setFormField, setDropdownState]);
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -41,15 +62,14 @@ export const AutocompleteInput: React.FC<InputProps & { placeholder?: string }> 
         extraLabel="*"
         value={value}
         placeholder={placeholder}
-        {...register(fieldName, { required: `${label} is required` })}
         onChange={handleInputChange}
-        onFocus={() => toggleDropdown(true)}
+        onFocus={() => setDropdownState(fieldName, { isOpen: true })}
         className="mt-1"
         inputClassName="focus:border-purple-500"
       />
-      {state.isOpen && state.filteredItems.length > 0 && (
+      {dropdownState?.isOpen && dropdownState.filteredItems?.length > 0 && (
         <ul className="absolute shadow-md z-10 border border-light3 rounded-lg bg-white mt-2 max-h-60 overflow-auto w-full">
-          {state.filteredItems.map((item) => (
+          {dropdownState.filteredItems.map((item) => (
             <li
               key={item}
               className="py-2 px-4 text-gray4 hover:bg-primary50 cursor-pointer"
@@ -63,4 +83,6 @@ export const AutocompleteInput: React.FC<InputProps & { placeholder?: string }> 
       {error && <p className="text-red-500 text-xs pt-1">{error.message}</p>}
     </div>
   );
-};
+});
+
+AutocompleteInput.displayName = 'AutocompleteInput';

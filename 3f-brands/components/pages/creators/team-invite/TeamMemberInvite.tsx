@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   ModalContent,
@@ -15,54 +15,54 @@ import {
 } from "@nextui-org/react";
 import { MdOutlineDone } from "react-icons/md";
 
-import { useTeamMembers } from "./hooks/useTeamMembers";
 import { PreviewCard } from "./components/PreviewCard";
 import { AddMemberCard } from "./components/AddMemberCard";
-import { TeamMember, FormData } from "./types/team";
 import { ROLE_OPTIONS, MIN_DESCRIPTION_LENGTH } from "./utils/constants";
 import { validateDescription, validateEmail } from "./utils/validation";
 import CreatorsTitle from "../title/CreatorsTitle";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useTeamStore } from "./store/tramStore";
 
 export default function TeamMemberInvite(): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
-  const [showInviteModal, setShowInviteModal] = useState<boolean>(false);
-  const [invitedMember, setInvitedMember] = useState<TeamMember | null>(null);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [descriptionError, setDescriptionError] = useState<string>("");
-  const [emailError, setEmailError] = useState<string>("");
-
-  const { teamMembers, addTeamMember, updateTeamMember, deleteTeamMember } =
-    useTeamMembers();
-
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    role: "Teammate",
-    email: "",
-    description: "",
-  });
+  const {
+    teamMembers,
+    formData,
+    isModalOpen,
+    isSelectOpen,
+    showInviteModal,
+    invitedMember,
+    editingIndex,
+    descriptionError,
+    emailError,
+    addTeamMember,
+    updateTeamMember,
+    deleteTeamMember,
+    setFormData,
+    resetForm,
+    setModalOpen,
+    setSelectOpen,
+    setShowInviteModal,
+    setInvitedMember,
+    setEditingIndex,
+    setDescriptionError,
+    setEmailError,
+  } = useTeamStore();
 
   const handleRoleChange = (keys: Selection) => {
     const selectedRole = Array.from(keys)[0] as "Admin" | "Teammate";
-    setFormData((prev) => ({
-      ...prev,
-      role: selectedRole,
-    }));
-    setIsSelectOpen(false);
+    setFormData({ role: selectedRole });
+    setSelectOpen(false);
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    // Validate description
     const descError = validateDescription(formData.description);
     if (descError) {
       setDescriptionError(descError);
       return;
     }
 
-    // Validate email
     if (!validateEmail(formData.email)) {
       setEmailError("Invalid email address");
       return;
@@ -80,19 +80,6 @@ export default function TeamMemberInvite(): JSX.Element {
     resetForm();
   };
 
-  const resetForm = (): void => {
-    setIsOpen(false);
-    setEditingIndex(null);
-    setFormData({
-      name: "",
-      role: "Teammate",
-      email: "",
-      description: "",
-    });
-    setDescriptionError("");
-    setEmailError("");
-  };
-
   return (
     <AuthWrapper>
       {(user) => (
@@ -102,7 +89,7 @@ export default function TeamMemberInvite(): JSX.Element {
             <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
               {user && (
                 <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
-                  <AddMemberCard onAddMember={() => setIsOpen(true)} />
+                  <AddMemberCard onAddMember={() => setModalOpen(true)} />
                 </div>
               )}
               <div className="flex flex-col md:flex-row gap-3 items-center w-full">
@@ -114,7 +101,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     onEdit={(member, index) => {
                       setFormData(member);
                       setEditingIndex(index);
-                      setIsOpen(true);
+                      setModalOpen(true);
                     }}
                     onDelete={deleteTeamMember}
                   />
@@ -122,10 +109,12 @@ export default function TeamMemberInvite(): JSX.Element {
               </div>
             </div>
           </div>
+
+          {/* Form Modal */}
           <Modal
             backdrop="blur"
             className="bg-white rounded-lg shadow p-4"
-            isOpen={isOpen}
+            isOpen={isModalOpen}
             onClose={resetForm}
             size="3xl"
           >
@@ -147,10 +136,7 @@ export default function TeamMemberInvite(): JSX.Element {
                         placeholder="Name"
                         value={formData.name}
                         onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            name: e.target.value,
-                          }))
+                          setFormData({ name: e.target.value })
                         }
                         required
                       />
@@ -163,9 +149,9 @@ export default function TeamMemberInvite(): JSX.Element {
                         onSelectionChange={handleRoleChange}
                         className="border border-light3 text-gray4 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
                         isOpen={isSelectOpen}
-                        onOpenChange={(open) => setIsSelectOpen(open)}
+                        onOpenChange={(open) => setSelectOpen(open)}
                       >
-                        <SelectSection className="bg-white rounded-lg shadow text-light1 text-sm ">
+                        <SelectSection className="bg-white rounded-lg shadow text-light1 text-sm">
                           {ROLE_OPTIONS.map((role) => (
                             <SelectItem
                               key={role.value}
@@ -185,10 +171,7 @@ export default function TeamMemberInvite(): JSX.Element {
                         placeholder="Email address"
                         value={formData.email}
                         onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            email: e.target.value,
-                          }))
+                          setFormData({ email: e.target.value })
                         }
                         errorMessage={emailError}
                         isInvalid={!!emailError}
@@ -201,10 +184,7 @@ export default function TeamMemberInvite(): JSX.Element {
                           className="border border-light3 min-h-[110px] rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
                           value={formData.description}
                           onChange={(e) => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              description: e.target.value,
-                            }));
+                            setFormData({ description: e.target.value });
                             setDescriptionError("");
                           }}
                           minRows={4}
@@ -245,6 +225,8 @@ export default function TeamMemberInvite(): JSX.Element {
               </form>
             </ModalContent>
           </Modal>
+
+          {/* Invite Confirmation Modal */}
           <Modal
             backdrop="blur"
             className="bg-white rounded-lg shadow"
@@ -255,7 +237,7 @@ export default function TeamMemberInvite(): JSX.Element {
             <ModalContent>
               <ModalBody>
                 <div className="text-center py-6">
-                  <div className="w-16 h-16  border-4 border-primary300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-16 h-16 border-4 border-primary300 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <MdOutlineDone className="text-primary300 text-4xl" />
                   </div>
                   <h3 className="text-lg font-medium text-gray-900 mb-2">

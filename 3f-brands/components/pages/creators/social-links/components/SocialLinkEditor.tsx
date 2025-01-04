@@ -10,14 +10,14 @@ import {
   useDisclosure,
   Button,
 } from "@nextui-org/react";
-import { useSocialLinks } from '../hooks/useSocialLinks';
+import { useSocialLinksStore } from '../store/socialLinksStore';
 import { SocialLinkForm } from './SocialLinkForm';
 import { SocialLinkDisplay } from './SocialLinkDisplay';
 import { socialLinksSchema, SocialLinksSchema } from '../utils/validation';
 
 const SocialLinkEditor: React.FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { links, setLinks, socialLinks } = useSocialLinks();
+  const { links, setLinks, socialLinks } = useSocialLinksStore();
 
   const form = useForm<SocialLinksSchema>({
     resolver: zodResolver(socialLinksSchema),
@@ -40,7 +40,6 @@ const SocialLinkEditor: React.FC = () => {
     onOpenChange();
   };
 
-  // Reset form when modal opens
   const handleOpen = () => {
     form.reset({
       socialLinks: Object.entries(links).map(([type, url]) => ({ type, url }))
@@ -48,7 +47,6 @@ const SocialLinkEditor: React.FC = () => {
     onOpen();
   };
 
-  // Reset form when modal closes without saving
   const handleModalChange = () => {
     if (isOpen) {
       form.reset({
@@ -60,7 +58,7 @@ const SocialLinkEditor: React.FC = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto p-4">
-      <SocialLinkDisplay links={links} onEditClick={handleOpen} />
+      <SocialLinkDisplay onEditClick={handleOpen} />
 
       <Modal
         isOpen={isOpen}
@@ -73,7 +71,7 @@ const SocialLinkEditor: React.FC = () => {
         <ModalContent>
           {(onClose) => (
             <form onSubmit={form.handleSubmit(handleSave)} noValidate>
-              <ModalHeader className='text-gray3 text-base font-bold'>Help your contributors find you faster </ModalHeader>
+              <ModalHeader className='text-gray3 text-base font-bold'>Help your contributors find you faster</ModalHeader>
               <ModalBody>
                 <SocialLinkForm form={form} />
               </ModalBody>

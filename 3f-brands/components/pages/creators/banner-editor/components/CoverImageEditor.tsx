@@ -1,4 +1,5 @@
-import React, { useRef, useCallback, memo } from "react";
+// CoverImageEditor.tsx
+import React, { useRef } from "react";
 import {
   Modal,
   ModalContent,
@@ -9,60 +10,51 @@ import {
 } from "@nextui-org/react";
 import { Pencil } from "lucide-react";
 import { CoverImageEditorProps } from "../types";
-import { DEFAULT_IMAGE, ACCEPTED_IMAGE_TYPES } from "../utils/constants";
-import { useImageEditor } from "../hooks/useImageEditor";
+import { ACCEPTED_IMAGE_TYPES } from "../utils/constants";
 import { ImagePreview } from "./ImagePreview";
 import { ZoomControl } from "./ZoomControl";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useBannerStore } from "../store/bannerStore";
 
 export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
-  defaultImage = DEFAULT_IMAGE,
-  defaultTitle = "Brand or Organization",
-  onSave,
-  className = "",
   maxSizeMB = 5,
+  onSave,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
 
   const {
-    isOpen,
-    currentImage,
-    currentTitle,
-    currentZoom,
+    image,
+    title,
+    zoom,
+    isEditing,
+    error,
     tempImage,
     tempTitle,
     tempZoom,
-    isEditingTitle,
-    error,
-    setTempZoom,
+    openEditor,
+    closeEditor,
     setTempTitle,
-    setIsEditingTitle,
-    handleOpenModal,
-    handleCloseModal,
-    handleSave,
-    handleReset,
-    handleImageChange,
-  } = useImageEditor({
-    defaultImage,
-    defaultTitle,
-    maxSizeMB,
-    onSave,
-  });
+    setTempZoom,
+    saveBanner,
+    resetBanner,
+    updateBanner,
+  } = useBannerStore();
 
-  const handleTitleClick = useCallback(() => {
-    setIsEditingTitle(true);
-    setTimeout(() => {
-      titleInputRef.current?.focus();
-    }, 0);
-  }, [setIsEditingTitle]);
-
-  const handleTitleBlur = useCallback(() => {
-    setIsEditingTitle(false);
-  }, [setIsEditingTitle]);
+  const handleSave = () => {
+    saveBanner();
+    onSave?.({
+      url: tempImage,
+      title: tempTitle,
+      zoom: tempZoom,
+    });
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleImageChange(event.target.files?.[0]);
+    const file = event.target.files?.[0];
+    if (file) {
+      updateBanner(file, maxSizeMB);
+    }
   };
 
   return (
@@ -71,13 +63,13 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
         <div>
           <div className="relative my-2">
             <ImagePreview
-              imageUrl={currentImage}
-              imageZoom={currentZoom}
-              title={currentTitle}
+              imageUrl={image}
+              imageZoom={zoom}
+              title={title}
             />
             {user && (
               <Button
-                onPress={handleOpenModal}
+                onPress={openEditor}
                 className="absolute top-4 right-4 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                 color="primary"
                 variant="flat"
@@ -88,8 +80,8 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
             )}
           </div>
           <Modal
-            isOpen={isOpen}
-            onClose={handleCloseModal}
+            isOpen={isEditing}
+            onClose={closeEditor}
             size="2xl"
             backdrop="blur"
             scrollBehavior="inside"
@@ -106,11 +98,8 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                   imageZoom={tempZoom}
                   title={tempTitle}
                   isModal
-                  isEditingTitle={isEditingTitle}
-                  onTitleClick={handleTitleClick}
-                  onTitleChange={setTempTitle}
-                  onTitleBlur={handleTitleBlur}
                   titleInputRef={titleInputRef}
+                  onTitleChange={setTempTitle}
                 />
 
                 {error && (
@@ -132,7 +121,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                   <Button
                     variant="bordered"
                     className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                    onPress={handleReset}
+                    onPress={resetBanner}
                   >
                     Reset
                   </Button>
@@ -160,4 +149,4 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   );
 };
 
-export default memo(CoverImageEditor);
+export default React.memo(CoverImageEditor);

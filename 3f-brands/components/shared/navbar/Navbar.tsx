@@ -19,7 +19,7 @@ import {
 
 import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { Search, X } from "lucide-react";
 
 interface NavigationBarProps {
@@ -30,12 +30,13 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
 
   const handleStartClick = useCallback(() => {
-    router.push("/login");
+    router.push("http://localhost:3000/login");
   }, [router]);
 
   const handleSearch = useCallback(
@@ -56,7 +57,6 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     "Start",
   ];
 
-  // Determine if we should show search functionality
   const showSearchFunctionality = useMemo(() => {
     return pathname !== "/explore";
   }, [pathname]);
@@ -69,7 +69,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
         className={`
           fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out
           ${
-            searchTerm.length > 0
+            isSearchFocused
               ? "opacity-100 visible bg-black/50 backdrop-blur-sm h-screen w-screen flex pt-32 justify-center"
               : "opacity-0 invisible h-0"
           }
@@ -77,31 +77,35 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
         `}
       >
         <div className="relative w-full max-w-4xl px-4">
-          {searchTerm.length > 0 && (
-            <Button
-              isIconOnly
-              variant="light"
-              className="absolute -top-16 right-4"
-              onPress={() => setSearchTerm("")}
-            >
-              <X className="w-8 h-8" />
-            </Button>
-          )}
-          <div className="bg-white p-4 rounded-full border shadow-md">
+          <Button
+            isIconOnly
+            variant="light"
+            className="absolute -top-16 right-4"
+            onPress={() => {
+              setIsSearchFocused(false);
+              setSearchTerm("");
+            }}
+          >
+            <X className="w-8 h-8" />
+          </Button>
+          <div className="bg-white p-2 rounded-full border shadow-md">
             <Input
-              classNames={{
-                base: "w-full",
-                input: "text-4xl py-0 bg-red-600 px-2",
-              }}
+              className="py-0 px-2 text-base w-full shadow-none"
               placeholder="Search brand, category, tag or..."
-              startContent={<Search className="w-8 h-8 mr-4" />}
+              startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              autoFocus
+              onBlur={() => {
+                // Optional: Add a slight delay to handle click events on suggestions
+                setTimeout(() => setIsSearchFocused(false), 200);
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearch(searchTerm);
                 }
                 if (e.key === "Escape") {
+                  setIsSearchFocused(false);
                   setSearchTerm("");
                 }
               }}
@@ -116,26 +120,24 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     if (!showSearchFunctionality) return null;
 
     return (
-      <Modal 
-        isOpen={isSearchModalOpen} 
+      <Modal
+        isOpen={isSearchModalOpen}
         onOpenChange={setIsSearchModalOpen}
         size="full"
         backdrop="blur"
-        className="bg-white pt-6 "
+        className="bg-white pt-6"
       >
         <ModalContent>
           <ModalBody className="p-4">
             <Input
-              classNames={{
-                base: "w-full px-4 py-2",
-                input: "text-base ",
-              }}
+              className="w-full px-4 py-2"
               placeholder="Search brand, category, tag or..."
               startContent={<Search className="w-5 h-5 text-light1" />}
               value={searchTerm}
+              autoFocus
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleSearch(searchTerm);
                   setIsSearchModalOpen(false);
                 }
@@ -164,7 +166,10 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
             </Link>
           </NavbarItem>
           <NavbarItem isActive={pathname === "/explore"}>
-            <Link href="/explore" aria-current={pathname === "/explore" ? "page" : undefined}>
+            <Link
+              href="/explore"
+              aria-current={pathname === "/explore" ? "page" : undefined}
+            >
               Explore
             </Link>
           </NavbarItem>
@@ -185,14 +190,12 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           {showSearchFunctionality && (
             <div className="hidden md:block relative">
               <Input
-                classNames={{
-                  base: "w-full max-w-[300px]",
-                  input: "text-sm border",
-                }}
+                className="rounded-lg border border-light3 shadow-shadow1 text-xs font-extralight hover:border-purple-500 focus:outline-none"
                 placeholder="Search brand, category, tag or..."
-                startContent={<Search className="w-5 h-5" />}
+                startContent={<Search className="w-5 h-5 text-light1" />}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
               />
             </div>
           )}
@@ -215,7 +218,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
               {(user) =>
                 user ? (
                   <AvatarDropdown
-                    userName={user.name || "User"}
+                    userName={user.user_metadata?.name || "User"}
                     userEmail={user.email || ""}
                   />
                 ) : (

@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
-  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Avatar,
 } from "@nextui-org/react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useAuthStore } from "@/store/authStore";
+import { useProfileStore } from "../../pages/creators/profile-editor/store/profileStore";
+import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
 
 interface AvatarDropdownProps {
   userName: string;
@@ -21,6 +25,35 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userName,
   userEmail,
 }) => {
+  const router = useRouter();
+  const { selectedImage, subscribe } = useProfileStore();
+  const { supabase } = useAuthStore();
+  
+  useEffect(() => {
+    // Subscribe to profile image changes
+    const unsubscribe = subscribe(() => {
+      // Component will automatically re-render when selectedImage changes
+      // because it's using the store's state
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [subscribe]);
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      window.location.href = "http://localhost:3000/login";
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
+  const handleNavigation = (userId: string, path: string) => {
+    router.push(path.replace("[id]", userId).replace("[userId]", userId));
+  };
+
   return (
     <AuthWrapper>
       {(user) => (
@@ -31,11 +64,16 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <Avatar
                   isBordered
                   as="button"
-                  className="transition-transform "
+                  className="transition-transform"
                   color="primary"
-                  name={userName}
+                  name={getFirstLetter(userEmail)}
                   size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src={selectedImage || undefined}
+                  fallback={
+                    <div className="bg-primary text-primary200 text-sm font-bold w-full h-full flex items-center justify-center">
+                      {getFirstLetter(userEmail)}
+                    </div>
+                  }
                 />
               </DropdownTrigger>
               <DropdownMenu
@@ -54,6 +92,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                   key="my-profile"
                   className="flex"
                   textValue="My Profile"
+                  onPress={() => handleNavigation(user.id, "/creators/[id]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
@@ -73,7 +112,11 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                     <h6 className="flex">My brand and organization</h6>
                   </div>
                 </DropdownItem>
-                <DropdownItem key="settings" textValue="Settings">
+                <DropdownItem
+                  key="settings"
+                  textValue="Settings"
+                  onPress={() => handleNavigation(user.id, "/dashboard/[userId]")}
+                >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoMdSettings />
@@ -81,7 +124,11 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                     <h6 className="flex">Setting</h6>
                   </div>
                 </DropdownItem>
-                <DropdownItem key="logout" textValue="Log Out">
+                <DropdownItem
+                  key="logout"
+                  textValue="Log Out"
+                  onClick={handleLogout}
+                >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <TbLogout />

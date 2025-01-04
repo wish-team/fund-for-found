@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { ProfileImage } from './components/ProfileImage';
 import { EditProfileModal } from './components/EditProfileModal';
-import { useProfileImage } from './hooks/useProfileImage';
+import { useProfileStore } from './store/profileStore';
 
 const ProfileEditor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const title = 'Wish Work';
   
-  const { selectedImage, tempImage, setTempImage, saveImage } = useProfileImage(title);
+  const { selectedImage, tempImage, setTempImage, saveImage } = useProfileStore();
 
   const handleOpenModal = () => {
     setTempImage(selectedImage);
@@ -36,7 +36,6 @@ const ProfileEditor: React.FC = () => {
     <div className="p-4">
       <div className="flex flex-col gap-3">
         <ProfileImage
-          image={selectedImage}
           title={title}
           onEditClick={handleOpenModal}
         />
@@ -46,11 +45,9 @@ const ProfileEditor: React.FC = () => {
       <EditProfileModal
         isOpen={isOpen}
         onOpenChange={handleModalOpenChange}
-        tempImage={tempImage}
         title={title}
         onSave={handleSave}
         onReset={handleReset}
-        onImageUpload={setTempImage}
       />
     </div>
   );

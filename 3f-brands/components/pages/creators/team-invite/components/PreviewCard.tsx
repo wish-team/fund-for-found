@@ -6,7 +6,7 @@ import { PreviewCardProps } from "../types/team";
 import { LuPencil, LuTrash } from "react-icons/lu";
 import { DeleteConfirmationModal } from "../../../../shared/DeleteConfirmationModal";
 import { AdminDeletePopover } from "./AdminDeletePopover";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export const PreviewCard: React.FC<PreviewCardProps> = ({
   member,

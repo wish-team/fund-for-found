@@ -20,21 +20,22 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
       key={item.id}
       title={item.title}
       aria-label={item.title}
+      className="border rounded-lg shadow-shadow1 mb-2"
     >
       <div>{item.content}</div>
-      <div className="action-buttons">
+      <div className="flex justify-between mt-2">
         <Button
-          onClick={() => onEdit(item)}
+          onPress={() => onEdit(item)}
           size="sm"
           startContent={<FaPencil />}
-          className="edit-button"
+          className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
         >
           Edit
         </Button>
         <Button
           startContent={<FaTrashCan />}
-          className="delete-button"
-          onClick={() => onDelete(item.id)}
+          className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
+          onPress={() => onDelete(item.id)}
           size="sm"
         >
           Delete

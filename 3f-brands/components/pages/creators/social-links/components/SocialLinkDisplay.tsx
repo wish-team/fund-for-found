@@ -1,19 +1,19 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
-import { SocialLinks } from "../types";
-import { getIcon } from "../utils/helpers";
 import { BsPencil } from "react-icons/bs";
-import { AuthWrapper } from "@/app/auth/callback/AuthWrapper";
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useSocialLinksStore } from '../store/socialLinksStore';
+import { getIcon } from "../utils/helpers";
 
 interface SocialLinkDisplayProps {
-  links: SocialLinks;
   onEditClick: () => void;
 }
 
 export const SocialLinkDisplay: React.FC<SocialLinkDisplayProps> = ({
-  links,
   onEditClick,
 }) => {
+  const { links } = useSocialLinksStore();
+
   return (
     <AuthWrapper>
       {(user) => (
