@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect, memo } from "react";
-import { InputProps } from "../types";
+import { InputProps, FormData } from "../types";
 import { useRegistrationStore } from "../store/registrationStore";
 import Inputs from "../../../../shared/Input";
 
@@ -11,7 +11,12 @@ export const AutocompleteInput = memo(({
   placeholder = `Select ${label}` 
 }: InputProps & { placeholder?: string }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const value = useRegistrationStore((state) => state.formData[fieldName] || "");
+  // Add type assertion to ensure we get a string value
+  const value = useRegistrationStore((state) => {
+    const fieldValue = state.formData[fieldName];
+    return typeof fieldValue === 'string' ? fieldValue : '';
+  });
+  
   const dropdownState = useRegistrationStore((state) => state.dropdowns[fieldName]);
   const {
     initDropdown,
@@ -40,12 +45,12 @@ export const AutocompleteInput = memo(({
   const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     filterDropdownItems(fieldName, data, inputValue);
-    setFormField(fieldName, inputValue);
+    setFormField(fieldName as keyof FormData, inputValue);
     setDropdownState(fieldName, { isOpen: true });
   }, [fieldName, data, filterDropdownItems, setFormField, setDropdownState]);
 
   const handleItemSelect = useCallback((item: string) => {
-    setFormField(fieldName, item);
+    setFormField(fieldName as keyof FormData, item);
     setDropdownState(fieldName, { isOpen: false });
   }, [fieldName, setFormField, setDropdownState]);
 

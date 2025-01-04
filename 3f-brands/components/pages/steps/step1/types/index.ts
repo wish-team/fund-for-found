@@ -12,7 +12,7 @@ export interface FormData {
 export interface InputProps {
   data: string[];
   label: string;
-  fieldName: string;
+  fieldName: keyof FormData;  // Changed from string to keyof FormData
   error?: any;
 }
 
