@@ -32,25 +32,25 @@ const FAQ_ITEMS: readonly FAQItem[] = [
   },
 ] as const;
 
-interface FAQSectionProps {
+interface FaqStep3Props {
   className?: string;
 }
 
-const FAQSection = memo(function FAQSection({ className = "" }: FAQSectionProps) {
+const FaqStep3 = memo(function FaqStep3({ className = "" }: FaqStep3Props) {
   const [isAgreed, setIsAgreed] = useState(false);
 
   return (
     <Card className={`mx-auto border rounded-xl shadow p-2 sm:p-6 ${className}`}>
       <CardBody>
-        <div className="flex items-center gap-4 text-primary justify-center font-bold mb-4">
-          <h4>Rewards aren't guaranteed</h4>
-          <MdRemoveShoppingCart className="w-5 h-5" aria-hidden="true" />
+        <div className="text-primary text-2xl border-b-2 rounded-xl pb-4 mb-4">
+          <h4 className="text-center">Contribution summary</h4>
         </div>
 
-        <div className="bg-purple-50 p-4 mb-4 rounded-lg">
-          <h4 className="text-gray-700 text-sm text-center">
-            Crowdfunding is not shopping!
-          </h4>
+        <div className="py-3">
+          <h4 className="text-gray3">Payment currency</h4>
+          <h6 className="bg-light3 p-2 rounded-lg mb-4 text-light1 text-sm">11 CAD – Canadian Dollar</h6>
+          <h4 className="text-gray3">Payment amount</h4>
+          <h6 className="bg-light3 p-2 rounded-lg mb-4 text-light1 text-sm">8.16 US dollars</h6>
         </div>
 
         <h5 className="font-semibold text-gray4 flex items-center">
@@ -91,4 +91,4 @@ const FAQSection = memo(function FAQSection({ className = "" }: FAQSectionProps)
   );
 });
 
-export default FAQSection;
+export default FaqStep3;

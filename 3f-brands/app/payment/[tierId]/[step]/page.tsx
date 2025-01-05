@@ -16,7 +16,7 @@ const PaymentInfo = React.lazy(
 );
 const Review = React.lazy(() => import("@/components/pages/payment/step2/Step2"));
 const Confirmation = React.lazy(
-  () => import("@/components/pages/payment/Step3")
+  () => import("@/components/pages/payment/step3/Step3")
 );
 
 const PAYMENT_STEPS: Step[] = [
