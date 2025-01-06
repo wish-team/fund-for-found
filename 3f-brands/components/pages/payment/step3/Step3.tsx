@@ -1,13 +1,14 @@
 import React from 'react';
 
 import FaqStep3 from './components/FaqStep3';
+import FiatCurrency from './components/FiatCurrency';
 
 
 const Step3: React.FC<Step3Props> = () => {
   return (
     <div className="grid sm:grid-cols-12 gap-4">
       <div className="sm:col-span-7">
-        payment
+        <FiatCurrency />
       </div>
       <div className="sm:col-span-5">
         <FaqStep3 />
