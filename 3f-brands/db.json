@@ -159,7 +159,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "70c6"
     },
     {
       "name": "Creative Art & Media",
@@ -242,7 +243,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "0123"
     },
     {
       "name": "Business & Entrepreneurship",
@@ -299,7 +301,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "0d61"
     },
     {
       "name": "Games & Entertainment",
@@ -382,7 +385,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "e1bd"
     },
     {
       "name": "Social Causes & Community",
@@ -465,30 +469,215 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "f990"
     }
   ],
   "contributors": [
     {
-      "id": 109,
+      "id": "109",
       "name": "sama ghavamzadeh",
       "username": "sama",
       "email": "sama@example.com",
       "avatar": "/default-avatar.png"
     },
     {
-      "id": 54,
+      "id": "54",
       "name": "my first brand",
       "username": "sama",
       "email": "sama@example.com",
       "avatar": "/default-avatar.png"
     },
     {
-      "id": 594,
+      "id": "594",
       "name": "my second brand",
       "username": "sama",
       "email": "sama@example.com",
       "avatar": "/default-avatar.png"
+    }
+  ],
+  "brandNames": [
+    {
+      "id": "1",
+      "name": "Apple"
+    },
+    {
+      "id": "2",
+      "name": "Microsoft"
+    },
+    {
+      "id": "3",
+      "name": "Google"
+    },
+    {
+      "id": "4",
+      "name": "Amazon"
+    },
+    {
+      "id": "5",
+      "name": "Meta"
+    },
+    {
+      "id": "6",
+      "name": "Netflix"
+    },
+    {
+      "id": "7",
+      "name": "Tesla"
+    }
+  ],
+  "countries": [
+    {
+      "id": "1",
+      "name": "United States"
+    },
+    {
+      "id": "2",
+      "name": "Canada"
+    },
+    {
+      "id": "3",
+      "name": "United Kingdom"
+    },
+    {
+      "id": "4",
+      "name": "Australia"
+    },
+    {
+      "id": "5",
+      "name": "Germany"
+    },
+    {
+      "id": "6",
+      "name": "France"
+    },
+    {
+      "id": "7",
+      "name": "India"
+    }
+  ],
+  "brandcategories": [
+    {
+      "id": "1",
+      "name": "Technology"
+    },
+    {
+      "id": "2",
+      "name": "Health"
+    },
+    {
+      "id": "3",
+      "name": "Finance"
+    },
+    {
+      "id": "4",
+      "name": "Education"
+    },
+    {
+      "id": "5",
+      "name": "Entertainment"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": "1",
+      "name": "Mobile"
+    },
+    {
+      "id": "2",
+      "name": "Web"
+    },
+    {
+      "id": "3",
+      "name": "AI"
+    },
+    {
+      "id": "4",
+      "name": "Blockchain"
+    },
+    {
+      "id": "5",
+      "name": "Cloud Computing"
+    }
+  ],
+  "brandTags": [
+    {
+      "id": "1",
+      "name": "designer"
+    },
+    {
+      "id": "2",
+      "name": "webDeveloper"
+    },
+    {
+      "id": "3",
+      "name": "AI"
+    },
+    {
+      "id": "4",
+      "name": "podcaster"
+    },
+    {
+      "id": "5",
+      "name": "Cloud Computing"
+    }
+  ],
+  "registrations": [
+    {
+      "id": "82b5",
+      "name": "kelaasor",
+      "email": "default@email.com",
+      "password": "defaultpass",
+      "category": "Finance",
+      "subcategory": "Blockchain",
+      "brandTags": [
+        "podcaster"
+      ],
+      "country": "Canada",
+      "agree": true
+    },
+    {
+      "id": "d8cf",
+      "name": "kelaasor",
+      "email": "default@email.com",
+      "password": "defaultpass",
+      "category": "Finance",
+      "subcategory": "Blockchain",
+      "brandTags": [
+        "podcaster"
+      ],
+      "country": "Canada",
+      "agree": true
+    },
+    {
+      "id": "b55e",
+      "name": "samaa",
+      "email": "default@email.com",
+      "password": "defaultpass",
+      "category": "Education",
+      "subcategory": "Cloud Computingss",
+      "brandTags": [
+        "AI",
+        "designer",
+        "aerial"
+      ],
+      "country": "Australia",
+      "agree": true
+    },
+    {
+      "id": "866f",
+      "name": "samaa",
+      "email": "default@email.com",
+      "password": "defaultpass",
+      "category": "Education",
+      "subcategory": "Cloud Computingss",
+      "brandTags": [
+        "AI",
+        "designer",
+        "aerial"
+      ],
+      "country": "Australia",
+      "agree": true
     }
   ]
 }
