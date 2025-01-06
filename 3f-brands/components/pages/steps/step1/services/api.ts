@@ -46,3 +46,11 @@ export const getRegistration = async (registrationId: string) => {
   );
   return data;
 };
+
+export const updateInfo = async (registrationId: string, formData: ExtendedFormData) => {
+  const { data } = await api.put<RegistrationResponse>(
+    `/registrations/${registrationId}`,
+    formData
+  );
+  return data;
+};

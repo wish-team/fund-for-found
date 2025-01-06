@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { FormData } from "../types";
+import { ExtendedFormData } from "../types";
 
 interface FormStore {
-  formData: Partial<FormData>;
+  formData: Partial<ExtendedFormData>;
   registrationId?: string;
-  setFormData: (data: Partial<FormData>, registrationId?: string) => void;
+  setFormData: (data: Partial<ExtendedFormData>, registrationId?: string) => void;
   resetForm: () => void;
 }
 
