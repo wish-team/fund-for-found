@@ -3,34 +3,46 @@ import { FormData } from "../types";
 
 const API_URL = "http://localhost:8000";
 
-export const api = {
-  // Fetch options for autocomplete
-  getOptions: async (field: string) => {
-    try {
-      const response = await axios.get(`${API_URL}/${field}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching ${field} options:`, error);
-      throw error;
-    }
-  },
+const api = axios.create({
+  baseURL: API_URL,
+  headers: { "Content-Type": "application/json" },
+});
 
-  // Submit form data
-  submitRegistration: async (data: FormData) => {
-    try {
-      const response = await axios.post(`${API_URL}/registrations`, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error details:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('Response data:', error.response?.data);
-        console.error('Response status:', error.response?.status);
-      }
-      throw error;
-    }
-  },
+export const getOptions = async (endpoint: string) => {
+  const { data } = await api.get<Array<{ id: number; name: string }>>(
+    `/${endpoint}`
+  );
+  return data.map((item) => item.name);
+};
+
+interface RegistrationResponse extends FormData {
+  id: string;
+}
+
+export const submitRegistration = async (
+  formData: FormData,
+  registrationId?: string
+) => {
+  if (registrationId) {
+    // Update existing registration
+    const { data } = await api.put<RegistrationResponse>(
+      `/registrations/${registrationId}`,
+      formData
+    );
+    return data;
+  } else {
+    // Create new registration
+    const { data } = await api.post<RegistrationResponse>(
+      "/registrations",
+      formData
+    );
+    return data;
+  }
+};
+
+export const getRegistration = async (registrationId: string) => {
+  const { data } = await api.get<RegistrationResponse>(
+    `/registrations/${registrationId}`
+  );
+  return data;
 };

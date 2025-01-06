@@ -1,23 +1,12 @@
-// In index.ts
-export interface FormData {
-  name: string;
-  category: string;
-  subcategory: string;
-  brandTags: string[];
-  country: string;
-  agree: boolean;
-  email?: string;  // Make these optional
-  password?: string;
-}
+import { z } from "zod";
 
-export interface InputProps {
-  data: string[];
-  label: string;
-  fieldName: keyof FormData;  // Changed from string to keyof FormData
-  error?: any;
-}
+export const formSchema = z.object({
+  name: z.string().min(1, "Brand/Organisation Name is required"),
+  category: z.string().min(1, "Category is required"),
+  subcategory: z.string().min(1, "Subcategory is required"),
+  brandTags: z.array(z.string()).min(1, "At least one brand tag is required"),
+  country: z.string().min(1, "Country is required"),
+  agree: z.boolean().refine((val) => val === true, "You must agree to the terms of service"),
+});
 
-export interface DropdownState {
-  isOpen: boolean;
-  filteredItems: string[];
-}
+export type FormData = z.infer<typeof formSchema>;

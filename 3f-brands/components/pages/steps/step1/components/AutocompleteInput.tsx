@@ -1,88 +1,117 @@
-import React, { useRef, useCallback, useEffect, memo } from "react";
-import { InputProps, FormData } from "../types";
-import { useRegistrationStore } from "../store/registrationStore";
-import Inputs from "../../../../shared/Input";
+import React, { useRef, useState, useEffect } from "react";
+import { Control, Controller } from "react-hook-form";
+import { FormData } from "../types";
 
-export const AutocompleteInput = memo(({ 
-  data, 
-  label, 
-  fieldName, 
-  error, 
-  placeholder = `Select ${label}` 
-}: InputProps & { placeholder?: string }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  // Add type assertion to ensure we get a string value
-  const value = useRegistrationStore((state) => {
-    const fieldValue = state.formData[fieldName];
-    return typeof fieldValue === 'string' ? fieldValue : '';
-  });
-  
-  const dropdownState = useRegistrationStore((state) => state.dropdowns[fieldName]);
-  const {
-    initDropdown,
-    removeDropdown,
-    setDropdownState,
-    filterDropdownItems,
-    setFormField
-  } = useRegistrationStore();
+interface AutocompleteInputProps {
+  control: Control<FormData>;
+  name: keyof FormData;
+  label: string;
+  options?: string[];
+  placeholder?: string;
+  allowCustomInput?: boolean;
+}
 
-  useEffect(() => {
-    initDropdown(fieldName);
-    return () => removeDropdown(fieldName);
-  }, [fieldName, initDropdown, removeDropdown]);
+export const AutocompleteInput = React.memo(
+  ({
+    control,
+    name,
+    label,
+    options = [],
+    placeholder = `Select ${label}`,
+    allowCustomInput = false,
+  }: AutocompleteInputProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
+    const inputRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setDropdownState(fieldName, { isOpen: false });
-    }
-  }, [fieldName, setDropdownState]);
+    // Only show suggestions if options are provided and custom input isn't allowed
+    const shouldShowSuggestions = !allowCustomInput && options.length > 0;
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handleClickOutside]);
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          inputRef.current &&
+          !inputRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      };
 
-  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    filterDropdownItems(fieldName, data, inputValue);
-    setFormField(fieldName as keyof FormData, inputValue);
-    setDropdownState(fieldName, { isOpen: true });
-  }, [fieldName, data, filterDropdownItems, setFormField, setDropdownState]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-  const handleItemSelect = useCallback((item: string) => {
-    setFormField(fieldName as keyof FormData, item);
-    setDropdownState(fieldName, { isOpen: false });
-  }, [fieldName, setFormField, setDropdownState]);
+    const filterOptions = (inputValue: string) => {
+      return options.filter((option) =>
+        option.toLowerCase().includes(inputValue.toLowerCase())
+      );
+    };
 
-  return (
-    <div ref={dropdownRef} className="relative">
-      <Inputs
-        type="text"
-        label={label}
-        extraLabel="*"
-        value={value}
-        placeholder={placeholder}
-        onChange={handleInputChange}
-        onFocus={() => setDropdownState(fieldName, { isOpen: true })}
-        className="mt-1"
-        inputClassName="focus:border-purple-500"
+    return (
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <div ref={inputRef} className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {label}
+              <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={(value as string) || ""}
+                onChange={(e) => {
+                  onChange(e.target.value);
+                  if (shouldShowSuggestions) {
+                    setFilteredOptions(filterOptions(e.target.value));
+                    setIsOpen(true);
+                  }
+                }}
+                onFocus={() => {
+                  if (shouldShowSuggestions) {
+                    setFilteredOptions(filterOptions((value as string) || ""));
+                    setIsOpen(true);
+                  }
+                }}
+                placeholder={placeholder}
+                className={`
+                w-full px-3 py-2 border rounded-lg focus:outline-none
+                ${
+                  error
+                    ? "border-red-500"
+                    : "border-light3 focus:border-purple-500"
+                }
+              `}
+              />
+              {isOpen &&
+                shouldShowSuggestions &&
+                filteredOptions.length > 0 && (
+                  <ul className="absolute z-10 w-full mt-1 bg-white border border-light3 rounded-lg shadow-md max-h-60 overflow-y-auto">
+                    {filteredOptions.map((option) => (
+                      <li
+                        key={option}
+                        className="py-2 px-4 hover:bg-primary50 cursor-pointer"
+                        onClick={() => {
+                          onChange(option);
+                          setIsOpen(false);
+                        }}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </div>
+            {error && (
+              <p className="text-red-500 text-xs mt-1">{error.message}</p>
+            )}
+          </div>
+        )}
       />
-      {dropdownState?.isOpen && dropdownState.filteredItems?.length > 0 && (
-        <ul className="absolute shadow-md z-10 border border-light3 rounded-lg bg-white mt-2 max-h-60 overflow-auto w-full">
-          {dropdownState.filteredItems.map((item) => (
-            <li
-              key={item}
-              className="py-2 px-4 text-gray4 hover:bg-primary50 cursor-pointer"
-              onClick={() => handleItemSelect(item)}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-      {error && <p className="text-red-500 text-xs pt-1">{error.message}</p>}
-    </div>
-  );
-});
+    );
+  }
+);
 
-AutocompleteInput.displayName = 'AutocompleteInput';
+AutocompleteInput.displayName = "AutocompleteInput";

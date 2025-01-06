@@ -496,36 +496,6 @@
       "avatar": "/default-avatar.png"
     }
   ],
-  "brandNames": [
-    {
-      "id": "1",
-      "name": "Apple"
-    },
-    {
-      "id": "2",
-      "name": "Microsoft"
-    },
-    {
-      "id": "3",
-      "name": "Google"
-    },
-    {
-      "id": "4",
-      "name": "Amazon"
-    },
-    {
-      "id": "5",
-      "name": "Meta"
-    },
-    {
-      "id": "6",
-      "name": "Netflix"
-    },
-    {
-      "id": "7",
-      "name": "Tesla"
-    }
-  ],
   "countries": [
     {
       "id": "1",
@@ -624,60 +594,52 @@
   ],
   "registrations": [
     {
-      "id": "82b5",
-      "name": "kelaasor",
-      "email": "default@email.com",
-      "password": "defaultpass",
-      "category": "Finance",
-      "subcategory": "Blockchain",
+      "id": "84f0",
+      "name": "dadadad",
+      "category": "Technology",
+      "subcategory": "Mobile",
       "brandTags": [
-        "podcaster"
+        "podcaster",
+        "webDeveloper"
       ],
       "country": "Canada",
       "agree": true
     },
     {
-      "id": "d8cf",
-      "name": "kelaasor",
-      "email": "default@email.com",
-      "password": "defaultpass",
-      "category": "Finance",
-      "subcategory": "Blockchain",
+      "id": "e583",
+      "name": "samaa",
+      "category": "Technology",
+      "subcategory": "Mobile",
       "brandTags": [
-        "podcaster"
+        "podcaster",
+        "webDeveloper"
       ],
       "country": "Canada",
       "agree": true
     },
     {
-      "id": "b55e",
-      "name": "samaa",
-      "email": "default@email.com",
-      "password": "defaultpass",
-      "category": "Education",
-      "subcategory": "Cloud Computingss",
+      "name": "ghmtest",
+      "category": "Technology",
+      "subcategory": "AI",
       "brandTags": [
-        "AI",
         "designer",
-        "aerial"
+        "podcaster"
       ],
-      "country": "Australia",
-      "agree": true
+      "country": "United States",
+      "agree": true,
+      "id": "848d"
     },
     {
-      "id": "866f",
-      "name": "samaa",
-      "email": "default@email.com",
-      "password": "defaultpass",
+      "name": "logosss",
       "category": "Education",
-      "subcategory": "Cloud Computingss",
+      "subcategory": "Web",
       "brandTags": [
-        "AI",
-        "designer",
-        "aerial"
+        "ffff",
+        "webDeveloper"
       ],
-      "country": "Australia",
-      "agree": true
+      "country": "United States",
+      "agree": true,
+      "id": "ef31"
     }
   ]
 }
