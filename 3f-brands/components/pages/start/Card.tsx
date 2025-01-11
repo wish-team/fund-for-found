@@ -8,8 +8,10 @@ import Links from "@/components/shared/Links";
 import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import { useEffect, useMemo, useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 const Card = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -55,8 +57,8 @@ const Card = () => {
       </div>
       <div className="px-8 flex flex-col items-center w-full text-justify">
         <Title
-          title="Brand or Organization"
-          desc="If your brand is established and you're looking for continuous support, get started now."
+          titleKey="startCard.title"
+          descKey="startCard.description"
           fontSize="text-2xl"
           descSize="text-sm"
           paddingTop="p-0"
@@ -68,10 +70,14 @@ const Card = () => {
           isLoading={isLoading}
           className="font-light my-4 px-28 bg-primary mb-1 text-white rounded-lg border border-light2"
         >
-          Start
+          {t("startCard.button")}
         </Button>
 
-        <Links href="/about" text="Learn more" />
+        <Links
+          href="/about"
+          translationKey="startCard.link"
+          text="Learn more"
+        />
       </div>
     </section>
   );
