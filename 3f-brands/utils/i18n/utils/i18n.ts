@@ -1,11 +1,16 @@
+// utils/i18n/utils/i18n.ts
+'use client';
+
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { getOptions } from '../config/settings';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { getOptions } from '../config/settings';
 import enTranslations from '../locales/en/translation.json';
 
-if (!i18next.isInitialized) {
-  i18next
+const i18nInstance = i18next.createInstance();
+
+if (!i18nInstance.isInitialized) {
+  i18nInstance
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
@@ -31,4 +36,4 @@ if (!i18next.isInitialized) {
     });
 }
 
-export default i18next;
+export default i18nInstance;

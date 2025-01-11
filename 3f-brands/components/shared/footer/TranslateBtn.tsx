@@ -1,8 +1,12 @@
+// components/TranslateBtn.tsx
+'use client';
+
 import React from "react";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { HiTranslate } from "react-icons/hi";
 import { Selection } from "@nextui-org/react";
-import { languages, useLanguageStore, useTranslations } from '@/utils/i18n';
+import { languages, useLanguageStore } from '@/utils/i18n';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
 
 const languageNames = {
@@ -15,7 +19,7 @@ const languageNames = {
 
 export default function TranslateBtn() {
   const { currentLanguage, setLanguage } = useLanguageStore();
-  const { isLoading } = useTranslations(currentLanguage);
+  const { i18n } = useTranslation();
   const queryClient = useQueryClient();
 
   const handleLanguageChange = async (keys: Selection) => {
@@ -23,23 +27,35 @@ export default function TranslateBtn() {
     const langCode = Object.entries(languageNames).find(([_, value]) => value === selectedLang)?.[0];
     
     if (langCode) {
-      // Invalidate the current translation query
-      await queryClient.invalidateQueries({
-        queryKey: ['translations', currentLanguage]
-      });
-      
-      // Set the new language
-      setLanguage(langCode);
-      
-      // Force a refetch of the translations
-      await queryClient.refetchQueries({
-        queryKey: ['translations', langCode],
-        type: 'active'
-      });
+      try {
+        // Invalidate current translations
+        await queryClient.invalidateQueries({
+          queryKey: ['translations', currentLanguage]
+        });
+
+        // Load new translations
+        const newTranslations = await import(`@/utils/i18n/locales/${langCode}/translation.json`);
+        
+        // Update i18next resources
+        i18n.addResourceBundle(langCode, 'translation', newTranslations.default, true, true);
+        
+        // Change language in i18next
+        await i18n.changeLanguage(langCode);
+        
+        // Update language in store
+        setLanguage(langCode);
+
+        // Prefetch translations for next time
+        queryClient.prefetchQuery({
+          queryKey: ['translations', langCode],
+          queryFn: () => Promise.resolve(newTranslations.default)
+        });
+
+      } catch (error) {
+        console.error('Error changing language:', error);
+      }
     }
   };
-
-  if (isLoading) return <Button variant="bordered">Loading...</Button>;
 
   return (
     <Dropdown className="text-sm bg-white rounded-lg shadow">

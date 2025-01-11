@@ -1,9 +1,11 @@
+// app/layout.tsx
 import "./globals.css";
 import { Suspense } from "react";
 import NavigationBar from "@/components/shared/navbar/Navbar";
 import Footer from "@/components/shared/footer/Footer";
 import { Providers } from "./providers";
 import Loader from "@/components/shared/loader/Loader";
+import { FontLoader } from "@/utils/i18n";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -25,7 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <Providers>
-          {/* The LanguageProvider is now moved to Providers component */}
+          <FontLoader />
           <Suspense fallback={<Loader />}>
             <NavigationBar />
           </Suspense>

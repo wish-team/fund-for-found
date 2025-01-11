@@ -1,23 +1,29 @@
+// utils/i18n/store/languageStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { languages, fallbackLng } from '../config/settings';
+import { languageFonts, type LanguageCode } from '../config/fonts';
 import i18next from 'i18next';
 
 interface LanguageState {
-  currentLanguage: string;
-  setLanguage: (lang: string) => void;
+  currentLanguage: LanguageCode;
+  fontFamily: string;
+  setLanguage: (lang: LanguageCode) => void;
   direction: () => 'ltr' | 'rtl';
 }
 
 export const useLanguageStore = create<LanguageState>()(
   persist(
     (set, get) => ({
-      currentLanguage: fallbackLng,
-      setLanguage: (lang: string) => {
+      currentLanguage: fallbackLng as LanguageCode,
+      fontFamily: languageFonts[fallbackLng as LanguageCode].family,
+      setLanguage: (lang: LanguageCode) => {
         if (languages.includes(lang)) {
-          set({ currentLanguage: lang });
-          // Force i18next to update immediately
-          i18next.changeLanguage(lang);
+          // Update store state
+          set({ 
+            currentLanguage: lang,
+            fontFamily: languageFonts[lang].family
+          });
         }
       },
       direction: () => ['ar', 'fa'].includes(get().currentLanguage) ? 'rtl' : 'ltr',
