@@ -10,6 +10,8 @@ export default async function Index() {
             fontWeight="font-extrabold"
             fontSize="text-4xl"
             paddingTop="pt-8"
+            titleKey="home.title"
+            descKey="home.description"
             title="Create your profile and take the first step towards new opportunities"
             desc="By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you’re never alone on your journey."
             descSize="text-base"

@@ -25,6 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <Providers>
+          {/* The LanguageProvider is now moved to Providers component */}
           <Suspense fallback={<Loader />}>
             <NavigationBar />
           </Suspense>
