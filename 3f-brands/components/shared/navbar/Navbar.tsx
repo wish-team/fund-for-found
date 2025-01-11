@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+
 import {
   Navbar,
   NavbarContent,
@@ -21,6 +22,7 @@ import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { Search, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface NavigationBarProps {
   // Add any external props if needed
@@ -34,6 +36,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
 
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const handleStartClick = useCallback(() => {
     router.push("http://localhost:3000/login");
@@ -48,14 +51,13 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     [router]
   );
 
-  const menuItems = [
-    "Explore",
-    "Home",
-    "About us",
-    "Help & Support",
-    "Login/signup",
-    "Start",
-  ];
+  const menuItems = useMemo(() => [
+    { key: 'explore', label: t('navbar.explore'), href: '/explore' },
+    { key: 'home', label: t('navbar.home'), href: '/' },
+    { key: 'aboutUs', label: t('navbar.aboutUs'), href: '/about' },
+    { key: 'helpSupport', label: t('navbar.helpSupport'), href: '/help' },
+    { key: 'loginSignup', label: t('navbar.loginSignup'), href: '/login' },
+  ], [t]);
 
   const showSearchFunctionality = useMemo(() => {
     return pathname !== "/explore";
@@ -91,13 +93,12 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           <div className="bg-white p-2 rounded-full border shadow-md">
             <Input
               className="py-0 px-2 text-base w-full shadow-none"
-              placeholder="Search brand, category, tag or..."
+              placeholder={t('navbar.searchPlaceholder')}
               startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoFocus
               onBlur={() => {
-                // Optional: Add a slight delay to handle click events on suggestions
                 setTimeout(() => setIsSearchFocused(false), 200);
               }}
               onKeyDown={(e) => {
@@ -131,7 +132,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           <ModalBody className="p-4">
             <Input
               className="w-full px-4 py-2"
-              placeholder="Search brand, category, tag or..."
+              placeholder={t('navbar.searchPlaceholder')}
               startContent={<Search className="w-5 h-5 text-light1" />}
               value={searchTerm}
               autoFocus
@@ -149,123 +150,122 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     );
   };
 
+  const renderDesktopNav = () => (
+    <NavbarContent
+      className="hidden text-sm text-gray3 lg:pe-20 space-x-3 sm:flex justify-start gap-4"
+      justify="center"
+    >
+      {menuItems.slice(0, 4).map((item) => (
+        <NavbarItem key={item.key} isActive={pathname === item.href}>
+          <Link
+            color="foreground"
+            href={item.href}
+            aria-current={pathname === item.href ? "page" : undefined}
+          >
+            {item.label}
+          </Link>
+        </NavbarItem>
+      ))}
+    </NavbarContent>
+  );
+
+  const renderSearchAndAuth = () => (
+    <NavbarContent justify="end">
+      {showSearchFunctionality && (
+        <>
+          <div className="hidden md:block relative">
+            <Input
+              className="rounded-lg border border-light3 shadow-shadow1 text-xs font-extralight hover:border-purple-500 focus:outline-none"
+              placeholder={t('navbar.searchPlaceholder')}
+              startContent={<Search className="w-5 h-5 text-light1" />}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+            />
+          </div>
+          <div className="md:hidden">
+            <Button
+              isIconOnly
+              variant="light"
+              onPress={() => setIsSearchModalOpen(true)}
+            >
+              <Search className="w-5 h-5" />
+            </Button>
+          </div>
+        </>
+      )}
+
+      <NavbarItem>
+        <AuthWrapper>
+          {(user) =>
+            user ? (
+              <AvatarDropdown
+                userName={user.user_metadata?.name || t('navbar.defaultUser')}
+                userEmail={user.email || ""}
+              />
+            ) : (
+              <Button
+                color="secondary"
+                variant="solid"
+                onClick={handleStartClick}
+                className="font-light bg-primary mb-1 text-white rounded-lg border-light2"
+              >
+                {t('navbar.signIn')}
+              </Button>
+            )
+          }
+        </AuthWrapper>
+      </NavbarItem>
+      
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? t('navbar.closeMenu') : t('navbar.openMenu')}
+        className="sm:hidden"
+      />
+    </NavbarContent>
+  );
+
+  const renderMobileMenu = () => (
+    <NavbarMenu>
+      {menuItems.map((item, index) => (
+        <NavbarMenuItem key={item.key}>
+          <Link
+            color={
+              index === 2
+                ? "primary"
+                : index === menuItems.length - 1
+                ? "danger"
+                : "foreground"
+            }
+            className="w-full"
+            href={item.href}
+            size="lg"
+          >
+            {item.label}
+          </Link>
+        </NavbarMenuItem>
+      ))}
+    </NavbarMenu>
+  );
+
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
+      <Navbar 
+        onMenuOpenChange={setIsMenuOpen} 
+        isBordered 
+        className="rtl:space-x-reverse"
+      >
         <NavbarContent>
-          <Image src={logo} alt="Logo" />
+          <Link href="/">
+            <Image src={logo} alt="Logo" priority />
+          </Link>
         </NavbarContent>
 
-        <NavbarContent
-          className="hidden text-sm text-gray3 lg:pe-20 space-x-3 sm:flex justify-start gap-4"
-          justify="center"
-        >
-          <NavbarItem>
-            <Link color="foreground" href="/">
-              Home
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive={pathname === "/explore"}>
-            <Link
-              href="/explore"
-              aria-current={pathname === "/explore" ? "page" : undefined}
-            >
-              Explore
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="/about">
-              About us
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="/help">
-              Help & Support
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-
-        <NavbarContent justify="end">
-          {/* Desktop Search */}
-          {showSearchFunctionality && (
-            <div className="hidden md:block relative">
-              <Input
-                className="rounded-lg border border-light3 shadow-shadow1 text-xs font-extralight hover:border-purple-500 focus:outline-none"
-                placeholder="Search brand, category, tag or..."
-                startContent={<Search className="w-5 h-5 text-light1" />}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-              />
-            </div>
-          )}
-
-          {/* Mobile Search Icon */}
-          {showSearchFunctionality && (
-            <div className="md:hidden">
-              <Button
-                isIconOnly
-                variant="light"
-                onPress={() => setIsSearchModalOpen(true)}
-              >
-                <Search className="w-5 h-5" />
-              </Button>
-            </div>
-          )}
-
-          <NavbarItem>
-            <AuthWrapper>
-              {(user) =>
-                user ? (
-                  <AvatarDropdown
-                    userName={user.user_metadata?.name || "User"}
-                    userEmail={user.email || ""}
-                  />
-                ) : (
-                  <Button
-                    color="secondary"
-                    variant="solid"
-                    onClick={handleStartClick}
-                    className="font-light bg-primary mb-1 text-white rounded-lg border-light2"
-                  >
-                    Sign in
-                  </Button>
-                )
-              }
-            </AuthWrapper>
-          </NavbarItem>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
-          />
-        </NavbarContent>
-
-        <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                className="w-full"
-                href="#"
-                size="lg"
-              >
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
+        {renderDesktopNav()}
+        {renderSearchAndAuth()}
+        {renderMobileMenu()}
       </Navbar>
 
-      {/* Full Screen Search for Larger Screens */}
       {renderFullScreenSearch()}
-
-      {/* Mobile Search Modal */}
       {renderMobileSearchModal()}
     </>
   );

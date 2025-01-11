@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
 import {
   Dropdown,
   DropdownItem,
@@ -15,6 +16,7 @@ import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useAuthStore } from "@/store/authStore";
 import { useProfileStore } from "../../pages/creators/profile-editor/store/profileStore";
 import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
+import { useTranslation } from "react-i18next";
 
 interface AvatarDropdownProps {
   userName: string;
@@ -26,16 +28,12 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userEmail,
 }) => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { selectedImage, subscribe } = useProfileStore();
   const { supabase } = useAuthStore();
   
   useEffect(() => {
-    // Subscribe to profile image changes
-    const unsubscribe = subscribe(() => {
-      // Component will automatically re-render when selectedImage changes
-      // because it's using the store's state
-    });
-
+    const unsubscribe = subscribe(() => {});
     return () => {
       unsubscribe();
     };
@@ -77,7 +75,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 />
               </DropdownTrigger>
               <DropdownMenu
-                aria-label="Profile Actions"
+                aria-label={t('avatar.menuLabel')}
                 variant="flat"
                 className="bg-white shadow rounded w-[300px] p-4"
               >
@@ -91,49 +89,49 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <DropdownItem
                   key="my-profile"
                   className="flex"
-                  textValue="My Profile"
+                  textValue={t('avatar.myProfile')}
                   onPress={() => handleNavigation(user.id, "/creators/[id]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <FaUserCircle />
                     </h6>
-                    <h6 className="flex">My profile</h6>
+                    <h6 className="flex">{t('avatar.myProfile')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="brand-organization"
-                  textValue="My Brand and Organization"
+                  textValue={t('avatar.brandOrganization')}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoBagHandleSharp />
                     </h6>
-                    <h6 className="flex">My brand and organization</h6>
+                    <h6 className="flex">{t('avatar.brandOrganization')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
-                  textValue="Settings"
+                  textValue={t('avatar.settings')}
                   onPress={() => handleNavigation(user.id, "/dashboard/[userId]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoMdSettings />
                     </h6>
-                    <h6 className="flex">Setting</h6>
+                    <h6 className="flex">{t('avatar.settings')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
-                  textValue="Log Out"
+                  textValue={t('avatar.logOut')}
                   onClick={handleLogout}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <TbLogout />
                     </h6>
-                    <h6 className="flex">Log Out</h6>
+                    <h6 className="flex">{t('avatar.logOut')}</h6>
                   </div>
                 </DropdownItem>
               </DropdownMenu>

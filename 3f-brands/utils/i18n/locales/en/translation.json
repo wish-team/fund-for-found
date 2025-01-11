@@ -9,4 +9,40 @@
     "title": "Create your profile and take the first step towards new opportunities",
     "description": "By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you’re never alone on your journey"
   }
+  ,
+  "footer":{
+    "about": "About",
+    "AboutUs": "About us",
+    "contactUs": "Contact us",
+    "resources": "resources",
+    "blog": "blog",
+    "3fWork": "How 3F works?",
+    "support": "Help & support",
+    "contributing": "contributing",
+    "brand": "Brand & Organizations",
+    "price":"Pricing",
+    "safety": "Trust & safety",
+    "termsOfUse": "Terms of use",
+    "privacy": "Privacy Policy"
+  },
+  "navbar": {
+    "home": "Home",
+    "explore": "Explore",
+    "aboutUs": "About Us",
+    "helpSupport": "Help & Support",
+    "loginSignup": "Login/Signup",
+    "start": "Start",
+    "signIn": "Sign in",
+    "defaultUser": "User",
+    "searchPlaceholder": "Search brand, category, tag or...",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu"
+  },
+  "avatar": {
+    "myProfile": "My profile",
+    "brandOrganization": "My brand and organization",
+    "settings": "Settings",
+    "logOut": "Log Out",
+    "menuLabel": "Profile Actions"
+  }
 }
