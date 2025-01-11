@@ -6,8 +6,8 @@ import FiatCurrency from './components/FiatCurrency';
 
 const Step3: React.FC<Step3Props> = () => {
   return (
-    <div className="grid sm:grid-cols-12 gap-4">
-      <div className="sm:col-span-7">
+    <div className="grid sm:grid-cols-12 gap-4 my-6">
+      <div className="sm:col-span-7 border rounded-lg shadow">
         <FiatCurrency />
       </div>
       <div className="sm:col-span-5">

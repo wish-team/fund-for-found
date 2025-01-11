@@ -59,15 +59,15 @@ export const CryptoPayment = ({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl mb-4">Choose Your crypto currency</h2>
+        <h2 className="text-base font-bold text-gray3 mb-4">Choose Your crypto currency</h2>
         <select
           value={selectedCurrency}
           onChange={(e) => onCurrencyChange(e.target.value)}
-          className="w-full p-3 rounded-lg border-2 border-purple-200 focus:border-purple-500 outline-none"
+          className="w-full p-3 rounded-lg border  border-purple-200 focus:border-purple-500 outline-none"
         >
-          <option value="">Select cryptocurrency</option>
+          <option className='border text-gray2' value="">Select cryptocurrency</option>
           {cryptoCurrencies.map((crypto) => (
-            <option key={crypto.symbol} value={crypto.name}>
+            <option className='text-gray1' key={crypto.symbol} value={crypto.name}>
               {crypto.name}
             </option>
           ))}

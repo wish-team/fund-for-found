@@ -58,12 +58,12 @@ export default function PaymentPage() {
   const renderCryptoContent = () => (
     <>
       <div>
-        <h2 className="text-xl mb-4">Choose Your crypto currency</h2>
-        <Dropdown>
+        <h2 className="text-base font-bold text-gray3 mb-4">Choose Your crypto currency</h2>
+        <Dropdown className='bg-white rounded-lg shadow border text-sm text-gray4'>
           <DropdownTrigger>
             <Button 
               variant="bordered" 
-              className="w-full justify-start"
+              className="w-full border rounded-lg shadow-shadow1 text-gray4 text-sm justify-start"
             >
               {selectedCurrency || 'Select cryptocurrency'}
             </Button>
@@ -80,14 +80,14 @@ export default function PaymentPage() {
       </div>
 
       <div>
-        <h2 className="text-xl mb-4">Payment amount</h2>
+        <h2 className="text-base text-gray3 font-bold mb-4">Payment amount</h2>
         <div className="grid grid-cols-2 gap-4">
           <Input
-            type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount"
             variant="bordered"
+            className='border rounded-lg text-gray2 shadow-shadow1'
           />
           <div className="p-3 rounded-lg border-2 border-purple-200 bg-gray-50">
             {calculateUSDValue(amount || '0')} US dollars
@@ -96,8 +96,8 @@ export default function PaymentPage() {
       </div>
 
       {selectedCurrency && amount && (
-        <div className="p-6 border-2 border-purple-200 rounded-lg space-y-4">
-          <p className="text-center text-gray-600">
+        <div className="p-6 border-2 border-primary rounded-lg space-y-4">
+          <p className="text-center text-gray3 ">
             Use the address below to donate {amount} {selectedCurrency.split('-')[0]} from your wallet
           </p>
           
@@ -120,7 +120,7 @@ export default function PaymentPage() {
           </p>
 
           <Button
-            className="w-full"
+            className="w-full text-gray4"
             variant="bordered"
             onClick={handleCopyAddress}
             startContent={<Copy size={16} />}
@@ -130,7 +130,7 @@ export default function PaymentPage() {
         </div>
       )}
 
-      <p className="text-gray-600">
+      <p className="text-gray4">
         Complete your contribution by transferring your specified currency to the wallet address shown.
       </p>
     </>
@@ -139,24 +139,24 @@ export default function PaymentPage() {
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-purple-600">Payment details</h1>
+        <h1 className="text-2xl font-semibold text-primary">Payment details</h1>
         <span className="text-gray-500">2024/Sep/24</span>
       </div>
 
       <div className="space-y-6">
         <div>
-          <h2 className="text-xl mb-4">Select Currency Type</h2>
+          <h2 className="text-base font-bold text-gray3 mb-4">Select Currency Type</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => setCurrencyType('fiat')}
-              className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+              className={`p-4 text-gray2 rounded-lg border-2 transition-all duration-200 ${
                 currencyType === 'fiat'
-                  ? 'border-purple-500 bg-purple-50'
+                  ? 'border-primary bg-purple-50'
                   : 'border-gray-200 hover:border-purple-200'
               }`}
             >
-              <div className="flex items-center justify-center space-x-2">
-                <span className="text-xl">$</span>
+              <div className="flex text-gray2  items-center justify-center space-x-2">
+                <span>$</span>
                 <span>Fiat Currencies</span>
               </div>
             </button>
@@ -164,12 +164,12 @@ export default function PaymentPage() {
               onClick={() => setCurrencyType('crypto')}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                 currencyType === 'crypto'
-                  ? 'border-purple-500 bg-purple-50'
+                  ? 'border-primary bg-purple-50'
                   : 'border-gray-200 hover:border-purple-200'
               }`}
             >
-              <div className="flex items-center justify-center space-x-2">
-                <span className="text-xl">₿</span>
+              <div className="flex text-gray2 items-center justify-center space-x-2">
+                <span >₿</span>
                 <span>Crypto Currencies</span>
               </div>
             </button>
@@ -179,12 +179,13 @@ export default function PaymentPage() {
         {currencyType === 'fiat' ? (
           <>
             <div>
-              <h2 className="text-xl mb-4">Choose Your Currency</h2>
-              <Dropdown>
+              <h2 className="text-base font-bold text-gray3 mb-4">Choose Your Currency</h2>
+              <Dropdown className='bg-white border shadow rounded-lg'>
                 <DropdownTrigger>
                   <Button 
                     variant="bordered" 
-                    className="w-full justify-start"
+                    className="w-full justify-start text-sm text-light1 shadow-shadow1 border rounded-lg"
+
                   >
                     {selectedCurrency || 'Select currency'}
                   </Button>
@@ -201,8 +202,8 @@ export default function PaymentPage() {
             </div>
 
             <div>
-              <h2 className="text-xl mb-4">Choose recurring or one time</h2>
-              <div className="grid grid-cols-3 gap-4">
+              <h2 className="text-base text-gray3 font-bold mb-4">Choose recurring or one time</h2>
+              <div className="grid grid-cols-3 text-gray4 gap-4">
                 {[
                   { id: 'onetime', label: 'One time' },
                   { id: 'monthly', label: 'Monthly' },
@@ -213,7 +214,7 @@ export default function PaymentPage() {
                     onClick={() => setPaymentType(id as 'onetime' | 'monthly' | 'yearly')}
                     className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                       paymentType === id
-                        ? 'border-purple-500 bg-purple-50 text-purple-700'
+                        ? 'border-primary bg-purple-50 text-primary'
                         : 'border-gray-200 hover:border-purple-200'
                     }`}
                   >
@@ -224,12 +225,12 @@ export default function PaymentPage() {
             </div>
 
             <div>
-              <h2 className="text-xl mb-4">Payment amount</h2>
-              <Dropdown>
+              <h2 className="text-base font-bold text-gray3 mb-4">Payment amount</h2>
+              <Dropdown className='bg-white border shadow rounded-lg'>
                 <DropdownTrigger>
                   <Button 
                     variant="bordered" 
-                    className="w-full justify-start"
+                    className="w-full justify-start text-sm text-light1 shadow-shadow1 border rounded-lg"
                   >
                     {amount ? `${amount} USD` : 'Select amount'}
                   </Button>
@@ -254,7 +255,7 @@ export default function PaymentPage() {
 
         <Button
           color="secondary"
-          className="w-full"
+          className="w-full bg-primary rounded-lg text-white"
           size="lg"
           isDisabled={!isFormValid}
           onClick={handleContinue}
