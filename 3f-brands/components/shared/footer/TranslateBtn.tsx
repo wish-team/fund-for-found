@@ -1,15 +1,32 @@
 'use client';
 import React from "react";
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { HiTranslate } from "react-icons/hi";
-import {Selection} from "@nextui-org/react"
-export default function TranslateBtn() {
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set(["English (100%)"]));
+import { Selection } from "@nextui-org/react";
+import { languages, useLanguageStore, useTranslations } from '@/utils/i18n';
 
-  const selectedValue = React.useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
-  );
+
+const languageNames = {
+  en: 'English',
+  fa: 'Persian',
+  de: 'German',
+  ar: 'Arabic',
+  fr: 'French'
+};
+
+export default function TranslateBtn() {
+  const { currentLanguage, setLanguage } = useLanguageStore();
+  const { isLoading } = useTranslations(currentLanguage);
+
+  const handleLanguageChange = (keys: Selection) => {
+    const selectedLang = Array.from(keys)[0] as string;
+    const langCode = Object.entries(languageNames).find(([_, value]) => value === selectedLang)?.[0];
+    if (langCode) {
+      setLanguage(langCode);
+    }
+  };
+
+  if (isLoading) return <Button variant="bordered">Loading...</Button>;
 
   return (
     <Dropdown className="text-sm bg-white rounded-lg shadow">
@@ -19,22 +36,22 @@ export default function TranslateBtn() {
           className="capitalize text-sm bg-white text-gray2 rounded-lg shadow"
         >
           <HiTranslate />
-          {selectedValue}
+          {languageNames[currentLanguage as keyof typeof languageNames]}
         </Button>
       </DropdownTrigger>
       <DropdownMenu 
-        aria-label="Single selection example"
+        aria-label="Language selection"
         variant="flat"
         disallowEmptySelection
         selectionMode="single"
-        selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
+        selectedKeys={new Set([languageNames[currentLanguage as keyof typeof languageNames]])}
+        onSelectionChange={handleLanguageChange}
       >
-        <DropdownItem key="English (100%)">English (100%)</DropdownItem>
-        <DropdownItem key="Persian">Persian</DropdownItem>
-        <DropdownItem key="Germany">Germany</DropdownItem>
-        <DropdownItem key="Arabic">Arabic</DropdownItem>
-        <DropdownItem key="France">France</DropdownItem>
+        {languages.map((lang) => (
+          <DropdownItem key={languageNames[lang as keyof typeof languageNames]}>
+            {languageNames[lang as keyof typeof languageNames]}
+          </DropdownItem>
+        ))}
       </DropdownMenu>
     </Dropdown>
   );
