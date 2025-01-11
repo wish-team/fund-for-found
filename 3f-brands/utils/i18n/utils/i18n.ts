@@ -1,12 +1,7 @@
-// features/i18n/utils/i18n.ts
-'use client';
-
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getOptions } from '../config/settings';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
-// Add default English translations
 import enTranslations from '../locales/en/translation.json';
 
 if (!i18next.isInitialized) {
@@ -25,6 +20,13 @@ if (!i18next.isInitialized) {
       preload: ['en'],
       react: {
         useSuspense: false
+      },
+      interpolation: {
+        escapeValue: false
+      },
+      detection: {
+        order: ['localStorage', 'navigator'],
+        caches: ['localStorage']
       }
     });
 }

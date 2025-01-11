@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { languages, fallbackLng } from '../config/settings';
+import i18next from 'i18next';
 
 interface LanguageState {
   currentLanguage: string;
@@ -15,6 +16,8 @@ export const useLanguageStore = create<LanguageState>()(
       setLanguage: (lang: string) => {
         if (languages.includes(lang)) {
           set({ currentLanguage: lang });
+          // Force i18next to update immediately
+          i18next.changeLanguage(lang);
         }
       },
       direction: () => ['ar', 'fa'].includes(get().currentLanguage) ? 'rtl' : 'ltr',
