@@ -1,11 +1,12 @@
 // src/components/pages/creators/about/hooks/useEditorContent.ts
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import { useTranslation } from 'react-i18next';
 import { useEditorStore } from '../store/editorStore';
+import { OutputBlockData } from '@editorjs/editorjs';
 
 export const useEditorContent = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const editorRef = useRef<EditorJS | null>(null);
   const { 
     content, 
@@ -16,7 +17,7 @@ export const useEditorContent = () => {
     initializeContent 
   } = useEditorStore();
 
-  const DEFAULT_BLOCKS = [
+  const getDefaultBlocks = useCallback((): OutputBlockData[] => [
     {
       type: 'paragraph',
       data: {
@@ -77,19 +78,31 @@ export const useEditorContent = () => {
         text: t('about.defaultContent.storyText'),
       }
     },
-  ];
+  ], [t]);
 
-  // Initialize content with default blocks when component mounts
+  // Initialize content when component mounts and content is empty
   useEffect(() => {
-    initializeContent(DEFAULT_BLOCKS);
-  }, [initializeContent, t]); // Add t as dependency to update when language changes
+    if (content.text.blocks.length === 0) {
+      initializeContent(getDefaultBlocks());
+    }
+  }, [initializeContent, getDefaultBlocks]);
+
+  // Handle language changes
+  const previousLanguageRef = useRef(i18n.language);
+  useEffect(() => {
+    // Only update if language actually changed
+    if (previousLanguageRef.current !== i18n.language) {
+      previousLanguageRef.current = i18n.language;
+      resetContent(getDefaultBlocks());
+    }
+  }, [i18n.language, getDefaultBlocks, resetContent]);
 
   return {
     content,
     mainImage,
     setMainImage,
     updateContent: setContent,
-    resetContent: () => resetContent(DEFAULT_BLOCKS),
+    resetContent: () => resetContent(getDefaultBlocks()),
     editorRef
   };
 };
