@@ -5,12 +5,11 @@
     "button": "start",
     "link": "Learn more"
   },
-  "home":{
+  "home": {
     "title": "Create your profile and take the first step towards new opportunities",
     "description": "By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you’re never alone on your journey"
-  }
-  ,
-  "footer":{
+  },
+  "footer": {
     "about": "About",
     "AboutUs": "About us",
     "contactUs": "Contact us",
@@ -20,7 +19,7 @@
     "support": "Help & support",
     "contributing": "contributing",
     "brand": "Brand & Organizations",
-    "price":"Pricing",
+    "price": "Pricing",
     "safety": "Trust & safety",
     "termsOfUse": "Terms of use",
     "privacy": "Privacy Policy"
@@ -44,5 +43,67 @@
     "settings": "Settings",
     "logOut": "Log Out",
     "menuLabel": "Profile Actions"
+  },
+  "step1": {
+    "toast": {
+      "success": {
+        "create": "Registration successful! Proceeding to next step...",
+        "update": "Registration updated successfully! Proceeding to next step..."
+      },
+      "error": {
+        "default": "Registration failed. Please try again.",
+        "network": "Network error. Please check your connection.",
+        "server": "Server error. Please try again later."
+      }
+    },
+    "title": "Basic Info",
+    "subTitle": "Tell about your Brand/organization",
+    "description": "Provide an overview of the brand or organization you want to register on 3F.",
+    
+    "form": {
+      "brandName": {
+        "label": "Brand/Organisation Name",
+        "placeholder": "Enter brand name"
+      },
+      
+      "country": {
+        "label": "Country",
+        "placeholder": "Select country"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Select category"
+      },
+      "subcategory": {
+        "label": "Subcategory",
+        "placeholder": "Select subcategory"
+      },
+      "brandTags": {
+        "label": "Brand Tags",
+        "placeholder": "Type to add tags..."
+      },
+      "agreement": {
+        "text": "I agree with the",
+        "terms": "terms of service",
+        "of": "of 3F"
+      },
+      "buttons": {
+        "submit": "Continue",
+        "update": "Update",
+        "submitting": "Submitting..."
+      }
+    },
+    "validation": {
+      "required": "{{field}} is required",
+      "name": "Brand/Organisation name is required",
+      "country": "Country is required",
+      "category": "Category is required",
+      "subcategory": "Subcategory is required",
+      "brandTags": "At least one brand tag is required",
+      "terms": "You must agree to the terms of service",
+      "minLength": "{{field}} must be at least {{min}} characters",
+      "maxLength": "{{field}} must not exceed {{max}} characters",
+      "invalid": "Please enter a valid {{field}}"
+    }
   }
 }

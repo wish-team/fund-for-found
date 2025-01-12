@@ -2,11 +2,17 @@ import React, { useState, useRef, KeyboardEvent } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormData } from '../types';
 
+interface Option {
+  id: number;
+  name: string;
+}
+
 interface MultiSelectInputProps {
   control: Control<FormData>;
   name: keyof FormData;
   label: string;
-  options: string[];
+  options: Option[];
+  placeholder?: string;
 }
 
 export const MultiSelectInput = React.memo(({
@@ -14,6 +20,7 @@ export const MultiSelectInput = React.memo(({
   name,
   label,
   options,
+  placeholder,
 }: MultiSelectInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -22,8 +29,8 @@ export const MultiSelectInput = React.memo(({
   const filterOptions = (searchValue: string, selectedItems: string[]) => {
     return options.filter(
       option =>
-        option.toLowerCase().includes(searchValue.toLowerCase()) &&
-        !selectedItems.includes(option)
+        option.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+        !selectedItems.includes(option.name)
     );
   };
 
@@ -49,9 +56,9 @@ export const MultiSelectInput = React.memo(({
       render={({ field: { onChange, value = [] }, fieldState: { error } }) => {
         const filteredOptions = filterOptions(inputValue, value as string[]);
 
-        const handleAddTag = (tag: string) => {
-          if (!(value as string[]).includes(tag)) {
-            const newValue = [...(value as string[]), tag];
+        const handleAddTag = (option: Option) => {
+          if (!(value as string[]).includes(option.name)) {
+            const newValue = [...(value as string[]), option.name];
             onChange(newValue);
             setInputValue('');
             setIsOpen(false);
@@ -99,18 +106,19 @@ export const MultiSelectInput = React.memo(({
                 onKeyDown={(e) => handleKeyDown(e, value as string[], onChange)}
                 onFocus={() => setIsOpen(true)}
                 className="flex-grow outline-none min-w-[120px] bg-transparent"
-                placeholder={(value as string[])?.length === 0 ? `Type to add ${label.toLowerCase()}...` : ''}              />
+                placeholder={(value as string[])?.length === 0 ? placeholder || `Type to add ${label.toLowerCase()}...` : ''}
+              />
             </div>
 
             {isOpen && filteredOptions.length > 0 && (
               <ul className="absolute z-10 w-full mt-1 bg-white border border-light3 rounded-lg shadow-md max-h-60 overflow-y-auto">
                 {filteredOptions.map((option) => (
                   <li
-                    key={option}
+                    key={option.id}
                     className="py-2 px-4 hover:bg-primary50 cursor-pointer"
                     onClick={() => handleAddTag(option)}
                   >
-                    {option}
+                    {option.name}
                   </li>
                 ))}
               </ul>

@@ -1,18 +1,20 @@
+// FormStep1.tsx
 import React from "react";
 import { Button, Checkbox, Link } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
 import { useFormStep } from "../hooks/useFormStep1";
 import { AutocompleteInput } from "./AutocompleteInput";
 import { MultiSelectInput } from "./MultiSelectInput";
-import { useRouter } from "next/navigation";
+import Loader from "@/components/shared/loader/Loader";
 
 export const FormStep1: React.FC = () => {
-  const router = useRouter();
+  const { t } = useTranslation();
   const { form, onSubmit, isLoading, isPending, queries, isUpdate } = useFormStep();
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      <div className="flex justify-center items-center max-h-screen">
+        <Loader />
       </div>
     );
   }
@@ -23,13 +25,15 @@ export const FormStep1: React.FC = () => {
         <AutocompleteInput
           control={form.control}
           name="name"
-          label="Brand/Organisation Name"
+          label={t("step1.form.brandName.label")}
+          placeholder={t("step1.form.brandName.placeholder")}
           allowCustomInput={true}
         />
         <AutocompleteInput
           control={form.control}
           name="country"
-          label="Country"
+          label={t("step1.form.country.label")}
+          placeholder={t("step1.form.country.placeholder")}
           options={queries.countries.data || []}
         />
       </div>
@@ -38,13 +42,15 @@ export const FormStep1: React.FC = () => {
         <AutocompleteInput
           control={form.control}
           name="category"
-          label="Category"
+          label={t("step1.form.category.label")}
+          placeholder={t("step1.form.category.placeholder")}
           options={queries.categories.data || []}
         />
         <AutocompleteInput
           control={form.control}
           name="subcategory"
-          label="Subcategory"
+          label={t("step1.form.subcategory.label")}
+          placeholder={t("step1.form.subcategory.placeholder")}
           options={queries.subcategories.data || []}
         />
       </div>
@@ -52,7 +58,8 @@ export const FormStep1: React.FC = () => {
       <MultiSelectInput
         control={form.control}
         name="brandTags"
-        label="Brand Tags"
+        label={t("step1.form.brandTags.label")}
+        placeholder={t("step1.form.brandTags.placeholder")}
         options={queries.brandTags.data || []}
       />
 
@@ -63,15 +70,17 @@ export const FormStep1: React.FC = () => {
           radius="full"
         >
           <div className="text-xs text-gray3">
-            <span>I agree with the </span>
+            <span>{t("step1.form.agreement.text")} </span>
             <Link href="#" size="sm" className="text-primary">
-              terms of service
+              {t("step1.form.agreement.terms")}
             </Link>
-            <span> of 3F.</span>
+            <span> {t("step1.form.agreement.of")}</span>
           </div>
         </Checkbox>
         {form.formState.errors.agree && (
-          <p className="text-red-500 text-xs">{form.formState.errors.agree.message}</p>
+          <p className="text-red-500 text-xs">
+            {t("step1.validation.terms")}
+          </p>
         )}
       </div>
 
@@ -82,7 +91,11 @@ export const FormStep1: React.FC = () => {
         isLoading={isPending}
         disabled={isPending}
       >
-        {isPending ? "Submitting..." : isUpdate ? "Update" : "Continue"}
+        {isPending 
+          ? t("step1.form.buttons.submitting")
+          : isUpdate 
+            ? t("step1.form.buttons.update")
+            : t("step1.form.buttons.submit")}
       </Button>
     </form>
   );

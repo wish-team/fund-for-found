@@ -1,12 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Control, Controller } from "react-hook-form";
 import { FormData } from "../types";
+import { useTranslation } from "react-i18next";
+
+interface Option {
+  id: number;
+  name: string;
+}
 
 interface AutocompleteInputProps {
   control: Control<FormData>;
   name: keyof FormData;
   label: string;
-  options?: string[];
+  options?: Option[];
   placeholder?: string;
   allowCustomInput?: boolean;
 }
@@ -17,11 +23,12 @@ export const AutocompleteInput = React.memo(
     name,
     label,
     options = [],
-    placeholder = `Select ${label}`,
+    placeholder,
     allowCustomInput = false,
   }: AutocompleteInputProps) => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-    const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
+    const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
     const inputRef = useRef<HTMLDivElement>(null);
 
     // Only show suggestions if options are provided and custom input isn't allowed
@@ -44,7 +51,7 @@ export const AutocompleteInput = React.memo(
 
     const filterOptions = (inputValue: string) => {
       return options.filter((option) =>
-        option.toLowerCase().includes(inputValue.toLowerCase())
+        option.name.toLowerCase().includes(inputValue.toLowerCase())
       );
     };
 
@@ -63,9 +70,10 @@ export const AutocompleteInput = React.memo(
                 type="text"
                 value={(value as string) || ""}
                 onChange={(e) => {
-                  onChange(e.target.value);
+                  const inputValue = e.target.value;
+                  onChange(inputValue);
                   if (shouldShowSuggestions) {
-                    setFilteredOptions(filterOptions(e.target.value));
+                    setFilteredOptions(filterOptions(inputValue));
                     setIsOpen(true);
                   }
                 }}
@@ -91,21 +99,26 @@ export const AutocompleteInput = React.memo(
                   <ul className="absolute z-10 w-full mt-1 bg-white border border-light3 rounded-lg shadow-md max-h-60 overflow-y-auto">
                     {filteredOptions.map((option) => (
                       <li
-                        key={option}
+                        key={option.id}
                         className="py-2 px-4 hover:bg-primary50 cursor-pointer"
                         onClick={() => {
-                          onChange(option);
+                          onChange(option.name);
                           setIsOpen(false);
                         }}
                       >
-                        {option}
+                        {option.name}
                       </li>
                     ))}
                   </ul>
                 )}
             </div>
             {error && (
-              <p className="text-red-500 text-xs mt-1">{error.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {t(`step1.validation.${name}`, {
+                  field: label,
+                  defaultValue: t('step1.validation.required', { field: label })
+                })}
+              </p>
             )}
           </div>
         )}
