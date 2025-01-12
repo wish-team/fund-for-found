@@ -167,4 +167,11 @@
     "descripton": "You will be notified as soon as it is approved.",
     "info": "Your information is under review and will be confirmed within 2 to 5 business days."
   }
+  ,
+  "step4": {
+    "title": "Congratulation!",
+    "descripton": "Your Creative Starter has been approved by our experts!",
+    "info": "Welcome aboard! Let's dive in and get started",
+    "button": "go to my profile"
+  }
 }
