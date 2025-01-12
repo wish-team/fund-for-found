@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { Button } from "@nextui-org/react";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { useTranslation } from 'react-i18next';
 
 interface ImageUploaderProps {
   currentImage: string;
@@ -12,10 +13,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   currentImage, 
   onImageChange 
 }) => {
+  const { t } = useTranslation();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -29,7 +30,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     }
   };
 
-  // Trigger file input when button is clicked
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -38,7 +38,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     <div className="mb-4 relative">
       <img 
         src={imagePreview || currentImage} 
-        alt="Current Image" 
+        alt={t('about.editor.imageUploader.currentImage')} 
         className="w-full h-64 object-cover rounded"
       />
       <input 
@@ -54,7 +54,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         startContent={<HiOutlinePhotograph />}
         className="absolute bottom-2 right-2 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
       >
-        Change Image
+        {t('about.editor.imageUploader.changeImage')}
       </Button>
     </div>
   );

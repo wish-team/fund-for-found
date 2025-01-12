@@ -135,5 +135,31 @@
       "whatsapp": "WhatsApp",
       "facebook": "Facebook"
     }
+  },
+  "about": {
+    "title": "About",
+    "editor": {
+      "title": "Edit Content",
+      "imageUploader": {
+        "changeImage": "Change Image",
+        "currentImage": "Current Image"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save Changes"
+      }
+    },
+    "defaultContent": {
+      "summary": "Summary",
+      "summaryText1": "Introduce yourself, your team(if you have) and your background.",
+      "summaryText2": "Briefly describe about the long term and short term goal of your brand and why it is important to you.",
+      "impact": "The Impact",
+      "impactText1": "Share more about your brand and highlight how contributions can make a meaningful impact",
+      "impactText2": "Explain why your brand is important to contributors and how it positively influences the world.",
+      "impactText3": "Showcase your brand is proven success and past achievements, if applicable",
+      "impactText4": "Help people connect with your brand is mission and build trust by sharing authentic stories and experiences",
+      "story": "The Story",
+      "storyText": "Share the vision of your organization and the journey that led to its establishment."
+    }
   }
 }

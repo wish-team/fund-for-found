@@ -1,103 +1,95 @@
-import { useState, useRef, useCallback } from 'react';
+// src/components/pages/creators/about/hooks/useEditorContent.ts
+import { useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
-import { ContentData, EditorBlock } from '../types/content.types';
+import { useTranslation } from 'react-i18next';
+import { useEditorStore } from '../store/editorStore';
 
-const DEFAULT_IMAGE = 'https://dummyjson.com/image/200x100';
+export const useEditorContent = () => {
+  const { t } = useTranslation();
+  const editorRef = useRef<EditorJS | null>(null);
+  const { 
+    content, 
+    mainImage, 
+    setContent, 
+    setMainImage, 
+    resetContent, 
+    initializeContent 
+  } = useEditorStore();
 
-const DEFAULT_BLOCKS: EditorJS.OutputBlockData[] = [
+  const DEFAULT_BLOCKS = [
     {
       type: 'paragraph',
       data: {
-        text: 'Summary',
+        text: t('about.defaultContent.summary'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Introduce yourself, your team(if you have) and your background.',
+        text: t('about.defaultContent.summaryText1'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Briefly describe about the long term and short term goal of your brand and why it is important to you.',
+        text: t('about.defaultContent.summaryText2'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'The Impact',
+        text: t('about.defaultContent.impact'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Share more about your brand and highlight how contributions can make a meaningful impact',
+        text: t('about.defaultContent.impactText1'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Explain why your brand is important to contributors and how it positively influences the world.',
+        text: t('about.defaultContent.impactText2'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Showcase your brand is proven success and past achievements, if applicable',
+        text: t('about.defaultContent.impactText3'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Help people connect with your brand is mission and build trust by sharing authentic stories and experiences',
+        text: t('about.defaultContent.impactText4'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'The Story',
+        text: t('about.defaultContent.story'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Share the vision of your organization and the journey that led to its establishment.',
+        text: t('about.defaultContent.storyText'),
       }
     },
   ];
 
-export const useEditorContent = () => {
-  const [content, setContent] = useState<ContentData>({
-    image: DEFAULT_IMAGE,
-    text: {
-      blocks: DEFAULT_BLOCKS
-    }
-  });
-  const [mainImage, setMainImage] = useState<string>(DEFAULT_IMAGE);
-  const editorRef = useRef<EditorJS | null>(null);
-
-  const updateContent = useCallback((newContent: ContentData) => {
-    setContent(newContent);
-    setMainImage(newContent.image);
-  }, []);
-
-  const resetContent = useCallback(() => {
-    setContent({
-      image: DEFAULT_IMAGE,
-      text: {
-        blocks: DEFAULT_BLOCKS
-      }
-    });
-    setMainImage(DEFAULT_IMAGE);
-  }, []);
+  // Initialize content with default blocks when component mounts
+  useEffect(() => {
+    initializeContent(DEFAULT_BLOCKS);
+  }, [initializeContent, t]); // Add t as dependency to update when language changes
 
   return {
     content,
     mainImage,
     setMainImage,
-    updateContent,
-    resetContent,
+    updateContent: setContent,
+    resetContent: () => resetContent(DEFAULT_BLOCKS),
     editorRef
   };
 };

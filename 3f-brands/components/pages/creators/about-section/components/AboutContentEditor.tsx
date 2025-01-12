@@ -9,9 +9,10 @@ import {
   Button,
 } from "@nextui-org/react";
 import EditorJS from "@editorjs/editorjs";
+import { useTranslation } from "react-i18next";
 import { ImageUploader } from "./ImageUploader";
 import { createEditorConfig } from "../utils/editor-config";
-import { ContentData, EditorBlock } from "../types/content.types";
+import { ContentData } from "../types/content.types";
 import { OutputBlockData } from "@editorjs/editorjs";
 
 interface AboutContentEditorProps {
@@ -29,22 +30,21 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
   onSave,
   mainImage,
 }) => {
+  const { t } = useTranslation();
   const [editorInstance, setEditorInstance] = React.useState<EditorJS | null>(
     null
   );
   const [currentImage, setCurrentImage] = React.useState(mainImage);
 
-  // Handle image change
   const handleImageChange = (newImageUrl: string) => {
     setCurrentImage(newImageUrl);
   };
 
-  // Initialize Editor
+  // Initialize Editor when modal opens
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && content.text.blocks.length > 0) {
       const editor = new EditorJS(
         createEditorConfig(
-          // Image upload handler
           (file) => {
             return new Promise((resolve) => {
               const reader = new FileReader();
@@ -60,7 +60,6 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
               reader.readAsDataURL(file);
             });
           },
-          // Initial data
           { blocks: content.text.blocks }
         )
       );
@@ -73,15 +72,12 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
     }
   }, [isOpen, content]);
 
-  // Save handler
   const handleSave = async () => {
     if (editorInstance) {
       try {
         const savedData = await editorInstance.save();
 
-        // Create a deep copy of the blocks to maintain original structure
         const finalBlocks: OutputBlockData<string, any>[] = savedData.blocks.map((block) => {
-          // For paragraph blocks, preserve alignment
           if (block.type === "paragraph") {
             return {
               ...block,
@@ -119,16 +115,14 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
       onClose={onClose}
     >
       <ModalContent>
-        <ModalHeader className="text-gray3">Edit Content</ModalHeader>
+        <ModalHeader className="text-gray3">{t('about.editor.title')}</ModalHeader>
         <ModalBody>
           <div className="grid grid-cols-1 gap-4">
-            {/* Image Uploader */}
             <ImageUploader
-              currentImage={mainImage}
+              currentImage={currentImage}
               onImageChange={handleImageChange}
             />
 
-            {/* EditorJS Container */}
             <div>
               <div
                 id="editorjs-container"
@@ -144,14 +138,14 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
             className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
             onClick={onClose}
           >
-            Cancel
+            {t('about.editor.buttons.cancel')}
           </Button>
           <Button
             color="primary"
             className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
             onClick={handleSave}
           >
-            Save Changes
+            {t('about.editor.buttons.save')}
           </Button>
         </ModalFooter>
       </ModalContent>
