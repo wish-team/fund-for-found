@@ -105,5 +105,35 @@
       "maxLength": "{{field}} must not exceed {{max}} characters",
       "invalid": "Please enter a valid {{field}}"
     }
+  },
+  "step2": {
+    "title": "Detailed info",
+    "mission": {
+      "title": "What is the primary mission or objective of your brand/organization?",
+      "description": "Be more specific about it, as it will be published as your deck on the 3F(150-300 characters). read more"
+    },
+    "social": {
+      "title": "Help your contributors find you faster (at least 3 options)",
+      "description": "Connect your socials so the contributors get to know you better and find you faster."
+    },
+    "buttons": {
+      "addSocial": "Add social link",
+      "continue": "Continue"
+    }
+  },
+  "social": {
+    "urlPlaceholder": "Enter URL",
+    "removeButton": "Remove social link",
+    "platforms": {
+      "instagram": "Instagram",
+      "discord": "Discord",
+      "website": "Website",
+      "youtube": "YouTube",
+      "twitter": "Twitter",
+      "telegram": "Telegram",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook"
+    }
   }
 }

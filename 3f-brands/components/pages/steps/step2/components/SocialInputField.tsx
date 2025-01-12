@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaAngleDown, FaTrashCan } from 'react-icons/fa6';
 import { SOCIAL_MEDIA_OPTIONS } from '../utils/constants';
@@ -12,6 +13,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
   initialPlatform = 'instagram',
   initialUrl = 'http://instagram.com/',
 }) => {
+  const { t } = useTranslation();
   const [inputValue, setInputValue] = useState<string>(initialUrl);
   const [selectedKey, setSelectedKey] = useState<string>(initialPlatform);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -54,7 +56,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         >
           <span className="flex items-center gap-2">
             {SelectedIcon && <SelectedIcon className="text-gray4" size={20} />}
-            {SOCIAL_MEDIA_OPTIONS.find((option: SocialMediaOption) => option.key === selectedKey)?.label}
+            {t(`social.platforms.${selectedKey}`)}
           </span>
           <motion.span
             variants={arrowVariants}
@@ -75,7 +77,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
               exit="closed"
               className="absolute text-gray4 w-full text-sm max-h-[200px] overflow-auto z-50 bg-white border border-light3 rounded-lg shadow mt-1"
             >
-              {SOCIAL_MEDIA_OPTIONS.map(({ key, label, Icon }) => (
+              {SOCIAL_MEDIA_OPTIONS.map(({ key, Icon }) => (
                 <motion.li
                   key={key}
                   variants={listItemVariants}
@@ -83,7 +85,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
                   className="flex items-center gap-2 cursor-pointer p-2 hover:bg-primary50"
                 >
                   <Icon className="text-gray4" size={20} />
-                  {label}
+                  {t(`social.platforms.${key}`)}
                 </motion.li>
               ))}
             </motion.ul>
@@ -95,7 +97,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         type="url"
         value={inputValue}
         onChange={handleUrlChange}
-        placeholder="Enter URL"
+        placeholder={t('social.urlPlaceholder')}
         className="border border-light3 text-sm text-gray4 bg-white rounded-lg shadow hover:border-purple-500 focus:border-purple-500 focus:outline-none w-full md:w-7/12 p-2"
       />
 
@@ -103,7 +105,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         type="button"
         onClick={() => onRemove(id)}
         className="p-2 text-gray4 hover:text-red-500 transition-colors duration-200"
-        aria-label="Remove social link"
+        aria-label={t('social.removeButton')}
       >
         <FaTrashCan />
       </button>
