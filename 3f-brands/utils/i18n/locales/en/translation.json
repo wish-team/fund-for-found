@@ -173,5 +173,11 @@
     "descripton": "Your Creative Starter has been approved by our experts!",
     "info": "Welcome aboard! Let's dive in and get started",
     "button": "go to my profile"
+  },
+  "updates": {
+    "title": "Updates",
+    "profileImageAlt": "profile image",
+    "publishedUpdate": "published a new update on",
+    "sampleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
   }
 }
