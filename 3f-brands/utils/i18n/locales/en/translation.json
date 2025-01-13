@@ -374,5 +374,49 @@
     "topBackers": "TOP BACKERS & CONTRIBUTORS",
     "faq": "FAQ",
     "updates": "UPDATES"
+  },
+  "banner": {
+    "coverImage": {
+      "editCover": "Edit cover",
+      "addCover": "Add cover image",
+      "uploadNew": "Upload new image",
+      "save": "Save",
+      "reset": "Reset",
+      "defaultTitle": "Brand or Organization",
+      "error": {
+        "fileSize": "File size must be less than {{size}}MB",
+        "processing": "Error processing image"
+      }
+    },
+    "dashboard": {
+      "settings": "Settings"
+    },
+    "zoom": {
+      "in": "Zoom in",
+      "out": "Zoom out"
+    }
+  },
+  "dashboard": {
+    "PublicProfile": "Public Profile",
+    "navigation": {
+      "ariaLabel": "Dashboard navigation"
+    },
+    "tabs": {
+      "info": "Info",
+      "contributionTiers": "Contribution tiers",
+      "about": "About",
+      "team": "Team",
+      "updates": "Updates",
+      "expenses": "Expenses",
+      "payout": "Pay out"
+    },
+    "expenses": {
+      "title": "Expenses",
+      "info": "Expenses information goes here"
+    },
+    "payout": {
+      "title": "Pay Out",
+      "info": "Payout information and controls go here"
+    }
   }
 }

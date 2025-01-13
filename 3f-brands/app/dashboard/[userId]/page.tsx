@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Tabs,
   Tab,
@@ -19,21 +20,28 @@ import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
 import Updates from "@/components/pages/creators/updates-section/Updates";
 import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
 
-const Expenses = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Expenses</h2>
-    <p>Expenses information goes here</p>
-  </div>
-);
+const Expenses = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">FOUNF FOR FUND</h2>
+      <p>{t("dashboard.expenses.info")}</p>
+    </div>
+  );
+};
 
-const PayOut = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Pay Out</h2>
-    <p>Payout information and controls go here</p>
-  </div>
-);
+const PayOut = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">FOUNF FOR FUND</h2>
+      <p>{t("dashboard.payout.info")}</p>
+    </div>
+  );
+};
 
 export default function FundForFoundDashboard() {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isDesktop = useMediaQuery();
@@ -61,7 +69,7 @@ export default function FundForFoundDashboard() {
 
   const NavigationTabs = () => (
     <Tabs
-      aria-label="Dashboard navigation"
+      aria-label={t("dashboard.navigation.ariaLabel")}
       isVertical={true}
       selectedKey={selectedTab}
       onSelectionChange={(key) => {
@@ -79,19 +87,18 @@ export default function FundForFoundDashboard() {
         tabContent: "font-medium",
       }}
     >
-      <Tab key="info" title="Info" />
-      <Tab key="contribution-tiers" title="Contribution tiers" />
-      <Tab key="about" title="About" />
-      <Tab key="team" title="Team" />
-      <Tab key="updates" title="Updates" />
-      <Tab key="expenses" title="Expenses" />
-      <Tab key="pay-out" title="Pay out" />
+      <Tab key="info" title={t("dashboard.tabs.info")} />
+      <Tab key="contribution-tiers" title={t("dashboard.tabs.contributionTiers")} />
+      <Tab key="about" title={t("dashboard.tabs.about")} />
+      <Tab key="team" title={t("dashboard.tabs.team")} />
+      <Tab key="updates" title={t("dashboard.tabs.updates")} />
+      <Tab key="expenses" title={t("dashboard.tabs.expenses")} />
+      <Tab key="pay-out" title={t("dashboard.tabs.payout")} />
     </Tabs>
   );
 
   return (
     <div className="max-w-7xl mx-auto p-2">
-      {/* Mobile Settings Button */}
       {!isDesktop && (
         <div className="flex bg-white mt-0 left-0 right-0 pe-16 items-center fixed gap-1 z-50 justify-between">
           <Button
@@ -107,18 +114,16 @@ export default function FundForFoundDashboard() {
       )}
 
       <div className="flex gap-8">
-        {/* Desktop Sidebar */}
         {isDesktop && (
           <div className="w-64 shrink-0 max-h-[520px] mt-10 rounded-xl py-4 shadow-shadow1 border border-light3 sticky top-28">
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
-              FUND FOR FOUND
+            FOUNF FOR FUND
             </h1>
             <PublicProfileButton />
             <NavigationTabs />
           </div>
         )}
 
-        {/* Mobile Sidebar Modal */}
         {!isDesktop && (
           <Modal
             isOpen={isSidebarOpen}
@@ -134,7 +139,7 @@ export default function FundForFoundDashboard() {
             <ModalContent>
               <ModalHeader className="flex flex-col gap-1">
                 <h1 className="text-xl text-primary text-center">
-                  FUND FOR FOUND
+                FOUNF FOR FUND
                 </h1>
               </ModalHeader>
               <ModalBody>
@@ -145,7 +150,6 @@ export default function FundForFoundDashboard() {
           </Modal>
         )}
 
-        {/* Main Content */}
         <div className="flex-1 bg-white p-2 mt-20 md:mt-0 overflow-y-auto">
           {renderTabContent()}
         </div>

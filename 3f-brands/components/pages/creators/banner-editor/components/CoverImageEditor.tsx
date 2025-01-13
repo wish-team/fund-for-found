@@ -15,11 +15,13 @@ import { ImagePreview } from "./ImagePreview";
 import { ZoomControl } from "./ZoomControl";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useBannerStore } from "../store/bannerStore";
+import { useTranslation } from "react-i18next";
 
 export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   maxSizeMB = 5,
   onSave,
 }) => {
+  const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,11 +64,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
       {(user) => (
         <div>
           <div className="relative my-2">
-            <ImagePreview
-              imageUrl={image}
-              imageZoom={zoom}
-              title={title}
-            />
+            <ImagePreview imageUrl={image} imageZoom={zoom} title={title} />
             {user && (
               <Button
                 onPress={openEditor}
@@ -75,7 +73,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                 variant="flat"
                 startContent={<Pencil size={16} />}
               >
-                Edit cover
+                {t("banner.coverImage.editCover")}
               </Button>
             )}
           </div>
@@ -89,7 +87,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
           >
             <ModalContent>
               <ModalHeader className="text-center text-gray3">
-                Add cover image
+                {t("banner.coverImage.addCover")}
               </ModalHeader>
 
               <ModalBody>
@@ -103,7 +101,9 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                 />
 
                 {error && (
-                  <div className="text-danger text-sm mt-2">{error}</div>
+                  <div className="text-danger text-sm mt-2">
+                    {t("banner.coverImage.error.processing")}
+                  </div>
                 )}
 
                 <ZoomControl value={tempZoom} onChange={setTempZoom} />
@@ -116,14 +116,14 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                     onPress={handleSave}
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                   >
-                    Save
+                    {t('banner.coverImage.save')}
                   </Button>
                   <Button
                     variant="bordered"
                     className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     onPress={resetBanner}
                   >
-                    Reset
+                    {t('banner.coverImage.reset')}
                   </Button>
                 </div>
                 <Button
@@ -131,7 +131,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                   className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                   onPress={() => fileInputRef.current?.click()}
                 >
-                  Upload new image
+                  {t('banner.coverImage.uploadNew')}
                 </Button>
                 <input
                   ref={fileInputRef}
