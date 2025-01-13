@@ -11,7 +11,8 @@ import {
   Input 
 } from "@nextui-org/react";
 import { AccordionItemType, FAQFormData, faqSchema } from '../types/accordion';
-
+import { useTranslation } from 'react-i18next';
+ 
 interface EditModalProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
@@ -19,12 +20,14 @@ interface EditModalProps {
   onSave: (update: FAQFormData) => void;
 }
 
+
 export const EditModal: React.FC<EditModalProps> = ({
   isOpen,
   onOpenChange,
   item,
   onSave
 }) => {
+  const { t, i18n } = useTranslation();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FAQFormData>({
     resolver: zodResolver(faqSchema),
     defaultValues: {
@@ -32,6 +35,9 @@ export const EditModal: React.FC<EditModalProps> = ({
       content: item?.content || ''
     }
   });
+
+  const isRTL = i18n.language === 'fa';
+  const containerDirection = isRTL ? 'rtl' : 'ltr';
 
   React.useEffect(() => {
     if (item) {
@@ -52,37 +58,51 @@ export const EditModal: React.FC<EditModalProps> = ({
       backdrop="blur"
       isOpen={isOpen && item !== null}
       onOpenChange={onOpenChange}
-      className="bg-white border shadow-shadow1 p-2 rounded-lg max-w-[400px] sm:max-w-[500px] md:max-w-[715px] lg:max-w-[935px] w-full"
+      className={`bg-white border shadow-shadow1 p-2 rounded-lg max-w-[400px] sm:max-w-[500px] md:max-w-[715px] lg:max-w-[935px] w-full ${isRTL ? 'rtl' : 'ltr'}`}
     >
       <ModalContent>
         {(onClose) => (
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} dir={containerDirection}>
             <ModalHeader className="flex flex-col gap-1 text-gray3">
-              Edit Question
+              {t('faq.modal.editTitle')}
             </ModalHeader>
             <ModalBody>
-              <div>
-                <Input
-                  {...register('title')}
-                  placeholder="Question"
-                  className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
-                />
-                {errors.title && (
-                  <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
-                )}
-              </div>
-              <div>
-                <Input
-                  {...register('content')}
-                  placeholder="Answer"
-                  className="mt-4 shadow-shadow1 border border-light3 rounded-lg text-sm text-gray3 font-extralight hover:border-purple-500 focus:border-purple-500"
-                />
-                {errors.content && (
-                  <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>
-                )}
+              <div className="space-y-4">
+                <div>
+                  <Input
+                    {...register('title')}
+                    placeholder={t('faq.modal.questionPlaceholder')}
+                    classNames={{
+                      input: isRTL ? 'text-right' : 'text-left',
+                      inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
+                    }}
+                    className="text-sm text-gray3 font-extralight"
+                  />
+                  {errors.title && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {t('faq.validation.questionRequired')}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <Input
+                    {...register('content')}
+                    placeholder={t('faq.modal.answerPlaceholder')}
+                    classNames={{
+                      input: isRTL ? 'text-right' : 'text-left',
+                      inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
+                    }}
+                    className="text-sm text-gray3 font-extralight"
+                  />
+                  {errors.content && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {t('faq.validation.answerRequired')}
+                    </p>
+                  )}
+                </div>
               </div>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} gap-2`}>
               <Button
                 className="text-gray4 text-sm border border-light3 rounded-lg hover:bg-primary50 hover:border-purple-500"
                 variant="light"
@@ -91,14 +111,14 @@ export const EditModal: React.FC<EditModalProps> = ({
                   onClose();
                 }}
               >
-                Cancel
+                {t('faq.modal.cancel')}
               </Button>
               <Button
                 type="submit"
                 color="primary"
                 className="text-white text-sm rounded-lg hover:bg-primary400"
               >
-                Save
+                {t('faq.modal.save')}
               </Button>
             </ModalFooter>
           </form>

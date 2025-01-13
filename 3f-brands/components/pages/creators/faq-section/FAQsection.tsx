@@ -16,8 +16,10 @@ import { AccordionItemType } from "./types/accordion";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useFAQStore } from "./store/faqStore";
 import { useAuthStore } from "@/store/authStore";
+import { useTranslation } from "react-i18next";
 
 const FAQ: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const {
     accordionItems,
     selectedKeys,
@@ -61,13 +63,16 @@ const FAQ: React.FC = () => {
   };
 
   const handleAddQuestion = () => {
-    const newItem = addItem();
-    setSelectedItem(newItem);
     addModal.onOpen();
   };
 
   const handleCloseAdd = () => {
     setSelectedItem(null);
+    addModal.onClose();
+  };
+
+  const handleAddSubmit = (data: FAQFormData) => {
+    const newItem = addItem({ title: data.title, content: data.content });
     addModal.onClose();
   };
 
@@ -87,7 +92,7 @@ const FAQ: React.FC = () => {
   return (
     <AuthWrapper>
       <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
-        <CreatorsTitle title="FAQ" />
+        <CreatorsTitle title={t("faq.title")} />
         <Accordion
           variant="splitted"
           selectedKeys={selectedKeys}
@@ -111,7 +116,7 @@ const FAQ: React.FC = () => {
                     startContent={<FaPencil />}
                     className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                   >
-                    Edit
+                    {t("faq.editQuestion")}
                   </Button>
                 )}
                 {user && (
@@ -122,7 +127,7 @@ const FAQ: React.FC = () => {
                     onPress={() => handleDeleteClick(item.id)}
                     size="sm"
                   >
-                    Delete
+                    {t("faq.deleteQuestion")}
                   </Button>
                 )}
               </div>
@@ -135,7 +140,7 @@ const FAQ: React.FC = () => {
             onPress={handleAddQuestion}
             className="mt-4 border border-light3 w-[180px] mx-auto rounded-lg text-gray4 text-sm hover:bg-primary50 hover:border-purple-500"
           >
-            Add Question
+            {t("faq.addQuestion")}
           </Button>
         )}
 
@@ -153,21 +158,16 @@ const FAQ: React.FC = () => {
 
         <AddQuestionModal
           isOpen={addModal.isOpen}
-          onOpenChange={handleCloseAdd}
-          onSave={(update) => {
-            if (selectedItem) {
-              updateItem(selectedItem.id, update);
-              handleCloseAdd();
-            }
-          }}
+          onOpenChange={addModal.onClose}
+          onSave={handleAddSubmit}
         />
 
         <DeleteConfirmationModal
           isOpen={deleteModal.isOpen}
           onClose={deleteModal.onClose}
           onConfirm={confirmDelete}
-          title="Delete FAQ Item"
-          message="Are you sure you want to delete this FAQ item? This action cannot be undone."
+          title={t("faq.modal.delete.title")}
+          message={t("faq.modal.delete.message")}
         />
       </section>
     </AuthWrapper>
