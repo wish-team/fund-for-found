@@ -22,8 +22,10 @@ import { validateDescription, validateEmail } from "./utils/validation";
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useTeamStore } from "./store/tramStore";
+import { useTranslation } from "react-i18next";
 
 export default function TeamMemberInvite(): JSX.Element {
+  const { t } = useTranslation();
   const {
     teamMembers,
     formData,
@@ -59,12 +61,16 @@ export default function TeamMemberInvite(): JSX.Element {
 
     const descError = validateDescription(formData.description);
     if (descError) {
-      setDescriptionError(descError);
+      setDescriptionError(
+        t("teamMember.form.validation.description", {
+          length: MIN_DESCRIPTION_LENGTH,
+        })
+      );
       return;
     }
 
     if (!validateEmail(formData.email)) {
-      setEmailError("Invalid email address");
+      setEmailError(t("teamMember.form.validation.email"));
       return;
     }
 
@@ -85,7 +91,7 @@ export default function TeamMemberInvite(): JSX.Element {
       {(user) => (
         <div>
           <div className="mx-auto relative">
-            <CreatorsTitle title="Team" />
+            <CreatorsTitle title={t("creators.team")} />
             <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
               {user && (
                 <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
@@ -123,8 +129,8 @@ export default function TeamMemberInvite(): JSX.Element {
                 <ModalHeader>
                   <h2 className="text-2xl font-medium text-gray2">
                     {editingIndex !== null
-                      ? "Edit team member"
-                      : "Invite team member"}
+                      ? t("modal.editMember")
+                      : t("modal.inviteMember")}
                   </h2>
                 </ModalHeader>
 
@@ -133,16 +139,17 @@ export default function TeamMemberInvite(): JSX.Element {
                     <div className="space-y-4 mt-12">
                       <Input
                         className="border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
-                        placeholder="Name"
+                        placeholder={t("teamMember.form.fields.name")}
                         value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ name: e.target.value })
-                        }
+                        onChange={(e) => setFormData({ name: e.target.value })}
+                        dir="auto"
                         required
                       />
 
                       <Select
-                        placeholder="Select role"
+                        placeholder={t(
+                          "teamMember.form.fields.rolePlaceholder"
+                        )}
                         selectedKeys={
                           formData.role ? new Set([formData.role]) : new Set()
                         }
@@ -152,27 +159,31 @@ export default function TeamMemberInvite(): JSX.Element {
                         onOpenChange={(open) => setSelectOpen(open)}
                       >
                         <SelectSection className="bg-white rounded-lg shadow text-light1 text-sm">
-                          {ROLE_OPTIONS.map((role) => (
-                            <SelectItem
-                              key={role.value}
-                              value={role.value}
-                              textValue={role.label}
-                              className="hover:bg-primary50"
-                            >
-                              {role.label}
-                            </SelectItem>
-                          ))}
+                          <SelectItem
+                            key="Admin"
+                            value="Admin"
+                            textValue={t("roles.admin")}
+                            className="hover:bg-primary50"
+                          >
+                            {t("roles.admin")}
+                          </SelectItem>
+                          <SelectItem
+                            key="Teammate"
+                            value="Teammate"
+                            textValue={t("roles.teammate")}
+                            className="hover:bg-primary50"
+                          >
+                            {t("roles.teammate")}
+                          </SelectItem>
                         </SelectSection>
                       </Select>
 
                       <Input
                         type="email"
                         className="border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
-                        placeholder="Email address"
+                        placeholder={t("teamMember.form.fields.email")}
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ email: e.target.value })
-                        }
+                        onChange={(e) => setFormData({ email: e.target.value })}
                         errorMessage={emailError}
                         isInvalid={!!emailError}
                         required
@@ -194,13 +205,15 @@ export default function TeamMemberInvite(): JSX.Element {
                         />
                         <div className="text-xs text-light1">
                           {formData.description.length}/{MIN_DESCRIPTION_LENGTH}{" "}
-                          characters minimum
+                          {t("preview.charactersMinimum")}
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-medium mb-4">Preview</h3>
+                      <h3 className="text-lg font-medium mb-4">
+                        {t("preview.title")}
+                      </h3>
                       <PreviewCard member={formData} showEdit={false} />
                     </div>
                   </div>
@@ -212,14 +225,16 @@ export default function TeamMemberInvite(): JSX.Element {
                     variant="light"
                     onPress={resetForm}
                   >
-                    Cancel
+                    {t("modal.cancel")}
                   </Button>
                   <Button
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                     color="secondary"
                     type="submit"
                   >
-                    {editingIndex !== null ? "Update" : "Save"}
+                    {editingIndex !== null
+                      ? t("modal.update")
+                      : t("modal.save")}
                   </Button>
                 </ModalFooter>
               </form>
@@ -241,7 +256,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     <MdOutlineDone className="text-primary300 text-4xl" />
                   </div>
                   <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    We have sent an invitation email to
+                    {t("modal.invitationSent")}
                   </h3>
                   <p className="text-primary300 text-xl font-medium mb-4">
                     {invitedMember?.name}
@@ -251,7 +266,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     onPress={() => setShowInviteModal(false)}
                   >
-                    Ok, continue
+                    {t("modal.continue")}
                   </Button>
                 </div>
               </ModalBody>

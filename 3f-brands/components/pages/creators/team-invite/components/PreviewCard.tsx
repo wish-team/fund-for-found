@@ -7,6 +7,7 @@ import { LuPencil, LuTrash } from "react-icons/lu";
 import { DeleteConfirmationModal } from "../../../../shared/DeleteConfirmationModal";
 import { AdminDeletePopover } from "./AdminDeletePopover";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useTranslation } from "react-i18next";
 
 export const PreviewCard: React.FC<PreviewCardProps> = ({
   member,
@@ -15,6 +16,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const { t } = useTranslation();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -84,14 +86,22 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
             <div className="bg-light3 px-6 py-4">
               <div className="flex justify-between border-b border-light2 pb-2 text-sm mb-2">
-                <span className="text-gray2 font-medium">Created</span>
+                <span className="text-gray2 font-medium">
+                  {t("teamMember.card.created")}
+                </span>
                 <span className="font-light">
-                  {member.role === "Admin" ? "1 brands" : "0 brands"}
+                  {member.role === "Admin"
+                    ? "1 " + t("teamMember.card.brands")
+                    : "0 " + t("teamMember.card.brands")}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray2 font-medium">Contributed</span>
-                <span className="font-light">0 projects</span>
+                <span className="text-gray2 font-medium">
+                  {t("teamMember.card.contributed")}
+                </span>
+                <span className="font-light">
+                  0 {t("teamMember.card.projects")}
+                </span>
               </div>
             </div>
           </div>

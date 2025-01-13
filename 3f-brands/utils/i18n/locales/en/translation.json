@@ -166,8 +166,7 @@
     "title": "Waiting to approve",
     "descripton": "You will be notified as soon as it is approved.",
     "info": "Your information is under review and will be confirmed within 2 to 5 business days."
-  }
-  ,
+  },
   "step4": {
     "title": "Congratulation!",
     "descripton": "Your Creative Starter has been approved by our experts!",
@@ -207,5 +206,107 @@
     "deleteConfirmationMessage": "This item will be deleted, are you sure?",
     "cancel": "Cancel",
     "delete": "Delete"
+  },
+
+  "teamMember": {
+    "title": "اعضای تیم",
+    "empty": "هنوز عضوی در تیم وجود ندارد",
+    "form": {
+      "title": {
+        "add": "دعوت عضو تیم",
+        "edit": "ویرایش عضو تیم"
+      },
+      "fields": {
+        "name": "نام و نام خانوادگی",
+        "email": "آدرس ایمیل",
+        "role": "نقش",
+        "description": "توضیحات",
+        "namePlaceholder": "نام و نام خانوادگی را وارد کنید",
+        "emailPlaceholder": "آدرس ایمیل را وارد کنید",
+        "rolePlaceholder": "نقش را انتخاب کنید",
+        "descriptionPlaceholder": "توضیحات عضو تیم را وارد کنید..."
+      },
+      "buttons": {
+        "cancel": "لغو",
+        "save": "ذخیره",
+        "update": "به‌روزرسانی",
+        "delete": "حذف"
+      },
+      "validation": {
+        "description": "توضیحات باید حداقل {{length}} کاراکتر باشد",
+        "email": "لطفاً یک آدرس ایمیل معتبر وارد کنید",
+        "required": "این فیلد الزامی است",
+        "minChars": "حداقل کاراکتر"
+      },
+      "preview": "پیش‌نمایش",
+      "roles": {
+        "admin": "مدیر",
+        "teammate": "همکار"
+      }
+    },
+    "card": {
+      "created": "ایجاد شده",
+      "contributed": "مشارکت شده",
+      "brands": "برند",
+      "projects": "پروژه",
+      "readMore": "بیشتر",
+      "readLess": "کمتر",
+      "adminDeletion": "امکان حذف مدیر وجود ندارد",
+      "defaultName": "عضو تیم",
+      "defaultRole": "نقش",
+      "defaultDescription": "توضیحات"
+    },
+    "invite": {
+      "success": "ایمیل دعوت برای این شخص ارسال شد",
+      "continue": "ادامه",
+      "error": "ارسال دعوت‌نامه با خطا مواجه شد"
+    },
+    "delete": {
+      "title": "حذف عضو تیم",
+      "message": "آیا از حذف این عضو تیم اطمینان دارید؟ این عمل قابل بازگشت نیست.",
+      "confirm": "بله، حذف شود",
+      "cancel": "انصراف",
+      "success": "عضو تیم با موفقیت حذف شد",
+      "error": "حذف عضو تیم با خطا مواجه شد"
+    },
+    "notifications": {
+      "addSuccess": "عضو تیم با موفقیت اضافه شد",
+      "updateSuccess": "عضو تیم با موفقیت به‌روزرسانی شد",
+      "deleteSuccess": "عضو تیم با موفقیت حذف شد",
+      "error": "خطایی رخ داد. لطفاً دوباره تلاش کنید."
+    },
+    "stats": {
+      "totalMembers": "تعداد کل اعضا",
+      "admins": "مدیران",
+      "teammates": "همکاران"
+    },
+    "tooltips": {
+      "edit": "ویرایش عضو تیم",
+      "delete": "حذف عضو تیم",
+      "addNew": "افزودن عضو جدید"
+    }
+  },
+  "creators": {
+    "team": "Team"
+  },
+  "roles": {
+    "admin": "Admin",
+    "teammate": "Teammate"
+  },
+  "preview": {
+    "title": "Preview",
+    "defaultName": "Name",
+    "defaultRole": "Role",
+    "defaultDescription": "Description",
+    "charactersMinimum": "characters minimum"
+  },
+  "modal": {
+    "editMember": "Edit team member",
+    "inviteMember": "Invite team member",
+    "invitationSent": "We have sent an invitation email to",
+    "continue": "Ok, continue",
+    "cancel": "Cancel",
+    "save": "Save",
+    "update": "Update"
   }
 }

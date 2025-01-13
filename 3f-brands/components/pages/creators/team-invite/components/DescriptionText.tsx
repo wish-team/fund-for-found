@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
 
 interface DescriptionTextProps {
   description: string;
@@ -10,6 +11,7 @@ export const DescriptionText: React.FC<DescriptionTextProps> = ({
   description,
   index,
 }) => {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const MAX_LENGTH = 62;
   const shouldShowReadMore = description.length > MAX_LENGTH;
@@ -27,7 +29,7 @@ export const DescriptionText: React.FC<DescriptionTextProps> = ({
           className="ml-2 m-0 p-0 text-sm text-primary200 transition-all hover:text-primary"
           onPress={() => setIsExpanded(!isExpanded)}
         >
-          {isExpanded ? "Read Less" : "Read More"}
+          {isExpanded ? t('teamMember.card.readLess') : t('teamMember.card.readMore')}
         </Button>
       )}
     </p>
