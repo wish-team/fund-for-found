@@ -6,16 +6,18 @@ import { TierModal } from "./components/TierModal";
 import DeleteConfirmationModal from "@/components/shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useTranslation } from "react-i18next";
 
 export const TierManagement = () => {
-  const { 
+  const { t } = useTranslation();
+  const {
     tiers,
     initializeTiers,
     editTier,
     deleteTier,
     deleteConfirmation,
     hideDeleteConfirmation,
-    confirmDelete
+    confirmDelete,
   } = useTierStore();
 
   useEffect(() => {
@@ -27,9 +29,9 @@ export const TierManagement = () => {
       {(user) => (
         <div>
           <div className="max-w-[1240px] mx-auto">
-            <CreatorsTitle title="Contribution Tier" />
+            <CreatorsTitle title={t("creators.tier.management.title")} />
             <h2 className="ps-2 mx-2 mb-6 text-lg text-gray2 border-s-4 border-primary">
-              Recurring or One time
+              {t("creators.tier.management.subtitle")}
             </h2>
             <div className="flex flex-col md:flex-row gap-6">
               {user && (
@@ -37,11 +39,7 @@ export const TierManagement = () => {
                   <AddTierButton />
                 </div>
               )}
-              <TierList
-                tiers={tiers}
-                onEdit={editTier}
-                onDelete={deleteTier}
-              />
+              <TierList tiers={tiers} onEdit={editTier} onDelete={deleteTier} />
             </div>
           </div>
 

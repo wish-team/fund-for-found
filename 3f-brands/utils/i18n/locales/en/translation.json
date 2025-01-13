@@ -207,7 +207,6 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
-
   "teamMember": {
     "title": "اعضای تیم",
     "empty": "هنوز عضوی در تیم وجود ندارد",
@@ -299,14 +298,73 @@
       "defaultDescription": "Description",
       "charactersMinimum": "characters minimum"
     },
-  "modal": {
-    "editMember": "Edit team member",
-    "inviteMember": "Invite team member",
-    "invitationSent": "We have sent an invitation email to",
-    "continue": "Ok, continue",
-    "cancel": "Cancel",
-    "save": "Save",
-    "update": "Update"
-  }
+    "modal": {
+      "editMember": "Edit team member",
+      "inviteMember": "Invite team member",
+      "invitationSent": "We have sent an invitation email to",
+      "continue": "Ok, continue",
+      "cancel": "Cancel",
+      "save": "Save",
+      "update": "Update"
     }
+  },
+  "creators": {
+    "tier": {
+      "management": {
+        "title": "Contribution Tier",
+        "subtitle": "Recurring or One time"
+      },
+      "modal": {
+        "addTitle": "Add New Tier",
+        "editTitle": "Edit Tier",
+        "deleteTitle": "Delete Tier",
+        "deleteMessage": "This tier will be deleted. Are you sure you want to proceed?"
+      },
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Silver Sponsor"
+        },
+        "description": {
+          "label": "Reward Description",
+          "placeholder": "Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the events."
+        },
+        "amount": {
+          "label": "Amount",
+          "placeholder": "20 USD"
+        },
+        "coverPhoto": {
+          "label": "Cover Photo",
+          "uploadText": "Click to upload cover photo"
+        },
+        "preview": "Preview",
+        "buttons": {
+          "cancel": "Cancel",
+          "save": "Save",
+          "update": "Update"
+        },
+        "validation": {
+          "required": "{{field}} is required",
+          "positiveAmount": "Amount must be positive"
+        }
+      },
+      "card": {
+        "defaultTitle": "Silver Sponsor",
+        "subtitle": "You are on the list",
+        "startAt": "Start at",
+        "currency": "USD",
+        "buttons": {
+          "contribute": "Contribute",
+          "showMore": "Show More",
+          "showLess": "Show Less"
+        }
+      },
+      "addButton": {
+        "title": "Add Tier"
+      },
+      "ContributeButton":{
+        "Contribute": "Contribute"
+      }
+    }
+  }
 }

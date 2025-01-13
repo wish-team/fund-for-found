@@ -1,8 +1,11 @@
 // components/AddTierButton.tsx
 import React from "react";
 import { useTierStore } from "../store/tierStore";
+import { useTranslation } from "react-i18next";
+
 
 export const AddTierButton: React.FC = () => {
+  const { t } = useTranslation();
   const { openModal } = useTierStore();
 
   return (
@@ -11,8 +14,10 @@ export const AddTierButton: React.FC = () => {
       onClick={openModal}
     >
       <div className="text-center">
-        <h3 className="text-2xl font-semibold text-light2 mb-4">Add Tier</h3>
-        <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto ">
+        <h3 className="text-2xl font-semibold text-light2 mb-4">
+          {t('creators.tier.addButton.title')}
+        </h3>
+        <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto">
           <span className="text-white text-4xl">+</span>
         </div>
       </div>

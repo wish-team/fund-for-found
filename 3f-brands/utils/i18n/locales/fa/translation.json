@@ -207,7 +207,6 @@
     "cancel": "لغو",
     "delete": "حذف"
   },
-
   "teamMember": {
     "title": "اعضای تیم",
     "empty": "هنوز عضوی در تیم وجود ندارد",
@@ -308,6 +307,65 @@
       "cancel": "لغو",
       "save": "ذخیره",
       "update": "به‌روزرسانی"
+    }
+  },
+  "creators": {
+    "tier": {
+      "management": {
+        "title": "سطح مشارکت",
+        "subtitle": "تکراری یا یک‌بار"
+      },
+      "modal": {
+        "addTitle": "افزودن سطح جدید",
+        "editTitle": "ویرایش سطح",
+        "deleteTitle": "حذف سطح",
+        "deleteMessage": "این سطح حذف خواهد شد. آیا مطمئن هستید که می‌خواهید ادامه دهید؟"
+      },
+      "form": {
+        "name": {
+          "label": "نام",
+          "placeholder": "حامی نقره‌ای"
+        },
+        "description": {
+          "label": "توضیحات پاداش",
+          "placeholder": "به لیست مهمانان بپیوندید و اولین نفری باشید که از به‌روزرسانی‌های مهم درباره رویدادهای پروژه ما مطلع می‌شود. همچنین، از برخی کارت‌های هدیه دیجیتال برای دعوت به رویدادها لذت ببرید."
+        },
+        "amount": {
+          "label": "مقدار",
+          "placeholder": "20 دلار آمریکا"
+        },
+        "coverPhoto": {
+          "label": "عکس کاور",
+          "uploadText": "برای بارگذاری عکس کاور کلیک کنید"
+        },
+        "preview": "پیش‌نمایش",
+        "buttons": {
+          "cancel": "لغو",
+          "save": "ذخیره",
+          "update": "به‌روزرسانی"
+        },
+        "validation": {
+          "required": "{{field}} الزامی است",
+          "positiveAmount": "مقدار باید مثبت باشد"
+        }
+      },
+      "card": {
+        "defaultTitle": "حامی نقره‌ای",
+        "subtitle": "شما در لیست هستید",
+        "startAt": "شروع از",
+        "currency": "دلار آمریکا",
+        "buttons": {
+          "contribute": "مشارکت کنید",
+          "showMore": "بیشتر نشان بده",
+          "showLess": "کمتر نشان بده"
+        }
+      },
+      "addButton": {
+        "title": "افزودن سطح"
+      },
+      "ContributeButton":{
+        "Contribute": "مشارکت"
+      }
     }
   }
 }
