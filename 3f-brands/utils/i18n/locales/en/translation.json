@@ -366,5 +366,13 @@
         "Contribute": "Contribute"
       }
     }
+  },
+  "navigation": {
+    "contributionTier": "CONTRIBUTION TIER",
+    "about": "ABOUT",
+    "team": "TEAM",
+    "topBackers": "TOP BACKERS & CONTRIBUTORS",
+    "faq": "FAQ",
+    "updates": "UPDATES"
   }
 }
