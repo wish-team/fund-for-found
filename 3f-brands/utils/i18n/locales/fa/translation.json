@@ -284,29 +284,30 @@
       "edit": "ویرایش عضو تیم",
       "delete": "حذف عضو تیم",
       "addNew": "افزودن عضو جدید"
+    },
+    "creators": {
+      "team": "تیم"
+    },
+    "roles": {
+      "admin": "مدیر",
+      "teammate": "همکار"
+    },
+
+    "preview": {
+      "title": "پیش‌نمایش",
+      "defaultName": "نام",
+      "defaultRole": "نقش",
+      "defaultDescription": "توضیحات",
+      "charactersMinimum": "حداقل کاراکتر"
+    },
+    "modal": {
+      "editMember": "ویرایش عضو تیم",
+      "inviteMember": "دعوت عضو تیم",
+      "invitationSent": "ایمیل دعوت‌نامه برای این شخص ارسال شد",
+      "continue": "ادامه",
+      "cancel": "لغو",
+      "save": "ذخیره",
+      "update": "به‌روزرسانی"
     }
-  },
-  "creators": {
-    "team": "تیم"
-  },
-  "roles": {
-    "admin": "مدیر",
-    "teammate": "همکار"
-  },
-  "preview": {
-    "title": "پیش‌نمایش",
-    "defaultName": "نام",
-    "defaultRole": "نقش",
-    "defaultDescription": "توضیحات",
-    "charactersMinimum": "حداقل کاراکتر"
-  },
-  "modal": {
-    "editMember": "ویرایش عضو تیم",
-    "inviteMember": "دعوت عضو تیم",
-    "invitationSent": "ایمیل دعوت‌نامه برای این شخص ارسال شد",
-    "continue": "ادامه",
-    "cancel": "لغو",
-    "save": "ذخیره",
-    "update": "به‌روزرسانی"
   }
 }

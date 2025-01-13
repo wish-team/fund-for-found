@@ -284,22 +284,21 @@
       "edit": "ویرایش عضو تیم",
       "delete": "حذف عضو تیم",
       "addNew": "افزودن عضو جدید"
-    }
-  },
-  "creators": {
-    "team": "Team"
-  },
-  "roles": {
-    "admin": "Admin",
-    "teammate": "Teammate"
-  },
-  "preview": {
-    "title": "Preview",
-    "defaultName": "Name",
-    "defaultRole": "Role",
-    "defaultDescription": "Description",
-    "charactersMinimum": "characters minimum"
-  },
+    },
+    "creators": {
+      "team": "Team"
+    },
+    "roles": {
+      "admin": "Admin",
+      "teammate": "Teammate"
+    },
+    "preview": {
+      "title": "Preview",
+      "defaultName": "Name",
+      "defaultRole": "Role",
+      "defaultDescription": "Description",
+      "charactersMinimum": "characters minimum"
+    },
   "modal": {
     "editMember": "Edit team member",
     "inviteMember": "Invite team member",
@@ -309,4 +308,5 @@
     "save": "Save",
     "update": "Update"
   }
+    }
 }

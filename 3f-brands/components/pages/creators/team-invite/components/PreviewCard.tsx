@@ -25,11 +25,15 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   };
 
   const handleConfirmDelete = () => {
-    // Use default value of -1 if index is undefined
     if (onDelete && index !== undefined) {
       onDelete(index);
     }
     setIsDeleteModalOpen(false);
+  };
+
+  // Translate the role
+  const getTranslatedRole = (role: string) => {
+    return t(`teamMember.roles.${role.toLowerCase()}`);
   };
 
   return (
@@ -44,7 +48,6 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                     <Button
                       isIconOnly
                       variant="light"
-                      // Use nullish coalescing to provide a default index
                       onPress={() => onEdit?.(member, index ?? -1)}
                       className="text-gray-400 hover:text-gray-600 text-right"
                     >
@@ -71,15 +74,15 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
               <div className="flex flex-col items-center">
                 <h3 className="text-xl py-2 text-center font-medium text-gray2">
-                  {member.name || "Name"}
+                  {member.name || t("teamMember.preview.defaultName")}
                 </h3>
                 <span className="text-sm bg-light3 px-3 py-1 rounded-full text-gray4 font-light">
-                  {member.role || "Role"}
+                  {member.role ? getTranslatedRole(member.role) : t("teamMember.preview.defaultRole")}
                 </span>
               </div>
 
               <DescriptionText
-                description={member.description || "Description"}
+                description={member.description || t("teamMember.preview.defaultDescription")}
                 index={index}
               />
             </div>
@@ -91,8 +94,8 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                 </span>
                 <span className="font-light">
                   {member.role === "Admin"
-                    ? "1 " + t("teamMember.card.brands")
-                    : "0 " + t("teamMember.card.brands")}
+                    ? `1 ${t("teamMember.card.brands")}`
+                    : `0 ${t("teamMember.card.brands")}`}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
@@ -100,7 +103,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                   {t("teamMember.card.contributed")}
                 </span>
                 <span className="font-light">
-                  0 {t("teamMember.card.projects")}
+                  {`0 ${t("teamMember.card.projects")}`}
                 </span>
               </div>
             </div>

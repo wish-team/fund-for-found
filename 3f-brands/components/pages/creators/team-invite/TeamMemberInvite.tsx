@@ -25,7 +25,18 @@ import { useTeamStore } from "./store/tramStore";
 import { useTranslation } from "react-i18next";
 
 export default function TeamMemberInvite(): JSX.Element {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); 
+  const isRTL = i18n.dir() === "rtl";
+  const inputClassName = `border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500 ${
+    isRTL ? 'text-right' : 'text-left'
+  }`;
+
+  const textareaClassName = `border border-light3 min-h-[110px] rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500 ${
+    isRTL ? 'text-right' : 'text-left'
+  }`;
+
+
+
   const {
     teamMembers,
     formData,
@@ -91,7 +102,7 @@ export default function TeamMemberInvite(): JSX.Element {
       {(user) => (
         <div>
           <div className="mx-auto relative">
-            <CreatorsTitle title={t("creators.team")} />
+            <CreatorsTitle title={t("teamMember.creators.team")} />
             <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
               {user && (
                 <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
@@ -129,8 +140,8 @@ export default function TeamMemberInvite(): JSX.Element {
                 <ModalHeader>
                   <h2 className="text-2xl font-medium text-gray2">
                     {editingIndex !== null
-                      ? t("modal.editMember")
-                      : t("modal.inviteMember")}
+                      ? t("teamMember.modal.editMember")
+                      : t("teamMember.modal.inviteMember")}
                   </h2>
                 </ModalHeader>
 
@@ -162,18 +173,18 @@ export default function TeamMemberInvite(): JSX.Element {
                           <SelectItem
                             key="Admin"
                             value="Admin"
-                            textValue={t("roles.admin")}
+                            textValue={t("teamMember.roles.admin")}
                             className="hover:bg-primary50"
                           >
-                            {t("roles.admin")}
+                            {t("teamMember.roles.admin")}
                           </SelectItem>
                           <SelectItem
                             key="Teammate"
                             value="Teammate"
-                            textValue={t("roles.teammate")}
+                            textValue={t("teamMember.roles.teammate")}
                             className="hover:bg-primary50"
                           >
-                            {t("roles.teammate")}
+                            {t("teamMember.roles.teammate")}
                           </SelectItem>
                         </SelectSection>
                       </Select>
@@ -205,14 +216,14 @@ export default function TeamMemberInvite(): JSX.Element {
                         />
                         <div className="text-xs text-light1">
                           {formData.description.length}/{MIN_DESCRIPTION_LENGTH}{" "}
-                          {t("preview.charactersMinimum")}
+                          {t("teamMember.preview.charactersMinimum")}
                         </div>
                       </div>
                     </div>
 
                     <div>
                       <h3 className="text-lg font-medium mb-4">
-                        {t("preview.title")}
+                        {t("teamMember.preview.title")}
                       </h3>
                       <PreviewCard member={formData} showEdit={false} />
                     </div>
@@ -225,7 +236,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     variant="light"
                     onPress={resetForm}
                   >
-                    {t("modal.cancel")}
+                    {t("teamMember.modal.cancel")}
                   </Button>
                   <Button
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
@@ -233,8 +244,8 @@ export default function TeamMemberInvite(): JSX.Element {
                     type="submit"
                   >
                     {editingIndex !== null
-                      ? t("modal.update")
-                      : t("modal.save")}
+                      ? t("teamMember.modal.update")
+                      : t("teamMember.modal.save")}
                   </Button>
                 </ModalFooter>
               </form>
@@ -250,26 +261,89 @@ export default function TeamMemberInvite(): JSX.Element {
             size="sm"
           >
             <ModalContent>
-              <ModalBody>
-                <div className="text-center py-6">
-                  <div className="w-16 h-16 border-4 border-primary300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <MdOutlineDone className="text-primary300 text-4xl" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    {t("modal.invitationSent")}
-                  </h3>
-                  <p className="text-primary300 text-xl font-medium mb-4">
-                    {invitedMember?.name}
-                  </p>
-                  <Button
-                    variant="light"
-                    className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                    onPress={() => setShowInviteModal(false)}
+            <ModalBody>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
+            <div className="space-y-4 mt-12">
+              <Input
+                className={inputClassName}
+                placeholder={t("teamMember.form.fields.name")}
+                value={formData.name}
+                onChange={(e) => setFormData({ name: e.target.value })}
+                dir={isRTL ? "rtl" : "ltr"}
+                required
+              />
+
+              <Select
+                placeholder={t("teamMember.form.fields.rolePlaceholder")}
+                selectedKeys={formData.role ? new Set([formData.role]) : new Set()}
+                onSelectionChange={handleRoleChange}
+                className={inputClassName}
+                isOpen={isSelectOpen}
+                onOpenChange={(open) => setSelectOpen(open)}
+                dir={isRTL ? "rtl" : "ltr"}
+              >
+                <SelectSection className="bg-white rounded-lg shadow text-light1 text-sm">
+                  <SelectItem
+                    key="Admin"
+                    value="Admin"
+                    textValue={t("teamMember.roles.admin")}
+                    className="hover:bg-primary50"
                   >
-                    {t("modal.continue")}
-                  </Button>
+                    {t("teamMember.roles.admin")}
+                  </SelectItem>
+                  <SelectItem
+                    key="Teammate"
+                    value="Teammate"
+                    textValue={t("teamMember.roles.teammate")}
+                    className="hover:bg-primary50"
+                  >
+                    {t("teamMember.roles.teammate")}
+                  </SelectItem>
+                </SelectSection>
+              </Select>
+
+              <Input
+                type="email"
+                className={inputClassName}
+                placeholder={t("teamMember.form.fields.email")}
+                value={formData.email}
+                onChange={(e) => setFormData({ email: e.target.value })}
+                errorMessage={emailError}
+                isInvalid={!!emailError}
+                dir={isRTL ? "rtl" : "ltr"}
+                required
+              />
+
+              <div>
+                <Textarea
+                  placeholder={t("teamMember.form.fields.description")}
+                  className={textareaClassName}
+                  value={formData.description}
+                  onChange={(e) => {
+                    setFormData({ description: e.target.value });
+                    setDescriptionError("");
+                  }}
+                  minRows={4}
+                  required
+                  errorMessage={descriptionError}
+                  isInvalid={!!descriptionError}
+                  dir={isRTL ? "rtl" : "ltr"}
+                />
+                <div className="text-xs text-light1">
+                  {formData.description.length}/{MIN_DESCRIPTION_LENGTH}{" "}
+                  {t("teamMember.preview.charactersMinimum")}
                 </div>
-              </ModalBody>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium mb-4">
+                {t("teamMember.preview.title")}
+              </h3>
+              <PreviewCard member={formData} showEdit={false} />
+            </div>
+          </div>
+        </ModalBody>
             </ModalContent>
           </Modal>
         </div>
