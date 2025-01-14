@@ -74,6 +74,6 @@ export class BrandService {
       throw new NotFoundException('Brand not found or delete failed');
     }
 
-    return { message: 'Brand created successfully' };
+    return { message: 'Brand deleted successfully' };
   }
 }
