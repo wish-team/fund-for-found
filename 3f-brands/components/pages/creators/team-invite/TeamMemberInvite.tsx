@@ -129,7 +129,6 @@ export default function TeamMemberInvite(): JSX.Element {
 
           {/* Form Modal */}
           <Modal
-            backdrop="blur"
             className="bg-white rounded-lg shadow p-4"
             isOpen={isModalOpen}
             onClose={resetForm}
@@ -254,7 +253,6 @@ export default function TeamMemberInvite(): JSX.Element {
 
           {/* Invite Confirmation Modal */}
           <Modal
-            backdrop="blur"
             className="bg-white rounded-lg shadow"
             isOpen={showInviteModal}
             onClose={() => setShowInviteModal(false)}

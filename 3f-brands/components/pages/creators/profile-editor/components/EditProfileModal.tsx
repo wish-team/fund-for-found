@@ -39,7 +39,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   return (
     <Modal
       isOpen={isOpen}
-      backdrop="blur"
       onOpenChange={onOpenChange}
       size="2xl"
       className="p-6 bg-white rounded-xl shadow-shadow1"

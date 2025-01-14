@@ -55,7 +55,6 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   return (
     <Modal
-      backdrop="blur"
       isOpen={isOpen && item !== null}
       onOpenChange={onOpenChange}
       className={`bg-white border shadow-shadow1 p-2 rounded-lg max-w-[400px] sm:max-w-[500px] md:max-w-[715px] lg:max-w-[935px] w-full ${isRTL ? 'rtl' : 'ltr'}`}

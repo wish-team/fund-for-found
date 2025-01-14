@@ -62,7 +62,6 @@ const SocialLinkEditor: React.FC = () => {
 
       <Modal
         isOpen={isOpen}
-        backdrop="blur"
         onOpenChange={handleModalChange}
         size="2xl"
         className='bg-white rounded-xl shadow-shadow1 p-4'

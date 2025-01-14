@@ -125,7 +125,6 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
         isOpen={isSearchModalOpen}
         onOpenChange={setIsSearchModalOpen}
         size="full"
-        backdrop="blur"
         className="bg-white pt-6"
       >
         <ModalContent>

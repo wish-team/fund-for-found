@@ -107,7 +107,6 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
 
   return (
     <Modal
-      backdrop="blur"
       className="bg-white shadow rounded-lg p-3"
       isOpen={isOpen}
       size="5xl"

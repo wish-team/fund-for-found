@@ -38,7 +38,6 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
 
   return (
     <Modal 
-      backdrop="blur" 
       className="shadow border" 
       isOpen={isOpen} 
       onClose={onClose} 

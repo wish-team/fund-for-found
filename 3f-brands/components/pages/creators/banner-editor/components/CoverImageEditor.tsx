@@ -81,7 +81,6 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
             isOpen={isEditing}
             onClose={closeEditor}
             size="2xl"
-            backdrop="blur"
             scrollBehavior="inside"
             className="bg-white max-w-[800px] rounded-xl shadow-shadow1"
           >

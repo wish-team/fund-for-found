@@ -129,7 +129,6 @@ export default function FundForFoundDashboard() {
             isOpen={isSidebarOpen}
             onClose={() => setIsSidebarOpen(false)}
             placement="bottom"
-            backdrop="blur"
             classNames={{
               base: "m-0 bg-white border rounded-2xl",
               header: "border-b border-gray-200",

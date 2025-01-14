@@ -51,6 +51,8 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
                 <Button
                   isIconOnly
                   size="sm"
+                  variant="light"
+                  className="text-white"
                   onClick={(e) => {
                     e.stopPropagation();
                     onEdit?.(index);
@@ -61,6 +63,8 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
                 <Button
                   isIconOnly
                   size="sm"
+                  variant="light"
+                  className="text-white"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete?.(index);

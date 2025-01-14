@@ -20,8 +20,7 @@ export const TierModal: React.FC = () => {
     <Modal 
       className="bg-white rounded-lg shadow" 
       isOpen={isModalOpen} 
-      backdrop="blur" 
-      onClose={closeModal} 
+     onClose={closeModal} 
       size="3xl"
     >
       <ModalContent>

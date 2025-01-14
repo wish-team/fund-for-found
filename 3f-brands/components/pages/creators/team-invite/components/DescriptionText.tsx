@@ -25,8 +25,8 @@ export const DescriptionText: React.FC<DescriptionTextProps> = ({
       )}
       {shouldShowReadMore && (
         <Button
-          color="secondary"
-          className="ml-2 m-0 p-0 text-sm text-primary200 transition-all hover:text-primary"
+          variant="light"
+          className="ml-2 underline m-0 p-0 text-sm text-primary200 transition-all hover:text-primary"
           onPress={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? t('teamMember.card.readLess') : t('teamMember.card.readMore')}
