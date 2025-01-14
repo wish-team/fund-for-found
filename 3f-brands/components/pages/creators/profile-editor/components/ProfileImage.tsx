@@ -4,6 +4,7 @@ import { BsPencil } from "react-icons/bs";
 import { getFirstLetter } from "../utils/imageUtils";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useProfileStore } from "../store/profileStore";
+import { useTranslation } from "react-i18next";
 
 interface ProfileImageProps {
   title: string;
@@ -15,6 +16,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
   onEditClick,
 }) => {
   const selectedImage = useProfileStore((state) => state.selectedImage);
+  const {t} = useTranslation()
 
   return (
     <AuthWrapper>
@@ -44,7 +46,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
             >
               <div className="flex justify-center bg-light4 px-4 py-2 rounded-lg text-purple-500 border-purple-500 gap-2">
                 <BsPencil />
-                <span className="text-sm">Edit</span>
+                <span className="text-sm">{t('editProfile.edit')}</span>
               </div>
             </button>
           )}

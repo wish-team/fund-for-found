@@ -418,5 +418,12 @@
       "title": "Pay Out",
       "info": "Payout information and controls go here"
     }
+  },
+  "editProfile": {
+    "title": "Edit profile",
+    "uploadNewImage": "Upload new image",
+    "save": "Save",
+    "reset": "Reset",
+    "edit": "Edit"
   }
 }
