@@ -51,13 +51,16 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
     [router]
   );
 
-  const menuItems = useMemo(() => [
-    { key: 'explore', label: t('navbar.explore'), href: '/explore' },
-    { key: 'home', label: t('navbar.home'), href: '/' },
-    { key: 'aboutUs', label: t('navbar.aboutUs'), href: '/about' },
-    { key: 'helpSupport', label: t('navbar.helpSupport'), href: '/help' },
-    { key: 'loginSignup', label: t('navbar.loginSignup'), href: '/login' },
-  ], [t]);
+  const menuItems = useMemo(
+    () => [
+      { key: "explore", label: t("navbar.explore"), href: "/explore" },
+      { key: "home", label: t("navbar.home"), href: "/" },
+      { key: "aboutUs", label: t("navbar.aboutUs"), href: "/about" },
+      { key: "helpSupport", label: t("navbar.helpSupport"), href: "/help" },
+      { key: "loginSignup", label: t("navbar.loginSignup"), href: "/login" },
+    ],
+    [t]
+  );
 
   const showSearchFunctionality = useMemo(() => {
     return pathname !== "/explore";
@@ -90,10 +93,10 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           >
             <X className="w-8 h-8" />
           </Button>
-          <div className="bg-white p-2 rounded-full border shadow-md">
+          <div>
             <Input
-              className="py-0 px-2 text-base w-full shadow-none"
-              placeholder={t('navbar.searchPlaceholder')}
+              size="lg"
+              placeholder={t("navbar.searchPlaceholder")}
               startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -125,13 +128,12 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
         isOpen={isSearchModalOpen}
         onOpenChange={setIsSearchModalOpen}
         size="full"
-        className="bg-white pt-6"
       >
         <ModalContent>
           <ModalBody className="p-4">
             <Input
               className="w-full px-4 py-2"
-              placeholder={t('navbar.searchPlaceholder')}
+              placeholder={t("navbar.searchPlaceholder")}
               startContent={<Search className="w-5 h-5 text-light1" />}
               value={searchTerm}
               autoFocus
@@ -174,12 +176,33 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
         <>
           <div className="hidden md:block relative">
             <Input
-              className="rounded-lg border border-light3 shadow-shadow1 text-xs font-extralight hover:border-purple-500 focus:outline-none"
-              placeholder={t('navbar.searchPlaceholder')}
-              startContent={<Search className="w-5 h-5 text-light1" />}
+              isClearable
+              classNames={{
+                input: [
+                  "bg-transparent",
+                  "text-black/90 dark:text-white/90",
+                  "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                  "shadow-shadow1",
+                  "bg-default-200/50",
+                  "dark:bg-default/60",
+                  "hover:bg-default-200/70",
+                  "dark:hover:bg-default/70",
+                  "group-data-[focus=true]:bg-default-200/50",
+                  "dark:group-data-[focus=true]:bg-default/60",
+                  "!cursor-text",
+                ],
+              }}
+              placeholder={t("navbar.searchPlaceholder")}
+              radius="lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
+              startContent={
+                <Search className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+              }
             />
           </div>
           <div className="md:hidden">
@@ -199,7 +222,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           {(user) =>
             user ? (
               <AvatarDropdown
-                userName={user.user_metadata?.name || t('navbar.defaultUser')}
+                userName={user.user_metadata?.name || t("navbar.defaultUser")}
                 userEmail={user.email || ""}
               />
             ) : (
@@ -209,15 +232,15 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
                 onClick={handleStartClick}
                 className="font-light bg-primary mb-1 text-white rounded-lg border-light2"
               >
-                {t('navbar.signIn')}
+                {t("navbar.signIn")}
               </Button>
             )
           }
         </AuthWrapper>
       </NavbarItem>
-      
+
       <NavbarMenuToggle
-        aria-label={isMenuOpen ? t('navbar.closeMenu') : t('navbar.openMenu')}
+        aria-label={isMenuOpen ? t("navbar.closeMenu") : t("navbar.openMenu")}
         className="sm:hidden"
       />
     </NavbarContent>
@@ -248,9 +271,9 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
 
   return (
     <>
-      <Navbar 
-        onMenuOpenChange={setIsMenuOpen} 
-        isBordered 
+      <Navbar
+        onMenuOpenChange={setIsMenuOpen}
+        isBordered
         className="rtl:space-x-reverse"
       >
         <NavbarContent>

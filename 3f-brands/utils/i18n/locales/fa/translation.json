@@ -332,7 +332,7 @@
         },
         "amount": {
           "label": "مقدار",
-          "placeholder": "20 دلار آمریکا"
+          "placeholder": "20 دلار"
         },
         "coverPhoto": {
           "label": "عکس کاور",
@@ -353,7 +353,7 @@
         "defaultTitle": "حامی نقره‌ای",
         "subtitle": "شما در لیست هستید",
         "startAt": "شروع از",
-        "currency": "دلار آمریکا",
+        "currency": "دلار",
         "buttons": {
           "contribute": "مشارکت کنید",
           "showMore": "بیشتر نشان بده",
