@@ -21,61 +21,61 @@ export const useEditorContent = () => {
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.summary'),
+        text: t('translation:about.defaultContent.summary'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.summaryText1'),
+        text: t('translation:about.defaultContent.summaryText1'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.summaryText2'),
+        text: t('translation:about.defaultContent.summaryText2'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.impact'),
+        text: t('translation:about.defaultContent.impact'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.impactText1'),
+        text: t('translation:about.defaultContent.impactText1'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.impactText2'),
+        text: t('translation:about.defaultContent.impactText2'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.impactText3'),
+        text: t('translation:about.defaultContent.impactText3'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.impactText4'),
+        text: t('translation:about.defaultContent.impactText4'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.story'),
+        text: t('translation:about.defaultContent.story'),
       }
     },
     {
       type: 'paragraph',
       data: {
-        text: t('about.defaultContent.storyText'),
+        text: t('translation:about.defaultContent.storyText'),
       }
     },
   ], [t]);

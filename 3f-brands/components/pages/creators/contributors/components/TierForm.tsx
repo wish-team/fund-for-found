@@ -200,7 +200,7 @@ export const TierForm: React.FC<TierFormProps> = ({
           className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
           type="submit"
         >
-          {t('translation:creators.tier.form.buttons.save')}
+          {t('tranlation:creators.tier.form.buttons.save')}
         </Button>
       </div>
     </form>
