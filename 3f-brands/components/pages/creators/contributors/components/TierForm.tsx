@@ -37,6 +37,21 @@ export const TierForm: React.FC<TierFormProps> = ({
 
   const formValues = watch();
 
+  // Helper function to create validation message with proper typing
+  const getValidationMessage = (field: string): string => {
+    return t('creators.tier.form.validation.required', {
+      field,
+      defaultValue: `${field} is required`
+    });
+  };
+
+  // Helper function for positive amount validation
+  const getPositiveAmountMessage = (): string => {
+    return t('creators.tier.form.validation.positiveAmount', {
+      defaultValue: 'Amount must be positive'
+    });
+  };
+
   // Utility function to get text direction
   const getDirection = (text: string) => {
     // If language is Persian, force RTL
@@ -57,6 +72,7 @@ export const TierForm: React.FC<TierFormProps> = ({
     <form onSubmit={handleSubmit(onSubmit)} dir={isRTL ? "rtl" : "ltr"}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
+          {/* Name field */}
           <div>
             <label className={labelClassName}>
               {t('translation:creators.tier.form.name.label')}
@@ -65,7 +81,7 @@ export const TierForm: React.FC<TierFormProps> = ({
               name="name"
               control={control}
               rules={{ 
-                required: t('creators.tier.form.validation.required', { field: t('creators.tier.form.name.label') })
+                required: getValidationMessage(t('translation:creators.tier.form.name.label'))
               }}
               render={({ field }) => (
                 <Input
@@ -80,6 +96,7 @@ export const TierForm: React.FC<TierFormProps> = ({
             />
           </div>
 
+          {/* Description field */}
           <div>
             <label className={labelClassName}>
               {t('translation:creators.tier.form.description.label')}
@@ -88,7 +105,7 @@ export const TierForm: React.FC<TierFormProps> = ({
               name="rewardDescription"
               control={control}
               rules={{ 
-                required: t('creators.tier.form.validation.required', { field: t('creators.tier.form.description.label') })
+                required: getValidationMessage(t('translation:creators.tier.form.description.label'))
               }}
               render={({ field }) => (
                 <Textarea
@@ -103,6 +120,7 @@ export const TierForm: React.FC<TierFormProps> = ({
             />
           </div>
 
+          {/* Amount field */}
           <div>
             <label className={labelClassName}>
               {t('translation:creators.tier.form.amount.label')}
@@ -111,9 +129,8 @@ export const TierForm: React.FC<TierFormProps> = ({
               name="amount"
               control={control}
               rules={{
-                required: t('creators.tier.form.validation.required', { field: t('creators.tier.form.amount.label') }),
-                validate: (value) =>
-                  parseInt(value) >= 0 || t('translation:creators.tier.form.validation.positiveAmount'),
+                required: getValidationMessage(t('translation:creators.tier.form.amount.label')),
+                validate: (value) => parseInt(value) >= 0 || getPositiveAmountMessage()
               }}
               render={({ field: { onChange, value, ...field } }) => (
                 <Input
@@ -137,6 +154,7 @@ export const TierForm: React.FC<TierFormProps> = ({
             />
           </div>
 
+          {/* Cover Photo field */}
           <div>
             <label className={labelClassName}>
               {t('translation:creators.tier.form.coverPhoto.label')}
@@ -200,7 +218,7 @@ export const TierForm: React.FC<TierFormProps> = ({
           className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
           type="submit"
         >
-          {t('tranlation:creators.tier.form.buttons.save')}
+          {t('translation:creators.tier.form.buttons.save')}
         </Button>
       </div>
     </form>
