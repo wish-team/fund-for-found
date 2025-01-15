@@ -12,7 +12,7 @@ import { EditModal } from "./components/EditModal";
 import { AddQuestionModal } from "./components/AddQuestionModal";
 import DeleteConfirmationModal from "../../../shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
-import { AccordionItemType } from "./types/accordion";
+import { AccordionItemType, FAQFormData } from "./types/accordion";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useFAQStore } from "./store/faqStore";
 import { useAuthStore } from "@/store/authStore";
