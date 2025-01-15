@@ -58,8 +58,8 @@ export const FormStep1: React.FC = () => {
       <MultiSelectInput
         control={form.control}
         name="brandTags"
-        label={t("step1.form.brandTags.label")}
-        placeholder={t("step1.form.brandTags.placeholder")}
+        label={t("translation:step1.form.brandTags.label")}
+        placeholder={t("translation:step1.form.brandTags.placeholder")}
         options={queries.brandTags.data || []}
       />
 
@@ -70,16 +70,16 @@ export const FormStep1: React.FC = () => {
           radius="full"
         >
           <div className="text-xs text-gray3">
-            <span>{t("step1.form.agreement.text")} </span>
+            <span>{t("translation:step1.form.agreement.text")} </span>
             <Link href="#" size="sm" className="text-primary">
-              {t("step1.form.agreement.terms")}
+              {t("translation:step1.form.agreement.terms")}
             </Link>
-            <span> {t("step1.form.agreement.of")}</span>
+            <span> {t("translation:step1.form.agreement.of")}</span>
           </div>
         </Checkbox>
         {form.formState.errors.agree && (
           <p className="text-red-500 text-xs">
-            {t("step1.validation.terms")}
+            {t("translation:step1.validation.terms")}
           </p>
         )}
       </div>
@@ -92,10 +92,10 @@ export const FormStep1: React.FC = () => {
         disabled={isPending}
       >
         {isPending 
-          ? t("step1.form.buttons.submitting")
+          ? t("translation:step1.form.buttons.submitting")
           : isUpdate 
-            ? t("step1.form.buttons.update")
-            : t("step1.form.buttons.submit")}
+            ? t("translation:step1.form.buttons.update")
+            : t("translation:step1.form.buttons.submit")}
       </Button>
     </form>
   );

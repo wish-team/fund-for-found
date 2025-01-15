@@ -29,22 +29,22 @@ const CreatorProfile = () => {
       <CreatorBanner />
       <div className="text-gray3 bg-white z-10 mt-20 flex justify-center md:space-x-12 py-4 border-b overflow-x-scroll space-x-4">
         <button onClick={() => handleTabClick(contributionTierRef)}>
-          {t('navigation.contributionTier')}
+          {t('translation:navigation.contributionTier')}
         </button>
         <button onClick={() => handleTabClick(aboutRef)}>
-          {t('navigation.about')}
+          {t('translation:navigation.about')}
         </button>
         <button onClick={() => handleTabClick(teamRef)}>
-          {t('navigation.team')}
+          {t('translation:navigation.team')}
         </button>
         <button onClick={() => handleTabClick(topBackersRef)}>
-          {t('navigation.topBackers')}
+          {t('translation:navigation.topBackers')}
         </button>
         <button onClick={() => handleTabClick(faqRef)}>
-          {t('navigation.faq')}
+          {t('translation:navigation.faq')}
         </button>
         <button onClick={() => handleTabClick(updatesRef)}>
-          {t('navigation.updates')}
+          {t('translation:navigation.updates')}
         </button>
       </div>
       <div ref={contributionTierRef}>

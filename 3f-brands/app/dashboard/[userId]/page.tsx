@@ -25,7 +25,7 @@ const Expenses = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">FOUNF FOR FUND</h2>
-      <p>{t("dashboard.expenses.info")}</p>
+      <p>{t("translation:dashboard.expenses.info")}</p>
     </div>
   );
 };
@@ -35,7 +35,7 @@ const PayOut = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">FOUNF FOR FUND</h2>
-      <p>{t("dashboard.payout.info")}</p>
+      <p>{t("translation:dashboard.payout.info")}</p>
     </div>
   );
 };
@@ -69,7 +69,7 @@ export default function FundForFoundDashboard() {
 
   const NavigationTabs = () => (
     <Tabs
-      aria-label={t("dashboard.navigation.ariaLabel")}
+      aria-label={t("translation:dashboard.navigation.ariaLabel")}
       isVertical={true}
       selectedKey={selectedTab}
       onSelectionChange={(key) => {
@@ -87,13 +87,13 @@ export default function FundForFoundDashboard() {
         tabContent: "font-medium",
       }}
     >
-      <Tab key="info" title={t("dashboard.tabs.info")} />
-      <Tab key="contribution-tiers" title={t("dashboard.tabs.contributionTiers")} />
-      <Tab key="about" title={t("dashboard.tabs.about")} />
-      <Tab key="team" title={t("dashboard.tabs.team")} />
-      <Tab key="updates" title={t("dashboard.tabs.updates")} />
-      <Tab key="expenses" title={t("dashboard.tabs.expenses")} />
-      <Tab key="pay-out" title={t("dashboard.tabs.payout")} />
+      <Tab key="info" title={t("translation:dashboard.tabs.info")} />
+      <Tab key="contribution-tiers" title={t("translation:dashboard.tabs.contributionTiers")} />
+      <Tab key="about" title={t("translation:dashboard.tabs.about")} />
+      <Tab key="team" title={t("translation:dashboard.tabs.team")} />
+      <Tab key="updates" title={t("translation:dashboard.tabs.updates")} />
+      <Tab key="expenses" title={t("translation:dashboard.tabs.expenses")} />
+      <Tab key="pay-out" title={t("translation:dashboard.tabs.payout")} />
     </Tabs>
   );
 

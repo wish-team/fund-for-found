@@ -25,7 +25,7 @@ export const AdminDeletePopover: React.FC = () => {
       <PopoverContent className="bg-white p-2 rounded-lg shadow-md border border-gray-200 max-w-[250px]">
         <div className="flex items-center gap-2">
           <FiAlertCircle className="text-yellow-500 w-4 h-54" />
-          <p className="text-xs text-gray-700">{t('teamMember.card.adminDeletion')}</p>
+          <p className="text-xs text-gray-700">{t('translation:teamMember.card.adminDeletion')}</p>
         </div>
       </PopoverContent>
     </Popover>

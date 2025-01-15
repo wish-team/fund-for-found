@@ -48,7 +48,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
           <>
             <ModalHeader className="flex flex-col gap-1">
               <h2 className="text-lg font-semibold text-gray3">
-                {t('editProfile.title')}
+                {t('translation:editProfile.title')}
               </h2>
             </ModalHeader>
             <ModalBody>
@@ -78,14 +78,14 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                       className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                       onPress={onSave}
                     >
-                      {t('editProfile.save')}
+                      {t('translation:editProfile.save')}
                     </Button>
                     <Button
                       variant="bordered"
                       onPress={onReset}
                       className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     >
-                      {t('editProfile.reset')}
+                      {t('translation:editProfile.reset')}
                     </Button>
                   </div>
                   <div>
@@ -102,7 +102,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                       variant="bordered"
                       className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     >
-                      {t('editProfile.uploadNewImage')}
+                      {t('translation:editProfile.uploadNewImage')}
                     </Button>
                   </div>
                 </div>

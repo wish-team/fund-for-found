@@ -17,7 +17,7 @@ import { MdOutlineDone } from "react-icons/md";
 
 import { PreviewCard } from "./components/PreviewCard";
 import { AddMemberCard } from "./components/AddMemberCard";
-import { ROLE_OPTIONS, MIN_DESCRIPTION_LENGTH } from "./utils/constants";
+import { MIN_DESCRIPTION_LENGTH } from "./utils/constants";
 import { validateDescription, validateEmail } from "./utils/validation";
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
@@ -81,7 +81,7 @@ export default function TeamMemberInvite(): JSX.Element {
     }
 
     if (!validateEmail(formData.email)) {
-      setEmailError(t("teamMember.form.validation.email"));
+      setEmailError(t("translation:teamMember.form.validation.email"));
       return;
     }
 
@@ -102,7 +102,7 @@ export default function TeamMemberInvite(): JSX.Element {
       {(user) => (
         <div>
           <div className="mx-auto relative">
-            <CreatorsTitle title={t("teamMember.creators.team")} />
+            <CreatorsTitle title={t("translation:teamMember.creators.team")} />
             <div className="flex flex-col md:flex-row gap-2 overflow-x-auto">
               {user && (
                 <div className="w-full md:w-auto md:sticky md:left-0 md:z-10 md:bg-white order-1 md:order-none mb-4 md:mb-0">
@@ -139,8 +139,8 @@ export default function TeamMemberInvite(): JSX.Element {
                 <ModalHeader>
                   <h2 className="text-2xl font-medium text-gray2">
                     {editingIndex !== null
-                      ? t("teamMember.modal.editMember")
-                      : t("teamMember.modal.inviteMember")}
+                      ? t("translation:teamMember.modal.editMember")
+                      : t("translation:teamMember.modal.inviteMember")}
                   </h2>
                 </ModalHeader>
 
@@ -149,7 +149,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     <div className="space-y-4 mt-12">
                       <Input
                         className="border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
-                        placeholder={t("teamMember.form.fields.name")}
+                        placeholder={t("translation:teamMember.form.fields.name")}
                         value={formData.name}
                         onChange={(e) => setFormData({ name: e.target.value })}
                         dir="auto"
@@ -158,7 +158,7 @@ export default function TeamMemberInvite(): JSX.Element {
 
                       <Select
                         placeholder={t(
-                          "teamMember.form.fields.rolePlaceholder"
+                          "translation:teamMember.form.fields.rolePlaceholder"
                         )}
                         selectedKeys={
                           formData.role ? new Set([formData.role]) : new Set()
@@ -172,18 +172,18 @@ export default function TeamMemberInvite(): JSX.Element {
                           <SelectItem
                             key="Admin"
                             value="Admin"
-                            textValue={t("teamMember.roles.admin")}
+                            textValue={t("translation:teamMember.roles.admin")}
                             className="hover:bg-primary50"
                           >
-                            {t("teamMember.roles.admin")}
+                            {t("translation:teamMember.roles.admin")}
                           </SelectItem>
                           <SelectItem
                             key="Teammate"
                             value="Teammate"
-                            textValue={t("teamMember.roles.teammate")}
+                            textValue={t("translation:teamMember.roles.teammate")}
                             className="hover:bg-primary50"
                           >
-                            {t("teamMember.roles.teammate")}
+                            {t("translation:teamMember.roles.teammate")}
                           </SelectItem>
                         </SelectSection>
                       </Select>
@@ -191,7 +191,7 @@ export default function TeamMemberInvite(): JSX.Element {
                       <Input
                         type="email"
                         className="border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500"
-                        placeholder={t("teamMember.form.fields.email")}
+                        placeholder={t("translation:teamMember.form.fields.email")}
                         value={formData.email}
                         onChange={(e) => setFormData({ email: e.target.value })}
                         errorMessage={emailError}
@@ -215,14 +215,14 @@ export default function TeamMemberInvite(): JSX.Element {
                         />
                         <div className="text-xs text-light1">
                           {formData.description.length}/{MIN_DESCRIPTION_LENGTH}{" "}
-                          {t("teamMember.preview.charactersMinimum")}
+                          {t("translation:teamMember.preview.charactersMinimum")}
                         </div>
                       </div>
                     </div>
 
                     <div>
                       <h3 className="text-lg font-medium mb-4">
-                        {t("teamMember.preview.title")}
+                        {t("translation:teamMember.preview.title")}
                       </h3>
                       <PreviewCard member={formData} showEdit={false} />
                     </div>
@@ -235,7 +235,7 @@ export default function TeamMemberInvite(): JSX.Element {
                     variant="light"
                     onPress={resetForm}
                   >
-                    {t("teamMember.modal.cancel")}
+                    {t("translation:teamMember.modal.cancel")}
                   </Button>
                   <Button
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
@@ -243,8 +243,8 @@ export default function TeamMemberInvite(): JSX.Element {
                     type="submit"
                   >
                     {editingIndex !== null
-                      ? t("teamMember.modal.update")
-                      : t("teamMember.modal.save")}
+                      ? t("translation:teamMember.modal.update")
+                      : t("translation:teamMember.modal.save")}
                   </Button>
                 </ModalFooter>
               </form>
@@ -264,7 +264,7 @@ export default function TeamMemberInvite(): JSX.Element {
             <div className="space-y-4 mt-12">
               <Input
                 className={inputClassName}
-                placeholder={t("teamMember.form.fields.name")}
+                placeholder={t("translation:teamMember.form.fields.name")}
                 value={formData.name}
                 onChange={(e) => setFormData({ name: e.target.value })}
                 dir={isRTL ? "rtl" : "ltr"}
@@ -272,7 +272,7 @@ export default function TeamMemberInvite(): JSX.Element {
               />
 
               <Select
-                placeholder={t("teamMember.form.fields.rolePlaceholder")}
+                placeholder={t("translation:teamMember.form.fields.rolePlaceholder")}
                 selectedKeys={formData.role ? new Set([formData.role]) : new Set()}
                 onSelectionChange={handleRoleChange}
                 className={inputClassName}
@@ -284,18 +284,18 @@ export default function TeamMemberInvite(): JSX.Element {
                   <SelectItem
                     key="Admin"
                     value="Admin"
-                    textValue={t("teamMember.roles.admin")}
+                    textValue={t("translation:teamMember.roles.admin")}
                     className="hover:bg-primary50"
                   >
-                    {t("teamMember.roles.admin")}
+                    {t("translation:teamMember.roles.admin")}
                   </SelectItem>
                   <SelectItem
                     key="Teammate"
                     value="Teammate"
-                    textValue={t("teamMember.roles.teammate")}
+                    textValue={t("translation:teamMember.roles.teammate")}
                     className="hover:bg-primary50"
                   >
-                    {t("teamMember.roles.teammate")}
+                    {t("translation:teamMember.roles.teammate")}
                   </SelectItem>
                 </SelectSection>
               </Select>
@@ -303,7 +303,7 @@ export default function TeamMemberInvite(): JSX.Element {
               <Input
                 type="email"
                 className={inputClassName}
-                placeholder={t("teamMember.form.fields.email")}
+                placeholder={t("translation:teamMember.form.fields.email")}
                 value={formData.email}
                 onChange={(e) => setFormData({ email: e.target.value })}
                 errorMessage={emailError}
@@ -314,7 +314,7 @@ export default function TeamMemberInvite(): JSX.Element {
 
               <div>
                 <Textarea
-                  placeholder={t("teamMember.form.fields.description")}
+                  placeholder={t("translation:teamMember.form.fields.description")}
                   className={textareaClassName}
                   value={formData.description}
                   onChange={(e) => {
@@ -329,14 +329,14 @@ export default function TeamMemberInvite(): JSX.Element {
                 />
                 <div className="text-xs text-light1">
                   {formData.description.length}/{MIN_DESCRIPTION_LENGTH}{" "}
-                  {t("teamMember.preview.charactersMinimum")}
+                  {t("translation:teamMember.preview.charactersMinimum")}
                 </div>
               </div>
             </div>
 
             <div>
               <h3 className="text-lg font-medium mb-4">
-                {t("teamMember.preview.title")}
+                {t("translation:teamMember.preview.title")}
               </h3>
               <PreviewCard member={formData} showEdit={false} />
             </div>

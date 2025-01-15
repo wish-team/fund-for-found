@@ -70,7 +70,7 @@ const Card = () => {
           isLoading={isLoading}
           className="font-light my-4 px-28 bg-primary mb-1 text-white rounded-lg border border-light2"
         >
-          {t("startCard.button")}
+          {t("translation:startCard.button")}
         </Button>
 
         <Links

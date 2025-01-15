@@ -26,10 +26,10 @@ const Step4 = () => {
         alt="Waiting to approve"
       />
       <h4 className="text-gray3 font-medium text-2xl">
-        {t("step4.descripton")}
+        {t("translation:step4.descripton")}
       </h4>
       <p className="text-gray4 font-light text-sm pt-2">
-      {t("step4.info")}
+      {t("translation:step4.info")}
       </p>
       <Button
         color="secondary"
@@ -37,7 +37,7 @@ const Step4 = () => {
         onPress={handleProfileNavigation}
         className="text-white bg-primary text-sm px-6 mt-4 font-light rounded-lg border border-light2"
       >
-        {t("step4.button")}
+        {t("translation:step4.button")}
       </Button>
     </section>
   );

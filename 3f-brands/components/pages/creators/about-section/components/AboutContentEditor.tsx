@@ -1,4 +1,3 @@
-// src/components/pages/creators/about/components/AboutContentEditor.tsx
 import React, { useEffect } from "react";
 import {
   Modal,
@@ -114,7 +113,7 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
       onClose={onClose}
     >
       <ModalContent>
-        <ModalHeader className="text-gray3">{t('about.editor.title')}</ModalHeader>
+        <ModalHeader className="text-gray3">{t('translation:about.editor.title')}</ModalHeader>
         <ModalBody>
           <div className="grid grid-cols-1 gap-4">
             <ImageUploader
@@ -137,14 +136,14 @@ export const AboutContentEditor: React.FC<AboutContentEditorProps> = ({
             className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
             onClick={onClose}
           >
-            {t('about.editor.buttons.cancel')}
+            {t('translation:about.editor.buttons.cancel')}
           </Button>
           <Button
             color="primary"
             className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
             onClick={handleSave}
           >
-            {t('about.editor.buttons.save')}
+            {t('translation:about.editor.buttons.save')}
           </Button>
         </ModalFooter>
       </ModalContent>

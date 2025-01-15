@@ -15,7 +15,7 @@ export const AddTierButton: React.FC = () => {
     >
       <div className="text-center">
         <h3 className="text-2xl font-semibold text-light2 mb-4">
-          {t('creators.tier.addButton.title')}
+          {t('translation:creators.tier.addButton.title')}
         </h3>
         <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto">
           <span className="text-white text-4xl">+</span>

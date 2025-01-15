@@ -18,43 +18,43 @@ const Footer: React.FC = () => {
       <div className="max-w-6xl mx-auto py-16 px-4 ps-16">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           <div>
-            <h4 className="text-base text-gray2 font-semibold">{t("footer.about")}</h4>
+            <h4 className="text-base text-gray2 font-semibold">{t("translation:footer.about")}</h4>
             <ul className="mt-2 flex flex-col items-start gap-1">
-              <Links href="/about" translationKey="footer.AboutUs" text={t("footer.AboutUs")} textColor="text-gray2" />
-              <Links href="/about" translationKey="footer.contactUs" text={t("footer.contactUs")} textColor="text-gray2" />
+              <Links href="/about" translationKey="footer.AboutUs" text={t("translation:footer.AboutUs")} textColor="text-gray2" />
+              <Links href="/about" translationKey="footer.contactUs" text={t("translation:footer.contactUs")} textColor="text-gray2" />
             </ul>
           </div>
           <div>
-            <h4 className="text-base text-gray2 font-semibold">{t("footer.resources")}</h4>
+            <h4 className="text-base text-gray2 font-semibold">{t("translation:footer.resources")}</h4>
             <ul className="mt-2 flex flex-col items-start gap-1">
-              <Links href="/about" translationKey="footer.blog" text={t("footer.blog")} textColor="text-gray2" />
+              <Links href="/about" translationKey="footer.blog" text={t("translation:footer.blog")} textColor="text-gray2" />
               <Links
                 href="/about"
                 translationKey="footer.3fWork"
-                text={t("footer.3fWork")}
+                text={t("translation:footer.3fWork")}
                 textColor="text-gray2"
               />
               <Links
                 href="/about"
                 translationKey="footer.support"
-                text={t("footer.support")}
+                text={t("translation:footer.support")}
                 textColor="text-gray2"
               />
             </ul>
           </div>
           <div>
-            <h4 className="text-base text-gray2 font-semibold">{t("footer.contributing")}</h4>
+            <h4 className="text-base text-gray2 font-semibold">{t("translation:footer.contributing")}</h4>
             <ul className="mt-2 flex flex-col items-start gap-1">
               <Links
                 href="/about"
                 translationKey="footer.brand"
-                text={t("footer.brand")}
+                text={t("translation:footer.brand")}
                 textColor="text-gray2"
               />
               <Links 
                 href="/about" 
                 translationKey="footer.price" 
-                text={t("footer.price")} 
+                text={t("translation:footer.price")} 
                 textColor="text-gray2" 
               />
             </ul>
@@ -67,9 +67,9 @@ const Footer: React.FC = () => {
         </div>
         <div className="hidden md:block">
           <ul className="mt-2 flex items-start space-x-8 gap-1">
-            <Links href="/about" translationKey="footer.safety" text={t("footer.safety")} textColor="text-gray2" />
-            <Links href="/about" translationKey="footer.termsOfUse" text={t("footer.termsOfUse")} textColor="text-gray2" />
-            <Links href="/about" translationKey="footer.privacy" text={t("footer.privacy")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.safety" text={t("translation:footer.safety")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.termsOfUse" text={t("translation:footer.termsOfUse")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.privacy" text={t("translation:footer.privacy")} textColor="text-gray2" />
           </ul>
         </div>
         <div>
@@ -83,9 +83,9 @@ const Footer: React.FC = () => {
         </div>
         <div className="block md:hidden">
           <ul className="mt-2 flex items-start space-x-8 gap-1">
-            <Links href="/about" translationKey="footer.safety" text={t("footer.safety")} textColor="text-gray2" />
-            <Links href="/about" translationKey="footer.termsOfUse" text={t("footer.termsOfUse")} textColor="text-gray2" />
-            <Links href="/about" translationKey="footer.privacy" text={t("footer.privacy")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.safety" text={t("translation:footer.safety")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.termsOfUse" text={t("translation:footer.termsOfUse")} textColor="text-gray2" />
+            <Links href="/about" translationKey="footer.privacy" text={t("translation:footer.privacy")} textColor="text-gray2" />
           </ul>
         </div>
       </div> 

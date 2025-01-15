@@ -75,7 +75,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 />
               </DropdownTrigger>
               <DropdownMenu
-                aria-label={t('avatar.menuLabel')}
+                aria-label={t('translation:avatar.menuLabel')}
                 variant="flat"
                 className="bg-white shadow rounded w-[300px] p-4"
               >
@@ -89,49 +89,49 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <DropdownItem
                   key="my-profile"
                   className="flex"
-                  textValue={t('avatar.myProfile')}
+                  textValue={t('translation:avatar.myProfile')}
                   onPress={() => handleNavigation(user.id, "/creators/[id]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <FaUserCircle />
                     </h6>
-                    <h6 className="flex">{t('avatar.myProfile')}</h6>
+                    <h6 className="flex">{t('translation:avatar.myProfile')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="brand-organization"
-                  textValue={t('avatar.brandOrganization')}
+                  textValue={t('translation:avatar.brandOrganization')}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoBagHandleSharp />
                     </h6>
-                    <h6 className="flex">{t('avatar.brandOrganization')}</h6>
+                    <h6 className="flex">{t('translation:avatar.brandOrganization')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
-                  textValue={t('avatar.settings')}
+                  textValue={t('translation:avatar.settings')}
                   onPress={() => handleNavigation(user.id, "/dashboard/[userId]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoMdSettings />
                     </h6>
-                    <h6 className="flex">{t('avatar.settings')}</h6>
+                    <h6 className="flex">{t('translation:avatar.settings')}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
-                  textValue={t('avatar.logOut')}
+                  textValue={t('translation:avatar.logOut')}
                   onClick={handleLogout}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <TbLogout />
                     </h6>
-                    <h6 className="flex">{t('avatar.logOut')}</h6>
+                    <h6 className="flex">{t('translation:avatar.logOut')}</h6>
                   </div>
                 </DropdownItem>
               </DropdownMenu>

@@ -97,7 +97,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         type="url"
         value={inputValue}
         onChange={handleUrlChange}
-        placeholder={t('social.urlPlaceholder')}
+        placeholder={t('translation:social.urlPlaceholder')}
         className="border border-light3 text-sm text-gray4 bg-white rounded-lg shadow hover:border-purple-500 focus:border-purple-500 focus:outline-none w-full md:w-7/12 p-2"
       />
 
@@ -105,7 +105,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         type="button"
         onClick={() => onRemove(id)}
         className="p-2 text-gray4 hover:text-red-500 transition-colors duration-200"
-        aria-label={t('social.removeButton')}
+        aria-label={t('translation:social.removeButton')}
       >
         <FaTrashCan />
       </button>

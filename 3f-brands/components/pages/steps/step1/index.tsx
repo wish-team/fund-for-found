@@ -11,10 +11,10 @@ const Step1Form: React.FC = () => {
     <section className="pb-2 text-start mx-auto max-w-[1024px]">
       <Title titleKey="step1.title" title="Basic Info" />
       <h3 className="text-gray3 py-2 font-bold">
-        {t("step1.subTitle")}
+        {t("translation:step1.subTitle")}
       </h3>
       <p className="text-light1 text-justify font-light">
-        {t("step1.description")}
+        {t("translation:step1.description")}
       </p>
       <FormStep1 />
     </section>

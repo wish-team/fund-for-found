@@ -22,7 +22,7 @@ export const AddMemberCard: React.FC<AddMemberCardProps> = ({
           <Plus className="w-8 h-8 text-white" />
         </div>
         <span className="text-xl font-medium text-gray-900">
-          {t('teamMember.form.title.add')}
+          {t('translation:teamMember.form.title.add')}
         </span>
       </Button>
     </div>

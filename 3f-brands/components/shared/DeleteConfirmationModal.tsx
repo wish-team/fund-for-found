@@ -31,10 +31,10 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
   const { t } = useTranslation();
 
   // Use provided text or fallback to translations
-  const modalTitle = title || t('common.deleteConfirmation');
-  const modalMessage = message || t('common.deleteConfirmationMessage');
-  const modalCancelText = cancelText || t('common.cancel');
-  const modalConfirmText = confirmText || t('common.delete');
+  const modalTitle = title || t('translation:common.deleteConfirmation');
+  const modalMessage = message || t('translation:common.deleteConfirmationMessage');
+  const modalCancelText = cancelText || t('translation:common.cancel');
+  const modalConfirmText = confirmText || t('translation:common.delete');
 
   return (
     <Modal 

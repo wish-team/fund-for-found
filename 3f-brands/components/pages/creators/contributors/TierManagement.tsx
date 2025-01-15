@@ -29,9 +29,9 @@ export const TierManagement = () => {
       {(user) => (
         <div>
           <div className="max-w-[1240px] mx-auto">
-            <CreatorsTitle title={t("creators.tier.management.title")} />
+            <CreatorsTitle title={t("translation:creators.tier.management.title")} />
             <h2 className="ps-2 mx-2 mb-6 text-lg text-gray2 border-s-4 border-primary">
-              {t("creators.tier.management.subtitle")}
+              {t("translation:creators.tier.management.subtitle")}
             </h2>
             <div className="flex flex-col md:flex-row gap-6">
               {user && (

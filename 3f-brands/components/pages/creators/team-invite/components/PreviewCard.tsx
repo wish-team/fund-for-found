@@ -74,15 +74,15 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
               <div className="flex flex-col items-center">
                 <h3 className="text-xl py-2 text-center font-medium text-gray2">
-                  {member.name || t("teamMember.preview.defaultName")}
+                  {member.name || t("translation:teamMember.preview.defaultName")}
                 </h3>
                 <span className="text-sm bg-light3 px-3 py-1 rounded-full text-gray4 font-light">
-                  {member.role ? getTranslatedRole(member.role) : t("teamMember.preview.defaultRole")}
+                  {member.role ? getTranslatedRole(member.role) : t("translation:teamMember.preview.defaultRole")}
                 </span>
               </div>
 
               <DescriptionText
-                description={member.description || t("teamMember.preview.defaultDescription")}
+                description={member.description || t("translation:teamMember.preview.defaultDescription")}
                 index={index}
               />
             </div>
@@ -90,20 +90,20 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
             <div className="bg-light3 px-6 py-4">
               <div className="flex justify-between border-b border-light2 pb-2 text-sm mb-2">
                 <span className="text-gray2 font-medium">
-                  {t("teamMember.card.created")}
+                  {t("translation:teamMember.card.created")}
                 </span>
                 <span className="font-light">
                   {member.role === "Admin"
-                    ? `1 ${t("teamMember.card.brands")}`
-                    : `0 ${t("teamMember.card.brands")}`}
+                    ? `1 ${t("translation:teamMember.card.brands")}`
+                    : `0 ${t("translation:teamMember.card.brands")}`}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray2 font-medium">
-                  {t("teamMember.card.contributed")}
+                  {t("translation:teamMember.card.contributed")}
                 </span>
                 <span className="font-light">
-                  {`0 ${t("teamMember.card.projects")}`}
+                  {`0 ${t("translation:teamMember.card.projects")}`}
                 </span>
               </div>
             </div>

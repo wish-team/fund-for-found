@@ -48,14 +48,14 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} dir={containerDirection}>
             <ModalHeader className="flex flex-col gap-1 text-gray3">
-              {t('faq.modal.addTitle')}
+              {t('translation:faq.modal.addTitle')}
             </ModalHeader>
             <ModalBody>
               <div className="space-y-4">
                 <div>
                   <Input
                     {...register('title')}
-                    placeholder={t('faq.modal.questionPlaceholder')}
+                    placeholder={t('translation:faq.modal.questionPlaceholder')}
                     classNames={{
                       input: isRTL ? 'text-right' : 'text-left',
                       inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
@@ -64,14 +64,14 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                   />
                   {errors.title && (
                     <p className="text-red-500 text-sm mt-1">
-                      {t('faq.validation.questionRequired')}
+                      {t('translation:faq.validation.questionRequired')}
                     </p>
                   )}
                 </div>
                 <div>
                   <Input
                     {...register('content')}
-                    placeholder={t('faq.modal.answerPlaceholder')}
+                    placeholder={t('translation:faq.modal.answerPlaceholder')}
                     classNames={{
                       input: isRTL ? 'text-right' : 'text-left',
                       inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
@@ -80,7 +80,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                   />
                   {errors.content && (
                     <p className="text-red-500 text-sm mt-1">
-                      {t('faq.validation.answerRequired')}
+                      {t('translation:faq.validation.answerRequired')}
                     </p>
                   )}
                 </div>
@@ -95,14 +95,14 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                   onClose();
                 }}
               >
-                {t('faq.modal.cancel')}
+                {t('translation:faq.modal.cancel')}
               </Button>
               <Button
                 type="submit"
                 color="primary"
                 className="text-white text-sm rounded-lg hover:bg-primary400"
               >
-                {t('faq.modal.save')}
+                {t('translation:faq.modal.save')}
               </Button>
             </ModalFooter>
           </form>

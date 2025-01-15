@@ -22,7 +22,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
         className="w-full bg-primary text-white rounded-lg mt-4"
         disabled
       >
-        {t("creators.tier.ContributeButton.Contribute")}
+        {t("translation:creators.tier.ContributeButton.Contribute")}
       </Button>
     );
   }
@@ -33,7 +33,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
       className="w-full bg-primary text-white rounded-lg mt-4"
       onClick={() => router.push(`/payment/${tierId}/1`)} // Updated route
     >
-      {t("creators.tier.ContributeButton.Contribute")}
+      {t("translation:creators.tier.ContributeButton.Contribute")}
     </Button>
   );
 };

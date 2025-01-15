@@ -45,7 +45,7 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
           ${isExpanded ? 'z-50' : 'z-0'} transition-all duration-300 ease-in-out`}
         >
           <div className="bg-primary text-white p-2 text-center relative">
-          {data.name || t('creators.tier.card.defaultTitle')}
+          {data.name || t('translation:creators.tier.card.defaultTitle')}
             {!preview && index !== undefined && user && (
               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
                 <Button
@@ -77,7 +77,7 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
           </div>
           <div className="p-6 space-y-4">
             <h2 className="py-1 text-center text-gray2 font-light text-xl">
-            {t('creators.tier.card.subtitle')}
+            {t('translation:creators.tier.card.subtitle')}
             </h2>
             <div className="bg-primary50 rounded-lg p-4 mb-4">
               <img
@@ -92,9 +92,9 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
               />
             </div>
             <div className="text-gray-500">
-              {t('creators.tier.card.startAt')}{" "}
+              {t('translation:creators.tier.card.startAt')}{" "}
               <span className="text-primary font-semibold">
-                {data.amount || "20"} {t('creators.tier.card.currency')}
+                {data.amount || "20"} {t('translation:creators.tier.card.currency')}
               </span>
             </div>
             <div className="relative">
@@ -117,12 +117,12 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
               >
                 {isExpanded ? (
                   <>
-                    {t('creators.tier.card.buttons.showLess')}
+                    {t('translation:creators.tier.card.buttons.showLess')}
                     <ChevronUp className="w-4 h-4" />
                   </>
                 ) : (
                   <>
-                    {t('creators.tier.card.buttons.showMore')}
+                    {t('translation:creators.tier.card.buttons.showMore')}
                     <ChevronDown className="w-4 h-4" />
                   </>
                 )}

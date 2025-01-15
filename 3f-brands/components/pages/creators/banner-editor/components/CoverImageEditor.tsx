@@ -73,7 +73,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                 variant="flat"
                 startContent={<Pencil size={16} />}
               >
-                {t("banner.coverImage.editCover")}
+                {t("translation:banner.coverImage.editCover")}
               </Button>
             )}
           </div>
@@ -86,7 +86,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
           >
             <ModalContent>
               <ModalHeader className="text-center text-gray3">
-                {t("banner.coverImage.addCover")}
+                {t("translation:banner.coverImage.addCover")}
               </ModalHeader>
 
               <ModalBody>
@@ -101,7 +101,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
 
                 {error && (
                   <div className="text-danger text-sm mt-2">
-                    {t("banner.coverImage.error.processing")}
+                    {t("translation:banner.coverImage.error.processing")}
                   </div>
                 )}
 
@@ -115,14 +115,14 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                     onPress={handleSave}
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                   >
-                    {t('banner.coverImage.save')}
+                    {t('translation:banner.coverImage.save')}
                   </Button>
                   <Button
                     variant="bordered"
                     className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     onPress={resetBanner}
                   >
-                    {t('banner.coverImage.reset')}
+                    {t('translation:banner.coverImage.reset')}
                   </Button>
                 </div>
                 <Button
@@ -130,7 +130,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                   className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                   onPress={() => fileInputRef.current?.click()}
                 >
-                  {t('banner.coverImage.uploadNew')}
+                  {t('translation:banner.coverImage.uploadNew')}
                 </Button>
                 <input
                   ref={fileInputRef}

@@ -29,7 +29,7 @@ export const DescriptionText: React.FC<DescriptionTextProps> = ({
           className="ml-2 underline m-0 p-0 text-sm text-primary200 transition-all hover:text-primary"
           onPress={() => setIsExpanded(!isExpanded)}
         >
-          {isExpanded ? t('teamMember.card.readLess') : t('teamMember.card.readMore')}
+          {isExpanded ? t('translation:teamMember.card.readLess') : t('translation:teamMember.card.readMore')}
         </Button>
       )}
     </p>

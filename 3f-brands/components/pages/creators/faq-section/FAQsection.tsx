@@ -92,7 +92,7 @@ const FAQ: React.FC = () => {
   return (
     <AuthWrapper>
       <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
-        <CreatorsTitle title={t("faq.title")} />
+        <CreatorsTitle title={t("translation:faq.title")} />
         <Accordion
           variant="splitted"
           selectedKeys={selectedKeys}
@@ -116,7 +116,7 @@ const FAQ: React.FC = () => {
                     startContent={<FaPencil />}
                     className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                   >
-                    {t("faq.editQuestion")}
+                    {t("translation:faq.editQuestion")}
                   </Button>
                 )}
                 {user && (
@@ -127,7 +127,7 @@ const FAQ: React.FC = () => {
                     onPress={() => handleDeleteClick(item.id)}
                     size="sm"
                   >
-                    {t("faq.deleteQuestion")}
+                    {t("translation:faq.deleteQuestion")}
                   </Button>
                 )}
               </div>
@@ -140,7 +140,7 @@ const FAQ: React.FC = () => {
             onPress={handleAddQuestion}
             className="mt-4 border border-light3 w-[180px] mx-auto rounded-lg text-gray4 text-sm hover:bg-primary50 hover:border-purple-500"
           >
-            {t("faq.addQuestion")}
+            {t("translation:faq.addQuestion")}
           </Button>
         )}
 
@@ -166,8 +166,8 @@ const FAQ: React.FC = () => {
           isOpen={deleteModal.isOpen}
           onClose={deleteModal.onClose}
           onConfirm={confirmDelete}
-          title={t("faq.modal.delete.title")}
-          message={t("faq.modal.delete.message")}
+          title={t("translation:faq.modal.delete.title")}
+          message={t("translation:faq.modal.delete.message")}
         />
       </section>
     </AuthWrapper>
