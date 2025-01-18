@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateFaqDto } from './create-faq.dto';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
-export class UpdateFaqDto extends PartialType(CreateFaqDto) {}
+export class UpdateFaqDto {
+  @IsString()
+  @IsOptional()
+  question?: string;
+
+  @IsString()
+  @IsOptional()
+  answer?: string;
+
+  @IsInt()
+  @IsOptional()
+  priority?: number;
+}

@@ -1,4 +1,11 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateSocialMediaDto } from './create-social-media.dto';
+import { IsString, IsOptional } from 'class-validator';
 
-export class UpdateSocialMediaDto extends PartialType(CreateSocialMediaDto) {}
+export class UpdateSocialMediaDto {
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  link?: string;
+}

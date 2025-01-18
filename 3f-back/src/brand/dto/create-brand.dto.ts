@@ -1,6 +1,11 @@
-// dto/create-brand.dto.ts
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
 export class CreateBrandDto {
-  readonly brand_name: string;
-  readonly owner_id: string;
-  readonly brand_image?: string;
+  @IsString()
+  @IsNotEmpty()
+  brand_name: string;
+
+  @IsString()
+  @IsOptional()
+  brand_image?: string; // Optional field
 }

@@ -1,6 +1,11 @@
-// dto/update-brand.dto.ts
+import { IsString, IsOptional } from 'class-validator';
+
 export class UpdateBrandDto {
-  readonly brand_name?: string;
-  readonly owner_id?: string;
-  readonly brand_image?: string;
+  @IsString()
+  @IsOptional()
+  brand_name?: string;
+
+  @IsString()
+  @IsOptional()
+  brand_image?: string; // Optional field
 }

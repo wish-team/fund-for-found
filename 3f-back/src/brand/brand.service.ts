@@ -1,79 +1,79 @@
-// brands.service.ts
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Brand } from './entities/brand.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
-export class BrandsService {
-  constructor(
-    @InjectRepository(Brand)
-    private readonly brandRepository: Repository<Brand>,
-  ) {}
+export class BrandService {
+  constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  findAll() {
-    return this.brandRepository.find();
+  // GET /brand - Get a list of all brand
+  async findAll() {
+    const { data, error } = await this.supabaseClient.from('brand').select('*');
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
   }
 
-  findOne(id: string) {
-    return this.brandRepository.findOne({ where: { brand_id: id } });
+  // GET /brand/:id - Get details of a specific brand
+  async findOne(id: string) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .select()
+      .eq('brand_id', id)
+      .single();
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found');
+    }
+
+    return data;
   }
 
-  create(createBrandDto: CreateBrandDto) {
-    const brand = this.brandRepository.create(createBrandDto);
-    return this.brandRepository.save(brand);
+  async create(createBrandDto: CreateBrandDto & { owner_id: string }) {
+    const { data, error } = await this.supabaseClient.from('brand').insert({
+      owner_id: createBrandDto.owner_id,
+      brand_name: createBrandDto.brand_name,
+      brand_image: createBrandDto.brand_image,
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data ?? { message: 'Brand createed successfully ' };
   }
 
-  update(id: string, updateBrandDto: UpdateBrandDto) {
-    return this.brandRepository.update(id, updateBrandDto);
+  // PUT /brand/:id - Update a specific brand
+  async update(id: string, updateBrandDto: UpdateBrandDto) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .update([
+        {
+          brand_name: updateBrandDto.brand_name,
+          brand_image: updateBrandDto.brand_image,
+        },
+      ])
+      .eq('brand_id', id);
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found or update failed');
+    }
+    return 'data';
   }
 
-  remove(id: string) {
-    return this.brandRepository.delete(id);
+  // DELETE /brand/:id - Delete a specific brand
+  async delete(id: string) {
+    const { data, error } = await this.supabaseClient
+      .from('brand')
+      .delete()
+      .eq('owner-id', id);
+
+    if (error || !data) {
+      throw new NotFoundException('Brand not found or delete failed');
+    }
+
+    return data;
   }
 }
-// import { Injectable } from '@nestjs/common';
-// import { CreateBrandDto } from './dto/create-brand.dto';
-// import { UpdateBrandDto } from './dto/update-brand.dto';
-// import { createClient } from '../../utils/supabase/serever';
-
-// @Injectable()
-// export class BrandService {
-//   supabaseClient = createClient();
-
-//   async create(createBrandDto: CreateBrandDto): Promise<Brand> {
-//     const { brandName, ownerId, brandImage } = createBrandDto;
-//     return this.supabaseClient
-//       .from('BRAND')
-//       .insert([
-//         { BRAND_NAME: brandName, OWNER_ID: ownerId, BRAND_IMAGE: brandImage },
-//       ])
-//       .then((response) => response.data[0]);
-//   }
-
-//   async findAll(): Promise<Brand[]> {
-//     return this.supabaseClient
-//       .from('BRAND')
-//       .select('*')
-//       .then((response) => response.data);
-//   }
-
-//   async findById(brandId: string): Promise<Brand> {
-//     return this.supabaseClient
-//       .from('BRAND')
-//       .select('*')
-//       .eq('BRAND_ID', brandId)
-//       .single()
-//       .then((response) => response.data);
-//   }
-
-//   update(id: number, updateBrandDto: UpdateBrandDto) {
-//     return `This action updates a #${id} brand`;
-//   }
-
-//   remove(id: number) {
-//     return `This action removes a #${id} brand`;
-//   }
-// }
