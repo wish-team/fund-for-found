@@ -42,11 +42,11 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
           {user && (
             <button
               onClick={onEditClick}
-              className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-2xl"
+              className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             >
-              <div className="flex justify-center bg-light4 px-4 py-2 rounded-lg text-purple-500 border-purple-500 gap-2">
+              <div className="flex justify-center bg-light3 p-4 rounded-full text-purple-500 border-purple-500 gap-2">
                 <BsPencil />
-                <span className="text-sm">{t('translation:editProfile.edit')}</span>
+                <span className="text-sm hidden md:block">{t('translation:editProfile.edit')}</span>
               </div>
             </button>
           )}

@@ -9,7 +9,7 @@ const CreatorBanner = () => {
       <CoverImageEditor />
       <div className="relative">
         <div className="flex justify-between items-center">
-          <div className="flex items-center absolute bottom-[-68px] sm:bottom-[-70px] left-0 sm:left-6">
+          <div className="flex items-center absolute bottom-[-68px] sm:bottom-[-70px] left-0 sm:left-0">
             <ProfileEditor />
             <SocialLinkEditor />
           </div>
