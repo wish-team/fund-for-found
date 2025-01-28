@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Control, Controller } from "react-hook-form";
-import { FormData } from "../types";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 interface Option {
@@ -8,9 +7,9 @@ interface Option {
   name: string;
 }
 
-interface AutocompleteInputProps {
-  control: Control<FormData>;
-  name: keyof FormData;
+interface AutocompleteInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
   label: string;
   options?: Option[];
   placeholder?: string;
@@ -18,14 +17,14 @@ interface AutocompleteInputProps {
 }
 
 export const AutocompleteInput = React.memo(
-  ({
+  <T extends FieldValues>({
     control,
     name,
     label,
     options = [],
     placeholder,
     allowCustomInput = false,
-  }: AutocompleteInputProps) => {
+  }: AutocompleteInputProps<T>) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);

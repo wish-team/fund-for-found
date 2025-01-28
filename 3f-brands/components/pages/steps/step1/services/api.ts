@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormData } from "../types";
+import { FormData, ExtendedFormData } from "../types";
 import i18next from "i18next";
 
 const API_URL = "http://localhost:8000";
@@ -17,7 +17,6 @@ export const getOptions = async (endpoint: string) => {
       [key: string]: Array<{ id: number; name: string }>;
     }>(`/${endpoint}`);
     
-    // Return the options for the current language, falling back to English if not available
     return (data[currentLang] || data["en"] || []).map((item) => ({
       id: item.id,
       name: item.name,
@@ -29,6 +28,10 @@ export const getOptions = async (endpoint: string) => {
 };
 
 interface RegistrationResponse extends FormData {
+  id: string;
+}
+
+interface ExtendedRegistrationResponse extends ExtendedFormData {
   id: string;
 }
 
@@ -60,13 +63,28 @@ export const submitRegistration = async (
 
 export const getRegistration = async (registrationId: string) => {
   try {
-    const { data } = await api.get<RegistrationResponse>(
+    const { data } = await api.get<ExtendedRegistrationResponse>(
       `/registrations/${registrationId}`
     );
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || 'step1.toast.error.server');
+    }
+    throw error;
+  }
+};
+
+export const updateInfo = async (registrationId: string, formData: ExtendedFormData) => {
+  try {
+    const { data } = await api.put<ExtendedRegistrationResponse>(
+      `/registrations/${registrationId}/info`,
+      formData
+    );
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || 'Failed to update information');
     }
     throw error;
   }

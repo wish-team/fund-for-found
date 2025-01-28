@@ -1,14 +1,9 @@
 import React from "react";
 import { useStep2Form } from "../../steps/step2/hooks/useStep2Form";
-import { ContentEditor } from "../../steps/step2/components/ContentEditor";
-import { SocialInputField } from "../../steps/step2/components/SocialInputField";
-import Title from "../../../shared/Title";
-import { Button } from "@nextui-org/react";
-import CreatorsTitle from "../../creators/title/CreatorsTitle";
 import AboutPage from "../../creators/about-section/AboutPage";
 
 const Step2: React.FC = () => {
-  const { formData, updateContent, updateSocialLinks, submitForm } =
+  const { formData, updateSocialLinks, submitForm } =
     useStep2Form();
 
   const handleSocialInputAdd = () => {

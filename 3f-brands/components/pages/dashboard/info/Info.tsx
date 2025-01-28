@@ -1,21 +1,37 @@
+'use client';
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AutocompleteInput } from "../../steps/step1/components/AutocompleteInput";
 import { MultiSelectInput } from "../../steps/step1/components/MultiSelectInput";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOptions, getRegistration, updateInfo } from "../../steps/step1/services/api";
 import CreatorsTitle from "../../creators/title/CreatorsTitle";
 import { ExtendedFormData, SocialLink, extendedFormSchema } from "../../steps/step1/types";
 import { useFormStore } from "../../steps/step1/store/store";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-
+interface OptionsState {
+  countries: Array<{ id: number; name: string }>;
+  categories: Array<{ id: number; name: string }>;
+  subcategories: Array<{ id: number; name: string }>;
+  brandTags: Array<{ id: number; name: string }>;
+}
 
 const Info: React.FC = () => {
-  const queryClient = useQueryClient();
+  const router = useRouter();
   const { formData, registrationId, setFormData } = useFormStore();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [isPending, setIsPending] = React.useState(false);
+  const [options, setOptions] = React.useState<OptionsState>({
+    countries: [],
+    categories: [],
+    subcategories: [],
+    brandTags: [],
+  });
+  
   const [socialLinks, setSocialLinks] = React.useState<SocialLink[]>(
     formData.socialLinks || []
   );
@@ -29,64 +45,45 @@ const Info: React.FC = () => {
     },
   });
 
-  // Fetch existing registration data
-  const { data: registrationData } = useQuery({
-    queryKey: ["registration", registrationId],
-    queryFn: () => (registrationId ? getRegistration(registrationId) : null),
-    enabled: !!registrationId,
-  });
-
-  // Load registration data into form
+  // Fetch all necessary data
   React.useEffect(() => {
-    if (registrationData) {
-      Object.keys(registrationData).forEach((key) => {
-        if (key !== "id") {
-          form.setValue(key as keyof ExtendedFormData, registrationData[key as keyof ExtendedFormData]);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Fetch options
+        const [countries, categories, subcategories, brandTags] = await Promise.all([
+          getOptions("countries"),
+          getOptions("brandcategories"),
+          getOptions("subcategories"),
+          getOptions("brandTags"),
+        ]);
+
+        setOptions({
+          countries,
+          categories,
+          subcategories,
+          brandTags,
+        });
+
+        // Fetch registration data if ID exists
+        if (registrationId) {
+          const registrationData = await getRegistration(registrationId);
+          Object.keys(registrationData).forEach((key) => {
+            if (key !== "id") {
+              form.setValue(key as keyof ExtendedFormData, registrationData[key as keyof ExtendedFormData]);
+            }
+          });
         }
-      });
-    }
-  }, [registrationData, form]);
-
-  // Options queries
-  const queries = {
-    countries: useQuery({
-      queryKey: ["options", "countries"],
-      queryFn: () => getOptions("countries"),
-    }),
-    categories: useQuery({
-      queryKey: ["options", "brandcategories"],
-      queryFn: () => getOptions("brandcategories"),
-    }),
-    subcategories: useQuery({
-      queryKey: ["options", "subcategories"],
-      queryFn: () => getOptions("subcategories"),
-    }),
-    brandTags: useQuery({
-      queryKey: ["options", "brandTags"],
-      queryFn: () => getOptions("brandTags"),
-    }),
-  };
-
-  // Update mutation
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data: ExtendedFormData) => {
-      if (!registrationId) {
-        throw new Error("No registration ID found");
+      } catch (error) {
+        toast.error("Failed to load data");
+      } finally {
+        setIsLoading(false);
       }
-      return updateInfo(registrationId, data);
-    },
-    onSuccess: (data) => {
-      setFormData(data, data.id);
-      queryClient.invalidateQueries({ queryKey: ["registration", registrationId] });
-      toast.success("Information updated successfully!");
-      
-    },
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to update information"
-      );
-    },
-  });
+    };
+
+    fetchData();
+  }, [registrationId, form]);
 
   const handleSocialInputAdd = () => {
     const newId = Date.now();
@@ -121,11 +118,26 @@ const Info: React.FC = () => {
     form.setValue("socialLinks", updatedLinks);
   };
 
-  const onSubmit = (data: ExtendedFormData) => {
-    mutate(data);
-  };
+  const onSubmit = async (data: ExtendedFormData) => {
+    if (!registrationId) {
+      toast.error("No registration ID found");
+      return;
+    }
 
-  const isLoading = Object.values(queries).some((query) => query.isLoading);
+    try {
+      setIsPending(true);
+      const updatedData = await updateInfo(registrationId, data);
+      setFormData(updatedData, updatedData.id);
+      toast.success("Information updated successfully!");
+      router.refresh(); // Refresh the page to update server-side data
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update information"
+      );
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -166,7 +178,7 @@ const Info: React.FC = () => {
             control={form.control}
             name="country"
             label="Country"
-            options={queries.countries.data || []}
+            options={options.countries}
           />
         </div>
 
@@ -175,13 +187,13 @@ const Info: React.FC = () => {
             control={form.control}
             name="category"
             label="Category"
-            options={queries.categories.data || []}
+            options={options.categories}
           />
           <AutocompleteInput
             control={form.control}
             name="subcategory"
             label="Subcategory"
-            options={queries.subcategories.data || []}
+            options={options.subcategories}
           />
         </div>
 
@@ -189,7 +201,7 @@ const Info: React.FC = () => {
           control={form.control}
           name="brandTags"
           label="Brands"
-          options={queries.brandTags.data || []}
+          options={options.brandTags}
         />
 
         {socialLinks.map((link) => (

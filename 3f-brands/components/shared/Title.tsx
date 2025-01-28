@@ -1,9 +1,10 @@
-'use client';
+'use client'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+
 
 interface TitleProps {
-  title: string;
+  title?: string;  // Made optional with ?
   titleKey?: string; 
   desc?: string;
   descKey?: string; 
@@ -16,13 +17,13 @@ interface TitleProps {
 }
 
 const Title: React.FC<TitleProps> = ({
-  title,
+  title = '',  // Add default value
   titleKey,
   desc,
   descKey,
   fontWeight = "font-semibold",
   textColor = "text-gray4",
-  fontSize = "text-2xl md:text-4xl", // Default responsive font sizes
+  fontSize = "text-2xl md:text-4xl",
   descSize = "text-[20px]",
   paddingTop = "pt-3"
 }) => {
@@ -37,9 +38,7 @@ const Title: React.FC<TitleProps> = ({
         {displayTitle}
       </h1>
       {displayDesc && (
-        <p
-          className={`${textColor} text-light1 font-light ${descSize} text-justify`}
-        >
+        <p className={`${textColor} text-light1 font-light ${descSize} text-justify`}>
           {displayDesc}
         </p>
       )}
