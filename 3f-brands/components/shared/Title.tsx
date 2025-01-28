@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 interface TitleProps {
   title: string;
-  titleKey?: string; // Optional translation key for title
-  desc?: string; // Optional description
-  descKey?: string; // Optional translation key for description
+  titleKey?: string; 
+  desc?: string;
+  descKey?: string; 
   fontWeight?: string;
   textColor?: string;
   fontSize?: string;
@@ -22,13 +22,12 @@ const Title: React.FC<TitleProps> = ({
   descKey,
   fontWeight = "font-semibold",
   textColor = "text-gray4",
-  fontSize = "md:text-4xl text-2xl",
+  fontSize = "text-2xl md:text-4xl", // Default responsive font sizes
   descSize = "text-[20px]",
   paddingTop = "pt-3"
 }) => {
   const { t } = useTranslation();
 
-  // Use translation if key is provided, otherwise use direct text
   const displayTitle = titleKey ? t(titleKey) : title;
   const displayDesc = descKey ? t(descKey) : desc;
 

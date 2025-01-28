@@ -13,7 +13,6 @@ import {
   SelectSection,
   Selection,
 } from "@nextui-org/react";
-import { MdOutlineDone } from "react-icons/md";
 
 import { PreviewCard } from "./components/PreviewCard";
 import { AddMemberCard } from "./components/AddMemberCard";

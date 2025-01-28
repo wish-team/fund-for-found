@@ -13,7 +13,7 @@ const CreatorBanner = () => {
             <ProfileEditor />
             <SocialLinkEditor />
           </div>
-          <div className="ml-auto relative right-[100px] sm:left-0">
+          <div className="ml-auto relative ">
             <DashboardButton />
           </div>
         </div>

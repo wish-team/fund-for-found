@@ -4,11 +4,10 @@ import Card from "@/components/pages/start/Card";
 export default async function Index() {
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="flex-1 flex flex-col  max-w-5xl px-6 md:p-6">
-        <main className="flex-1 flex items-center flex-col gap-3">
+      <div className="flex flex-col max-w-5xl px-6 md:p-6">
+        <main className=" flex items-center flex-col gap-3">
           <Title
             fontWeight="font-extrabold"
-            fontSize="text-4xl"
             paddingTop="pt-8"
             titleKey="home.title"
             descKey="home.description"
