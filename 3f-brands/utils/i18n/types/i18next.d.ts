@@ -434,15 +434,6 @@ declare module "i18next" {
         };
       };
     };
-       // Define the interpolation key type
-       interpolation: {
-        escapeValue: boolean;
-      };
       
-      // Add support for defaultValue parameter
-      defaultValue: string;
-      
-      // Add support for interpolation variables
-      interpolationKeys: ['field'];
   }
 }

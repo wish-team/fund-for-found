@@ -6,6 +6,25 @@ import { SOCIAL_MEDIA_OPTIONS } from '../utils/constants';
 import { dropdownVariants, arrowVariants, listItemVariants } from '../utils/animations';
 import { SocialMediaOption, SocialInputFieldProps } from '../types/index';
 
+type SocialPlatformKey = 'instagram' | 'discord' | 'website' | 'youtube' | 'twitter' | 'telegram' | 'linkedin' | 'whatsapp' | 'facebook';
+
+// Create a type-safe mapping of platform keys to their full translation keys
+type PlatformTranslationKey = {
+  [K in SocialPlatformKey]: `translation:social.platforms.${K}`;
+};
+
+const platformTranslationKeys: PlatformTranslationKey = {
+  instagram: 'translation:social.platforms.instagram',
+  discord: 'translation:social.platforms.discord',
+  website: 'translation:social.platforms.website',
+  youtube: 'translation:social.platforms.youtube',
+  twitter: 'translation:social.platforms.twitter',
+  telegram: 'translation:social.platforms.telegram',
+  linkedin: 'translation:social.platforms.linkedin',
+  whatsapp: 'translation:social.platforms.whatsapp',
+  facebook: 'translation:social.platforms.facebook',
+} as const;
+
 export const SocialInputField: React.FC<SocialInputFieldProps> = ({
   id,
   onRemove,
@@ -15,7 +34,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
 }) => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState<string>(initialUrl);
-  const [selectedKey, setSelectedKey] = useState<string>(initialPlatform);
+  const [selectedKey, setSelectedKey] = useState<SocialPlatformKey>(initialPlatform as SocialPlatformKey);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const handleSelectChange = (key: string) => {
@@ -23,7 +42,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
     if (selected) {
       const newUrl = selected.baseUrl;
       setInputValue(newUrl);
-      setSelectedKey(key);
+      setSelectedKey(key as SocialPlatformKey);
       setDropdownOpen(false);
       onChange(id, key, newUrl);
     }
@@ -56,7 +75,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
         >
           <span className="flex items-center gap-2">
             {SelectedIcon && <SelectedIcon className="text-gray4" size={20} />}
-            {t(`social.platforms.${selectedKey}`)}
+            {t(platformTranslationKeys[selectedKey])}
           </span>
           <motion.span
             variants={arrowVariants}
@@ -85,7 +104,7 @@ export const SocialInputField: React.FC<SocialInputFieldProps> = ({
                   className="flex items-center gap-2 cursor-pointer p-2 hover:bg-primary50"
                 >
                   <Icon className="text-gray4" size={20} />
-                  {t(`social.platforms.${key}`)}
+                  {t(platformTranslationKeys[key as SocialPlatformKey])}
                 </motion.li>
               ))}
             </motion.ul>

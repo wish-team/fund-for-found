@@ -29,8 +29,8 @@ export const useFormStep = () => {
     onSuccess: (data) => {
       toast.success(
         registrationId 
-          ? t("step1.toast.success.update")
-          : t("step1.toast.success.create"),
+          ? t("translation:step1.toast.success.update")
+          : t("translation:step1.toast.success.create"),
         {
           duration: 3000,
         }
@@ -43,7 +43,7 @@ export const useFormStep = () => {
     onError: (error) => {
       const errorMessage = error instanceof Error 
         ? error.message 
-        : t("step1.toast.error.default");
+        : t("translation:step1.toast.error.default");
       
       toast.error(errorMessage, {
         duration: 5000,

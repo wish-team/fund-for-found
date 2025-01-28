@@ -25,15 +25,15 @@ export const FormStep1: React.FC = () => {
         <AutocompleteInput
           control={form.control}
           name="name"
-          label={t("step1.form.brandName.label")}
-          placeholder={t("step1.form.brandName.placeholder")}
+          label={t("translation:step1.form.brandName.label")}
+          placeholder={t("translation:step1.form.brandName.placeholder")}
           allowCustomInput={true}
         />
         <AutocompleteInput
           control={form.control}
           name="country"
-          label={t("step1.form.country.label")}
-          placeholder={t("step1.form.country.placeholder")}
+          label={t("translation:step1.form.country.label")}
+          placeholder={t("translation:step1.form.country.placeholder")}
           options={queries.countries.data || []}
         />
       </div>
@@ -42,15 +42,15 @@ export const FormStep1: React.FC = () => {
         <AutocompleteInput
           control={form.control}
           name="category"
-          label={t("step1.form.category.label")}
-          placeholder={t("step1.form.category.placeholder")}
+          label={t("translation:step1.form.category.label")}
+          placeholder={t("translation:step1.form.category.placeholder")}
           options={queries.categories.data || []}
         />
         <AutocompleteInput
           control={form.control}
           name="subcategory"
-          label={t("step1.form.subcategory.label")}
-          placeholder={t("step1.form.subcategory.placeholder")}
+          label={t("translation:step1.form.subcategory.label")}
+          placeholder={t("translation:step1.form.subcategory.placeholder")}
           options={queries.subcategories.data || []}
         />
       </div>

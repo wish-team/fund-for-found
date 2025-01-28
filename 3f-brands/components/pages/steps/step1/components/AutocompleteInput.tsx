@@ -54,6 +54,16 @@ export const AutocompleteInput = React.memo(
       );
     };
 
+    const getErrorMessage = (fieldName: string, fieldLabel: string) => {
+      // Using type assertion to handle the translation options
+      return t(`step1.validation.${fieldName}`, {
+        field: fieldLabel,
+        defaultValue: t('step1.validation.required', {
+          field: fieldLabel
+        } as any)
+      } as any);
+    };
+
     return (
       <Controller
         control={control}
@@ -113,10 +123,7 @@ export const AutocompleteInput = React.memo(
             </div>
             {error && (
               <p className="text-red-500 text-xs mt-1">
-                {t(`step1.validation.${name}`, {
-                  field: label,
-                  defaultValue: t('step1.validation.required', { field: label })
-                })}
+                {getErrorMessage(name, label)}
               </p>
             )}
           </div>
