@@ -1,6 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CoinService } from '../coin/coin.service'; // Inject CoinService
-import { ethers, HDNodeWallet } from 'ethers';
+import { ethers, HDNodeWallet, Wallet } from 'ethers';
+
+interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
 
 @Injectable()
 export class AddressService {
@@ -30,17 +35,18 @@ export class AddressService {
     }
   }
 
-  async generateDerivedAddress(coin: string, index: number): Promise<string> {
+  async generateDerivedAddress(
+    coin: string,
+    index: number,
+  ): Promise<DerivedCredentials> {
     try {
       const coinStrategy = this.coinService.getStrategy(coin); // Get the coin strategy
-      const derivedAddress = coinStrategy.generateAddress(
-        process.env.MASTER_MNEMONIC,
-        index,
-      );
+      const { derivedAddress, derivedPrivateKey } =
+        coinStrategy.generateAddress(process.env.MASTER_MNEMONIC, index);
       console.log(
         `Generated Address for ${coin} at index ${index}: ${derivedAddress}`,
       );
-      return derivedAddress;
+      return { derivedAddress, derivedPrivateKey };
     } catch (error) {
       console.error('Error generating derived address:', error.message);
       throw new Error(`Failed to generate address for ${coin}.`);
@@ -48,14 +54,14 @@ export class AddressService {
   }
   async monitorAndTransferFunds(
     receivedTransactionHash: string,
-    mainWallet: HDNodeWallet,
+    derivedPrivateKey: string,
+    commissionWallet: ethers.Wallet,
   ): Promise<string> {
     // Fetch transaction details from blockchain
     const tx = await this.provider.getTransaction(receivedTransactionHash);
     if (!tx || !tx.to) {
       throw new Error('Transaction not found or invalid');
     }
-
     // Get the transaction receipt
     const txReceipt = await this.provider.getTransactionReceipt(
       receivedTransactionHash,
@@ -76,11 +82,43 @@ export class AddressService {
       throw new Error('Transaction amount is zero or invalid');
     }
 
+    let derivedWallet: ethers.Wallet;
+    let commissionWallet2: ethers.Wallet;
     // Transfer funds to main wallet
     try {
-      const mainWalletTransaction = await mainWallet.sendTransaction({
-        to: mainWallet.address, // Send funds to the main wallet
-        value: ethers.parseEther(receivedAmount.toString()),
+      derivedWallet = new ethers.Wallet(derivedPrivateKey, this.provider);
+      commissionWallet2 = new ethers.Wallet(
+        commissionWallet.privateKey,
+        this.provider,
+      );
+      console.log('derived wallet:', derivedWallet.address);
+
+      const balance = await this.provider.getBalance(derivedWallet.address);
+      const balance2 = await this.provider.getBalance(
+        commissionWallet2.address,
+      );
+      console.log('balance: ', balance);
+      console.log('balance 2: ', balance2);
+      const feeData = await this.provider.getFeeData();
+      const gasPrice = feeData.gasPrice;
+
+      if (!gasPrice) {
+        throw new Error('Gas price not available');
+      }
+      const gasLimit = 21000n; // Standard for ETH transfers
+      const gasCost = gasLimit * gasPrice;
+      if (balance < gasCost) {
+        throw new Error(
+          `Insufficient funds. Balance: ${ethers.formatEther(balance)} ETH, Gas needed: ${ethers.formatEther(gasCost)} ETH`,
+        );
+      }
+      const valueToSend = balance - gasCost;
+
+      const mainWalletTransaction = await derivedWallet.sendTransaction({
+        to: commissionWallet.address,
+        value: valueToSend,
+        gasLimit: 21000n, // 👈 Match calculated gas limit
+        gasPrice: gasPrice, // 👈 Match calculated gas price
       });
       console.log('Transferred to main wallet:', mainWalletTransaction.hash);
       return mainWalletTransaction.hash;

@@ -7,16 +7,27 @@ import { SupabaseService } from 'src/modules/supabase/supabase.service';
 export class PaymentService {
   private commissionPercentage = 10; // 10% commission
   private provider: ethers.JsonRpcProvider;
-  private masterWallet: ethers.Wallet;
+  private commissionWallet: ethers.Wallet;
+  private brandWallet;
 
   constructor(
     private addressService: AddressService,
     private supabaseService: SupabaseService,
   ) {
     this.provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_RPC_URL);
-    this.masterWallet = new ethers.Wallet(
-      process.env.MASTER_PRIVATE_KEY,
+    this.brandWallet = process.env.BRAND_WALLET_ADDRESS;
+
+    const commissionPrivateKey = process.env.COMMISSION_PRIVATE_KEY;
+    if (!commissionPrivateKey || typeof commissionPrivateKey !== 'string') {
+      throw new Error('COMMISSION_PRIVATE_KEY is not defined or invalid');
+    }
+    this.commissionWallet = new ethers.Wallet(
+      commissionPrivateKey,
       this.provider,
+    );
+    console.log(
+      'Commission Wallet Initialized:',
+      this.commissionWallet.address,
     );
   }
 
@@ -28,16 +39,15 @@ export class PaymentService {
     const supabase = this.supabaseService.getClient();
 
     // Generate unique address
-    const generatedAddress = await this.addressService.generateDerivedAddress(
-      coin,
-      uniqueIndex,
-    );
+    const { derivedAddress, derivedPrivateKey } =
+      await this.addressService.generateDerivedAddress(coin, uniqueIndex);
 
     // Save transaction in Supabase
     const { data, error } = await supabase.from('transactions').insert({
       unique_index: uniqueIndex,
       brand_id: brandId,
-      generated_address: generatedAddress,
+      generated_address: derivedAddress,
+      generated_private_key: derivedPrivateKey,
       coin_type: coin, // Store the coin type
     });
 
@@ -50,7 +60,7 @@ export class PaymentService {
 
     return {
       success: true,
-      generatedAddress,
+      derivedAddress,
       message: 'Payment initiation successful',
     };
   }
@@ -93,7 +103,7 @@ export class PaymentService {
     // Retrieve the matching transaction from Supabase and join with the brands table
     const { data: transaction, error } = await supabase
       .from('transactions')
-      .select('*, brands(brand_wallet_address)') // Select the brand's wallet address
+      .select('*, brands(brand_wallet_address), generated_private_key') // Ensure generated_private_key is selected
       .eq('generated_address', tx.to)
       .single();
 
@@ -121,6 +131,7 @@ export class PaymentService {
     }
 
     const receivedAmount = parseFloat(ethers.formatEther(tx.value));
+    console.log('receivedAmount', receivedAmount);
     if (receivedAmount <= 0) {
       throw new HttpException(
         'Transaction amount is zero or invalid',
@@ -144,31 +155,56 @@ export class PaymentService {
     }
 
     // Create wallet from mnemonic (without HDNodeWallet)
-    const wallet = ethers.Wallet.fromPhrase(mnemonic);
-    const mainAddress = wallet;
+    const wallet = ethers.Wallet.fromPhrase(mnemonic).connect(this.provider);
 
-    // const mnemonic = process.env.MASTER_MNEMONIC;
-    // // Convert to 18 decimals precision
-    // const hdWallet = ethers.HDNodeWallet.fromMnemonic(
-    //   mnemonic as unknown as ethers.Mnemonic,
-    // );
-    // const wallet: ethers.Wallet = hdWallet as unknown as ethers.Wallet;
+    // Retrieve derivedPrivateKey from the transaction record
+    const derivedPrivateKey = transaction.generated_private_key;
+    if (!derivedPrivateKey) {
+      throw new HttpException(
+        'Derived private key not found in transaction',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
 
     // Use the AddressService to monitor the derived address and transfer funds to the main wallet
     const transferTransactionHash =
       await this.addressService.monitorAndTransferFunds(
         receivedTransactionHash,
-        mainAddress,
+        derivedPrivateKey,
+        this.commissionWallet,
       );
 
     // Send remaining funds to the brand
     let brandTransaction;
+    let derivedWallet: ethers.Wallet;
+
     try {
-      brandTransaction = await this.masterWallet.sendTransaction({
-        to: brandWalletAddress,
+      const commissionBalance = await this.provider.getBalance(
+        this.commissionWallet.address,
+      );
+      // const masterBalance = await this.provider.getBalance(
+      //   this.masterWallet.address,
+      // );
+      // 2. Calculate gas cost
+      const feeData = await this.provider.getFeeData();
+      const gasPrice = feeData.gasPrice;
+      if (!gasPrice) throw new Error('Gas price unavailable');
+
+      const gasLimit = 21000n; // Standard ETH transfer
+      const gasCost = gasLimit * gasPrice;
+      if (commissionBalance < gasCost + brandAmountFormatted) {
+        throw new Error(
+          `Master wallet balance too low. Balance: ${ethers.formatEther(commissionBalance)} ETH, Needed: ${ethers.formatEther(gasCost + brandAmountFormatted)} ETH`,
+        );
+      }
+
+      derivedWallet = new ethers.Wallet(derivedPrivateKey, this.provider);
+
+      brandTransaction = await derivedWallet.sendTransaction({
+        to: this.brandWallet,
         value: brandAmountFormatted, // Use the properly formatted amount
       });
-    } catch (error) {
+    } catch (error: any) {
       throw new HttpException(
         `Error sending funds to brand: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,

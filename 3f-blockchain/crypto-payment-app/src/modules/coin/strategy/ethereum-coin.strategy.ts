@@ -2,6 +2,11 @@ import { CoinStrategy } from './coin-strategy.interface';
 import { ethers } from 'ethers';
 import { HDNode } from '@ethersproject/hdnode';
 
+interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
+
 export class EthereumStrategy implements CoinStrategy {
   private provider: ethers.JsonRpcProvider;
 
@@ -9,11 +14,14 @@ export class EthereumStrategy implements CoinStrategy {
     this.provider = provider;
   }
 
-  generateAddress(mnemonic: string, index: number): string {
+  generateAddress(mnemonic: string, index: number): DerivedCredentials {
     const hdNode = HDNode.fromMnemonic(mnemonic);
     const path = `m/44'/60'/0'/0/${index}`;
     const wallet = hdNode.derivePath(path);
-    return wallet.address;
+    return {
+      derivedAddress: wallet.address,
+      derivedPrivateKey: wallet.privateKey,
+    };
   }
 
   async getBalance(address: string): Promise<string> {

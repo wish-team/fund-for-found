@@ -9,6 +9,11 @@ import axios from 'axios';
 import * as ECPairFactory from 'ecpair';
 import * as ecc from 'tiny-secp256k1';
 
+interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
+
 @Injectable()
 export class BitcoinStrategy implements CoinStrategy {
   private readonly network: bitcoin.Network;
@@ -25,7 +30,7 @@ export class BitcoinStrategy implements CoinStrategy {
     this.ECPair = ECPairFactory.ECPairFactory(ecc);
   }
 
-  generateAddress(mnemonic: string, index: number): string {
+  generateAddress(mnemonic: string, index: number): DerivedCredentials {
     if (!mnemonic) {
       throw new Error('Mnemonic not provided.');
     }
@@ -49,7 +54,7 @@ export class BitcoinStrategy implements CoinStrategy {
     }
 
     console.log(`Derived Bitcoin address: ${address}`);
-    return address;
+    return { derivedAddress: address, derivedPrivateKey: 'test' };
   }
 
   async getBalance(address: string): Promise<string> {

@@ -1,3 +1,8 @@
+interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
+
 export interface CoinStrategy {
   /**
    * Generate a derived address for the coin using a mnemonic and index.
@@ -5,7 +10,7 @@ export interface CoinStrategy {
    * @param index The index of the derived address.
    * @returns The derived address as a string.
    */
-  generateAddress(mnemonic: string, index: number): string;
+  generateAddress(mnemonic: string, index: number): DerivedCredentials;
 
   /**
    * Get the balance of a specific address.
