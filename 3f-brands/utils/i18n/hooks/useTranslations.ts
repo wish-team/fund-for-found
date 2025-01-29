@@ -3,7 +3,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import i18next from '../utils/i18n';
-import { getOptions } from '../config/settings';
 
 export const useTranslations = (lng: string) => {
   return useQuery({
@@ -29,7 +28,7 @@ export const useTranslations = (lng: string) => {
       }
     },
     staleTime: Infinity,
-    cacheTime: 0,
+    gcTime: 0, // Changed from cacheTime to gcTime
     retry: false
   });
 };

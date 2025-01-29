@@ -1,13 +1,22 @@
 'use client'
 
 import { useTranslation } from "react-i18next";
+import type { CustomTypeOptions } from 'i18next';
 
+// Create a type that allows for nested paths
+type NestedKeyOf<ObjectType extends object> = {
+  [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
+    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+    : `${Key}`;
+}[keyof ObjectType & (string | number)];
+
+type TranslationKey = NestedKeyOf<CustomTypeOptions['resources']['translation']>;
 
 interface TitleProps {
-  title?: string;  // Made optional with ?
-  titleKey?: string; 
+  title?: string;
+  titleKey?: TranslationKey;  // Updated type
   desc?: string;
-  descKey?: string; 
+  descKey?: TranslationKey;  // Updated type
   fontWeight?: string;
   textColor?: string;
   fontSize?: string;
@@ -17,7 +26,7 @@ interface TitleProps {
 }
 
 const Title: React.FC<TitleProps> = ({
-  title = '',  // Add default value
+  title = '',
   titleKey,
   desc,
   descKey,
@@ -29,8 +38,8 @@ const Title: React.FC<TitleProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const displayTitle = titleKey ? t(titleKey) : title;
-  const displayDesc = descKey ? t(descKey) : desc;
+  const displayTitle = titleKey ? t(`translation:${titleKey}`) : title;
+  const displayDesc = descKey ? t(`translation:${descKey}`) : desc;
 
   return (
     <>
