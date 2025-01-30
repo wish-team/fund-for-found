@@ -23,6 +23,26 @@ export class AddressService {
     console.log('Ethereum Provider Initialized');
   }
 
+  private getProviderForCoinAndNetwork(
+    coin: string,
+    network: string,
+  ): ethers.JsonRpcProvider {
+    const coinStrategy = this.coinService.getStrategy(coin); // Get the strategy for the coin
+    const supportedNetworks = coinStrategy.getNetwork();
+
+    if (!supportedNetworks.includes(network)) {
+      throw new Error(`Network ${network} is not supported for ${coin}.`);
+    }
+
+    // Dynamically fetch the network-specific URL (e.g., `RPC_URL_POLYGON`)
+    const rpcUrl = process.env[`RPC_URL_${network.toUpperCase()}`];
+    if (!rpcUrl) {
+      throw new Error(`${network} RPC URL not found in environment variables.`);
+    }
+
+    return new ethers.JsonRpcProvider(rpcUrl);
+  }
+
   async getMasterWalletBalance(address: string, coin: string): Promise<string> {
     try {
       const coinStrategy = this.coinService.getStrategy(coin); // Get the coin strategy

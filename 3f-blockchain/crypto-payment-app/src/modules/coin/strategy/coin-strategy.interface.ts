@@ -1,4 +1,4 @@
-interface DerivedCredentials {
+export interface DerivedCredentials {
   derivedAddress: string;
   derivedPrivateKey: string;
 }
@@ -33,4 +33,17 @@ export interface CoinStrategy {
     amount: string,
     privateKey: string,
   ): Promise<string>;
+
+  /**
+   * Retrieves the supported networks for the coin.
+   * @returns An array of supported network names.
+   */
+  getNetwork(): string[];
+
+  /**
+   * Retrieves the current gas or transaction fee for the specified network.
+   * @param network The network name (e.g., 'mainnet', 'testnet').
+   * @returns The fee as a number.
+   */
+  getGasFee(network: string): Promise<number>;
 }

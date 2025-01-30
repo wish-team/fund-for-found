@@ -6,7 +6,7 @@ import { AddressModule } from './modules/address/address.module';
 import { CoinModule } from './modules/coin/coin.module';
 import { BalanceModule } from './modules/balance/balance.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
-
+import { TokenModule } from './modules/token/token.module';
 @Module({
   imports: [
     PaymentModule,
@@ -16,6 +16,7 @@ import { BlockchainModule } from './modules/blockchain/blockchain.module';
     CoinModule,
     BalanceModule,
     BlockchainModule,
+    TokenModule,
   ],
 })
 export class AppModule {}

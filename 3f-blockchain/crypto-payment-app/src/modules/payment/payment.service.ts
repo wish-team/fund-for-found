@@ -49,6 +49,7 @@ export class PaymentService {
       generated_address: derivedAddress,
       generated_private_key: derivedPrivateKey,
       coin_type: coin, // Store the coin type
+      network: 'sepolia',
     });
 
     if (error) {

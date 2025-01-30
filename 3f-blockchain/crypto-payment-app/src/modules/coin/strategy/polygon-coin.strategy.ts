@@ -1,3 +1,4 @@
+// src/coin/strategy/polygon-coin.strategy.ts
 import { CoinStrategy } from './coin-strategy.interface';
 import { ethers } from 'ethers';
 import { HDNode } from '@ethersproject/hdnode';
@@ -9,23 +10,19 @@ interface DerivedCredentials {
   derivedPrivateKey: string;
 }
 
-export class EthereumStrategy implements CoinStrategy {
+export class PolygonStrategy implements CoinStrategy {
   private provider: ethers.JsonRpcProvider;
-  private supportedNetworks: string[] = [
-    'mainnet',
-    'ropsten',
-    'rinkeby',
-    'kovan',
-    'goerli',
-    'sepolia',
-  ];
+  // If you want multiple networks (mainnet vs mumbai), add them here:
+  private supportedNetworks: string[] = ['polygon', 'mumbai'];
 
   constructor(provider: ethers.JsonRpcProvider) {
     this.provider = provider;
   }
 
+  // For example, using the same derivation path as Ethereum
   generateAddress(mnemonic: string, index: number): DerivedCredentials {
     const hdNode = HDNode.fromMnemonic(mnemonic);
+    // 44'/60' is the standard for EVM-compatible (like Ethereum, Polygon)
     const path = `m/44'/60'/0'/0/${index}`;
     const wallet = hdNode.derivePath(path);
     return {
@@ -60,25 +57,25 @@ export class EthereumStrategy implements CoinStrategy {
   }
 
   async getGasFee(network: string): Promise<number> {
+    // For Polygonscan, check the official docs. The endpoints are typically:
+    //   https://api.polygonscan.com for mainnet
+    //   https://api-testnet.polygonscan.com for testnet (Mumbai)
+    // We'll just do a similar approach to your EthereumStrategy:
     const networkMap: Record<string, string> = {
-      mainnet: 'https://api.etherscan.io',
-      ropsten: 'https://api-ropsten.etherscan.io',
-      rinkeby: 'https://api-rinkeby.etherscan.io',
-      kovan: 'https://api-kovan.etherscan.io',
-      goerli: 'https://api-goerli.etherscan.io',
-      sepolia: 'sepolia.etherscan.io',
+      polygon: 'https://api.polygonscan.com',
+      mumbai: 'https://api-testnet.polygonscan.com',
     };
 
     const baseUrl = networkMap[network.toLowerCase()];
     if (!baseUrl) {
       throw new BadRequestException(
-        `Unsupported network '${network}' for Ethereum.`,
+        `Unsupported network '${network}' for Polygon.`,
       );
     }
 
-    const apiKey = process.env.ETHERSCAN_API_KEY;
+    const apiKey = process.env.POLYGONSCAN_API_KEY;
     if (!apiKey) {
-      throw new BadRequestException('ETHERSCAN_API_KEY is not set.');
+      throw new BadRequestException('POLYGONSCAN_API_KEY is not set.');
     }
 
     const apiUrl = `${baseUrl}/api?module=gastracker&action=gasoracle&apikey=${apiKey}`;
@@ -88,8 +85,7 @@ export class EthereumStrategy implements CoinStrategy {
       if (response.data.status !== '1') {
         throw new Error(response.data.result || 'Failed to fetch gas fees.');
       }
-
-      // Example: Return the proposed gas price in Gwei
+      // Return the "ProposeGasPrice" in Gwei
       return parseFloat(response.data.result.ProposeGasPrice);
     } catch (error) {
       throw new BadRequestException(
