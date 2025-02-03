@@ -1,8 +1,8 @@
 
 import React, { memo, useState } from "react";
 import { Button } from "@nextui-org/react";
-import { Edit, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { Tier } from "../types/tier";
+import { MdEdit, MdDelete, MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { DEFAULT_IMAGE } from "../utils/constants";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { ContributeButton } from "./ContributeButton";
@@ -58,7 +58,7 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
                     onEdit?.(index);
                   }}
                 >
-                  <Edit size={16} />
+                  <MdEdit size={16} />
                 </Button>
                 <Button
                   isIconOnly
@@ -70,7 +70,7 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
                     onDelete?.(index);
                   }}
                 >
-                  <Trash2 size={16} />
+                  <MdDelete size={16} />
                 </Button>
               </div>
             )}
@@ -118,12 +118,12 @@ export const PreviewCard= React.memo<PreviewCardProps> (({
                 {isExpanded ? (
                   <>
                     {t('translation:creators.tier.card.buttons.showLess')}
-                    <ChevronUp className="w-4 h-4" />
+                    <MdArrowDropUp className="w-4 h-4" />
                   </>
                 ) : (
                   <>
                     {t('translation:creators.tier.card.buttons.showMore')}
-                    <ChevronDown className="w-4 h-4" />
+                    <MdArrowDropDown className="w-4 h-4" />
                   </>
                 )}
               </button>

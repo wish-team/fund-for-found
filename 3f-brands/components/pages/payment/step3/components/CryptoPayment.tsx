@@ -1,6 +1,6 @@
 import { QRCodeSVG } from 'qrcode.react'
 import { Button, Input } from '@nextui-org/react'
-import { Copy } from 'lucide-react'
+import { MdFileCopy } from 'react-icons/md';
 
 const cryptoCurrencies = [
   {
@@ -118,7 +118,7 @@ export const CryptoPayment = ({
             className="w-full"
             variant="bordered"
             onClick={handleCopyAddress}
-            startContent={<Copy size={16} />}
+            startContent={<MdFileCopy size={16} />}
           >
             Click to copy wallet address
           </Button>
