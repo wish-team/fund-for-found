@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Modal,
@@ -25,6 +26,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   onSave,
   onReset,
 }) => {
+  const { t } = useTranslation();
   const { tempImage, setTempImage } = useProfileStore();
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +39,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   return (
     <Modal
       isOpen={isOpen}
-      backdrop="blur"
       onOpenChange={onOpenChange}
       size="2xl"
       className="p-6 bg-white rounded-xl shadow-shadow1"
@@ -46,7 +47,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
         {() => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              <h2 className="text-lg font-semibold text-gray3">Edit profile</h2>
+              <h2 className="text-lg font-semibold text-gray3">
+                {t('translation:editProfile.title')}
+              </h2>
             </ModalHeader>
             <ModalBody>
               <div className="flex flex-col items-center gap-8">
@@ -75,14 +78,14 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                       className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                       onPress={onSave}
                     >
-                      Save
+                      {t('translation:editProfile.save')}
                     </Button>
                     <Button
                       variant="bordered"
                       onPress={onReset}
                       className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     >
-                      Reset
+                      {t('translation:editProfile.reset')}
                     </Button>
                   </div>
                   <div>
@@ -99,7 +102,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                       variant="bordered"
                       className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     >
-                      Upload new image
+                      {t('translation:editProfile.uploadNewImage')}
                     </Button>
                   </div>
                 </div>

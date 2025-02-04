@@ -8,18 +8,20 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
-import { Pencil } from "lucide-react";
+import { IoPencilSharp } from "react-icons/io5";
 import { CoverImageEditorProps } from "../types";
 import { ACCEPTED_IMAGE_TYPES } from "../utils/constants";
 import { ImagePreview } from "./ImagePreview";
 import { ZoomControl } from "./ZoomControl";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useBannerStore } from "../store/bannerStore";
+import { useTranslation } from "react-i18next";
 
 export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
   maxSizeMB = 5,
   onSave,
 }) => {
+  const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,20 +64,16 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
       {(user) => (
         <div>
           <div className="relative my-2">
-            <ImagePreview
-              imageUrl={image}
-              imageZoom={zoom}
-              title={title}
-            />
+            <ImagePreview imageUrl={image} imageZoom={zoom} title={title} />
             {user && (
               <Button
                 onPress={openEditor}
                 className="absolute top-4 right-4 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                 color="primary"
                 variant="flat"
-                startContent={<Pencil size={16} />}
+                startContent={<IoPencilSharp size={16} />}
               >
-                Edit cover
+                {t("translation:banner.coverImage.editCover")}
               </Button>
             )}
           </div>
@@ -83,13 +81,12 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
             isOpen={isEditing}
             onClose={closeEditor}
             size="2xl"
-            backdrop="blur"
             scrollBehavior="inside"
             className="bg-white max-w-[800px] rounded-xl shadow-shadow1"
           >
             <ModalContent>
               <ModalHeader className="text-center text-gray3">
-                Add cover image
+                {t("translation:banner.coverImage.addCover")}
               </ModalHeader>
 
               <ModalBody>
@@ -103,7 +100,9 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                 />
 
                 {error && (
-                  <div className="text-danger text-sm mt-2">{error}</div>
+                  <div className="text-danger text-sm mt-2">
+                    {t("translation:banner.coverImage.error.processing")}
+                  </div>
                 )}
 
                 <ZoomControl value={tempZoom} onChange={setTempZoom} />
@@ -116,14 +115,14 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                     onPress={handleSave}
                     className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
                   >
-                    Save
+                    {t('translation:banner.coverImage.save')}
                   </Button>
                   <Button
                     variant="bordered"
                     className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                     onPress={resetBanner}
                   >
-                    Reset
+                    {t('translation:banner.coverImage.reset')}
                   </Button>
                 </div>
                 <Button
@@ -131,7 +130,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                   className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                   onPress={() => fileInputRef.current?.click()}
                 >
-                  Upload new image
+                  {t('translation:banner.coverImage.uploadNew')}
                 </Button>
                 <input
                   ref={fileInputRef}

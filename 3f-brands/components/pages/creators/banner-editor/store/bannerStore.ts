@@ -34,7 +34,7 @@ export const useBannerStore = create<BannerState>()(
     (set, get) => ({
       // Persistent state
       image: DEFAULT_IMAGE,
-      title: 'Brand or Organization',
+      title: 'banner.coverImage.defaultTitle',
       zoom: ZOOM_SETTINGS.default,
       
       // UI state (not persisted)
@@ -42,7 +42,7 @@ export const useBannerStore = create<BannerState>()(
       isTitleEditing: false,  // Initialize title editing state
       error: undefined,
       tempImage: DEFAULT_IMAGE,
-      tempTitle: 'Brand or Organization',
+      tempTitle: 'banner.coverImage.defaultTitle',
       tempZoom: ZOOM_SETTINGS.default,
 
       openEditor: () => set((state) => ({
@@ -76,7 +76,7 @@ export const useBannerStore = create<BannerState>()(
 
       resetBanner: () => set({
         tempImage: DEFAULT_IMAGE,
-        tempTitle: 'Brand or Organization',
+        tempTitle: 'banner.coverImage.defaultTitle',
         tempZoom: ZOOM_SETTINGS.default,
         error: undefined,
       }),

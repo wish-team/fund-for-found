@@ -1,0 +1,429 @@
+{
+  "startCard": {
+    "title": "Brand or Organization",
+    "description": "If your brand is established and you're looking for continuous support, get started now.",
+    "button": "start",
+    "link": "Learn more"
+  },
+  "home": {
+    "title": "Create your profile and take the first step towards new opportunities",
+    "description": "By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you’re never alone on your journey"
+  },
+  "footer": {
+    "about": "About",
+    "AboutUs": "About us",
+    "contactUs": "Contact us",
+    "resources": "resources",
+    "blog": "blog",
+    "3fWork": "How 3F works?",
+    "support": "Help & support",
+    "contributing": "contributing",
+    "brand": "Brand & Organizations",
+    "price": "Pricing",
+    "safety": "Trust & safety",
+    "termsOfUse": "Terms of use",
+    "privacy": "Privacy Policy"
+  },
+  "navbar": {
+    "home": "Home",
+    "explore": "Explore",
+    "aboutUs": "About Us",
+    "helpSupport": "Help & Support",
+    "loginSignup": "Login/Signup",
+    "start": "Start",
+    "signIn": "Sign in",
+    "defaultUser": "User",
+    "searchPlaceholder": "Search brand, category, tag or...",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu"
+  },
+  "avatar": {
+    "myProfile": "My profile",
+    "brandOrganization": "My brand and organization",
+    "settings": "Settings",
+    "logOut": "Log Out",
+    "menuLabel": "Profile Actions"
+  },
+  "step1": {
+    "toast": {
+      "success": {
+        "create": "Registration successful! Proceeding to next step...",
+        "update": "Registration updated successfully! Proceeding to next step..."
+      },
+      "error": {
+        "default": "Registration failed. Please try again.",
+        "network": "Network error. Please check your connection.",
+        "server": "Server error. Please try again later."
+      }
+    },
+    "title": "Basic Info",
+    "subTitle": "Tell about your Brand/organization",
+    "description": "Provide an overview of the brand or organization you want to register on 3F.",
+
+    "form": {
+      "brandName": {
+        "label": "Brand/Organisation Name",
+        "placeholder": "Enter brand name"
+      },
+
+      "country": {
+        "label": "Country",
+        "placeholder": "Select country"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Select category"
+      },
+      "subcategory": {
+        "label": "Subcategory",
+        "placeholder": "Select subcategory"
+      },
+      "brandTags": {
+        "label": "Brand Tags",
+        "placeholder": "Type to add tags..."
+      },
+      "agreement": {
+        "text": "I agree with the",
+        "terms": "terms of service",
+        "of": "of 3F"
+      },
+      "buttons": {
+        "submit": "Continue",
+        "update": "Update",
+        "submitting": "Submitting..."
+      }
+    },
+    "validation": {
+      "required": "{{field}} is required",
+      "name": "Brand/Organisation name is required",
+      "country": "Country is required",
+      "category": "Category is required",
+      "subcategory": "Subcategory is required",
+      "brandTags": "At least one brand tag is required",
+      "terms": "You must agree to the terms of service",
+      "minLength": "{{field}} must be at least {{min}} characters",
+      "maxLength": "{{field}} must not exceed {{max}} characters",
+      "invalid": "Please enter a valid {{field}}"
+    }
+  },
+  "step2": {
+    "title": "Detailed info",
+    "mission": {
+      "title": "What is the primary mission or objective of your brand/organization?",
+      "description": "Be more specific about it, as it will be published as your deck on the 3F(150-300 characters). read more"
+    },
+    "social": {
+      "title": "Help your contributors find you faster (at least 3 options)",
+      "description": "Connect your socials so the contributors get to know you better and find you faster."
+    },
+    "buttons": {
+      "addSocial": "Add social link",
+      "continue": "Continue"
+    }
+  },
+  "social": {
+    "urlPlaceholder": "Enter URL",
+    "removeButton": "Remove social link",
+    "platforms": {
+      "instagram": "Instagram",
+      "discord": "Discord",
+      "website": "Website",
+      "youtube": "YouTube",
+      "twitter": "Twitter",
+      "telegram": "Telegram",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook"
+    }
+  },
+  "about": {
+    "title": "About",
+    "editor": {
+      "title": "Edit Content",
+      "imageUploader": {
+        "changeImage": "Change Image",
+        "currentImage": "Current Image"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save Changes"
+      }
+    },
+    "defaultContent": {
+      "summary": "Summary",
+      "summaryText1": "Introduce yourself, your team(if you have) and your background.",
+      "summaryText2": "Briefly describe about the long term and short term goal of your brand and why it is important to you.",
+      "impact": "The Impact",
+      "impactText1": "Share more about your brand and highlight how contributions can make a meaningful impact",
+      "impactText2": "Explain why your brand is important to contributors and how it positively influences the world.",
+      "impactText3": "Showcase your brand is proven success and past achievements, if applicable",
+      "impactText4": "Help people connect with your brand is mission and build trust by sharing authentic stories and experiences",
+      "story": "The Story",
+      "storyText": "Share the vision of your organization and the journey that led to its establishment."
+    }
+  },
+  "step3": {
+    "title": "Waiting to approve",
+    "descripton": "You will be notified as soon as it is approved.",
+    "info": "Your information is under review and will be confirmed within 2 to 5 business days."
+  },
+  "step4": {
+    "title": "Congratulation!",
+    "descripton": "Your Creative Starter has been approved by our experts!",
+    "info": "Welcome aboard! Let's dive in and get started",
+    "button": "go to my profile"
+  },
+  "updates": {
+    "title": "Updates",
+    "profileImageAlt": "profile image",
+    "publishedUpdate": "published a new update on",
+    "sampleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+  },
+  "faq": {
+    "title": "FAQ",
+    "addQuestion": "Add Question",
+    "editQuestion": "Edit Question",
+    "deleteQuestion": "Delete Question",
+    "modal": {
+      "addTitle": "Add New Question",
+      "editTitle": "Edit Question",
+      "questionPlaceholder": "Enter your question",
+      "answerPlaceholder": "Enter your answer",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": {
+        "title": "Delete Question",
+        "message": "Are you sure you want to delete this question? This action cannot be undone."
+      }
+    },
+    "validation": {
+      "questionRequired": "Question must be at least 20 characters long",
+      "answerRequired": "Answer must be at least 20 characters long"
+    }
+  },
+  "common": {
+    "deleteConfirmation": "Delete Confirmation",
+    "deleteConfirmationMessage": "This item will be deleted, are you sure?",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "teamMember": {
+    "title": "اعضای تیم",
+    "empty": "هنوز عضوی در تیم وجود ندارد",
+    "form": {
+      "title": {
+        "add": "دعوت عضو تیم",
+        "edit": "ویرایش عضو تیم"
+      },
+      "fields": {
+        "name": "نام و نام خانوادگی",
+        "email": "آدرس ایمیل",
+        "role": "نقش",
+        "description": "توضیحات",
+        "namePlaceholder": "نام و نام خانوادگی را وارد کنید",
+        "emailPlaceholder": "آدرس ایمیل را وارد کنید",
+        "rolePlaceholder": "نقش را انتخاب کنید",
+        "descriptionPlaceholder": "توضیحات عضو تیم را وارد کنید..."
+      },
+      "buttons": {
+        "cancel": "لغو",
+        "save": "ذخیره",
+        "update": "به‌روزرسانی",
+        "delete": "حذف"
+      },
+      "validation": {
+        "description": "توضیحات باید حداقل {{length}} کاراکتر باشد",
+        "email": "لطفاً یک آدرس ایمیل معتبر وارد کنید",
+        "required": "این فیلد الزامی است",
+        "minChars": "حداقل کاراکتر"
+      },
+      "preview": "پیش‌نمایش",
+      "roles": {
+        "admin": "مدیر",
+        "teammate": "همکار"
+      }
+    },
+    "card": {
+      "created": "ایجاد شده",
+      "contributed": "مشارکت شده",
+      "brands": "برند",
+      "projects": "پروژه",
+      "readMore": "بیشتر",
+      "readLess": "کمتر",
+      "adminDeletion": "امکان حذف مدیر وجود ندارد",
+      "defaultName": "عضو تیم",
+      "defaultRole": "نقش",
+      "defaultDescription": "توضیحات"
+    },
+    "invite": {
+      "success": "ایمیل دعوت برای این شخص ارسال شد",
+      "continue": "ادامه",
+      "error": "ارسال دعوت‌نامه با خطا مواجه شد"
+    },
+    "delete": {
+      "title": "حذف عضو تیم",
+      "message": "آیا از حذف این عضو تیم اطمینان دارید؟ این عمل قابل بازگشت نیست.",
+      "confirm": "بله، حذف شود",
+      "cancel": "انصراف",
+      "success": "عضو تیم با موفقیت حذف شد",
+      "error": "حذف عضو تیم با خطا مواجه شد"
+    },
+    "notifications": {
+      "addSuccess": "عضو تیم با موفقیت اضافه شد",
+      "updateSuccess": "عضو تیم با موفقیت به‌روزرسانی شد",
+      "deleteSuccess": "عضو تیم با موفقیت حذف شد",
+      "error": "خطایی رخ داد. لطفاً دوباره تلاش کنید."
+    },
+    "stats": {
+      "totalMembers": "تعداد کل اعضا",
+      "admins": "مدیران",
+      "teammates": "همکاران"
+    },
+    "tooltips": {
+      "edit": "ویرایش عضو تیم",
+      "delete": "حذف عضو تیم",
+      "addNew": "افزودن عضو جدید"
+    },
+    "creators": {
+      "team": "Team"
+    },
+    "roles": {
+      "admin": "Admin",
+      "teammate": "Teammate"
+    },
+    "preview": {
+      "title": "Preview",
+      "defaultName": "Name",
+      "defaultRole": "Role",
+      "defaultDescription": "Description",
+      "charactersMinimum": "characters minimum"
+    },
+    "modal": {
+      "editMember": "Edit team member",
+      "inviteMember": "Invite team member",
+      "invitationSent": "We have sent an invitation email to",
+      "continue": "Ok, continue",
+      "cancel": "Cancel",
+      "save": "Save",
+      "update": "Update"
+    }
+  },
+  "creators": {
+    "tier": {
+      "management": {
+        "title": "Contribution Tier",
+        "subtitle": "Recurring or One time"
+      },
+      "modal": {
+        "addTitle": "Add New Tier",
+        "editTitle": "Edit Tier",
+        "deleteTitle": "Delete Tier",
+        "deleteMessage": "This tier will be deleted. Are you sure you want to proceed?"
+      },
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Silver Sponsor"
+        },
+        "description": {
+          "label": "Reward Description",
+          "placeholder": "Join the guest list and be the first to know major updates about our project events. Plus, enjoy some digital gift card to be invited to the events."
+        },
+        "amount": {
+          "label": "Amount",
+          "placeholder": "20 USD"
+        },
+        "coverPhoto": {
+          "label": "Cover Photo",
+          "uploadText": "Click to upload cover photo"
+        },
+        "preview": "Preview",
+        "buttons": {
+          "cancel": "Cancel",
+          "save": "Save",
+          "update": "Update"
+        },
+        "validation": {
+          "required": "{{field}} is required",
+          "positiveAmount": "Amount must be positive"
+        }
+      },
+      "card": {
+        "defaultTitle": "Silver Sponsor",
+        "subtitle": "You are on the list",
+        "startAt": "Start at",
+        "currency": "USD",
+        "buttons": {
+          "contribute": "Contribute",
+          "showMore": "Show More",
+          "showLess": "Show Less"
+        }
+      },
+      "addButton": {
+        "title": "Add Tier"
+      },
+      "ContributeButton":{
+        "Contribute": "Contribute"
+      }
+    }
+  },
+  "navigation": {
+    "contributionTier": "CONTRIBUTION TIER",
+    "about": "ABOUT",
+    "team": "TEAM",
+    "topBackers": "TOP BACKERS & CONTRIBUTORS",
+    "faq": "FAQ",
+    "updates": "UPDATES"
+  },
+  "banner": {
+    "coverImage": {
+      "editCover": "Edit cover",
+      "addCover": "Add cover image",
+      "uploadNew": "Upload new image",
+      "save": "Save",
+      "reset": "Reset",
+      "defaultTitle": "Brand or Organization",
+      "error": {
+        "fileSize": "File size must be less than {{size}}MB",
+        "processing": "Error processing image"
+      }
+    },
+    "dashboard": {
+      "settings": "Settings"
+    },
+    "zoom": {
+      "in": "Zoom in",
+      "out": "Zoom out"
+    }
+  },
+  "dashboard": {
+    "PublicProfile": "Public Profile",
+    "navigation": {
+      "ariaLabel": "Dashboard navigation"
+    },
+    "tabs": {
+      "info": "Info",
+      "contributionTiers": "Contribution tiers",
+      "about": "About",
+      "team": "Team",
+      "updates": "Updates",
+      "expenses": "Expenses",
+      "payout": "Pay out"
+    },
+    "expenses": {
+      "title": "Expenses",
+      "info": "Expenses information goes here"
+    },
+    "payout": {
+      "title": "Pay Out",
+      "info": "Payout information and controls go here"
+    }
+  },
+  "editProfile": {
+    "title": "Edit profile",
+    "uploadNewImage": "Upload new image",
+    "save": "Save",
+    "reset": "Reset",
+    "edit": "Edit"
+  }
+}

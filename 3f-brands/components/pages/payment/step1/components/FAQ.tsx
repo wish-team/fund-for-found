@@ -59,7 +59,7 @@ const FAQSection = memo(function FAQSection({ className = "" }: FAQSectionProps)
         </h5>
 
         <Accordion variant="bordered" className="mb-6">
-          {FAQ_ITEMS.map((item, index) => (
+          {FAQ_ITEMS.map((item) => (
             <AccordionItem
               key={item.title}
               aria-label={item.title}

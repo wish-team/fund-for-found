@@ -12,7 +12,7 @@ interface AuthWrapperProps {
 
 export const AuthWrapper = memo(function AuthWrapper({ 
   children, 
-  loadingComponent = <Spinner label="Loading..." /> 
+  loadingComponent = <Spinner label="auth component loading" /> 
 }: AuthWrapperProps) {
   const { user, initialLoading, initializeAuth } = useAuthStore();
 

@@ -1,4 +1,3 @@
-// app/payment/[tierId]/[step]/page.tsx
 "use client";
 
 import React, { Suspense, useEffect, useState } from "react";
@@ -10,14 +9,18 @@ interface PaymentComponentProps {
   tierDetails: Tier;
 }
 
-// Pre-load payment step components
+// Pre-load payment step components with proper typing
 const PaymentInfo = React.lazy(
   () => import("@/components/pages/payment/step1/Step1")
-);
-const Review = React.lazy(() => import("@/components/pages/payment/step2/Step2"));
+) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
+
+const Review = React.lazy(
+  () => import("@/components/pages/payment/step2/Step2")
+) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
+
 const Confirmation = React.lazy(
-  () => import("@/components/pages/payment/Step3")
-);
+  () => import("@/components/pages/payment/step3/Step3")
+) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
 
 const PAYMENT_STEPS: Step[] = [
   { label: "Step 1", path: "/payment/1", subLabel: "Payment Details" },
@@ -73,7 +76,7 @@ const PaymentPage = ({ params }: PageProps) => {
 
     return (
       <Suspense fallback={<div>Loading...</div>}>
-          <StepComponent />
+        <StepComponent />
       </Suspense>
     );
   };

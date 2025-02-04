@@ -1,88 +1,136 @@
-import React, { useRef, useCallback, useEffect, memo } from "react";
-import { InputProps, FormData } from "../types";
-import { useRegistrationStore } from "../store/registrationStore";
-import Inputs from "../../../../shared/Input";
+import React, { useRef, useState, useEffect } from "react";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-export const AutocompleteInput = memo(({ 
-  data, 
-  label, 
-  fieldName, 
-  error, 
-  placeholder = `Select ${label}` 
-}: InputProps & { placeholder?: string }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  // Add type assertion to ensure we get a string value
-  const value = useRegistrationStore((state) => {
-    const fieldValue = state.formData[fieldName];
-    return typeof fieldValue === 'string' ? fieldValue : '';
-  });
-  
-  const dropdownState = useRegistrationStore((state) => state.dropdowns[fieldName]);
-  const {
-    initDropdown,
-    removeDropdown,
-    setDropdownState,
-    filterDropdownItems,
-    setFormField
-  } = useRegistrationStore();
+interface Option {
+  id: number;
+  name: string;
+}
 
-  useEffect(() => {
-    initDropdown(fieldName);
-    return () => removeDropdown(fieldName);
-  }, [fieldName, initDropdown, removeDropdown]);
+interface AutocompleteInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
+  label: string;
+  options?: Option[];
+  placeholder?: string;
+  allowCustomInput?: boolean;
+}
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setDropdownState(fieldName, { isOpen: false });
-    }
-  }, [fieldName, setDropdownState]);
+export const AutocompleteInput = React.memo(
+  <T extends FieldValues>({
+    control,
+    name,
+    label,
+    options = [],
+    placeholder,
+    allowCustomInput = false,
+  }: AutocompleteInputProps<T>) => {
+    const { t } = useTranslation();
+    const [isOpen, setIsOpen] = useState(false);
+    const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
+    const inputRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handleClickOutside]);
+    // Only show suggestions if options are provided and custom input isn't allowed
+    const shouldShowSuggestions = !allowCustomInput && options.length > 0;
 
-  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    filterDropdownItems(fieldName, data, inputValue);
-    setFormField(fieldName as keyof FormData, inputValue);
-    setDropdownState(fieldName, { isOpen: true });
-  }, [fieldName, data, filterDropdownItems, setFormField, setDropdownState]);
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          inputRef.current &&
+          !inputRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      };
 
-  const handleItemSelect = useCallback((item: string) => {
-    setFormField(fieldName as keyof FormData, item);
-    setDropdownState(fieldName, { isOpen: false });
-  }, [fieldName, setFormField, setDropdownState]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-  return (
-    <div ref={dropdownRef} className="relative">
-      <Inputs
-        type="text"
-        label={label}
-        extraLabel="*"
-        value={value}
-        placeholder={placeholder}
-        onChange={handleInputChange}
-        onFocus={() => setDropdownState(fieldName, { isOpen: true })}
-        className="mt-1"
-        inputClassName="focus:border-purple-500"
+    const filterOptions = (inputValue: string) => {
+      return options.filter((option) =>
+        option.name.toLowerCase().includes(inputValue.toLowerCase())
+      );
+    };
+
+    const getErrorMessage = (fieldName: string, fieldLabel: string) => {
+      // Using type assertion to handle the translation options
+      return t(`step1.validation.${fieldName}`, {
+        field: fieldLabel,
+        defaultValue: t('step1.validation.required', {
+          field: fieldLabel
+        } as any)
+      } as any);
+    };
+
+    return (
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <div ref={inputRef} className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {label}
+              <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={(value as string) || ""}
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+                  onChange(inputValue);
+                  if (shouldShowSuggestions) {
+                    setFilteredOptions(filterOptions(inputValue));
+                    setIsOpen(true);
+                  }
+                }}
+                onFocus={() => {
+                  if (shouldShowSuggestions) {
+                    setFilteredOptions(filterOptions((value as string) || ""));
+                    setIsOpen(true);
+                  }
+                }}
+                placeholder={placeholder}
+                className={`
+                w-full px-3 py-2 border rounded-lg focus:outline-none
+                ${
+                  error
+                    ? "border-red-500"
+                    : "border-light3 focus:border-purple-500"
+                }
+              `}
+              />
+              {isOpen &&
+                shouldShowSuggestions &&
+                filteredOptions.length > 0 && (
+                  <ul className="absolute z-10 w-full mt-1 bg-white border border-light3 rounded-lg shadow-md max-h-60 overflow-y-auto">
+                    {filteredOptions.map((option) => (
+                      <li
+                        key={option.id}
+                        className="py-2 px-4 hover:bg-primary50 cursor-pointer"
+                        onClick={() => {
+                          onChange(option.name);
+                          setIsOpen(false);
+                        }}
+                      >
+                        {option.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </div>
+            {error && (
+              <p className="text-red-500 text-xs mt-1">
+                {getErrorMessage(name, label)}
+              </p>
+            )}
+          </div>
+        )}
       />
-      {dropdownState?.isOpen && dropdownState.filteredItems?.length > 0 && (
-        <ul className="absolute shadow-md z-10 border border-light3 rounded-lg bg-white mt-2 max-h-60 overflow-auto w-full">
-          {dropdownState.filteredItems.map((item) => (
-            <li
-              key={item}
-              className="py-2 px-4 text-gray4 hover:bg-primary50 cursor-pointer"
-              onClick={() => handleItemSelect(item)}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-      {error && <p className="text-red-500 text-xs pt-1">{error.message}</p>}
-    </div>
-  );
-});
+    );
+  }
+);
 
-AutocompleteInput.displayName = 'AutocompleteInput';
+AutocompleteInput.displayName = "AutocompleteInput";

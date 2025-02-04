@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { Step2FormData, EditorData, SocialInput } from "../types";
+import { Step2FormData, SocialInput } from "../types";
 
 export const useStep2Form = () => {
   const [formData, setFormData] = useState<Step2FormData>({
-    content: {} as EditorData,
     socialLinks: [],
   });
-
-  const updateContent = (content: EditorData) => {
-    setFormData((prev) => ({ ...prev, content }));
-  };
 
   const updateSocialLinks = (links: SocialInput[]) => {
     setFormData((prev) => ({ ...prev, socialLinks: links }));
@@ -38,7 +33,6 @@ export const useStep2Form = () => {
 
   return {
     formData,
-    updateContent,
     updateSocialLinks,
     submitForm,
   };

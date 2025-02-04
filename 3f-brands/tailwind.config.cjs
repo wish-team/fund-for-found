@@ -4,7 +4,7 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   
   theme: {
@@ -18,9 +18,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ['var(--font-family)'], // This will be dynamically updated
+        inter: ['Inter', 'sans-serif'],
+        vazirmatn: ['Vazirmatn', 'sans-serif'],
+        'noto-kufi': ['"Noto Kufi Arabic"', 'sans-serif'],
       },
-      
       colors: {
         black: "var(--black)",
         gray1: "var(--Gray1)",
@@ -38,17 +40,15 @@ module.exports = {
         primary200: "var(--primary200)",
         primary300: "var(--primary300)",
         primary400: "var(--primary400)",
-        testt: "var(--red)"
       },
       boxShadow: {
         shadow1: "-2px 2px 10px 1px rgba(149, 149, 149, 0.15)",
       },
       zIndex: {
         'sticky': '1200',
-       
       },
     },
-    darkMode: "class",
-    plugins: [nextui()]
   },
+  darkMode: "class",
+  plugins: [nextui()]
 };

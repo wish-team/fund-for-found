@@ -7,6 +7,7 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -22,17 +23,30 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
   isOpen,
   onClose,
   onConfirm,
-  title = "Delete Confirmation",
-  message = "This item will be deleted, are you sure?",
-  cancelText = "Cancel",
-  confirmText = "Delete",
+  title,
+  message,
+  cancelText,
+  confirmText,
 }) => {
+  const { t } = useTranslation();
+
+  // Use provided text or fallback to translations
+  const modalTitle = title || t('translation:common.deleteConfirmation');
+  const modalMessage = message || t('translation:common.deleteConfirmationMessage');
+  const modalCancelText = cancelText || t('translation:common.cancel');
+  const modalConfirmText = confirmText || t('translation:common.delete');
+
   return (
-    <Modal backdrop="blur" className="shadow border" isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal 
+      className="shadow border" 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      size="sm"
+    >
       <ModalContent className="bg-white rounded-lg shadow p-3">
-        <ModalHeader className="text-gray3">{title}</ModalHeader>
+        <ModalHeader className="text-gray3">{modalTitle}</ModalHeader>
         <ModalBody>
-          <p className="text-gray4">{message}</p>
+          <p className="text-gray4">{modalMessage}</p>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -41,14 +55,14 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
             onClick={onClose}
             className="bg-light4 text-gray4 font-light rounded-lg border border-light2 text-xs hover:border-purple-500 hover:bg-primary50"
           >
-            {cancelText}
+            {modalCancelText}
           </Button>
           <Button
             color="primary"
             className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
             onClick={onConfirm}
           >
-            {confirmText}
+            {modalConfirmText}
           </Button>
         </ModalFooter>
       </ModalContent>

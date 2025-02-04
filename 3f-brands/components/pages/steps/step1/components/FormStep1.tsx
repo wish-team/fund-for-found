@@ -1,96 +1,101 @@
-// src/components/pages/steps/step1/components/FormStep1.tsx
+// FormStep1.tsx
 import React from "react";
 import { Button, Checkbox, Link } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import { useFormStep } from "../hooks/useFormStep1";
 import { AutocompleteInput } from "./AutocompleteInput";
 import { MultiSelectInput } from "./MultiSelectInput";
-import { mockData } from "../utils/mockData";
-import { useRegistrationStore } from "../store/registrationStore";
+import Loader from "@/components/shared/loader/Loader";
 
 export const FormStep1: React.FC = () => {
-  const router = useRouter();
-  const formData = useRegistrationStore((state) => state.formData);
-  const errors = useRegistrationStore((state) => state.errors);
-  const validateAllFields = useRegistrationStore((state) => state.validateAllFields);
-  const setFormField = useRegistrationStore((state) => state.setFormField);
+  const { t } = useTranslation();
+  const { form, onSubmit, isLoading, isPending, queries, isUpdate } = useFormStep();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateAllFields()) {
-      console.log(formData);
-      router.push("/steps/2");
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center max-h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 py-6 grid">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-6 grid">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <AutocompleteInput
-          data={mockData.brandNames}
-          label="Brand/Organisation Name"
-          fieldName="name"
-          error={errors.name}
+          control={form.control}
+          name="name"
+          label={t("translation:step1.form.brandName.label")}
+          placeholder={t("translation:step1.form.brandName.placeholder")}
+          allowCustomInput={true}
         />
         <AutocompleteInput
-          data={mockData.countries}
-          label="Country"
-          fieldName="country"
-          error={errors.country}
+          control={form.control}
+          name="country"
+          label={t("translation:step1.form.country.label")}
+          placeholder={t("translation:step1.form.country.placeholder")}
+          options={queries.countries.data || []}
         />
       </div>
 
-      <p className="text-light1 font-light text-justify">
-        Select the primary category that best describes your brand or
-        organization. Then select the subcategory that further defines your
-        brand or organization.
-      </p>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <AutocompleteInput
-          data={mockData.categories}
-          label="Category"
-          fieldName="category"
-          error={errors.category}
+          control={form.control}
+          name="category"
+          label={t("translation:step1.form.category.label")}
+          placeholder={t("translation:step1.form.category.placeholder")}
+          options={queries.categories.data || []}
         />
         <AutocompleteInput
-          data={mockData.subcategories}
-          label="Subcategory"
-          fieldName="subcategory"
-          error={errors.subcategory}
+          control={form.control}
+          name="subcategory"
+          label={t("translation:step1.form.subcategory.label")}
+          placeholder={t("translation:step1.form.subcategory.placeholder")}
+          options={queries.subcategories.data || []}
         />
       </div>
 
       <MultiSelectInput
-        data={mockData.brandTags}
-        label="Brands Tags"
-        fieldName="brandTags"
-        error={errors.brandTags}
+        control={form.control}
+        name="brandTags"
+        label={t("translation:step1.form.brandTags.label")}
+        placeholder={t("translation:step1.form.brandTags.placeholder")}
+        options={queries.brandTags.data || []}
       />
 
       <div className="flex flex-col gap-2">
         <Checkbox
-          isSelected={formData.agree}
-          onValueChange={(checked) => setFormField("agree", checked)}
+          isSelected={form.watch("agree")}
+          onValueChange={(checked) => form.setValue("agree", checked)}
           radius="full"
         >
           <div className="text-xs text-gray3">
-            <span className="pe-1">I agree with the</span>
-            <Link href="#" underline="always">terms of service</Link>
-            <span className="ps-1">of 3F.</span>
+            <span>{t("translation:step1.form.agreement.text")} </span>
+            <Link href="#" size="sm" className="text-primary">
+              {t("translation:step1.form.agreement.terms")}
+            </Link>
+            <span> {t("translation:step1.form.agreement.of")}</span>
           </div>
         </Checkbox>
-        {errors.agree && (
-          <p className="text-red-500 text-xs">{errors.agree.message}</p>
+        {form.formState.errors.agree && (
+          <p className="text-red-500 text-xs">
+            {t("translation:step1.validation.terms")}
+          </p>
         )}
       </div>
 
       <Button
         type="submit"
         color="secondary"
-        variant="solid"
         className="font-light my-4 px-12 bg-primary mb-1 text-white rounded-lg border border-light2"
+        isLoading={isPending}
+        disabled={isPending}
       >
-        Continue
+        {isPending 
+          ? t("translation:step1.form.buttons.submitting")
+          : isUpdate 
+            ? t("translation:step1.form.buttons.update")
+            : t("translation:step1.form.buttons.submit")}
       </Button>
     </form>
   );

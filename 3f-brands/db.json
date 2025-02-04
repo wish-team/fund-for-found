@@ -1,494 +1,376 @@
 {
-  "categories": [
+  "countries": {
+    "en": [
+      {
+        "id": 1,
+        "name": "United States"
+      },
+      {
+        "id": 2,
+        "name": "United Kingdom"
+      },
+      {
+        "id": 3,
+        "name": "Canada"
+      },
+      {
+        "id": 4,
+        "name": "Australia"
+      },
+      {
+        "id": 5,
+        "name": "Germany"
+      },
+      {
+        "id": 6,
+        "name": "France"
+      },
+      {
+        "id": 7,
+        "name": "Japan"
+      },
+      {
+        "id": 8,
+        "name": "Iran"
+      }
+    ],
+    "fa": [
+      {
+        "id": 1,
+        "name": "ایالات متحده"
+      },
+      {
+        "id": 2,
+        "name": "انگلستان"
+      },
+      {
+        "id": 3,
+        "name": "کانادا"
+      },
+      {
+        "id": 4,
+        "name": "استرالیا"
+      },
+      {
+        "id": 5,
+        "name": "آلمان"
+      },
+      {
+        "id": 6,
+        "name": "فرانسه"
+      },
+      {
+        "id": 7,
+        "name": "ژاپن"
+      },
+      {
+        "id": 8,
+        "name": "ایران"
+      }
+    ]
+  },
+  "brandcategories": {
+    "en": [
+      {
+        "id": 1,
+        "name": "Technology"
+      },
+      {
+        "id": 2,
+        "name": "Fashion"
+      },
+      {
+        "id": 3,
+        "name": "Food & Beverage"
+      },
+      {
+        "id": 4,
+        "name": "Healthcare"
+      },
+      {
+        "id": 5,
+        "name": "Education"
+      }
+    ],
+    "fa": [
+      {
+        "id": 1,
+        "name": "تکنولوژی"
+      },
+      {
+        "id": 2,
+        "name": "مد"
+      },
+      {
+        "id": 3,
+        "name": "غذا و نوشیدنی"
+      },
+      {
+        "id": 4,
+        "name": "سلامت"
+      },
+      {
+        "id": 5,
+        "name": "آموزش"
+      }
+    ]
+  },
+  "subcategories": {
+    "en": [
+      {
+        "id": 1,
+        "name": "Software",
+        "categoryId": 1
+      },
+      {
+        "id": 2,
+        "name": "Hardware",
+        "categoryId": 1
+      },
+      {
+        "id": 3,
+        "name": "AI & Machine Learning",
+        "categoryId": 1
+      },
+      {
+        "id": 4,
+        "name": "Clothing",
+        "categoryId": 2
+      },
+      {
+        "id": 5,
+        "name": "Accessories",
+        "categoryId": 2
+      },
+      {
+        "id": 6,
+        "name": "Restaurants",
+        "categoryId": 3
+      },
+      {
+        "id": 7,
+        "name": "Beverages",
+        "categoryId": 3
+      },
+      {
+        "id": 8,
+        "name": "Medical Devices",
+        "categoryId": 4
+      },
+      {
+        "id": 9,
+        "name": "Online Courses",
+        "categoryId": 5
+      }
+    ],
+    "fa": [
+      {
+        "id": 1,
+        "name": "نرم‌افزار",
+        "categoryId": 1
+      },
+      {
+        "id": 2,
+        "name": "سخت‌افزار",
+        "categoryId": 1
+      },
+      {
+        "id": 3,
+        "name": "هوش مصنوعی و یادگیری ماشین",
+        "categoryId": 1
+      },
+      {
+        "id": 4,
+        "name": "پوشاک",
+        "categoryId": 2
+      },
+      {
+        "id": 5,
+        "name": "اکسسوری",
+        "categoryId": 2
+      },
+      {
+        "id": 6,
+        "name": "رستوران‌ها",
+        "categoryId": 3
+      },
+      {
+        "id": 7,
+        "name": "نوشیدنی‌ها",
+        "categoryId": 3
+      },
+      {
+        "id": 8,
+        "name": "تجهیزات پزشکی",
+        "categoryId": 4
+      },
+      {
+        "id": 9,
+        "name": "دوره‌های آنلاین",
+        "categoryId": 5
+      }
+    ]
+  },
+  "brandTags": {
+    "en": [
+      {
+        "id": 1,
+        "name": "Sustainable"
+      },
+      {
+        "id": 2,
+        "name": "Innovative"
+      },
+      {
+        "id": 3,
+        "name": "Eco-friendly"
+      },
+      {
+        "id": 4,
+        "name": "Premium"
+      },
+      {
+        "id": 5,
+        "name": "Budget-friendly"
+      },
+      {
+        "id": 6,
+        "name": "Luxury"
+      },
+      {
+        "id": 7,
+        "name": "Startup"
+      },
+      {
+        "id": 8,
+        "name": "Enterprise"
+      }
+    ],
+    "fa": [
+      {
+        "id": 1,
+        "name": "پایدار"
+      },
+      {
+        "id": 2,
+        "name": "نوآورانه"
+      },
+      {
+        "id": 3,
+        "name": "سازگار با محیط زیست"
+      },
+      {
+        "id": 4,
+        "name": "ممتاز"
+      },
+      {
+        "id": 5,
+        "name": "مقرون به صرفه"
+      },
+      {
+        "id": 6,
+        "name": "لوکس"
+      },
+      {
+        "id": 7,
+        "name": "استارتاپ"
+      },
+      {
+        "id": 8,
+        "name": "سازمانی"
+      }
+    ]
+  },
+  "contributors": {
+    "en": [
+      {
+        "id": 1,
+        "name": "Developer"
+      },
+      {
+        "id": 2,
+        "name": "Designer"
+      },
+      {
+        "id": 3,
+        "name": "Product Manager"
+      },
+      {
+        "id": 4,
+        "name": "Marketing Specialist"
+      },
+      {
+        "id": 5,
+        "name": "Content Creator"
+      }
+    ],
+    "fa": [
+      {
+        "id": 1,
+        "name": "توسعه‌دهنده"
+      },
+      {
+        "id": 2,
+        "name": "طراح"
+      },
+      {
+        "id": 3,
+        "name": "مدیر محصول"
+      },
+      {
+        "id": 4,
+        "name": "متخصص بازاریابی"
+      },
+      {
+        "id": 5,
+        "name": "تولیدکننده محتوا"
+      }
+    ]
+  },
+  "registrations": [
     {
-      "name": "Technology & Innovation",
-      "subcategories": [
-        {
-          "name": "Software & Apps",
-          "brands": [
-            {
-              "name": "CodeCraft Solutions",
-              "description": "Innovative project management software for remote teams",
-              "country": "United States",
-              "contributors": 85,
-              "moneyRaised": 2500000
-            },
-            {
-              "name": "MindLink AI",
-              "description": "AI-powered personal productivity assistant",
-              "country": "Canada",
-              "contributors": 42,
-              "moneyRaised": 1750000
-            },
-            {
-              "name": "SecureSync Technologies",
-              "description": "Enterprise-level data encryption and collaboration platform",
-              "country": "Israel",
-              "contributors": 65,
-              "moneyRaised": 3200000
-            }
-          ]
-        },
-        {
-          "name": "Consumer Electronics",
-          "brands": [
-            {
-              "name": "NeoTech Wearables",
-              "description": "Smart fitness and health tracking devices",
-              "country": "South Korea",
-              "contributors": 120,
-              "moneyRaised": 4500000
-            },
-            {
-              "name": "EcoCharge Innovations",
-              "description": "Sustainable and fast-charging mobile accessories",
-              "country": "Germany",
-              "contributors": 55,
-              "moneyRaised": 1200000
-            },
-            {
-              "name": "AudioSphere",
-              "description": "Advanced noise-canceling wireless earbuds",
-              "country": "Japan",
-              "contributors": 98,
-              "moneyRaised": 2800000
-            }
-          ]
-        },
-        {
-          "name": "Green Tech & Sustainability",
-          "brands": [
-            {
-              "name": "SolarNest Solutions",
-              "description": "Innovative residential solar power systems",
-              "country": "Australia",
-              "contributors": 75,
-              "moneyRaised": 3600000
-            },
-            {
-              "name": "EcoStream",
-              "description": "Water purification and conservation technology",
-              "country": "Netherlands",
-              "contributors": 60,
-              "moneyRaised": 2200000
-            },
-            {
-              "name": "GreenTransit",
-              "description": "Electric vehicle charging infrastructure",
-              "country": "United States",
-              "contributors": 110,
-              "moneyRaised": 5000000
-            }
-          ]
-        },
-        {
-          "name": "Blockchain & Cryptocurrency",
-          "brands": [
-            {
-              "name": "CryptoGuard",
-              "description": "Secure blockchain wallet and trading platform",
-              "country": "Singapore",
-              "contributors": 95,
-              "moneyRaised": 4200000
-            },
-            {
-              "name": "TokenBridge",
-              "description": "Cross-border blockchain payment solutions",
-              "country": "United Kingdom",
-              "contributors": 48,
-              "moneyRaised": 1900000
-            },
-            {
-              "name": "DecentralArt",
-              "description": "NFT marketplace for digital artists",
-              "country": "Estonia",
-              "contributors": 72,
-              "moneyRaised": 2600000
-            }
-          ]
-        },
-        {
-          "name": "Biotech & Health Tech",
-          "brands": [
-            {
-              "name": "GenomePrecision",
-              "description": "Personalized genetic health analysis platform",
-              "country": "United States",
-              "contributors": 130,
-              "moneyRaised": 6500000
-            },
-            {
-              "name": "NeuroCare Innovations",
-              "description": "AI-driven mental health monitoring app",
-              "country": "Canada",
-              "contributors": 55,
-              "moneyRaised": 2300000
-            },
-            {
-              "name": "TelemedicaLink",
-              "description": "Comprehensive telemedicine consultation platform",
-              "country": "India",
-              "contributors": 88,
-              "moneyRaised": 3800000
-            }
-          ]
-        },
-        {
-          "name": "Others",
-          "brands": [
-            {
-              "name": "InnovateX",
-              "description": "Cross-industry technology innovation consultancy",
-              "country": "Singapore",
-              "contributors": 45,
-              "moneyRaised": 1500000
-            },
-            {
-              "name": "FutureLab",
-              "description": "Emerging technologies research and development",
-              "country": "Switzerland",
-              "contributors": 35,
-              "moneyRaised": 2100000
-            },
-            {
-              "name": "GlobalTech Solutions",
-              "description": "Diverse technology integration services",
-              "country": "United Arab Emirates",
-              "contributors": 62,
-              "moneyRaised": 2700000
-            }
-          ]
-        }
-      ]
+      "id": "b21a",
+      "name": "سمذیدمسدطذ",
+      "category": "Fashion",
+      "subcategory": "AI & Machine Learning",
+      "brandTags": [
+        "Sustainable"
+      ],
+      "country": "United States",
+      "agree": true
     },
     {
-      "name": "Creative Art & Media",
-      "subcategories": [
-        {
-          "name": "Visual Arts & Design",
-          "brands": [
-            {
-              "name": "PixelCraft Studio",
-              "description": "Digital design and illustration platform",
-              "country": "United States",
-              "contributors": 65,
-              "moneyRaised": 1800000
-            },
-            {
-              "name": "ArtConnect",
-              "description": "Global marketplace for digital and physical art",
-              "country": "United Kingdom",
-              "contributors": 48,
-              "moneyRaised": 2300000
-            },
-            {
-              "name": "CreativeCanvas",
-              "description": "AI-assisted design and creative tools",
-              "country": "Canada",
-              "contributors": 55,
-              "moneyRaised": 1600000
-            }
-          ]
-        },
-        {
-          "name": "Film, Video & Animation",
-          "brands": [
-            {
-              "name": "StoryStream Productions",
-              "description": "Independent film and documentary production company",
-              "country": "Australia",
-              "contributors": 42,
-              "moneyRaised": 1200000
-            },
-            {
-              "name": "AnimaVerse",
-              "description": "Digital animation and motion graphics studio",
-              "country": "Japan",
-              "contributors": 75,
-              "moneyRaised": 2800000
-            },
-            {
-              "name": "CinemaLink",
-              "description": "Online platform for independent filmmakers",
-              "country": "Germany",
-              "contributors": 58,
-              "moneyRaised": 1900000
-            }
-          ]
-        },
-        {
-          "name": "Music & Audio",
-          "brands": [
-            {
-              "name": "SoundWave Studios",
-              "description": "Music production and collaborative platform",
-              "country": "United States",
-              "contributors": 95,
-              "moneyRaised": 3500000
-            },
-            {
-              "name": "AudioCraft",
-              "description": "AI-powered music composition tools",
-              "country": "South Korea",
-              "contributors": 62,
-              "moneyRaised": 2200000
-            },
-            {
-              "name": "MelodyNet",
-              "description": "Music streaming and artist discovery platform",
-              "country": "Sweden",
-              "contributors": 78,
-              "moneyRaised": 2600000
-            }
-          ]
-        }
-      ]
+      "id": "948e",
+      "name": "تتلترتر",
+      "category": "Technology",
+      "subcategory": "Hardware",
+      "brandTags": [
+        "Innovative"
+      ],
+      "country": "United States",
+      "agree": true
     },
     {
-      "name": "Business & Entrepreneurship",
-      "subcategories": [
-        {
-          "name": "Startups & Small Businesses",
-          "brands": [
-            {
-              "name": "LaunchPad Accelerator",
-              "description": "Startup incubation and mentorship program",
-              "country": "United States",
-              "contributors": 110,
-              "moneyRaised": 4500000
-            },
-            {
-              "name": "EntrepreneurHub",
-              "description": "Online networking and resource platform for entrepreneurs",
-              "country": "United Kingdom",
-              "contributors": 75,
-              "moneyRaised": 2900000
-            },
-            {
-              "name": "InnovationNest",
-              "description": "Early-stage startup funding and support",
-              "country": "Singapore",
-              "contributors": 55,
-              "moneyRaised": 3200000
-            }
-          ]
-        },
-        {
-          "name": "E-commerce & Digital Business",
-          "brands": [
-            {
-              "name": "GlobalMarketplace",
-              "description": "Cross-border e-commerce platform",
-              "country": "Germany",
-              "contributors": 88,
-              "moneyRaised": 4200000
-            },
-            {
-              "name": "DigitalSpark",
-              "description": "Digital marketing and e-commerce solutions",
-              "country": "Canada",
-              "contributors": 62,
-              "moneyRaised": 2500000
-            },
-            {
-              "name": "RetailTech Innovations",
-              "description": "AI-powered e-commerce optimization tools",
-              "country": "Israel",
-              "contributors": 45,
-              "moneyRaised": 3600000
-            }
-          ]
-        }
-      ]
+      "name": "sbvb",
+      "category": "Technology",
+      "subcategory": "Software",
+      "brandTags": [
+        "Innovative"
+      ],
+      "country": "United States",
+      "agree": true,
+      "id": "815f"
     },
     {
-      "name": "Games & Entertainment",
-      "subcategories": [
-        {
-          "name": "Video Games",
-          "brands": [
-            {
-              "name": "NexusGaming Studios",
-              "description": "Innovative multiplayer game development",
-              "country": "United States",
-              "contributors": 95,
-              "moneyRaised": 5200000
-            },
-            {
-              "name": "MindScape Interactive",
-              "description": "Story-driven indie game production",
-              "country": "Canada",
-              "contributors": 48,
-              "moneyRaised": 2100000
-            },
-            {
-              "name": "GameForge",
-              "description": "Mobile and console game development",
-              "country": "Japan",
-              "contributors": 75,
-              "moneyRaised": 3800000
-            }
-          ]
-        },
-        {
-          "name": "Table Top & Board Games",
-          "brands": [
-            {
-              "name": "QuestRealm Games",
-              "description": "Innovative board game design and publishing",
-              "country": "United Kingdom",
-              "contributors": 55,
-              "moneyRaised": 1800000
-            },
-            {
-              "name": "StrategyMaster",
-              "description": "Complex strategy board game development",
-              "country": "Germany",
-              "contributors": 42,
-              "moneyRaised": 1500000
-            },
-            {
-              "name": "TabletopInnovations",
-              "description": "Digital and physical board game platforms",
-              "country": "Australia",
-              "contributors": 38,
-              "moneyRaised": 1200000
-            }
-          ]
-        },
-        {
-          "name": "Interactive Media & VR",
-          "brands": [
-            {
-              "name": "ImmersiveRealms",
-              "description": "Virtual reality experience development",
-              "country": "United States",
-              "contributors": 110,
-              "moneyRaised": 6500000
-            },
-            {
-              "name": "NeuroVR Technologies",
-              "description": "Advanced VR training and simulation platforms",
-              "country": "South Korea",
-              "contributors": 68,
-              "moneyRaised": 3900000
-            },
-            {
-              "name": "InteractiveEdge",
-              "description": "Augmented reality educational tools",
-              "country": "Canada",
-              "contributors": 52,
-              "moneyRaised": 2700000
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Social Causes & Community",
-      "subcategories": [
-        {
-          "name": "Environmental & Sustainability Initiatives",
-          "brands": [
-            {
-              "name": "EarthGuard",
-              "description": "Global environmental conservation platform",
-              "country": "Netherlands",
-              "contributors": 95,
-              "moneyRaised": 4800000
-            },
-            {
-              "name": "CleanOcean Initiative",
-              "description": "Marine pollution reduction and awareness",
-              "country": "Australia",
-              "contributors": 75,
-              "moneyRaised": 3200000
-            },
-            {
-              "name": "SustainableCity",
-              "description": "Urban sustainability and green infrastructure",
-              "country": "Canada",
-              "contributors": 62,
-              "moneyRaised": 2900000
-            }
-          ]
-        },
-        {
-          "name": "Community Development",
-          "brands": [
-            {
-              "name": "CommunityConnect",
-              "description": "Local community engagement and support platform",
-              "country": "United States",
-              "contributors": 110,
-              "moneyRaised": 3600000
-            },
-            {
-              "name": "GlobalNeighbors",
-              "description": "International community support and collaboration",
-              "country": "United Kingdom",
-              "contributors": 85,
-              "moneyRaised": 2700000
-            },
-            {
-              "name": "LocalImpact",
-              "description": "Grassroots community development initiatives",
-              "country": "India",
-              "contributors": 72,
-              "moneyRaised": 2300000
-            }
-          ]
-        },
-        {
-          "name": "Education & Youth Empowerment",
-          "brands": [
-            {
-              "name": "LearnBeyond",
-              "description": "Online education and skill development platform",
-              "country": "United States",
-              "contributors": 130,
-              "moneyRaised": 5500000
-            },
-            {
-              "name": "YouthEmpower",
-              "description": "Career guidance and mentorship programs",
-              "country": "Singapore",
-              "contributors": 58,
-              "moneyRaised": 2500000
-            },
-            {
-              "name": "GlobalScholar",
-              "description": "International educational resource network",
-              "country": "Canada",
-              "contributors": 95,
-              "moneyRaised": 3800000
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "contributors": [
-    {
-      "id": 109,
-      "name": "sama ghavamzadeh",
-      "username": "sama",
-      "email": "sama@example.com",
-      "avatar": "/default-avatar.png"
-    },
-    {
-      "id": 54,
-      "name": "my first brand",
-      "username": "sama",
-      "email": "sama@example.com",
-      "avatar": "/default-avatar.png"
-    },
-    {
-      "id": 594,
-      "name": "my second brand",
-      "username": "sama",
-      "email": "sama@example.com",
-      "avatar": "/default-avatar.png"
+      "id": "9cdd",
+      "name": "test",
+      "category": "Fashion",
+      "subcategory": "Hardware",
+      "brandTags": [
+        "Sustainable"
+      ],
+      "country": "United States",
+      "agree": true
     }
   ]
 }

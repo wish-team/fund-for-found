@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 interface ContributeButtonProps {
   tierId: string;
@@ -12,6 +13,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
   preview,
 }) => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   if (preview) {
     return (
@@ -20,7 +22,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
         className="w-full bg-primary text-white rounded-lg mt-4"
         disabled
       >
-        Contribute
+        {t("translation:creators.tier.ContributeButton.Contribute")}
       </Button>
     );
   }
@@ -31,7 +33,7 @@ export const ContributeButton: React.FC<ContributeButtonProps> = ({
       className="w-full bg-primary text-white rounded-lg mt-4"
       onClick={() => router.push(`/payment/${tierId}/1`)} // Updated route
     >
-      Contribute
+      {t("translation:creators.tier.ContributeButton.Contribute")}
     </Button>
   );
 };

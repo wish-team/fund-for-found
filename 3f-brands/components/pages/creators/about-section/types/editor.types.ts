@@ -3,7 +3,7 @@ import EditorJS from "@editorjs/editorjs";
 
 export interface EditorToolConfig {
   placeholder?: string;
-  // Add other common configuration properties
+  
 }
 
 export interface EditorInstance {

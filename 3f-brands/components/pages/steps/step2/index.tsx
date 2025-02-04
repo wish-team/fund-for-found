@@ -1,14 +1,14 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useStep2Form } from "./hooks/useStep2Form";
-// import { ContentEditor } from "./components/ContentEditor";
 import { SocialInputField } from "./components/SocialInputField";
 import Title from "../../../shared/Title";
 import { Button } from "@nextui-org/react";
 import AboutPage from "../../creators/about-section/AboutPage";
 
 const Step2: React.FC = () => {
-  const { formData, updateContent, updateSocialLinks, submitForm } =
-    useStep2Form();
+  const { t } = useTranslation();
+  const { formData, updateSocialLinks, submitForm } = useStep2Form();
 
   const handleSocialInputAdd = () => {
     const newId = Date.now();
@@ -45,24 +45,20 @@ const Step2: React.FC = () => {
 
   return (
     <section className="py-8 text-start max-w-[1024px]">
-      <Title title="Detailed info" />
+      <Title title={t('translation:step2.title')} />
       <h3 className="text-gray3 py-2 font-bold">
-        What is the primary mission or objective of your brand/organization?
+        {t('translation:step2.mission.title')}
       </h3>
       <p className="text-light1 font-light">
-        Be more specific about it, as it will be published as your deck on the
-        3F(150-300 characters). read more
+        {t('translation:step2.mission.description')}
       </p>
       <AboutPage />
-{/* 
-      <ContentEditor onContentChange={updateContent} /> */}
 
       <h3 className="text-gray3 pb-2 pt-8 font-bold">
-        Help your contributors find you faster (at least 3 options)
+        {t('translation:step2.social.title')}
       </h3>
       <p className="text-light1 font-light pb-4">
-        Connect your socials so the contributors get to know you better and find
-        you faster.
+        {t('translation:step2.social.description')}
       </p>
 
       {formData.socialLinks.map((link) => (
@@ -80,7 +76,7 @@ const Step2: React.FC = () => {
           variant="bordered"
           className="bg-light4 font-light rounded-lg border border-light2 md:w-[250px] w-full"
         >
-          Add social link
+          {t('translation:step2.buttons.addSocial')}
         </Button>
 
         <Button
@@ -89,7 +85,7 @@ const Step2: React.FC = () => {
           variant="solid"
           className="font-light my-4 px-12 bg-primary mb-1 text-white rounded-lg border border-light2 md:w-[250px] w-full"
         >
-          Continue
+          {t('translation:step2.buttons.continue')}
         </Button>
       </section>
     </section>

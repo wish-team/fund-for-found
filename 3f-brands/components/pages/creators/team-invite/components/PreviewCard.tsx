@@ -7,6 +7,7 @@ import { LuPencil, LuTrash } from "react-icons/lu";
 import { DeleteConfirmationModal } from "../../../../shared/DeleteConfirmationModal";
 import { AdminDeletePopover } from "./AdminDeletePopover";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
+import { useTranslation } from "react-i18next";
 
 export const PreviewCard: React.FC<PreviewCardProps> = ({
   member,
@@ -15,6 +16,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const { t } = useTranslation();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -23,11 +25,18 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   };
 
   const handleConfirmDelete = () => {
-    // Use default value of -1 if index is undefined
     if (onDelete && index !== undefined) {
       onDelete(index);
     }
     setIsDeleteModalOpen(false);
+  };
+
+  // Translate the role using the correct path
+  const getTranslatedRole = (role: string) => {
+    const translationKey = role.toLowerCase() === "admin" 
+      ? "translation:teamMember.roles.admin" 
+      : "translation:teamMember.roles.teammate";
+    return t(translationKey);
   };
 
   return (
@@ -42,7 +51,6 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
                     <Button
                       isIconOnly
                       variant="light"
-                      // Use nullish coalescing to provide a default index
                       onPress={() => onEdit?.(member, index ?? -1)}
                       className="text-gray-400 hover:text-gray-600 text-right"
                     >
@@ -69,29 +77,37 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
               <div className="flex flex-col items-center">
                 <h3 className="text-xl py-2 text-center font-medium text-gray2">
-                  {member.name || "Name"}
+                  {member.name || t("translation:teamMember.preview.defaultName")}
                 </h3>
                 <span className="text-sm bg-light3 px-3 py-1 rounded-full text-gray4 font-light">
-                  {member.role || "Role"}
+                  {member.role ? getTranslatedRole(member.role) : t("translation:teamMember.preview.defaultRole")}
                 </span>
               </div>
 
               <DescriptionText
-                description={member.description || "Description"}
+                description={member.description || t("translation:teamMember.preview.defaultDescription")}
                 index={index}
               />
             </div>
 
             <div className="bg-light3 px-6 py-4">
               <div className="flex justify-between border-b border-light2 pb-2 text-sm mb-2">
-                <span className="text-gray2 font-medium">Created</span>
+                <span className="text-gray2 font-medium">
+                  {t("translation:teamMember.card.created")}
+                </span>
                 <span className="font-light">
-                  {member.role === "Admin" ? "1 brands" : "0 brands"}
+                  {member.role === "Admin"
+                    ? `1 ${t("translation:teamMember.card.brands")}`
+                    : `0 ${t("translation:teamMember.card.brands")}`}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray2 font-medium">Contributed</span>
-                <span className="font-light">0 projects</span>
+                <span className="text-gray2 font-medium">
+                  {t("translation:teamMember.card.contributed")}
+                </span>
+                <span className="font-light">
+                  {`0 ${t("translation:teamMember.card.projects")}`}
+                </span>
               </div>
             </div>
           </div>

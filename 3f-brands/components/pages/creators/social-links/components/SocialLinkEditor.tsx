@@ -57,12 +57,11 @@ const SocialLinkEditor: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4">
+    <>
       <SocialLinkDisplay onEditClick={handleOpen} />
 
       <Modal
         isOpen={isOpen}
-        backdrop="blur"
         onOpenChange={handleModalChange}
         size="2xl"
         className='bg-white rounded-xl shadow-shadow1 p-4'
@@ -79,7 +78,7 @@ const SocialLinkEditor: React.FC = () => {
                 <Button
                   color="danger"
                   variant="light"
-                  className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
+                  className="bg-light3 border border-primary200 hover:bg-primary50 hover:border-primary200 rounded-lg text-gray4 text-xs"
                   onPress={onClose}
                 >
                   Cancel
@@ -97,7 +96,7 @@ const SocialLinkEditor: React.FC = () => {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 };
 

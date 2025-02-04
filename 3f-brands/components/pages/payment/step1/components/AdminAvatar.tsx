@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { User } from "lucide-react";
+import { FaUser } from "react-icons/fa6";
 import { AdminInfo } from "../types";
 
 interface AdminAvatarProps {
@@ -14,7 +14,7 @@ export const AdminAvatar = memo(function AdminAvatar({
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-        <User className="w-6 h-6 text-gray-400" aria-hidden="true" />
+        <FaUser className="w-6 h-6 text-gray-400" aria-hidden="true" />
       </div>
       <div>
         <h3 className="text-base font-medium">{admin.name}</h3>

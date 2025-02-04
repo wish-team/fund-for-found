@@ -1,6 +1,5 @@
 import React from "react";
-import { X } from "lucide-react";
-
+import { HiX } from "react-icons/hi";
 interface ActiveFiltersProps {
   selectedSubcategories: { [key: string]: string };
   selectedCountry: string;
@@ -33,7 +32,7 @@ export const ActiveFilters: React.FC<ActiveFiltersProps> = ({
         <div className="flex items-center bg-primary50 px-2 py-1 rounded-full">
           <span className="mr-2 text-xs">{selectedCountry}</span>
           <button onClick={onRemoveCountryFilter}>
-            <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+            <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
           </button>
         </div>
       )}
@@ -43,7 +42,7 @@ export const ActiveFilters: React.FC<ActiveFiltersProps> = ({
         <div className="flex items-center bg-gray-100 px-2 py-1 rounded-full">
           <span className="mr-2">"{searchTerm}"</span>
           <button onClick={onRemoveSearchFilter}>
-            <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+            <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
           </button>
         </div>
       )}
@@ -57,7 +56,7 @@ export const ActiveFilters: React.FC<ActiveFiltersProps> = ({
           >
             <span className="mr-2">{`${categoryName}: ${subcategory}`}</span>
             <button onClick={() => onRemoveSubcategoryFilter(categoryName)}>
-              <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+              <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
             </button>
           </div>
         )

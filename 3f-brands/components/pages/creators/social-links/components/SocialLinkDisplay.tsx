@@ -17,7 +17,7 @@ export const SocialLinkDisplay: React.FC<SocialLinkDisplayProps> = ({
   return (
     <AuthWrapper>
       {(user) => (
-        <div className="flex flex-row-reverse flex-wrap justify-between items-center mt-4">
+        <div className="flex flex-row-reverse flex-wrap justify-between items-center">
           {user && (
             <Button
               variant="bordered"
@@ -35,7 +35,7 @@ export const SocialLinkDisplay: React.FC<SocialLinkDisplayProps> = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 mt-4 md:mt-0 text-gray4 hover:text-purple-600 transition-colors"
+                className="flex items-center space-x-2 text-gray4 hover:text-primary transition-colors"
               >
                 {getIcon(type)}
               </a>
