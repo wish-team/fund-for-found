@@ -37,9 +37,12 @@ export class BrandController {
 
   @UseGuards(MyAuthGuard)
   @Post()
-  create(@Req() request, @Body(ValidationPipe) createBrandDto: CreateBrandDto) {
+  initiateCreating(
+    @Req() request,
+    @Body(ValidationPipe) createBrandDto: CreateBrandDto,
+  ) {
     const owner_id = request.user.id;
-    return this.brandService.create({ ...createBrandDto, owner_id });
+    return this.brandService.initiateCreating({ ...createBrandDto, owner_id });
   }
 
   // PUT /brand/:id - Update a specific brand

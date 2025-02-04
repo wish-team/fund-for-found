@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 
     if (data) {
       // Log the access token for debugging purposes
-      console.log('Access token:', data.session?.access_token)
+      console.log('Access token:', data.session)
 
       // Optionally, set a secure cookie with the token (or session)
       const response = NextResponse.redirect(`${origin}${next}`)

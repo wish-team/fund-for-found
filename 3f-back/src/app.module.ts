@@ -14,6 +14,7 @@ import { BrandModule } from './brand/brand.module';
 // Auth
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { BrandTagModule } from './brand-tag/brand-tag.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthModule } from './auth/auth.module';
     TierModule,
     SocialMediaModule,
     AuthModule,
+    BrandTagModule,
   ],
   controllers: [AppController],
   providers: [AppService],
