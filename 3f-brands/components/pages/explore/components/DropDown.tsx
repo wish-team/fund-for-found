@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
-import { X } from "lucide-react";
+import { HiX } from "react-icons/hi";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { 
   Dropdown, 
@@ -301,7 +301,7 @@ const CategoryDropdowns: React.FC = () => {
             <div className="flex items-center bg-gray-100 px-2 py-1 rounded-full">
               <span className="mr-2">{selectedCountry}</span>
               <button onClick={handleRemoveCountryFilter}>
-                <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+                <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
               </button>
             </div>
           )}
@@ -311,7 +311,7 @@ const CategoryDropdowns: React.FC = () => {
             <div className="flex items-center bg-gray-100 px-2 py-1 rounded-full">
               <span className="mr-2">"{searchTerm}"</span>
               <button onClick={handleRemoveSearchFilter}>
-                <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+                <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
               </button>
             </div>
           )}
@@ -324,7 +324,7 @@ const CategoryDropdowns: React.FC = () => {
             >
               <span className="mr-2">{`${categoryName}: ${subcategory}`}</span>
               <button onClick={() => handleRemoveFilter(categoryName)}>
-                <X className="w-4 h-4 text-gray-600 hover:text-red-500" />
+                <HiX className="w-4 h-4 text-gray-600 hover:text-red-500" />
               </button>
             </div>
           ))}

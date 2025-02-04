@@ -4,7 +4,8 @@ import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } 
 import { usePaymentStore } from '../store/usePaymentStore'
 import { useRouter } from 'next/navigation'
 import { QRCodeSVG } from 'qrcode.react'
-import { Copy } from 'lucide-react'
+import { MdFileCopy } from 'react-icons/md';
+
 
 const fiatCurrencies = ['USD - US Dollar', 'EUR - Euro', 'CAD - Canadian Dollar', 'GBP - British Pound']
 const cryptoCurrencies = ['Shiba Inu (SHIB)-ERC 20']
@@ -123,7 +124,7 @@ export default function PaymentPage() {
             className="w-full text-gray4"
             variant="bordered"
             onClick={handleCopyAddress}
-            startContent={<Copy size={16} />}
+            startContent={<MdFileCopy size={16} />}
           >
             Click to copy wallet address
           </Button>

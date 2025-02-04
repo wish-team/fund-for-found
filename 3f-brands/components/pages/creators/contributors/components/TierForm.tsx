@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Input, Textarea, Button } from "@nextui-org/react";
-import { Upload } from "lucide-react";
+import { MdCloudUpload } from "react-icons/md";
 import { TierFormData } from "../types/tier";
 import { TIER_FORM_DEFAULT_VALUES } from "../utils/constants";
 import { handleNumericInput } from "../utils/validation";
@@ -170,7 +170,7 @@ export const TierForm: React.FC<TierFormProps> = ({
                       document.getElementById("coverPhotoInput")?.click()
                     }
                   >
-                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                    <MdCloudUpload className="w-8 h-8 text-gray-400 mb-2" />
                     <p className="text-sm text-gray-500">
                       {t('translation:creators.tier.form.coverPhoto.uploadText')}
                     </p>

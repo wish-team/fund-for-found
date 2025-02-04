@@ -15,7 +15,7 @@ export default function Loader() {
 
   return (
     <CircularProgress
-      aria-label="Loading..."
+      aria-label="Loading Aera label loader shared component"
       color="primary"
       showValueLabel={true}
       size="lg"
