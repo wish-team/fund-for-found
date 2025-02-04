@@ -5,17 +5,16 @@ import SocialLinkEditor from "../social-links/components/SocialLinkEditor";
 
 const CreatorBanner = () => {
   return (
-    <section className="relative">
+    <section>
       <CoverImageEditor />
-      <div className="relative">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center absolute bottom-[-68px] sm:bottom-[-70px] left-0 sm:left-0">
-            <ProfileEditor />
-            <SocialLinkEditor />
-          </div>
-          <div className="ml-auto relative ">
-            <DashboardButton />
-          </div>
+
+      <div className="flex justify-between items-center -mt-12 md:-mt-16">
+        <div className="flex items-center justify-center">
+          <ProfileEditor />
+        </div>
+        <div className="flex justify-between w-full gap-x-4 items-center">
+          <SocialLinkEditor />
+          <DashboardButton />
         </div>
       </div>
     </section>

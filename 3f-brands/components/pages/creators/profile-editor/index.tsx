@@ -33,7 +33,7 @@ const ProfileEditor: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-4">
       <div className="flex flex-col gap-3">
         <ProfileImage
           title={title}
