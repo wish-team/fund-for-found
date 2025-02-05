@@ -2,15 +2,14 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Req,
   Delete,
   Param,
   Body,
   ParseUUIDPipe,
   ValidationPipe,
-  // UsePipes,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
@@ -47,7 +46,7 @@ export class BrandController {
 
   // PUT /brand/:id - Update a specific brand
   @UseGuards(MyAuthGuard)
-  @Put(':id')
+  @Patch(':id')
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) updateBrandDto: UpdateBrandDto,
@@ -56,7 +55,6 @@ export class BrandController {
   }
 
   // DELETE /brand/:id - Delete a specific brand
-
   @UseGuards(MyAuthGuard)
   @Delete(':id')
   delete(@Param('id', ParseUUIDPipe) id: string) {

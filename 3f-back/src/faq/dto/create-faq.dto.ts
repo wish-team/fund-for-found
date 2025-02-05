@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateFaqDto {
   @IsString()
@@ -8,8 +8,4 @@ export class CreateFaqDto {
   @IsString()
   @IsNotEmpty()
   answer: string;
-
-  @IsInt()
-  @IsNotEmpty()
-  priority: number;
 }

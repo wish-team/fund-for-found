@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateFaqDto {
   @IsString()
@@ -8,8 +8,4 @@ export class UpdateFaqDto {
   @IsString()
   @IsOptional()
   answer?: string;
-
-  @IsInt()
-  @IsOptional()
-  priority?: number;
 }

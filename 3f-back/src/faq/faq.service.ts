@@ -30,7 +30,6 @@ export class FaqService {
           brand_id: brandId,
           question: createFaqDto.question,
           answer: createFaqDto.answer,
-          priority: createFaqDto.priority,
         },
       ])
       .select()
@@ -44,15 +43,14 @@ export class FaqService {
   }
 
   // Update a specific FAQ of a brand
-  async update(brandId: string, question: string, updateFaqDto: UpdateFaqDto) {
+  async update(faqId: string, updateFaqDto: UpdateFaqDto) {
     const { data, error } = await this.supabaseClient
       .from('faq')
       .update({
         question: updateFaqDto.question,
-        priority: updateFaqDto.priority,
+        answer: updateFaqDto.answer,
       })
-      .eq('brand_id', brandId)
-      .eq('question', question)
+      .eq('faq_id', faqId)
       .select()
       .single();
 
@@ -64,12 +62,11 @@ export class FaqService {
   }
 
   // Delete a specific FAQ of a brand
-  async delete(brandId: string, question: string) {
+  async delete(faqId: string) {
     const { error } = await this.supabaseClient
       .from('faq')
       .delete()
-      .eq('brand_id', brandId)
-      .eq('question', question);
+      .eq('faq_id', faqId);
 
     if (error) {
       throw new NotFoundException('FAQ not found or delete failed');

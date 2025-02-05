@@ -6,52 +6,49 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
   ParseUUIDPipe,
   ValidationPipe,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
+import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 
-@Controller('brands/:brandId/faqs')
+@Controller('faq')
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
-  // GET /brands/:brandId/faqs - Get all FAQs for a specific brand
-
-  @Get()
-  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
-    return this.faqService.findAll(brandId);
+  // GET faq/:brandId - Get all FAQs for a specific brand
+  @Get(':id')
+  findAll(@Param('id', ParseUUIDPipe) id: string) {
+    return this.faqService.findAll(id);
   }
 
   // POST /brands/:brandId/faqs - Add a new FAQ for a specific brand
-
-  @Post()
+  @UseGuards(MyAuthGuard)
+  @Post(':id')
   create(
-    @Param('brandId', ParseUUIDPipe) brandId: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) createFaqDto: CreateFaqDto,
   ) {
-    return this.faqService.create(brandId, createFaqDto);
+    return this.faqService.create(id, createFaqDto);
   }
 
   // PUT /brands/:brandId/faqs/:text - Update a specific FAQ of a brand
 
-  @Patch(':text')
+  @Patch(':faqId')
   update(
-    @Param('brandId', ParseUUIDPipe) brandId: string,
-    @Param('text') text: string,
+    @Param('faqId', ParseUUIDPipe) faqId: string,
     @Body(ValidationPipe) updateFaqDto: UpdateFaqDto,
   ) {
-    return this.faqService.update(brandId, text, updateFaqDto);
+    return this.faqService.update(faqId, updateFaqDto);
   }
 
   // DELETE /brands/:brandId/faqs/:text - Delete a specific FAQ of a brand
 
-  @Delete(':text')
-  delete(
-    @Param('brandId', ParseUUIDPipe) brandId: string,
-    @Param('text') text: string,
-  ) {
-    return this.faqService.delete(brandId, text);
+  @Delete(':faqId')
+  delete(@Param('faqId', ParseUUIDPipe) faqId: string) {
+    return this.faqService.delete(faqId);
   }
 }
