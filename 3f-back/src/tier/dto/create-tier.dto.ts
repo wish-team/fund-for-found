@@ -9,4 +9,7 @@ export class CreateTierDto {
 
   @IsInt()
   amount: number;
+
+  @IsString()
+  tier_image: string;
 }

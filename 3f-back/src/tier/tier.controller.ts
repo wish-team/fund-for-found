@@ -2,59 +2,53 @@ import {
   Controller,
   Get,
   Post,
-  Put,
-  Req,
   Delete,
   Param,
   Body,
   ParseUUIDPipe,
   ValidationPipe,
+  Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { TierService } from './tier.service';
 import { CreateTierDto } from './dto/create-tier.dto';
 import { UpdateTierDto } from './dto/update-tier.dto';
+import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 
-@Controller('tiers')
+@Controller('tier')
 export class TierController {
   constructor(private readonly tierService: TierService) {}
 
-  // GET /tiers - Get a list of all tiers
-  @Get()
-  findAll() {
-    return this.tierService.findAll();
+  // GET /tier/:brandId - Get all tiers for a specific brand
+  @Get(':id')
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.tierService.findAll(id);
   }
 
-  // GET /tiers/:tier_id - Get details of a specific tier
-  @Get(':tier_id')
-  findOne(@Param('tier_id', ParseUUIDPipe) tier_id: string) {
-    return this.tierService.findOne(tier_id);
-  }
-
-  // POST /tiers - Create a new tier
-
-  @Post()
+  // POST /tier/:brandId - Create a new tier
+  @UseGuards(MyAuthGuard)
+  @Post(':id')
   create(
-    @Req() request: any,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) createTierDto: CreateTierDto,
   ) {
-    const userId = request.user?.id;
-    return this.tierService.create({ ...createTierDto, brand_id: userId });
+    return this.tierService.create(id, createTierDto);
   }
 
-  // PUT /tiers/:tier_id - Update a specific tier
-
-  @Put(':tier_id')
+  // PUT /tier/:tierId - Update a specific tier
+  @UseGuards(MyAuthGuard)
+  @Patch(':tierId')
   update(
-    @Param('tier_id', ParseUUIDPipe) tier_id: string,
+    @Param('tierId', ParseUUIDPipe) tierId: string,
     @Body(ValidationPipe) updateTierDto: UpdateTierDto,
   ) {
-    return this.tierService.update(tier_id, updateTierDto);
+    return this.tierService.update(tierId, updateTierDto);
   }
 
-  // DELETE /tiers/:tier_id - Delete a specific tier
-
-  @Delete(':tier_id')
-  delete(@Param('tier_id', ParseUUIDPipe) tier_id: string) {
-    return this.tierService.delete(tier_id);
+  // DELETE /tier/:tierId - Delete a specific tier
+  @UseGuards(MyAuthGuard)
+  @Delete(':tierId')
+  delete(@Param('tierId', ParseUUIDPipe) tierId: string) {
+    return this.tierService.delete(tierId);
   }
 }

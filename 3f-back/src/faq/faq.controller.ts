@@ -19,13 +19,13 @@ import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
-  // GET faq/:brandId - Get all FAQs for a specific brand
+  // GET /faq/:brandId - Get all FAQs for a specific brand
   @Get(':id')
   findAll(@Param('id', ParseUUIDPipe) id: string) {
     return this.faqService.findAll(id);
   }
 
-  // POST /brands/:brandId/faqs - Add a new FAQ for a specific brand
+  // POST /faq/:brandId  - Add a new FAQ for a specific brand
   @UseGuards(MyAuthGuard)
   @Post(':id')
   create(
@@ -35,8 +35,7 @@ export class FaqController {
     return this.faqService.create(id, createFaqDto);
   }
 
-  // PUT /brands/:brandId/faqs/:text - Update a specific FAQ of a brand
-
+  // PUT /faq/:faqId - Update a specific FAQ of a brand
   @Patch(':faqId')
   update(
     @Param('faqId', ParseUUIDPipe) faqId: string,
@@ -45,8 +44,7 @@ export class FaqController {
     return this.faqService.update(faqId, updateFaqDto);
   }
 
-  // DELETE /brands/:brandId/faqs/:text - Delete a specific FAQ of a brand
-
+  // DELETE /faq/:faqId - Delete a specific FAQ of a brand
   @Delete(':faqId')
   delete(@Param('faqId', ParseUUIDPipe) faqId: string) {
     return this.faqService.delete(faqId);

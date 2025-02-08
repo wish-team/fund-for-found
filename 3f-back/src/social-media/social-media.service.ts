@@ -42,7 +42,6 @@ export class SocialMediaService {
 
   // PUT /social-media/:id - Update a specific social media link
   async update(smId: string, updateSocialMediaDto: UpdateSocialMediaDto) {
-    console.log(smId);
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .update([
