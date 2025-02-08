@@ -1,9 +1,9 @@
-import { IsUUID, IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsEmail } from 'class-validator';
 
 export class UpdateTeamDto {
-  @IsUUID()
+  @IsEmail()
   @IsOptional()
-  user_id?: string;
+  team_user_email: string;
 
   @IsString()
   @IsOptional()
@@ -12,4 +12,8 @@ export class UpdateTeamDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsOptional()
+  @IsString()
+  team_user_image?: string;
 }
