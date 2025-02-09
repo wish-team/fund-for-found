@@ -1,33 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CoinStrategy } from './strategy/coin-strategy.interface';
+import { tokenList, Token } from './token_list.config'; // Import the config
 
-interface Token {
-  name: string;
-  symbol: string;
-  supportedNetworks: string[];
-}
 
 @Injectable()
 export class CoinService {
   private readonly strategies: Map<string, CoinStrategy> = new Map();
-  private readonly tokens: Record<string, Token> = {
-    btc: {
-      name: 'bitcoin',
-      symbol: 'BTC',
-      supportedNetworks: ['mainnet', 'testnet'],
-    },
-    eth: {
-      name: 'ethereum',
-      symbol: 'ETH',
-      supportedNetworks: ['mainnet', 'ropsten', 'kovan'],
-    },
-    polygon: {
-      name: 'matic',
-      symbol: 'MATIC',
-      supportedNetworks: ['polygon', 'mumbai'],
-    },
-    // Add more tokens as needed
-  };
+  private readonly tokens: Record<string, Token> = tokenList;
+
   constructor() {
     // Strategies will be registered dynamically via registerStrategy
   }
@@ -77,5 +57,8 @@ export class CoinService {
       return { name, symbol };
     }
     return null;
+  }
+  getAllTokens(): Token[] {
+    return Object.values(this.tokens);
   }
 }

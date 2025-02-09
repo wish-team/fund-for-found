@@ -20,24 +20,30 @@ export class PaymentController {
   @Post('initiate/:brandId')
   async initiatePayment(
     @Param('brandId') brandId: number,
-    @Body('coin') coin: string, // Accept the coin type from the request body
+    @Body('token') token: string,
+    @Body('network') network: string,
+    // Accept the coin type from the request body
   ) {
     try {
-      if (!coin) {
+      if (!token) {
         throw new HttpException(
-          'Coin type is required.',
+          'Selecting a specific token is required.',
           HttpStatus.BAD_REQUEST,
         );
       }
 
+      if (!network) {
+        throw new HttpException('Network is required', HttpStatus.BAD_REQUEST);
+      }
       // Generate a unique index
-      const uniqueIndex = Math.floor(Math.random() * 1000000);
+      // const uniqueIndex = Math.floor(Math.random() * 1000000);
 
       // Call the payment service with the coin type
       const result = await this.paymentService.initiatePayment(
+        network,
         brandId,
-        uniqueIndex,
-        coin,
+        0,
+        token,
       );
 
       return { success: true, ...result };

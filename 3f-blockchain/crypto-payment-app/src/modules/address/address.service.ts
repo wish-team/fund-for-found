@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { CoinService } from '../coin/coin.service'; // Inject CoinService
+import { CoinService } from '../coin/coin.service';
 import { ethers, HDNodeWallet, Wallet } from 'ethers';
 
 interface DerivedCredentials {
@@ -11,9 +11,9 @@ interface DerivedCredentials {
 export class AddressService {
   constructor(
     @Inject('ETH_PROVIDER') private readonly provider: ethers.JsonRpcProvider,
-    private coinService: CoinService, // Inject CoinService
+    private coinService: CoinService,
   ) {
-    const rpcUrl = process.env.BLOCKCHAIN_RPC_URL; // Infura/Alchemy RPC URL
+    const rpcUrl = process.env.BLOCKCHAIN_RPC_URL;
 
     if (!rpcUrl) {
       throw new Error('Ethereum RPC URL not found in environment variables.');
@@ -27,14 +27,13 @@ export class AddressService {
     coin: string,
     network: string,
   ): ethers.JsonRpcProvider {
-    const coinStrategy = this.coinService.getStrategy(coin); // Get the strategy for the coin
+    const coinStrategy = this.coinService.getStrategy(coin);
     const supportedNetworks = coinStrategy.getNetwork();
 
     if (!supportedNetworks.includes(network)) {
       throw new Error(`Network ${network} is not supported for ${coin}.`);
     }
 
-    // Dynamically fetch the network-specific URL (e.g., `RPC_URL_POLYGON`)
     const rpcUrl = process.env[`RPC_URL_${network.toUpperCase()}`];
     if (!rpcUrl) {
       throw new Error(`${network} RPC URL not found in environment variables.`);
@@ -45,7 +44,7 @@ export class AddressService {
 
   async getMasterWalletBalance(address: string, coin: string): Promise<string> {
     try {
-      const coinStrategy = this.coinService.getStrategy(coin); // Get the coin strategy
+      const coinStrategy = this.coinService.getStrategy(coin);
       const balance = await coinStrategy.getBalance(address);
       console.log(`Balance for ${coin} address ${address}: ${balance}`);
       return balance;
@@ -60,7 +59,7 @@ export class AddressService {
     index: number,
   ): Promise<DerivedCredentials> {
     try {
-      const coinStrategy = this.coinService.getStrategy(coin); // Get the coin strategy
+      const coinStrategy = this.coinService.getStrategy(coin);
       const { derivedAddress, derivedPrivateKey } =
         coinStrategy.generateAddress(process.env.MASTER_MNEMONIC, index);
       console.log(
@@ -72,77 +71,63 @@ export class AddressService {
       throw new Error(`Failed to generate address for ${coin}.`);
     }
   }
+
   async monitorAndTransferFunds(
     receivedTransactionHash: string,
     derivedPrivateKey: string,
     commissionWallet: ethers.Wallet,
   ): Promise<string> {
-    // Fetch transaction details from blockchain
-    const tx = await this.provider.getTransaction(receivedTransactionHash);
-    if (!tx || !tx.to) {
-      throw new Error('Transaction not found or invalid');
-    }
-    // Get the transaction receipt
-    const txReceipt = await this.provider.getTransactionReceipt(
-      receivedTransactionHash,
-    );
-    if (!txReceipt) {
-      throw new Error('Transaction receipt not found');
-    }
-
-    // Get the current block number and calculate confirmations
-    const currentBlockNumber = await this.provider.getBlockNumber();
-    const confirmations = currentBlockNumber - txReceipt.blockNumber + 1; // Adding 1 for the initial confirmation
-    if (confirmations < 1) {
-      throw new Error('Transaction not confirmed yet');
-    }
-
-    const receivedAmount = parseFloat(ethers.formatEther(tx.value));
-    if (receivedAmount <= 0) {
-      throw new Error('Transaction amount is zero or invalid');
-    }
-
-    let derivedWallet: ethers.Wallet;
-    let commissionWallet2: ethers.Wallet;
-    // Transfer funds to main wallet
     try {
-      derivedWallet = new ethers.Wallet(derivedPrivateKey, this.provider);
-      commissionWallet2 = new ethers.Wallet(
-        commissionWallet.privateKey,
-        this.provider,
-      );
-      console.log('derived wallet:', derivedWallet.address);
-
-      const balance = await this.provider.getBalance(derivedWallet.address);
-      const balance2 = await this.provider.getBalance(
-        commissionWallet2.address,
-      );
-      console.log('balance: ', balance);
-      console.log('balance 2: ', balance2);
-      const feeData = await this.provider.getFeeData();
-      const gasPrice = feeData.gasPrice;
-
-      if (!gasPrice) {
-        throw new Error('Gas price not available');
+      // Get transaction details
+      const tx = await this.provider.getTransaction(receivedTransactionHash);
+      if (!tx || !tx.to) {
+        throw new Error('Transaction not found or invalid');
       }
-      const gasLimit = 21000n; // Standard for ETH transfers
+
+      // Create derived wallet instance
+      const derivedWallet = new ethers.Wallet(derivedPrivateKey, this.provider);
+      console.log('Derived wallet:', derivedWallet.address);
+
+      // Get current balance
+      const balance = await this.provider.getBalance(derivedWallet.address);
+      console.log('Current balance:', ethers.formatEther(balance), 'ETH');
+
+      // Use much lower gas settings
+      const gasLimit = 21000n; // Standard ETH transfer
+      const gasPrice = ethers.parseUnits('1.5', 'gwei'); // Much lower gas price
       const gasCost = gasLimit * gasPrice;
-      if (balance < gasCost) {
+
+      console.log('Estimated gas cost:', ethers.formatEther(gasCost), 'ETH');
+
+      if (balance <= gasCost) {
         throw new Error(
-          `Insufficient funds. Balance: ${ethers.formatEther(balance)} ETH, Gas needed: ${ethers.formatEther(gasCost)} ETH`,
+          `Insufficient funds. Balance: ${ethers.formatEther(balance)} ETH, ` +
+          `Gas needed: ${ethers.formatEther(gasCost)} ETH`
         );
       }
-      const valueToSend = balance - gasCost;
 
+      // Calculate amount to send (total balance minus gas cost)
+      const valueToSend = balance - gasCost;
+      console.log('Amount to send:', ethers.formatEther(valueToSend), 'ETH');
+
+      // Send transaction with minimal gas settings
       const mainWalletTransaction = await derivedWallet.sendTransaction({
         to: commissionWallet.address,
         value: valueToSend,
-        gasLimit: 21000n, // 👈 Match calculated gas limit
-        gasPrice: gasPrice, // 👈 Match calculated gas price
+        gasLimit,
+        maxFeePerGas: gasPrice,
+        maxPriorityFeePerGas: ethers.parseUnits('1', 'gwei'), // Minimal priority fee
+        type: 2, // EIP-1559 transaction
       });
-      console.log('Transferred to main wallet:', mainWalletTransaction.hash);
+
+      console.log('Transfer initiated:', mainWalletTransaction.hash);
+
+      // Wait for confirmation
+      await mainWalletTransaction.wait(1);
+
       return mainWalletTransaction.hash;
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Transfer error:', error);
       throw new Error('Failed to transfer funds: ' + error.message);
     }
   }

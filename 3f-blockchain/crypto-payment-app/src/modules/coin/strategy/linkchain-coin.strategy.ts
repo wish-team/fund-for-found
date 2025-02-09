@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 
 export class LinkChainStrategy implements CoinStrategy {
   private web3: Web3;
-  private supportedNetworks: string[] = ['mainnet', 'rinkeby', 'kovan'];
+  private supportedNetworks: string[] = ['bsc', 'erc20', 'sepolia'];
   provider: ethers.JsonRpcProvider;
 
   constructor(rpcUrl: string) {

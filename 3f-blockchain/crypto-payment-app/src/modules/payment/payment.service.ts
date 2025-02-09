@@ -8,49 +8,79 @@ export class PaymentService {
   private commissionPercentage = 10; // 10% commission
   private provider: ethers.JsonRpcProvider;
   private commissionWallet: ethers.Wallet;
-  private brandWallet;
+  private brandWallet: string;
 
   constructor(
     private addressService: AddressService,
     private supabaseService: SupabaseService,
   ) {
+    if (!process.env.BLOCKCHAIN_RPC_URL) {
+      throw new Error('BLOCKCHAIN_RPC_URL is not defined');
+    }
+    if (!process.env.COMMISSION_PRIVATE_KEY) {
+      throw new Error('COMMISSION_PRIVATE_KEY is not defined');
+    }
+    if (!process.env.BRAND_WALLET_ADDRESS) {
+      throw new Error('BRAND_WALLET_ADDRESS is not defined');
+    }
+
     this.provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_RPC_URL);
     this.brandWallet = process.env.BRAND_WALLET_ADDRESS;
-
-    const commissionPrivateKey = process.env.COMMISSION_PRIVATE_KEY;
-    if (!commissionPrivateKey || typeof commissionPrivateKey !== 'string') {
-      throw new Error('COMMISSION_PRIVATE_KEY is not defined or invalid');
-    }
     this.commissionWallet = new ethers.Wallet(
-      commissionPrivateKey,
+      process.env.COMMISSION_PRIVATE_KEY,
       this.provider,
     );
-    console.log(
-      'Commission Wallet Initialized:',
-      this.commissionWallet.address,
-    );
+    console.log('Brand Wallet Address:', this.brandWallet);
   }
 
   async initiatePayment(
+    network: string,
     brandId: number,
     uniqueIndex: number,
-    coin: string, // Accept coin type from the user
+    token: string,
   ) {
     const supabase = this.supabaseService.getClient();
 
-    // Generate unique address
-    const { derivedAddress, derivedPrivateKey } =
-      await this.addressService.generateDerivedAddress(coin, uniqueIndex);
+    const { data: existingRecords, error: selectError } = await supabase
+      .from('transactions')
+      .select('id, generated_address, generated_private_key')
+      .eq('brand_id', brandId)
+      .eq('coin_type', token)
+      .eq('network', network)
+      .eq('unique_index', uniqueIndex)
+      .limit(1)
+      .maybeSingle();
 
-    // Save transaction in Supabase
-    const { data, error } = await supabase.from('transactions').insert({
-      unique_index: uniqueIndex,
-      brand_id: brandId,
-      generated_address: derivedAddress,
-      generated_private_key: derivedPrivateKey,
-      coin_type: coin, // Store the coin type
-      network: 'sepolia',
-    });
+    if (selectError) {
+      throw new HttpException(
+        'Database error: ' + selectError.message,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    if (existingRecords) {
+      return {
+        success: true,
+        derivedAddress: existingRecords.generated_address,
+        message: 'Payment initiation successful (existing address)',
+      };
+    }
+
+    const { derivedAddress, derivedPrivateKey } =
+      await this.addressService.generateDerivedAddress(token, uniqueIndex);
+
+    const { error } = await supabase
+      .from('transactions')
+      .insert({
+        unique_index: uniqueIndex,
+        brand_id: brandId,
+        generated_address: derivedAddress,
+        generated_private_key: derivedPrivateKey,
+        coin_type: token,
+        network: network,
+        status: 'pending',
+      })
+      .single();
 
     if (error) {
       throw new HttpException(
@@ -67,11 +97,7 @@ export class PaymentService {
   }
 
   async processPayment(receivedTransactionHash: string) {
-    const supabase = this.supabaseService.getClient();
-
-    // Fetch transaction details from blockchain
     const tx = await this.provider.getTransaction(receivedTransactionHash);
-    console.log('Transaction:', tx);
     if (!tx || !tx.to) {
       throw new HttpException(
         'Transaction not found or invalid',
@@ -79,7 +105,6 @@ export class PaymentService {
       );
     }
 
-    // Get the transaction receipt
     const txReceipt = await this.provider.getTransactionReceipt(
       receivedTransactionHash,
     );
@@ -90,21 +115,17 @@ export class PaymentService {
       );
     }
 
-    // Get the current block number and calculate confirmations
-    const currentBlockNumber = await this.provider.getBlockNumber();
-    const confirmations = currentBlockNumber - txReceipt.blockNumber + 1; // Adding 1 for the initial confirmation
+    const receivedAmount = parseFloat(ethers.formatEther(tx.value));
+    console.log('receivedAmount', receivedAmount);
 
-    if (confirmations < 1) {
-      throw new HttpException(
-        'Transaction not confirmed yet',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    const commissionAmount = (receivedAmount * this.commissionPercentage) / 100;
+    const brandAmount = receivedAmount - commissionAmount;
+    console.log('Brand Amount:', brandAmount);
 
-    // Retrieve the matching transaction from Supabase and join with the brands table
+    const supabase = this.supabaseService.getClient();
     const { data: transaction, error } = await supabase
       .from('transactions')
-      .select('*, brands(brand_wallet_address), generated_private_key') // Ensure generated_private_key is selected
+      .select('*, brands(brand_wallet_address)')
       .eq('generated_address', tx.to)
       .single();
 
@@ -115,104 +136,58 @@ export class PaymentService {
       );
     }
 
-    // Ensure we are retrieving the brand wallet address correctly
-    const brandWalletAddress = transaction.brands?.brand_wallet_address;
-    console.log('Brand Wallet Address:', brandWalletAddress);
     if (transaction.status === 'processed') {
       throw new HttpException(
         'Transaction already processed',
         HttpStatus.BAD_REQUEST,
       );
     }
-    if (!brandWalletAddress || !ethers.isAddress(brandWalletAddress)) {
-      throw new HttpException(
-        'Invalid brand wallet address',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
 
-    const receivedAmount = parseFloat(ethers.formatEther(tx.value));
-    console.log('receivedAmount', receivedAmount);
-    if (receivedAmount <= 0) {
-      throw new HttpException(
-        'Transaction amount is zero or invalid',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    // Calculate commission and brand amount
-    const commissionAmount = (receivedAmount * this.commissionPercentage) / 100;
-    const brandAmount = receivedAmount - commissionAmount;
-    console.log('Brand Amount:', brandAmount);
-    console.log('Brand Wallet Address:', brandWalletAddress);
-
-    // Ensure the brandAmount has correct precision (18 decimals)
-    const brandAmountFormatted = ethers.parseUnits(brandAmount.toFixed(18), 18);
-
-    const mnemonic = process.env.MASTER_MNEMONIC;
-
-    if (!mnemonic || typeof mnemonic !== 'string') {
-      throw new Error('Invalid mnemonic');
-    }
-
-    // Create wallet from mnemonic (without HDNodeWallet)
-    const wallet = ethers.Wallet.fromPhrase(mnemonic).connect(this.provider);
-
-    // Retrieve derivedPrivateKey from the transaction record
-    const derivedPrivateKey = transaction.generated_private_key;
-    if (!derivedPrivateKey) {
-      throw new HttpException(
-        'Derived private key not found in transaction',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-
-    // Use the AddressService to monitor the derived address and transfer funds to the main wallet
-    const transferTransactionHash =
-      await this.addressService.monitorAndTransferFunds(
+    // Transfer to commission wallet with optimized gas
+    let transferTxHash;
+    try {
+      transferTxHash = await this.addressService.monitorAndTransferFunds(
         receivedTransactionHash,
-        derivedPrivateKey,
+        transaction.generated_private_key,
         this.commissionWallet,
       );
 
-    // Send remaining funds to the brand
-    let brandTransaction;
-    let derivedWallet: ethers.Wallet;
-
-    try {
-      const commissionBalance = await this.provider.getBalance(
-        this.commissionWallet.address,
-      );
-      // const masterBalance = await this.provider.getBalance(
-      //   this.masterWallet.address,
-      // );
-      // 2. Calculate gas cost
-      const feeData = await this.provider.getFeeData();
-      const gasPrice = feeData.gasPrice;
-      if (!gasPrice) throw new Error('Gas price unavailable');
-
-      const gasLimit = 21000n; // Standard ETH transfer
-      const gasCost = gasLimit * gasPrice;
-      if (commissionBalance < gasCost + brandAmountFormatted) {
-        throw new Error(
-          `Master wallet balance too low. Balance: ${ethers.formatEther(commissionBalance)} ETH, Needed: ${ethers.formatEther(gasCost + brandAmountFormatted)} ETH`,
-        );
-      }
-
-      derivedWallet = new ethers.Wallet(derivedPrivateKey, this.provider);
-
-      brandTransaction = await derivedWallet.sendTransaction({
-        to: this.brandWallet,
-        value: brandAmountFormatted, // Use the properly formatted amount
-      });
+      // Wait for the transfer to be confirmed
+      await this.provider.waitForTransaction(transferTxHash, 1);
     } catch (error: any) {
       throw new HttpException(
-        `Error sending funds to brand: ${error.message}`,
+        `Failed to transfer to commission wallet: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
-    // Update Supabase with processed details
+    // Transfer to brand wallet with optimized gas
+    let brandTxHash;
+    try {
+      const brandAmountWei = ethers.parseEther(brandAmount.toString());
+      const feeData = await this.provider.getFeeData();
+      const gasPrice = feeData.gasPrice ?? 
+        (feeData.maxFeePerGas ? feeData.maxFeePerGas / 2n : 
+        ethers.parseUnits('20', 'gwei'));
+
+      const brandTx = await this.commissionWallet.sendTransaction({
+        to: this.brandWallet,
+        value: brandAmountWei,
+        gasLimit: 21000n,
+        maxFeePerGas: gasPrice,
+        type: 2,
+      });
+
+      brandTxHash = brandTx.hash;
+      await brandTx.wait(1);
+    } catch (error: any) {
+      throw new HttpException(
+        `Failed to transfer to brand wallet: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    // Update transaction status
     const { error: updateError } = await supabase
       .from('transactions')
       .update({
@@ -220,7 +195,7 @@ export class PaymentService {
         received_amount: receivedAmount,
         commission_amount: commissionAmount,
         brand_amount: brandAmount,
-        outgoing_transaction_hash: brandTransaction.hash,
+        outgoing_transaction_hash: brandTxHash,
         status: 'processed',
       })
       .eq('id', transaction.id);
@@ -236,10 +211,10 @@ export class PaymentService {
       success: true,
       message: 'Payment processed successfully',
       receivedTransactionHash,
-      brandTransactionHash: brandTransaction.hash,
+      transferTransactionHash: transferTxHash,
+      brandTransactionHash: brandTxHash,
       commissionAmount,
       brandAmount,
-      transferTransactionHash,
     };
   }
 }

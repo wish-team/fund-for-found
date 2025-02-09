@@ -1,74 +1,65 @@
 import { Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
-import { CoinService } from '../coin/coin.service'; // Assuming you have a coin service for various coin types
-// import { BitcoinStrategy } from '../coin/strategy/bitcoin-coin.strategy'; // Assuming a Bitcoin service for BTC
+import { CoinService } from '../coin/coin.service';
 
 @Injectable()
 export class BalanceService {
+  private provider: ethers.JsonRpcProvider;
+
   constructor(
     private readonly coinService: CoinService,
-    // private readonly BitcoinStrategy: BitcoinStrategy, // Inject Bitcoin service for BTC balance
-  ) {}
+  ) {
+    if (!process.env.BLOCKCHAIN_RPC_URL) {
+      throw new Error('BLOCKCHAIN_RPC_URL is not defined');
+    }
+    this.provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_RPC_URL);
+  }
 
-  /**
-   * Get the master wallet balance for the specific coin.
-   * @param coin The coin type (e.g., 'eth', 'btc')
-   * @param address The address to check
-   * @returns The balance as a string
-   */
   async getMasterWalletBalance(coin: string, address: string): Promise<string> {
-    switch (coin.toLowerCase()) {
-      case 'eth':
-        return this.getEthereumBalance(address);
-      case 'btc':
-        return this.getBitcoinBalance(address);
-      default:
-        throw new Error(`Unsupported coin type: ${coin}`);
+    try {
+      switch (coin.toLowerCase()) {
+        case 'eth':
+          const balance = await this.provider.getBalance(address);
+          return ethers.formatEther(balance);
+        case 'btc':
+          const btcStrategy = this.coinService.getStrategy('btc');
+          return btcStrategy.getBalance(address);
+        default:
+          throw new Error(`Unsupported coin type: ${coin}`);
+      }
+    } catch (error) {
+      console.error('Error fetching master wallet balance:', error);
+      throw new Error('Failed to fetch master wallet balance');
     }
   }
 
-  /**
-   * Get the platform balance for a specific coin type.
-   * @param coin The coin type (e.g., 'eth', 'btc')
-   * @returns Incoming and outgoing balances as a string
-   */
-  async getPlatformBalance(
-    coin: string,
-  ): Promise<{ incoming: string; outgoing: string }> {
-    switch (coin.toLowerCase()) {
-      case 'eth':
-        return this.getEthereumPlatformBalance();
-      case 'btc':
-        return this.getBitcoinPlatformBalance();
-      default:
-        throw new Error(`Unsupported coin type: ${coin}`);
+  async getWalletBalance(address: string): Promise<string> {
+    try {
+      const balance = await this.provider.getBalance(address);
+      return ethers.formatEther(balance);
+    } catch (error) {
+      console.error('Error fetching wallet balance:', error);
+      throw new Error('Failed to fetch wallet balance');
     }
   }
 
-  private async getEthereumBalance(address: string): Promise<string> {
-    const provider = new ethers.JsonRpcProvider(process.env.ETHEREUM_RPC_URL);
-    const balance = await provider.getBalance(address);
-    return ethers.formatEther(balance);
+  async estimateGasCost(from: string, to: string, value: bigint): Promise<bigint> {
+    try {
+      const feeData = await this.provider.getFeeData();
+      const gasPrice = feeData.gasPrice ?? 
+        (feeData.maxFeePerGas ? feeData.maxFeePerGas / 2n : 
+        ethers.parseUnits('20', 'gwei'));
+      
+      const gasLimit = 21000n; // Standard ETH transfer
+      return gasLimit * gasPrice;
+    } catch (error) {
+      console.error('Error estimating gas cost:', error);
+      throw new Error('Failed to estimate gas cost');
+    }
   }
 
-  private async getBitcoinBalance(address: string): Promise<string> {
-    const btcStrategy = this.coinService.getStrategy('btc');
-    return btcStrategy.getBalance(address);
-  }
-
-  private async getEthereumPlatformBalance(): Promise<{
-    incoming: string;
-    outgoing: string;
-  }> {
-    // For simplicity, we will just return mock data. Implement this logic as needed.
-    return { incoming: '100', outgoing: '50' }; // Example
-  }
-
-  private async getBitcoinPlatformBalance(): Promise<{
-    incoming: string;
-    outgoing: string;
-  }> {
-    // Similar to Ethereum, you can implement logic to fetch BTC platform balance
-    return { incoming: '5', outgoing: '2' }; // Example
+  async getPlatformBalance(coin: string): Promise<{ incoming: string; outgoing: string }> {
+    // This is a placeholder. Implement actual platform balance tracking as needed
+    return { incoming: '0', outgoing: '0' };
   }
 }

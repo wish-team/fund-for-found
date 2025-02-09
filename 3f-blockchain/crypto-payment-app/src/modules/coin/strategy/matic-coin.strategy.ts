@@ -10,10 +10,10 @@ interface DerivedCredentials {
   derivedPrivateKey: string;
 }
 
-export class PolygonStrategy implements CoinStrategy {
+export class MaticStrategy implements CoinStrategy {
   private provider: ethers.JsonRpcProvider;
   // If you want multiple networks (mainnet vs mumbai), add them here:
-  private supportedNetworks: string[] = ['polygon', 'mumbai'];
+  private supportedNetworks: string[] = ['polygon', 'mumbai', 'sepolia'];
 
   constructor(provider: ethers.JsonRpcProvider) {
     this.provider = provider;

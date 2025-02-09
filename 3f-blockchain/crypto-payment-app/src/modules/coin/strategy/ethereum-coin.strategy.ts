@@ -11,14 +11,7 @@ interface DerivedCredentials {
 
 export class EthereumStrategy implements CoinStrategy {
   private provider: ethers.JsonRpcProvider;
-  private supportedNetworks: string[] = [
-    'mainnet',
-    'ropsten',
-    'rinkeby',
-    'kovan',
-    'goerli',
-    'sepolia',
-  ];
+  private supportedNetworks: string[] = ['bsc', 'sepolia'];
 
   constructor(provider: ethers.JsonRpcProvider) {
     this.provider = provider;
@@ -66,7 +59,7 @@ export class EthereumStrategy implements CoinStrategy {
       rinkeby: 'https://api-rinkeby.etherscan.io',
       kovan: 'https://api-kovan.etherscan.io',
       goerli: 'https://api-goerli.etherscan.io',
-      sepolia: 'sepolia.etherscan.io',
+      sepolia: 'https://sepolia.etherscan.io',
     };
 
     const baseUrl = networkMap[network.toLowerCase()];
