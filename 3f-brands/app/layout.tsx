@@ -32,7 +32,7 @@ export default function RootLayout({
             <NavigationBar />
           </Suspense>
 
-          <main className="flex flex-col items-center min-h-screen">
+          <main className="flex flex-col items-center md:min-h-screen">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl">
               <Suspense fallback={<Loader />}>{children}</Suspense>
             </div>

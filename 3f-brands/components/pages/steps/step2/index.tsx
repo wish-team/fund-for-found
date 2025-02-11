@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useStep2Form } from "./hooks/useStep2Form";
 import { SocialInputField } from "./components/SocialInputField";
@@ -10,55 +10,58 @@ const Step2: React.FC = () => {
   const { t } = useTranslation();
   const { formData, updateSocialLinks, submitForm } = useStep2Form();
 
-  const handleSocialInputAdd = () => {
+  const handleSocialInputAdd = useCallback(() => {
     const newId = Date.now();
     updateSocialLinks([
       ...formData.socialLinks,
       { id: newId, platform: "instagram", url: "http://instagram.com/" },
     ]);
-  };
+  }, [formData.socialLinks, updateSocialLinks]);
 
-  const handleSocialInputRemove = (id: number) => {
-    updateSocialLinks(formData.socialLinks.filter((link) => link.id !== id));
-  };
+  const handleSocialInputRemove = useCallback(
+    (id: number) => {
+      updateSocialLinks(formData.socialLinks.filter((link) => link.id !== id));
+    },
+    [formData.socialLinks, updateSocialLinks]
+  );
 
-  const handleSocialInputChange = (
-    id: number,
-    platform: string,
-    url: string
-  ) => {
-    updateSocialLinks(
-      formData.socialLinks.map((link) =>
-        link.id === id ? { ...link, platform, url } : link
-      )
-    );
-  };
+  const handleSocialInputChange = useCallback(
+    (id: number, platform: string, url: string) => {
+      updateSocialLinks(
+        formData.socialLinks.map((link) =>
+          link.id === id ? { ...link, platform, url } : link
+        )
+      );
+    },
+    [formData.socialLinks, updateSocialLinks]
+  );
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     try {
       await submitForm();
-      // Handle successful submission
+      // Add toast or notification for success
     } catch (error) {
-      // Handle error
+      // Add toast or notification for error
+      console.error("Form submission failed:", error);
     }
-  };
+  }, [submitForm]);
 
   return (
     <section className="py-8 text-start max-w-[1024px]">
-      <Title title={t('translation:step2.title')} />
+      <Title title={t("translation:step2.title")} />
       <h3 className="text-gray3 py-2 font-bold">
-        {t('translation:step2.mission.title')}
+        {t("translation:step2.mission.title")}
       </h3>
       <p className="text-light1 font-light">
-        {t('translation:step2.mission.description')}
+        {t("translation:step2.mission.description")}
       </p>
       <AboutPage />
 
       <h3 className="text-gray3 pb-2 pt-8 font-bold">
-        {t('translation:step2.social.title')}
+        {t("translation:step2.social.title")}
       </h3>
       <p className="text-light1 font-light pb-4">
-        {t('translation:step2.social.description')}
+        {t("translation:step2.social.description")}
       </p>
 
       {formData.socialLinks.map((link) => (
@@ -76,7 +79,7 @@ const Step2: React.FC = () => {
           variant="bordered"
           className="bg-light4 font-light rounded-lg border border-light2 md:w-[250px] w-full"
         >
-          {t('translation:step2.buttons.addSocial')}
+          {t("translation:step2.buttons.addSocial")}
         </Button>
 
         <Button
@@ -85,7 +88,7 @@ const Step2: React.FC = () => {
           variant="solid"
           className="font-light my-4 px-12 bg-primary mb-1 text-white rounded-lg border border-light2 md:w-[250px] w-full"
         >
-          {t('translation:step2.buttons.continue')}
+          {t("translation:step2.buttons.continue")}
         </Button>
       </section>
     </section>
