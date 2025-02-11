@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter} from "next/navigation";
 
 import {
   Dropdown,
@@ -77,7 +77,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
               <DropdownMenu
                 aria-label={t('translation:avatar.menuLabel')}
                 variant="flat"
-                className="bg-white shadow rounded w-[300px] p-4"
+                className=" w-[300px] p-4"
               >
                 <DropdownItem
                   key="email"
