@@ -20,23 +20,23 @@ import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 export class SocialMediaController {
   constructor(private readonly socialMediaService: SocialMediaService) {}
 
-  // GET /social-media/:id - Get all social media link by brand_id
-  @Get(':id')
-  findAll(@Param('id', ParseUUIDPipe) id: string) {
-    return this.socialMediaService.findAll(id);
+  // GET /social-media/:brandId - Get all social media link by brand_id
+  @Get(':brandId')
+  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.socialMediaService.findAll(brandId);
   }
 
   // POST /social-media - Create a new social media link
   @UseGuards(MyAuthGuard)
-  @Post(':id')
+  @Post(':brandId')
   create(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createSocialMediaDto: CreateSocialMediaDto,
   ) {
-    return this.socialMediaService.create(id, createSocialMediaDto);
+    return this.socialMediaService.create(brandId, createSocialMediaDto);
   }
 
-  // PUT /social-media/:id - Update a specific social media link
+  // PUT /social-media/:brandId - Update a specific social media link
   @UseGuards(MyAuthGuard)
   @Patch(':smId')
   update(
@@ -46,7 +46,7 @@ export class SocialMediaController {
     return this.socialMediaService.update(smId, updateSocialMediaDto);
   }
 
-  // DELETE /social-media/:id - Delete a specific social media link
+  // DELETE /social-media/:brandId - Delete a specific social media link
   @UseGuards(MyAuthGuard)
   @Delete(':smId')
   delete(@Param('smId', ParseUUIDPipe) smId: string) {

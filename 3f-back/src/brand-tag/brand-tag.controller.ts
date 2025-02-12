@@ -15,26 +15,33 @@ import { UpdateBrandTagDto } from './dto/update-brand-tag.dto';
 export class BrandTagController {
   constructor(private readonly brandTagService: BrandTagService) {}
 
-  @Post()
-  async create(@Body() createBrandTagDto: CreateBrandTagDto) {
-    return this.brandTagService.createBrandTag(createBrandTagDto);
+  // GET /brand-tags/:brandId
+  @Get(':brandId')
+  async getTags(@Param('brandId') brandId: string) {
+    return this.brandTagService.getTagsByBrand(brandId);
   }
 
-  @Get(':brand_id')
-  async getTags(@Param('brand_id') brand_id: string) {
-    return this.brandTagService.getTagsByBrand(brand_id);
+  // POST /brand-tags/:brandId
+  @Post(':brandId')
+  async create(
+    @Param('brandId') brandId: string,
+    @Body() createBrandTagDto: CreateBrandTagDto,
+  ) {
+    return this.brandTagService.createBrandTag(brandId, createBrandTagDto);
   }
 
-  @Patch(':id')
+  // PATCH /brand-tags/:tagId
+  @Patch(':tagId')
   async update(
-    @Param('id') id: string,
+    @Param('tagId') tagId: string,
     @Body() updateBrandTagDto: UpdateBrandTagDto,
   ) {
-    return this.brandTagService.updateBrandTag(id, updateBrandTagDto);
+    return this.brandTagService.updateBrandTag(tagId, updateBrandTagDto);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: string) {
-    return this.brandTagService.deleteBrandTag(id);
+  // DELETE /brand-tags/:tagId
+  @Delete(':tagId')
+  async delete(@Param('tagId') tagId: string) {
+    return this.brandTagService.deleteBrandTag(tagId);
   }
 }

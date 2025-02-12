@@ -8,11 +8,11 @@ export class TierService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
   // GET /tier/:brandId - Get all tiers for a specific brand
-  async findAll(id: string) {
+  async findAll(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('tier')
       .select('*')
-      .eq('brand_id', id);
+      .eq('brand_id', brandId);
     if (error || !data) {
       throw new NotFoundException('Tier not found');
     }

@@ -7,12 +7,12 @@ import { UpdateSocialMediaDto } from './dto/update-social-media.dto';
 export class SocialMediaService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // GET /social-media/:id - Get a specific social media link by ID
-  async findAll(id: string) {
+  // GET /social-media/:brandId - Get a specific social media link by ID
+  async findAll(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .select('*')
-      .eq('brand_id', id);
+      .eq('brand_id', brandId);
 
     if (error || !data) {
       throw new NotFoundException('Social media not found');
@@ -21,13 +21,13 @@ export class SocialMediaService {
     return data;
   }
 
-  // POST /social-media/:id - Create a new social media link
-  async create(id: string, createSocialMediaDto: CreateSocialMediaDto) {
+  // POST /social-media/:brandId - Create a new social media link
+  async create(brandId: string, createSocialMediaDto: CreateSocialMediaDto) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .insert([
         {
-          brand_id: id,
+          brand_id: brandId,
           name: createSocialMediaDto.name.toLowerCase(),
           link: createSocialMediaDto.link.toLowerCase(),
         },
@@ -40,7 +40,7 @@ export class SocialMediaService {
     return data ?? { message: 'Social media created successfully' };
   }
 
-  // PUT /social-media/:id - Update a specific social media link
+  // PUT /social-media/:brandId - Update a specific social media link
   async update(smId: string, updateSocialMediaDto: UpdateSocialMediaDto) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
@@ -58,7 +58,7 @@ export class SocialMediaService {
     return data ?? { message: 'Social media updated successfully' };
   }
 
-  // DELETE /social-media/:id - Delete a specific social media link
+  // DELETE /social-media/:brandId - Delete a specific social media link
   async delete(smId: string) {
     const { data, error } = await this.supabaseClient
       .from('social_media')

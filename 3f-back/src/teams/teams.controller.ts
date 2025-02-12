@@ -19,20 +19,20 @@ import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 export class TeamsController {
   constructor(private readonly teamService: TeamsService) {}
 
-  // GET /team/:id - Get all team members for a specific brand
-  @Get(':id')
-  findAll(@Param('id', ParseUUIDPipe) id: string) {
-    return this.teamService.findAllByBrandId(id);
+  // GET /team/:brandId - Get all team members for a specific brand
+  @Get(':brandId')
+  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.teamService.findAllByBrandId(brandId);
   }
 
   // POST /brands/:brandId/teams - Add a new team member to a brand
   @UseGuards(MyAuthGuard)
-  @Post(':id')
+  @Post(':brandId')
   create(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createTeamDto: CreateTeamDto,
   ) {
-    return this.teamService.create(id, createTeamDto);
+    return this.teamService.create(brandId, createTeamDto);
   }
 
   // PATCH /team/:teamId - Update the role of a specific team member for a brand

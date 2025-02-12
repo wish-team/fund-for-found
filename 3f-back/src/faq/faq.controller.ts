@@ -20,19 +20,19 @@ export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
   // GET /faq/:brandId - Get all FAQs for a specific brand
-  @Get(':id')
-  findAll(@Param('id', ParseUUIDPipe) id: string) {
-    return this.faqService.findAll(id);
+  @Get(':brandId')
+  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.faqService.findAll(brandId);
   }
 
   // POST /faq/:brandId  - Add a new FAQ for a specific brand
   @UseGuards(MyAuthGuard)
-  @Post(':id')
+  @Post(':brandId')
   create(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createFaqDto: CreateFaqDto,
   ) {
-    return this.faqService.create(id, createFaqDto);
+    return this.faqService.create(brandId, createFaqDto);
   }
 
   // PUT /faq/:faqId - Update a specific FAQ of a brand

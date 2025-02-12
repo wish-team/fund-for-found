@@ -22,12 +22,12 @@ export class BrandService {
     return data;
   }
 
-  // GET /brand/:id - Get details of a specific brand
-  async findOne(id: string) {
+  // GET /brand/:brandId - Get details of a specific brand
+  async findOne(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('brand_details_view')
       .select('*')
-      .eq('brand_id', id)
+      .eq('brand_id', brandId)
       .single();
 
     if (error) {
@@ -37,9 +37,7 @@ export class BrandService {
     return data;
   }
 
-  async initiateCreating(
-    createBrandDto: CreateBrandDto & { owner_id: string },
-  ) {
+  async initiateCreating(owner_id: string, createBrandDto: CreateBrandDto) {
     // Step 1: Insert the brand and get its ID
     const { data, error } = await this.supabaseClient
       .from('brand')
@@ -47,7 +45,7 @@ export class BrandService {
         brand_name: createBrandDto.brand_name,
         about_brand: createBrandDto.about_brand,
         brand_country: createBrandDto.brand_country,
-        owner_id: createBrandDto.owner_id,
+        owner_id: owner_id,
       })
       .select()
       .single();
@@ -93,9 +91,20 @@ export class BrandService {
       brand_id: data.brand_id,
     };
   }
+  async postImage(bucket: string, filePath: string, fileBuffer: Buffer) {
+    const { data, error } = await this.supabaseClient.storage
+      .from(bucket)
+      .upload(filePath, fileBuffer, {
+        cacheControl: '3600',
+        upsert: false,
+      });
 
-  // PUT /brand/:id - Update a specific brand
-  async update(id: string, updateBrandDto: UpdateBrandDto) {
+    if (error) throw new Error(error.message);
+    return data;
+  }
+
+  // PUT /brand/:brandId - Update a specific brand
+  async update(brandId: string, updateBrandDto: UpdateBrandDto) {
     const { data, error } = await this.supabaseClient
       .from('brand')
       .update([
@@ -107,7 +116,7 @@ export class BrandService {
           brand_country: updateBrandDto.brand_country,
         },
       ])
-      .eq('brand_id', id);
+      .eq('brand_id', brandId);
 
     if (error) {
       throw new NotFoundException('Brand not found or update failed');
@@ -115,12 +124,12 @@ export class BrandService {
     return data ?? { message: 'Brand updated successfully' };
   }
 
-  // DELETE /brand/:id - Delete a specific brand
-  async delete(id: string) {
+  // DELETE /brand/:brandId - Delete a specific brand
+  async delete(brandId: string) {
     const { error } = await this.supabaseClient
       .from('brand')
       .delete()
-      .eq('brand_id', id);
+      .eq('brand_id', brandId);
 
     if (error) {
       throw new NotFoundException('Brand not found or delete failed');

@@ -19,7 +19,7 @@ export class UsersController {
   // Protect this route with SupabaseAuthGuard
   @Get()
   findOne(@Req() request: any) {
-    const userId = request.user?.id;
+    const userId = request.user?.brandId;
     return this.usersService.findOne(userId);
   }
 
@@ -30,7 +30,7 @@ export class UsersController {
     @Req() request: any,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    const userId = request.user?.id;
+    const userId = request.user?.brandId;
     return this.usersService.update(userId, updateUserDto);
   }
 
@@ -38,7 +38,7 @@ export class UsersController {
   // Protect this route with SupabaseAuthGuard
   @Delete()
   delete(@Req() request: any) {
-    const userId = request.user?.id;
+    const userId = request.user?.brandId;
     return this.usersService.delete(userId);
   }
 }

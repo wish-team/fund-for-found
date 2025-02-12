@@ -20,19 +20,19 @@ export class TierController {
   constructor(private readonly tierService: TierService) {}
 
   // GET /tier/:brandId - Get all tiers for a specific brand
-  @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.tierService.findAll(id);
+  @Get(':brandId')
+  findOne(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.tierService.findAll(brandId);
   }
 
   // POST /tier/:brandId - Create a new tier
   @UseGuards(MyAuthGuard)
-  @Post(':id')
+  @Post(':brandId')
   create(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createTierDto: CreateTierDto,
   ) {
-    return this.tierService.create(id, createTierDto);
+    return this.tierService.create(brandId, createTierDto);
   }
 
   // PUT /tier/:tierId - Update a specific tier

@@ -11,10 +11,11 @@ import { FaqModule } from './faq/faq.module';
 import { TierModule } from './tier/tier.module';
 import { SocialMediaModule } from './social-media/social-media.module';
 import { BrandModule } from './brand/brand.module';
+import { BrandTagModule } from './brand-tag/brand-tag.module';
+import { UploadModule } from './upload/upload.module';
 // Auth
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { BrandTagModule } from './brand-tag/brand-tag.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { BrandTagModule } from './brand-tag/brand-tag.module';
     SocialMediaModule,
     AuthModule,
     BrandTagModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

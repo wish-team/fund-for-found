@@ -7,7 +7,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 export class TeamsService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // GET /team/:id - Get all team members for a specific brand
+  // GET /team/:brandId - Get all team members for a specific brand
   async findAllByBrandId(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('team')
