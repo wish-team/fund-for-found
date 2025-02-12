@@ -21,7 +21,7 @@ import {
 import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
-import { Search, X } from "lucide-react";
+// import { Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface NavigationBarProps {
@@ -53,11 +53,27 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
 
   const menuItems = useMemo(
     () => [
-      { key: "explore", label: t("translation:navbar.explore"), href: "/explore" },
+      {
+        key: "explore",
+        label: t("translation:navbar.explore"),
+        href: "/explore",
+      },
       { key: "home", label: t("translation:navbar.home"), href: "/" },
-      { key: "aboutUs", label: t("translation:navbar.aboutUs"), href: "/about" },
-      { key: "helpSupport", label: t("translation:navbar.helpSupport"), href: "/help" },
-      { key: "loginSignup", label: t("translation:navbar.loginSignup"), href: "/login" },
+      {
+        key: "aboutUs",
+        label: t("translation:navbar.aboutUs"),
+        href: "/about",
+      },
+      {
+        key: "helpSupport",
+        label: t("translation:navbar.helpSupport"),
+        href: "/help",
+      },
+      {
+        key: "loginSignup",
+        label: t("translation:navbar.loginSignup"),
+        href: "/login",
+      },
     ],
     [t]
   );
@@ -91,13 +107,13 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
               setSearchTerm("");
             }}
           >
-            <X className="w-8 h-8" />
+            {/* <X className="w-8 h-8" /> */}
           </Button>
           <div>
             <Input
               size="lg"
               placeholder={t("translation:navbar.searchPlaceholder")}
-              startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
+              // startContent={<Search className="w-8 h-8 mr-4 text-light1" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoFocus
@@ -134,7 +150,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
             <Input
               className="w-full px-4 py-2"
               placeholder={t("translation:navbar.searchPlaceholder")}
-              startContent={<Search className="w-5 h-5 text-light1" />}
+              // startContent={<Search className="w-5 h-5 text-light1" />}
               value={searchTerm}
               autoFocus
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -200,9 +216,9 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
-              startContent={
-                <Search className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-              }
+              // startContent={
+              //   <Search className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+              // }
             />
           </div>
           <div className="md:hidden">
@@ -211,7 +227,7 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
               variant="light"
               onPress={() => setIsSearchModalOpen(true)}
             >
-              <Search className="w-5 h-5" />
+              {/* <Search className="w-5 h-5" /> */}
             </Button>
           </div>
         </>
@@ -222,7 +238,10 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
           {(user) =>
             user ? (
               <AvatarDropdown
-                userName={user.user_metadata?.name || t("translation:navbar.defaultUser")}
+                userName={
+                  user.user_metadata?.name ||
+                  t("translation:navbar.defaultUser")
+                }
                 userEmail={user.email || ""}
               />
             ) : (
@@ -240,7 +259,11 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
       </NavbarItem>
 
       <NavbarMenuToggle
-        aria-label={isMenuOpen ? t("translation:navbar.closeMenu") : t("translation:navbar.openMenu")}
+        aria-label={
+          isMenuOpen
+            ? t("translation:navbar.closeMenu")
+            : t("translation:navbar.openMenu")
+        }
         className="sm:hidden"
       />
     </NavbarContent>

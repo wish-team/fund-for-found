@@ -1,26 +1,38 @@
-'use client'
+"use client";
 
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } from '@nextui-org/react'
-import { usePaymentStore } from '../store/usePaymentStore'
-import { useRouter } from 'next/navigation'
-import { QRCodeSVG } from 'qrcode.react'
-import { Copy } from 'lucide-react'
+import {
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Input,
+} from "@nextui-org/react";
+import { usePaymentStore } from "../store/usePaymentStore";
+import { useRouter } from "next/navigation";
+import { QRCodeSVG } from "qrcode.react";
+// import { Copy } from 'lucide-react'
 
-const fiatCurrencies = ['USD - US Dollar', 'EUR - Euro', 'CAD - Canadian Dollar', 'GBP - British Pound']
-const cryptoCurrencies = ['Shiba Inu (SHIB)-ERC 20']
+const fiatCurrencies = [
+  "USD - US Dollar",
+  "EUR - Euro",
+  "CAD - Canadian Dollar",
+  "GBP - British Pound",
+];
+const cryptoCurrencies = ["Shiba Inu (SHIB)-ERC 20"];
 const amounts = [
-  { key: '10', value: 10 },
-  { key: '20', value: 20 },
-  { key: '50', value: 50 },
-  { key: '100', value: 100 },
-]
+  { key: "10", value: 10 },
+  { key: "20", value: 20 },
+  { key: "50", value: 50 },
+  { key: "100", value: 100 },
+];
 
 const WALLET_ADDRESSES = {
-  'Shiba Inu (SHIB)-ERC 20': '1fbtbhyjujk8ikdgyhvyjujkgbnjyukuik'
-}
+  "Shiba Inu (SHIB)-ERC 20": "1fbtbhyjujk8ikdgyhvyjujkgbnjyukuik",
+};
 
 export default function PaymentPage() {
-  const router = useRouter()
+  const router = useRouter();
   const {
     currencyType,
     selectedCurrency,
@@ -30,45 +42,49 @@ export default function PaymentPage() {
     setSelectedCurrency,
     setPaymentType,
     setAmount,
-  } = usePaymentStore()
+  } = usePaymentStore();
 
-  const isFormValid = selectedCurrency && (currencyType === 'crypto' ? amount : (paymentType && amount))
+  const isFormValid =
+    selectedCurrency &&
+    (currencyType === "crypto" ? amount : paymentType && amount);
 
   const handleContinue = () => {
     if (isFormValid) {
-      router.push('/success')
+      router.push("/success");
     }
-  }
+  };
 
   const getWalletAddress = (currency: string) => {
-    return WALLET_ADDRESSES[currency] || ''
-  }
+    return WALLET_ADDRESSES[currency] || "";
+  };
 
   const calculateUSDValue = (amount: string): string => {
-    return (Number(amount) * 0.0000167).toFixed(2)
-  }
+    return (Number(amount) * 0.0000167).toFixed(2);
+  };
 
   const handleCopyAddress = () => {
-    const address = getWalletAddress(selectedCurrency)
+    const address = getWalletAddress(selectedCurrency);
     if (address) {
-      navigator.clipboard.writeText(address)
+      navigator.clipboard.writeText(address);
     }
-  }
+  };
 
   const renderCryptoContent = () => (
     <>
       <div>
-        <h2 className="text-base font-bold text-gray3 mb-4">Choose Your crypto currency</h2>
-        <Dropdown className='bg-white rounded-lg shadow border text-sm text-gray4'>
+        <h2 className="text-base font-bold text-gray3 mb-4">
+          Choose Your crypto currency
+        </h2>
+        <Dropdown className="bg-white rounded-lg shadow border text-sm text-gray4">
           <DropdownTrigger>
-            <Button 
-              variant="bordered" 
+            <Button
+              variant="bordered"
               className="w-full border rounded-lg shadow-shadow1 text-gray4 text-sm justify-start"
             >
-              {selectedCurrency || 'Select cryptocurrency'}
+              {selectedCurrency || "Select cryptocurrency"}
             </Button>
           </DropdownTrigger>
-          <DropdownMenu 
+          <DropdownMenu
             aria-label="Cryptocurrency selection"
             onAction={(key) => setSelectedCurrency(key as string)}
           >
@@ -87,10 +103,10 @@ export default function PaymentPage() {
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount"
             variant="bordered"
-            className='border rounded-lg text-gray2 shadow-shadow1'
+            className="border rounded-lg text-gray2 shadow-shadow1"
           />
           <div className="p-3 rounded-lg border-2 border-purple-200 bg-gray-50">
-            {calculateUSDValue(amount || '0')} US dollars
+            {calculateUSDValue(amount || "0")} US dollars
           </div>
         </div>
       </div>
@@ -98,9 +114,10 @@ export default function PaymentPage() {
       {selectedCurrency && amount && (
         <div className="p-6 border-2 border-primary rounded-lg space-y-4">
           <p className="text-center text-gray3 ">
-            Use the address below to donate {amount} {selectedCurrency.split('-')[0]} from your wallet
+            Use the address below to donate {amount}{" "}
+            {selectedCurrency.split("-")[0]} from your wallet
           </p>
-          
+
           <div className="flex justify-center">
             <QRCodeSVG
               value={getWalletAddress(selectedCurrency)}
@@ -123,7 +140,7 @@ export default function PaymentPage() {
             className="w-full text-gray4"
             variant="bordered"
             onClick={handleCopyAddress}
-            startContent={<Copy size={16} />}
+            // startContent={<Copy size={16} />}
           >
             Click to copy wallet address
           </Button>
@@ -131,10 +148,11 @@ export default function PaymentPage() {
       )}
 
       <p className="text-gray4">
-        Complete your contribution by transferring your specified currency to the wallet address shown.
+        Complete your contribution by transferring your specified currency to
+        the wallet address shown.
       </p>
     </>
-  )
+  );
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">
@@ -145,14 +163,16 @@ export default function PaymentPage() {
 
       <div className="space-y-6">
         <div>
-          <h2 className="text-base font-bold text-gray3 mb-4">Select Currency Type</h2>
+          <h2 className="text-base font-bold text-gray3 mb-4">
+            Select Currency Type
+          </h2>
           <div className="grid grid-cols-2 gap-4">
             <button
-              onClick={() => setCurrencyType('fiat')}
+              onClick={() => setCurrencyType("fiat")}
               className={`p-4 text-gray2 rounded-lg border-2 transition-all duration-200 ${
-                currencyType === 'fiat'
-                  ? 'border-primary bg-purple-50'
-                  : 'border-gray-200 hover:border-purple-200'
+                currencyType === "fiat"
+                  ? "border-primary bg-purple-50"
+                  : "border-gray-200 hover:border-purple-200"
               }`}
             >
               <div className="flex text-gray2  items-center justify-center space-x-2">
@@ -161,36 +181,37 @@ export default function PaymentPage() {
               </div>
             </button>
             <button
-              onClick={() => setCurrencyType('crypto')}
+              onClick={() => setCurrencyType("crypto")}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
-                currencyType === 'crypto'
-                  ? 'border-primary bg-purple-50'
-                  : 'border-gray-200 hover:border-purple-200'
+                currencyType === "crypto"
+                  ? "border-primary bg-purple-50"
+                  : "border-gray-200 hover:border-purple-200"
               }`}
             >
               <div className="flex text-gray2 items-center justify-center space-x-2">
-                <span >₿</span>
+                <span>₿</span>
                 <span>Crypto Currencies</span>
               </div>
             </button>
           </div>
         </div>
 
-        {currencyType === 'fiat' ? (
+        {currencyType === "fiat" ? (
           <>
             <div>
-              <h2 className="text-base font-bold text-gray3 mb-4">Choose Your Currency</h2>
-              <Dropdown className='bg-white border shadow rounded-lg'>
+              <h2 className="text-base font-bold text-gray3 mb-4">
+                Choose Your Currency
+              </h2>
+              <Dropdown className="bg-white border shadow rounded-lg">
                 <DropdownTrigger>
-                  <Button 
-                    variant="bordered" 
+                  <Button
+                    variant="bordered"
                     className="w-full justify-start text-sm text-light1 shadow-shadow1 border rounded-lg"
-
                   >
-                    {selectedCurrency || 'Select currency'}
+                    {selectedCurrency || "Select currency"}
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu 
+                <DropdownMenu
                   aria-label="Currency selection"
                   onAction={(key) => setSelectedCurrency(key as string)}
                 >
@@ -202,20 +223,24 @@ export default function PaymentPage() {
             </div>
 
             <div>
-              <h2 className="text-base text-gray3 font-bold mb-4">Choose recurring or one time</h2>
+              <h2 className="text-base text-gray3 font-bold mb-4">
+                Choose recurring or one time
+              </h2>
               <div className="grid grid-cols-3 text-gray4 gap-4">
                 {[
-                  { id: 'onetime', label: 'One time' },
-                  { id: 'monthly', label: 'Monthly' },
-                  { id: 'yearly', label: 'Yearly' }
+                  { id: "onetime", label: "One time" },
+                  { id: "monthly", label: "Monthly" },
+                  { id: "yearly", label: "Yearly" },
                 ].map(({ id, label }) => (
                   <button
                     key={id}
-                    onClick={() => setPaymentType(id as 'onetime' | 'monthly' | 'yearly')}
+                    onClick={() =>
+                      setPaymentType(id as "onetime" | "monthly" | "yearly")
+                    }
                     className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                       paymentType === id
-                        ? 'border-primary bg-purple-50 text-primary'
-                        : 'border-gray-200 hover:border-purple-200'
+                        ? "border-primary bg-purple-50 text-primary"
+                        : "border-gray-200 hover:border-purple-200"
                     }`}
                   >
                     {label}
@@ -225,28 +250,30 @@ export default function PaymentPage() {
             </div>
 
             <div>
-              <h2 className="text-base font-bold text-gray3 mb-4">Payment amount</h2>
-              <Dropdown className='bg-white border shadow rounded-lg'>
+              <h2 className="text-base font-bold text-gray3 mb-4">
+                Payment amount
+              </h2>
+              <Dropdown className="bg-white border shadow rounded-lg">
                 <DropdownTrigger>
-                  <Button 
-                    variant="bordered" 
+                  <Button
+                    variant="bordered"
                     className="w-full justify-start text-sm text-light1 shadow-shadow1 border rounded-lg"
                   >
-                    {amount ? `${amount} USD` : 'Select amount'}
+                    {amount ? `${amount} USD` : "Select amount"}
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu 
+                <DropdownMenu
                   aria-label="Amount selection"
                   onAction={(key) => setAmount(key as string)}
                 >
                   {amounts.map((amt) => (
-                    <DropdownItem key={amt.key}>
-                      {amt.value} USD
-                    </DropdownItem>
+                    <DropdownItem key={amt.key}>{amt.value} USD</DropdownItem>
                   ))}
                 </DropdownMenu>
               </Dropdown>
-              <p className="text-sm text-gray-500 mt-2">Minimum amount: Every contribution helps</p>
+              <p className="text-sm text-gray-500 mt-2">
+                Minimum amount: Every contribution helps
+              </p>
             </div>
           </>
         ) : (
@@ -260,9 +287,9 @@ export default function PaymentPage() {
           isDisabled={!isFormValid}
           onClick={handleContinue}
         >
-          {currencyType === 'crypto' ? 'Finish' : 'Continue'}
+          {currencyType === "crypto" ? "Finish" : "Continue"}
         </Button>
       </div>
     </div>
-  )
+  );
 }
