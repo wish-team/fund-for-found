@@ -37,6 +37,7 @@ const Card = () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      console.log("url", window.location);
       router.push(session ? "/steps/1" : "/login");
     } catch (error) {
       console.error("Error checking authentication:", error);
