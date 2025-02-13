@@ -12,7 +12,7 @@ export class BrandService {
     const { data, error } = await this.supabaseClient
       .from('brand_details_view')
       .select(
-        'brand_id, brand_name, brand_background_image, brand_image, brand_country, brand_tags, total_contributions, total_contributed_amount',
+        'brand_id, brand_name, background_image, main_image, brand_country, brand_tags, total_contributions, total_contributed_amount',
       );
 
     if (error) {

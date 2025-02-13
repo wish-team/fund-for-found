@@ -23,50 +23,95 @@ export class UploadController {
 
   // GET  /upload/:entity/:brandId/:type
   @Get(':entity/:brandId/:type')
-  async getImage(
+  async getImageWithType(
     @Param('entity') entity: EntityType,
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Param('type') type: string,
   ) {
-    return this.uploadService.getImage(entity, brandId, type);
+    return this.uploadService.getImageWithType(entity, brandId, type);
+  }
+
+  // GET  /upload/:entity/:brandId
+  @Get(':entity/:brandId')
+  async getImageWithoutType(
+    @Param('entity') entity: EntityType,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
+  ) {
+    return this.uploadService.getImageWithoutType(entity, brandId);
   }
 
   // POST  /upload/:entity/:brandId/:type
   @UseGuards(MyAuthGuard)
   @Post(':entity/:brandId/:type')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(
+  async uploadImageWithType(
     @Param('entity') entity: EntityType,
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Param('type') type: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (!file) throw new BadRequestException('No file uploaded');
-    return this.uploadService.uploadImage(entity, brandId, type, file);
+    return this.uploadService.uploadImageWithType(entity, brandId, type, file);
+  }
+
+  // POST  /upload/:entity/:brandId
+  @UseGuards(MyAuthGuard)
+  @Post(':entity/:brandId')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImageWithoutType(
+    @Param('entity') entity: EntityType,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) throw new BadRequestException('No file uploaded');
+    return this.uploadService.uploadImageWithoutType(entity, brandId, file);
   }
 
   // PUT  /upload/:entity/:brandId/:type
   @UseGuards(MyAuthGuard)
   @Put(':entity/:brandId/:type')
   @UseInterceptors(FileInterceptor('file'))
-  async updateImage(
+  async updateImageWithType(
     @Param('entity') entity: EntityType,
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Param('type') type: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (!file) throw new BadRequestException('No file uploaded');
-    return this.uploadService.updateImage(entity, brandId, type, file);
+    return this.uploadService.updateImageWithType(entity, brandId, type, file);
+  }
+
+  // PUT  /upload/:entity/:brandId
+  @UseGuards(MyAuthGuard)
+  @Put(':entity/:brandId')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateImageWithoutType(
+    @Param('entity') entity: EntityType,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) throw new BadRequestException('No file uploaded');
+    return this.uploadService.updateImageWithoutType(entity, brandId, file);
   }
 
   // DELETE  /upload/:entity/:brandId/:type
   @UseGuards(MyAuthGuard)
   @Delete(':entity/:brandId/:type')
-  async deleteImage(
+  async deleteImageWithType(
     @Param('entity') entity: EntityType,
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Param('type') type: string,
   ) {
-    return this.uploadService.deleteImage(entity, brandId, type);
+    return this.uploadService.deleteImageWithType(entity, brandId, type);
+  }
+
+  // DELETE  /upload/:entity/:brandId
+  @UseGuards(MyAuthGuard)
+  @Delete(':entity/:brandId')
+  async deleteImage(
+    @Param('entity') entity: EntityType,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
+  ) {
+    return this.uploadService.deleteImageWithoutType(entity, brandId);
   }
 }
