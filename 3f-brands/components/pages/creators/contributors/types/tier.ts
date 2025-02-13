@@ -1,5 +1,5 @@
 export interface Tier {
-  id: string; 
+  id: string;
   name: string;
   rewardDescription: string;
   amount: string;
@@ -12,3 +12,11 @@ export interface TierFormData {
   amount: string;
   coverPhoto: File | null;
 }
+
+export type TierError =
+  | "fetchFailed"
+  | "createFailed"
+  | "updateFailed"
+  | "deleteFailed"
+  | "networkError"
+  | "serverError";

@@ -380,6 +380,14 @@
       },
       "ContributeButton": {
         "Contribute": "Contribute"
+      },
+      "errors": {
+        "fetchFailed": "Failed to fetch tiers",
+        "createFailed": "Failed to create tier",
+        "updateFailed": "Failed to update tier",
+        "deleteFailed": "Failed to delete tier",
+        "networkError": "Network error occurred",
+        "serverError": "Server error occurred"
       }
     }
   },

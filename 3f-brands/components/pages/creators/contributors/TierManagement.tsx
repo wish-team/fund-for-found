@@ -7,21 +7,26 @@ import DeleteConfirmationModal from "@/components/shared/DeleteConfirmationModal
 import CreatorsTitle from "../title/CreatorsTitle";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useTranslation } from "react-i18next";
+import { TierListSkeleton } from "./components/TierSkeleton";
+import { Alert } from "@nextui-org/react";
 
 export const TierManagement = () => {
   const { t } = useTranslation();
   const {
     tiers,
-    initializeTiers,
+    isLoading,
+    error,
+    fetchTiers,
     editTier,
     deleteTier,
     deleteConfirmation,
     hideDeleteConfirmation,
     confirmDelete,
+    setError,
   } = useTierStore();
 
   useEffect(() => {
-    initializeTiers();
+    fetchTiers();
   }, []);
 
   return (
@@ -29,17 +34,38 @@ export const TierManagement = () => {
       {(user) => (
         <div>
           <div className="max-w-[1240px] mx-auto">
-            <CreatorsTitle title={t("translation:creators.tier.management.title")} />
+            <CreatorsTitle
+              title={t("translation:creators.tier.management.title")}
+            />
             <h2 className="ps-2 mx-2 mb-6 text-lg text-gray2 border-s-4 border-primary">
               {t("translation:creators.tier.management.subtitle")}
             </h2>
+
+            {error && (
+              <Alert
+                color="danger"
+                className="mb-4"
+                onClose={() => setError(null)}
+              >
+                  {t(['translation:creators.tier.errors', error].join('.'), 'An error occurred')}
+              </Alert>
+            )}
+
             <div className="flex flex-col md:flex-row gap-6">
               {user && (
                 <div className="w-full md:w-80 md:flex-none">
                   <AddTierButton />
                 </div>
               )}
-              <TierList tiers={tiers} onEdit={editTier} onDelete={deleteTier} />
+              {isLoading ? (
+                <TierListSkeleton />
+              ) : (
+                <TierList
+                  tiers={tiers}
+                  onEdit={editTier}
+                  onDelete={(index: number) => deleteTier(index.toString())}
+                />
+              )}
             </div>
           </div>
 
@@ -49,8 +75,8 @@ export const TierManagement = () => {
             isOpen={deleteConfirmation.show}
             onClose={hideDeleteConfirmation}
             onConfirm={confirmDelete}
-            title="Delete Tier"
-            message="This tier will be deleted. Are you sure you want to proceed?"
+            title={t("translation:creators.tier.modal.deleteTitle")}
+            message={t("translation:creators.tier.modal.deleteMessage")}
           />
         </div>
       )}

@@ -326,6 +326,14 @@ declare module "i18next" {
               deleteTitle: string;
               deleteMessage: string;
             };
+            errors: {
+              fetchFailed: string;
+              createFailed: string;
+              updateFailed: string;
+              deleteFailed: string;
+              networkError: string;
+              serverError: string;
+            };
             form: {
               name: {
                 label: string;
