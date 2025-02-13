@@ -20,16 +20,31 @@ import {
 import { LuX } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import { User, SupabaseClient } from '@supabase/supabase-js';
 
 import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useAuthStore } from "@/store/authStore";
 
+// Type definitions
 interface NavigationBarProps {
   className?: string;
 }
 
+interface AuthStore {
+  user: User | null;
+  supabase: SupabaseClient;
+  initialLoading: boolean;
+}
+
+interface MenuItem {
+  key: string;
+  label: string;
+  href: string;
+}
+
+// Component definition
 const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   // State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +57,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useTranslation();
-  const { user, supabase, initialLoading } = useAuthStore();
+  const { user, supabase, initialLoading } = useAuthStore() as AuthStore;
 
   // Authentication handlers
   const handleStartClick = useCallback(async () => {
@@ -88,7 +103,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   );
 
   // Menu items
-  const menuItems = useMemo(
+  const menuItems = useMemo<MenuItem[]>(
     () => [
       {
         key: "home",
@@ -307,7 +322,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
             </Button>
           }
         >
-          {(user) =>
+          {(user: User | null) =>
             user ? (
               <AvatarDropdown
                 userName={user.user_metadata?.name || t("translation:navbar.defaultUser")}

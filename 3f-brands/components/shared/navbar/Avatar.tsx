@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Dropdown,
@@ -21,17 +21,21 @@ import { useTranslation } from "react-i18next";
 interface AvatarDropdownProps {
   userName: string;
   userEmail: string;
+  onLogout?: () => Promise<void>;
+  isLoading?: boolean;
 }
 
 const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   userName,
   userEmail,
+  onLogout,
+  isLoading = false,
 }) => {
   const router = useRouter();
   const { t } = useTranslation();
   const { selectedImage, subscribe } = useProfileStore();
   const { supabase } = useAuthStore();
-  
+
   useEffect(() => {
     const unsubscribe = subscribe(() => {});
     return () => {
@@ -40,11 +44,15 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   }, [subscribe]);
 
   const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      window.location.href = "http://localhost:3000/login";
-    } catch (error) {
-      console.error("Error logging out:", error);
+    if (onLogout) {
+      await onLogout();
+    } else {
+      try {
+        await supabase.auth.signOut();
+        router.push(`${process.env.NEXT_PUBLIC_APP_URL}/login` || "/login");
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
     }
   };
 
@@ -75,7 +83,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 />
               </DropdownTrigger>
               <DropdownMenu
-                aria-label={t('translation:avatar.menuLabel')}
+                aria-label={t("translation:avatar.menuLabel")}
                 variant="flat"
                 className=" w-[300px] p-4"
               >
@@ -89,49 +97,55 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                 <DropdownItem
                   key="my-profile"
                   className="flex"
-                  textValue={t('translation:avatar.myProfile')}
+                  textValue={t("translation:avatar.myProfile")}
                   onPress={() => handleNavigation(user.id, "/creators/[id]")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <FaUserCircle />
                     </h6>
-                    <h6 className="flex">{t('translation:avatar.myProfile')}</h6>
+                    <h6 className="flex">
+                      {t("translation:avatar.myProfile")}
+                    </h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="brand-organization"
-                  textValue={t('translation:avatar.brandOrganization')}
+                  textValue={t("translation:avatar.brandOrganization")}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoBagHandleSharp />
                     </h6>
-                    <h6 className="flex">{t('translation:avatar.brandOrganization')}</h6>
+                    <h6 className="flex">
+                      {t("translation:avatar.brandOrganization")}
+                    </h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
-                  textValue={t('translation:avatar.settings')}
-                  onPress={() => handleNavigation(user.id, "/dashboard/[userId]")}
+                  textValue={t("translation:avatar.settings")}
+                  onPress={() =>
+                    handleNavigation(user.id, "/dashboard/[userId]")
+                  }
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <IoMdSettings />
                     </h6>
-                    <h6 className="flex">{t('translation:avatar.settings')}</h6>
+                    <h6 className="flex">{t("translation:avatar.settings")}</h6>
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
-                  textValue={t('translation:avatar.logOut')}
+                  textValue={t("translation:avatar.logOut")}
                   onClick={handleLogout}
                 >
                   <div className="flex text-sm items-center space-x-2 text-gray3">
                     <h6 className="flex">
                       <TbLogout />
                     </h6>
-                    <h6 className="flex">{t('translation:avatar.logOut')}</h6>
+                    <h6 className="flex">{t("translation:avatar.logOut")}</h6>
                   </div>
                 </DropdownItem>
               </DropdownMenu>
