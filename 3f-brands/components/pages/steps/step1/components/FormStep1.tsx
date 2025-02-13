@@ -1,15 +1,37 @@
 // FormStep1.tsx
-import React from "react";
 import { Button, Checkbox, Link } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
-import { useFormStep } from "../hooks/useFormStep1";
+import { useForm, Control } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useBrandOperations } from "../../hooks/useBrandOperations";
+import { formSchema } from "../types";
+import { useRouter } from "next/navigation";
 import { AutocompleteInput } from "./AutocompleteInput";
 import { MultiSelectInput } from "./MultiSelectInput";
 import Loader from "@/components/shared/loader/Loader";
+import { useFormStep } from "../hooks/useFormStep1";
+import { FormData } from "../types";
 
 export const FormStep1: React.FC = () => {
   const { t } = useTranslation();
-  const { form, onSubmit, isLoading, isPending, queries, isUpdate } = useFormStep();
+  const router = useRouter();
+  const { createOrUpdateBrand, brand } = useBrandOperations();
+  const { form, onSubmit, isLoading, isPending, queries } = useFormStep();
+
+  const onSubmitForm = async (data: any) => {
+    try {
+      const formattedData = {
+        brand_name: data.name,
+        brand_country: data.country,
+        brand_tags: data.brandTags.map((tag: string) => ({ tag_name: tag })),
+      };
+
+      await createOrUpdateBrand(formattedData);
+      router.push("/steps/2");
+    } catch (error) {
+      console.error("Form submission failed:", error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -20,9 +42,12 @@ export const FormStep1: React.FC = () => {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-6 grid">
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-4 py-6 grid"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <AutocompleteInput
+        <AutocompleteInput<FormData>
           control={form.control}
           name="name"
           label={t("translation:step1.form.brandName.label")}
@@ -34,7 +59,7 @@ export const FormStep1: React.FC = () => {
           name="country"
           label={t("translation:step1.form.country.label")}
           placeholder={t("translation:step1.form.country.placeholder")}
-          options={queries.countries.data || []}
+          options={queries.categories.data || []}
         />
       </div>
 
@@ -60,7 +85,7 @@ export const FormStep1: React.FC = () => {
         name="brandTags"
         label={t("translation:step1.form.brandTags.label")}
         placeholder={t("translation:step1.form.brandTags.placeholder")}
-        options={queries.brandTags.data || []}
+        options={(queries.brandTags.data || []).map((tag) => tag.name)}
       />
 
       <div className="flex flex-col gap-2">
@@ -88,14 +113,12 @@ export const FormStep1: React.FC = () => {
         type="submit"
         color="secondary"
         className="font-light my-4 px-12 bg-primary mb-1 text-white rounded-lg border border-light2"
-        isLoading={isPending}
-        disabled={isPending}
+        isLoading={form.formState.isSubmitting}
+        disabled={form.formState.isSubmitting}
       >
-        {isPending 
+        {form.formState.isSubmitting
           ? t("translation:step1.form.buttons.submitting")
-          : isUpdate 
-            ? t("translation:step1.form.buttons.update")
-            : t("translation:step1.form.buttons.submit")}
+          : t("translation:step1.form.buttons.submit")}
       </Button>
     </form>
   );

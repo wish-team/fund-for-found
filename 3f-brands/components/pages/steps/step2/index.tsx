@@ -5,10 +5,14 @@ import { SocialInputField } from "./components/SocialInputField";
 import Title from "../../../shared/Title";
 import { Button } from "@nextui-org/react";
 import AboutPage from "../../creators/about-section/AboutPage";
+import { useStep2Operations } from "./hooks/useStep2Operations";
+import { useRouter } from "next/navigation";
 
 const Step2: React.FC = () => {
   const { t } = useTranslation();
   const { formData, updateSocialLinks, submitForm } = useStep2Form();
+  const router = useRouter();
+  const { updateBrandSocials, brand } = useStep2Operations();
 
   const handleSocialInputAdd = useCallback(() => {
     const newId = Date.now();
@@ -45,6 +49,15 @@ const Step2: React.FC = () => {
       console.error("Form submission failed:", error);
     }
   }, [submitForm]);
+
+  const handleSocialUpdate = async (socialMedia: any[]) => {
+    try {
+      await updateBrandSocials(socialMedia);
+      router.push("/steps/3");
+    } catch (error) {
+      console.error("Failed to update social media:", error);
+    }
+  };
 
   return (
     <section className="py-8 text-start max-w-[1024px]">

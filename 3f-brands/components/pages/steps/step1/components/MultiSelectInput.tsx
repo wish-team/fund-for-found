@@ -1,36 +1,36 @@
-import React, { useState, useRef, KeyboardEvent } from 'react';
-import { Control, Controller } from 'react-hook-form';
-import { FormData } from '../types';
+import React, { useState, useRef, KeyboardEvent } from "react";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import { FormData } from "../types";
 
 interface Option {
   id: number;
   name: string;
 }
 
-interface MultiSelectInputProps {
-  control: Control<FormData>;
-  name: keyof FormData;
+interface MultiSelectInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
   label: string;
-  options: Option[];
-  placeholder?: string;
+  placeholder: string;
+  options?: string[];
 }
 
-export const MultiSelectInput = React.memo(({
+export const MultiSelectInput = <T extends FieldValues>({
   control,
   name,
   label,
-  options,
   placeholder,
-}: MultiSelectInputProps) => {
-  const [inputValue, setInputValue] = useState('');
+  options = [],
+}: MultiSelectInputProps<T>) => {
+  const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
 
   const filterOptions = (searchValue: string, selectedItems: string[]) => {
     return options.filter(
-      option =>
-        option.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-        !selectedItems.includes(option.name)
+      (option) =>
+        option.toLowerCase().includes(searchValue.toLowerCase()) &&
+        !selectedItems.includes(option)
     );
   };
 
@@ -39,12 +39,12 @@ export const MultiSelectInput = React.memo(({
     value: string[],
     onChange: (value: string[]) => void
   ) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
+    if (e.key === "Enter" && inputValue.trim()) {
       e.preventDefault();
       if (!value.includes(inputValue.trim())) {
         const newValue = [...value, inputValue.trim()];
         onChange(newValue);
-        setInputValue('');
+        setInputValue("");
       }
     }
   };
@@ -56,29 +56,36 @@ export const MultiSelectInput = React.memo(({
       render={({ field: { onChange, value = [] }, fieldState: { error } }) => {
         const filteredOptions = filterOptions(inputValue, value as string[]);
 
-        const handleAddTag = (option: Option) => {
-          if (!(value as string[]).includes(option.name)) {
-            const newValue = [...(value as string[]), option.name];
+        const handleAddTag = (option: string) => {
+          if (!(value as string[]).includes(option)) {
+            const newValue = [...(value as string[]), option];
             onChange(newValue);
-            setInputValue('');
+            setInputValue("");
             setIsOpen(false);
           }
         };
 
         const handleRemoveTag = (tagToRemove: string) => {
-          const newValue = (value as string[]).filter(tag => tag !== tagToRemove);
+          const newValue = (value as string[]).filter(
+            (tag) => tag !== tagToRemove
+          );
           onChange(newValue);
         };
 
         return (
           <div ref={inputRef} className="relative">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              {label}<span className="text-red-500">*</span>
+              {label}
+              <span className="text-red-500">*</span>
             </label>
             <div
               className={`
                 flex flex-wrap items-center gap-1 p-2 border rounded-lg bg-white
-                ${error ? 'border-red-500' : 'border-light3 focus-within:border-purple-500'}
+                ${
+                  error
+                    ? "border-red-500"
+                    : "border-light3 focus-within:border-purple-500"
+                }
               `}
             >
               {(value as string[]).map((tag) => (
@@ -106,7 +113,11 @@ export const MultiSelectInput = React.memo(({
                 onKeyDown={(e) => handleKeyDown(e, value as string[], onChange)}
                 onFocus={() => setIsOpen(true)}
                 className="flex-grow outline-none min-w-[120px] bg-transparent"
-                placeholder={(value as string[])?.length === 0 ? placeholder || `Type to add ${label.toLowerCase()}...` : ''}
+                placeholder={
+                  (value as string[])?.length === 0
+                    ? placeholder || `Type to add ${label.toLowerCase()}...`
+                    : ""
+                }
               />
             </div>
 
@@ -114,16 +125,16 @@ export const MultiSelectInput = React.memo(({
               <ul className="absolute z-10 w-full mt-1 bg-white border border-light3 rounded-lg shadow-md max-h-60 overflow-y-auto">
                 {filteredOptions.map((option) => (
                   <li
-                    key={option.id}
+                    key={option}
                     className="py-2 px-4 hover:bg-primary50 cursor-pointer"
                     onClick={() => handleAddTag(option)}
                   >
-                    {option.name}
+                    {option}
                   </li>
                 ))}
               </ul>
             )}
-            
+
             {error && (
               <p className="text-red-500 text-xs mt-1">{error.message}</p>
             )}
@@ -132,6 +143,6 @@ export const MultiSelectInput = React.memo(({
       }}
     />
   );
-});
+};
 
-MultiSelectInput.displayName = 'MultiSelectInput';
+MultiSelectInput.displayName = "MultiSelectInput";
