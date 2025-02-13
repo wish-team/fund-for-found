@@ -7,7 +7,7 @@
   },
   "home": {
     "title": "Create your profile and take the first step towards new opportunities",
-    "description": "By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you’re never alone on your journey"
+    "description": "By creating your account, you'll gain access to a thriving community where brands and individuals are committed to offering you ongoing support. This support network will empower you with the resources, guidance, and connections you need to succeed, ensuring that you're never alone on your journey"
   },
   "footer": {
     "about": "About",
@@ -199,13 +199,29 @@
     "validation": {
       "questionRequired": "Question must be at least 20 characters long",
       "answerRequired": "Answer must be at least 20 characters long"
+    },
+    "errors": {
+      "fetch": "Failed to fetch FAQ items",
+      "create": "Failed to create FAQ item",
+      "update": "Failed to update FAQ item",
+      "delete": "Failed to delete FAQ item",
+      "network": "Network error occurred. Please check your connection",
+      "server": "Server error occurred. Please try again later",
+      "unknown": "An unexpected error occurred"
+    },
+    "loading": {
+      "fetch": "Loading FAQ items...",
+      "create": "Creating FAQ item...",
+      "update": "Updating FAQ item...",
+      "delete": "Deleting FAQ item..."
     }
   },
   "common": {
     "deleteConfirmation": "Delete Confirmation",
     "deleteConfirmationMessage": "This item will be deleted, are you sure?",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "retry": "Retry"
   },
   "teamMember": {
     "title": "اعضای تیم",
@@ -362,7 +378,7 @@
       "addButton": {
         "title": "Add Tier"
       },
-      "ContributeButton":{
+      "ContributeButton": {
         "Contribute": "Contribute"
       }
     }

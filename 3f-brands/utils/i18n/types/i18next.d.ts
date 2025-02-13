@@ -43,7 +43,6 @@ declare module "i18next" {
           searchPlaceholder: string;
           closeMenu: string;
           openMenu: string;
-
         };
         avatar: {
           myProfile: string;
@@ -212,6 +211,7 @@ declare module "i18next" {
           deleteConfirmationMessage: string;
           cancel: string;
           delete: string;
+          retry: string;
         };
         teamMember: {
           title: string;
@@ -434,6 +434,5 @@ declare module "i18next" {
         };
       };
     };
-      
   }
 }

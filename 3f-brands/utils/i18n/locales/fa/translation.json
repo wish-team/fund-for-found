@@ -205,7 +205,8 @@
     "deleteConfirmation": "تایید حذف",
     "deleteConfirmationMessage": "این مورد حذف خواهد شد، آیا مطمئن هستید؟",
     "cancel": "لغو",
-    "delete": "حذف"
+    "delete": "حذف",
+    "retry": "تلاش مجدد"
   },
   "teamMember": {
     "title": "اعضای تیم",
