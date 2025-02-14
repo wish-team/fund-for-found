@@ -111,7 +111,7 @@ export class UploadService {
     file: Express.Multer.File,
   ) {
     const { bucket, folder } = this.getBucketAndFolder(entity, type);
-    const filePath = `${folder}/${brandId}`;
+    const filePath = `${folder}/${brandId}.jpg`;
     const { error } = await this.supabaseClient.storage
       .from(bucket)
       .upload(filePath, file.buffer, { cacheControl: '3600', upsert: false });

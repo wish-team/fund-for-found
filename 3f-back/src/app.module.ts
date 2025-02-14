@@ -5,7 +5,7 @@ import { SupabaseModule } from 'nestjs-supabase-js';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // Internal modules
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 import { TeamsModule } from './teams/teams.module';
 import { FaqModule } from './faq/faq.module';
 import { TierModule } from './tier/tier.module';
@@ -24,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       supabaseUrl: process.env.SUPABASE_URL,
     }),
     ConfigModule.forRoot({ isGlobal: true }),
-    UsersModule,
+    UserModule,
     TeamsModule,
     FaqModule,
     BrandModule,
