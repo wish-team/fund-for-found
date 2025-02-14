@@ -1,14 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { supabase } from '../../utils/supabase/client'; // Import your Supabase client
 
 @Injectable()
 export class UserService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
   // Get details of a specific user
   async findOne(userId: string) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('user') // Updated table name
       .select('*')
       .eq('user_id', userId)
@@ -23,7 +22,7 @@ export class UserService {
 
   // Update details of a specific user
   async update(userId: string, updateUserDto: UpdateUserDto) {
-    const { data, error } = await supabase
+    const { data, error } = await this.supabaseClient
       .from('user') // Updated table name
       .update({
         user_first_name: updateUserDto.user_first_name,
@@ -44,7 +43,7 @@ export class UserService {
 
   // Delete a specific user
   async delete(userId: string) {
-    const { error } = await supabase
+    const { error } = await this.supabaseClient
       .from('user') // Updated table name
       .delete()
       .eq('user_id', userId);

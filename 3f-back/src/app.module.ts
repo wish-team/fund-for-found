@@ -19,11 +19,11 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     SupabaseModule.forRoot({
       supabaseKey: process.env.SUPABASE_ANON_KEY,
       supabaseUrl: process.env.SUPABASE_URL,
     }),
-    ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     TeamsModule,
     FaqModule,
