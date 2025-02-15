@@ -123,18 +123,25 @@ export class PaymentService {
     console.log('Brand Amount:', brandAmount);
 
     const supabase = this.supabaseService.getClient();
+    
+    console.log('Looking for transaction with address:', tx.to);
     const { data: transaction, error } = await supabase
       .from('transactions')
       .select('*, brands(brand_wallet_address)')
-      .eq('generated_address', tx.to)
+      .filter('generated_address', 'ilike', tx.to)
+      .eq('status', 'pending')
       .single();
 
     if (error || !transaction) {
+      console.log('Error finding transaction:', error);
+      console.log('Looking for address:', tx.to);
       throw new HttpException(
         'No matching transaction found',
         HttpStatus.NOT_FOUND,
       );
     }
+
+    console.log('Found transaction:', transaction);
 
     if (transaction.status === 'processed') {
       throw new HttpException(
@@ -143,18 +150,43 @@ export class PaymentService {
       );
     }
 
+    // First update the transaction with initial details
+    const { error: updateError1 } = await supabase
+      .from('transactions')
+      .update({
+        received_transaction_hash: receivedTransactionHash,
+        received_amount: receivedAmount,
+        commission_amount: commissionAmount,
+        brand_amount: brandAmount,
+        status: 'processing'
+      })
+      .eq('id', transaction.id);
+
+    if (updateError1) {
+      console.error('Failed to update initial transaction details:', updateError1);
+      throw new HttpException(
+        `Failed to update transaction: ${updateError1.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    console.log('Updated initial transaction details');
+
     // Transfer to commission wallet with optimized gas
     let transferTxHash;
     try {
+      console.log('Starting transfer to commission wallet...');
       transferTxHash = await this.addressService.monitorAndTransferFunds(
         receivedTransactionHash,
         transaction.generated_private_key,
         this.commissionWallet,
       );
 
-      // Wait for the transfer to be confirmed
+      console.log('Waiting for commission transfer confirmation...');
       await this.provider.waitForTransaction(transferTxHash, 1);
+      console.log('Commission transfer confirmed:', transferTxHash);
     } catch (error: any) {
+      console.error('Commission transfer error:', error);
       throw new HttpException(
         `Failed to transfer to commission wallet: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -164,6 +196,7 @@ export class PaymentService {
     // Transfer to brand wallet with optimized gas
     let brandTxHash;
     try {
+      console.log('Starting transfer to brand wallet...');
       const brandAmountWei = ethers.parseEther(brandAmount.toString());
       const feeData = await this.provider.getFeeData();
       const gasPrice = feeData.gasPrice ?? 
@@ -179,33 +212,35 @@ export class PaymentService {
       });
 
       brandTxHash = brandTx.hash;
+      console.log('Waiting for brand transfer confirmation...');
       await brandTx.wait(1);
+      console.log('Brand transfer confirmed:', brandTxHash);
     } catch (error: any) {
+      console.error('Brand transfer error:', error);
       throw new HttpException(
         `Failed to transfer to brand wallet: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
-    // Update transaction status
-    const { error: updateError } = await supabase
+    // Update final transaction status
+    const { error: updateError2 } = await supabase
       .from('transactions')
       .update({
-        received_transaction_hash: receivedTransactionHash,
-        received_amount: receivedAmount,
-        commission_amount: commissionAmount,
-        brand_amount: brandAmount,
         outgoing_transaction_hash: brandTxHash,
         status: 'processed',
       })
       .eq('id', transaction.id);
 
-    if (updateError) {
+    if (updateError2) {
+      console.error('Failed to update final transaction status:', updateError2);
       throw new HttpException(
-        `Failed to update transaction: ${updateError.message}`,
+        `Failed to update transaction: ${updateError2.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+
+    console.log('Transaction fully processed and updated');
 
     return {
       success: true,
