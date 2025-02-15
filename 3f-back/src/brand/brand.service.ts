@@ -91,17 +91,6 @@ export class BrandService {
       brand_id: data.brand_id,
     };
   }
-  async postImage(bucket: string, filePath: string, fileBuffer: Buffer) {
-    const { data, error } = await this.supabaseClient.storage
-      .from(bucket)
-      .upload(filePath, fileBuffer, {
-        cacheControl: '3600',
-        upsert: false,
-      });
-
-    if (error) throw new Error(error.message);
-    return data;
-  }
 
   // PUT /brand/:brandId - Update a specific brand
   async update(brandId: string, updateBrandDto: UpdateBrandDto) {

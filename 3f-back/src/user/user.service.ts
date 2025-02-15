@@ -5,10 +5,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
-  // Get details of a specific user
+
+  // GET /user/:userId - Get details of a specific user
   async findOne(userId: string) {
     const { data, error } = await this.supabaseClient
-      .from('user') // Updated table name
+      .from('user')
       .select('*')
       .eq('user_id', userId)
       .single();
@@ -20,7 +21,7 @@ export class UserService {
     return data;
   }
 
-  // Update details of a specific user
+  // PATCH /user/:userId - Update details of a specific user
   async update(userId: string, updateUserDto: UpdateUserDto) {
     const { data, error } = await this.supabaseClient
       .from('user') // Updated table name
@@ -30,21 +31,19 @@ export class UserService {
         phone_number: updateUserDto.phone_number,
         country: updateUserDto.country,
       })
-      .eq('user_id', userId)
-      .select()
-      .single();
+      .eq('user_id', userId);
 
-    if (error || !data) {
+    if (error) {
       throw new NotFoundException('User not found or update failed');
     }
 
-    return data;
+    return data ?? { message: 'User created successfully' };
   }
 
-  // Delete a specific user
+  // DELETE /user/:userId - Delete a specific user
   async delete(userId: string) {
     const { error } = await this.supabaseClient
-      .from('user') // Updated table name
+      .from('user')
       .delete()
       .eq('user_id', userId);
 
