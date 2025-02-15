@@ -205,7 +205,8 @@
     "deleteConfirmation": "تایید حذف",
     "deleteConfirmationMessage": "این مورد حذف خواهد شد، آیا مطمئن هستید؟",
     "cancel": "لغو",
-    "delete": "حذف"
+    "delete": "حذف",
+    "retry": "تلاش مجدد"
   },
   "teamMember": {
     "title": "اعضای تیم",
@@ -365,6 +366,14 @@
       },
       "ContributeButton": {
         "Contribute": "مشارکت"
+      },
+      "errors": {
+        "fetchFailed": "خطا در دریافت اطلاعات",
+        "createFailed": "خطا در ایجاد اطلاعات", 
+        "updateFailed": "خطا در به‌روزرسانی اطلاعات",
+        "deleteFailed": "خطا در حذف اطلاعات",
+        "networkError": "خطای شبکه رخ داده است",
+        "serverError": "خطای سرور رخ داده است"
       }
     }
   },

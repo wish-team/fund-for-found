@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Button } from "@nextui-org/react";
-import { ChevronRight, Settings } from "lucide-react";
+import { FaChevronRight } from "react-icons/fa6";
 
 interface ProfileCardProps {
   email: string;
@@ -42,7 +42,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           className="text-gray-500"
           onPress={onSettingsClick}
         >
-        <ChevronRight className="text-primary" size={24} />
+        <FaChevronRight className="text-primary" size={24} />
         </Button>
       
       </div>

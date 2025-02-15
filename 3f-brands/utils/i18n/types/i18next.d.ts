@@ -43,7 +43,6 @@ declare module "i18next" {
           searchPlaceholder: string;
           closeMenu: string;
           openMenu: string;
-
         };
         avatar: {
           myProfile: string;
@@ -212,6 +211,7 @@ declare module "i18next" {
           deleteConfirmationMessage: string;
           cancel: string;
           delete: string;
+          retry: string;
         };
         teamMember: {
           title: string;
@@ -326,6 +326,14 @@ declare module "i18next" {
               deleteTitle: string;
               deleteMessage: string;
             };
+            errors: {
+              fetchFailed: string;
+              createFailed: string;
+              updateFailed: string;
+              deleteFailed: string;
+              networkError: string;
+              serverError: string;
+            };
             form: {
               name: {
                 label: string;
@@ -434,15 +442,5 @@ declare module "i18next" {
         };
       };
     };
-       // Define the interpolation key type
-       interpolation: {
-        escapeValue: boolean;
-      };
-      
-      // Add support for defaultValue parameter
-      defaultValue: string;
-      
-      // Add support for interpolation variables
-      interpolationKeys: ['field'];
   }
 }

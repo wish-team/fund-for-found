@@ -1,4 +1,3 @@
-// components/TranslateBtn.tsx
 'use client';
 
 import React from "react";
@@ -9,7 +8,9 @@ import { languages, useLanguageStore } from '@/utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
 
-const languageNames = {
+type LanguageCode = 'en' | 'fa' | 'de' | 'ar' | 'fr';
+
+const languageNames: Record<LanguageCode, string> = {
   en: 'English',
   fa: 'Persian',
   de: 'German',
@@ -24,7 +25,7 @@ export default function TranslateBtn() {
 
   const handleLanguageChange = async (keys: Selection) => {
     const selectedLang = Array.from(keys)[0] as string;
-    const langCode = Object.entries(languageNames).find(([_, value]) => value === selectedLang)?.[0];
+    const langCode = Object.entries(languageNames).find(([_, value]) => value === selectedLang)?.[0] as LanguageCode | undefined;
     
     if (langCode) {
       try {
@@ -65,7 +66,7 @@ export default function TranslateBtn() {
           className="capitalize text-sm bg-white text-gray2 rounded-lg shadow"
         >
           <HiTranslate />
-          {languageNames[currentLanguage as keyof typeof languageNames]}
+          {languageNames[currentLanguage as LanguageCode]}
         </Button>
       </DropdownTrigger>
       <DropdownMenu 
@@ -73,12 +74,12 @@ export default function TranslateBtn() {
         variant="flat"
         disallowEmptySelection
         selectionMode="single"
-        selectedKeys={new Set([languageNames[currentLanguage as keyof typeof languageNames]])}
+        selectedKeys={new Set([languageNames[currentLanguage as LanguageCode]])}
         onSelectionChange={handleLanguageChange}
       >
         {languages.map((lang) => (
-          <DropdownItem key={languageNames[lang as keyof typeof languageNames]}>
-            {languageNames[lang as keyof typeof languageNames]}
+          <DropdownItem key={languageNames[lang as LanguageCode]}>
+            {languageNames[lang as LanguageCode]}
           </DropdownItem>
         ))}
       </DropdownMenu>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Input, Textarea, Button } from "@nextui-org/react";
-import { Upload } from "lucide-react";
+// import { Upload } from "lucide-react";
 import { TierFormData } from "../types/tier";
 import { TIER_FORM_DEFAULT_VALUES } from "../utils/constants";
 import { handleNumericInput } from "../utils/validation";
@@ -24,8 +24,8 @@ export const TierForm: React.FC<TierFormProps> = ({
   onImageChange,
 }) => {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'fa' || i18n.language === 'far';
-  
+  const isRTL = i18n.language === "fa" || i18n.language === "far";
+
   const {
     control,
     handleSubmit,
@@ -39,16 +39,16 @@ export const TierForm: React.FC<TierFormProps> = ({
 
   // Helper function to create validation message with proper typing
   const getValidationMessage = (field: string): string => {
-    return t('creators.tier.form.validation.required', {
+    return t("creators.tier.form.validation.required", {
       field,
-      defaultValue: `${field} is required`
+      defaultValue: `${field} is required`,
     });
   };
 
   // Helper function for positive amount validation
   const getPositiveAmountMessage = (): string => {
-    return t('creators.tier.form.validation.positiveAmount', {
-      defaultValue: 'Amount must be positive'
+    return t("creators.tier.form.validation.positiveAmount", {
+      defaultValue: "Amount must be positive",
     });
   };
 
@@ -61,11 +61,11 @@ export const TierForm: React.FC<TierFormProps> = ({
   };
 
   const inputClassName = `border border-light3 rounded-lg text-xs font-extralight hover:border-purple-500 focus:border-purple-500 ${
-    isRTL ? 'text-right' : 'text-left'
+    isRTL ? "text-right" : "text-left"
   }`;
 
   const labelClassName = `block text-sm font-medium text-gray-700 mb-1 ${
-    isRTL ? 'text-right' : 'text-left'
+    isRTL ? "text-right" : "text-left"
   }`;
 
   return (
@@ -75,19 +75,23 @@ export const TierForm: React.FC<TierFormProps> = ({
           {/* Name field */}
           <div>
             <label className={labelClassName}>
-              {t('translation:creators.tier.form.name.label')}
+              {t("translation:creators.tier.form.name.label")}
             </label>
             <Controller
               name="name"
               control={control}
-              rules={{ 
-                required: getValidationMessage(t('translation:creators.tier.form.name.label'))
+              rules={{
+                required: getValidationMessage(
+                  t("translation:creators.tier.form.name.label")
+                ),
               }}
               render={({ field }) => (
                 <Input
                   {...field}
-                  placeholder={t('translation:creators.tier.form.name.placeholder')}
-                  dir={getDirection(field.value || '')}
+                  placeholder={t(
+                    "translation:creators.tier.form.name.placeholder"
+                  )}
+                  dir={getDirection(field.value || "")}
                   className={inputClassName}
                   isInvalid={!!errors.name}
                   errorMessage={errors.name?.message}
@@ -99,19 +103,23 @@ export const TierForm: React.FC<TierFormProps> = ({
           {/* Description field */}
           <div>
             <label className={labelClassName}>
-              {t('translation:creators.tier.form.description.label')}
+              {t("translation:creators.tier.form.description.label")}
             </label>
             <Controller
               name="rewardDescription"
               control={control}
-              rules={{ 
-                required: getValidationMessage(t('translation:creators.tier.form.description.label'))
+              rules={{
+                required: getValidationMessage(
+                  t("translation:creators.tier.form.description.label")
+                ),
               }}
               render={({ field }) => (
                 <Textarea
                   {...field}
-                  placeholder={t('translation:creators.tier.form.description.placeholder')}
-                  dir={getDirection(field.value || '')}
+                  placeholder={t(
+                    "translation:creators.tier.form.description.placeholder"
+                  )}
+                  dir={getDirection(field.value || "")}
                   className={`${inputClassName} min-h-[110px]`}
                   isInvalid={!!errors.rewardDescription}
                   errorMessage={errors.rewardDescription?.message}
@@ -123,14 +131,17 @@ export const TierForm: React.FC<TierFormProps> = ({
           {/* Amount field */}
           <div>
             <label className={labelClassName}>
-              {t('translation:creators.tier.form.amount.label')}
+              {t("translation:creators.tier.form.amount.label")}
             </label>
             <Controller
               name="amount"
               control={control}
               rules={{
-                required: getValidationMessage(t('translation:creators.tier.form.amount.label')),
-                validate: (value) => parseInt(value) >= 0 || getPositiveAmountMessage()
+                required: getValidationMessage(
+                  t("translation:creators.tier.form.amount.label")
+                ),
+                validate: (value) =>
+                  parseInt(value) >= 0 || getPositiveAmountMessage(),
               }}
               render={({ field: { onChange, value, ...field } }) => (
                 <Input
@@ -138,7 +149,9 @@ export const TierForm: React.FC<TierFormProps> = ({
                   value={value}
                   type="text"
                   inputMode="numeric"
-                  placeholder={t('translation:creators.tier.form.amount.placeholder')}
+                  placeholder={t(
+                    "translation:creators.tier.form.amount.placeholder"
+                  )}
                   dir={isRTL ? "rtl" : "ltr"}
                   className={inputClassName}
                   isInvalid={!!errors.amount}
@@ -157,7 +170,7 @@ export const TierForm: React.FC<TierFormProps> = ({
           {/* Cover Photo field */}
           <div>
             <label className={labelClassName}>
-              {t('translation:creators.tier.form.coverPhoto.label')}
+              {t("translation:creators.tier.form.coverPhoto.label")}
             </label>
             <Controller
               name="coverPhoto"
@@ -170,9 +183,11 @@ export const TierForm: React.FC<TierFormProps> = ({
                       document.getElementById("coverPhotoInput")?.click()
                     }
                   >
-                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                    {/* <Upload className="w-8 h-8 text-gray-400 mb-2" /> */}
                     <p className="text-sm text-gray-500">
-                      {t('translation:creators.tier.form.coverPhoto.uploadText')}
+                      {t(
+                        "translation:creators.tier.form.coverPhoto.uploadText"
+                      )}
                     </p>
                   </div>
                   <input
@@ -195,9 +210,9 @@ export const TierForm: React.FC<TierFormProps> = ({
           </div>
         </div>
 
-        <div className={isRTL ? 'text-right' : 'text-left'}>
+        <div className={isRTL ? "text-right" : "text-left"}>
           <h3 className="text-lg font-semibold text-primary mb-4">
-            {t('translation:creators.tier.form.preview')}
+            {t("translation:creators.tier.form.preview")}
           </h3>
           <PreviewCard
             data={formValues}
@@ -207,18 +222,20 @@ export const TierForm: React.FC<TierFormProps> = ({
         </div>
       </div>
 
-      <div className={`flex gap-2 mt-6 ${isRTL ? 'justify-start' : 'justify-end'}`}>
+      <div
+        className={`flex gap-2 mt-6 ${isRTL ? "justify-start" : "justify-end"}`}
+      >
         <Button
           className="bg-light4 text-gray4 font-light rounded-lg border border-light2 text-xs hover:border-purple-500 hover:bg-primary50"
           onClick={onCancel}
         >
-          {t('translation:creators.tier.form.buttons.cancel')}
+          {t("translation:creators.tier.form.buttons.cancel")}
         </Button>
         <Button
           className="bg-primary text-white border border-primary200 hover:bg-primary400 rounded-lg text-xs"
           type="submit"
         >
-          {t('translation:creators.tier.form.buttons.save')}
+          {t("translation:creators.tier.form.buttons.save")}
         </Button>
       </div>
     </form>

@@ -13,7 +13,6 @@ import {
   SelectSection,
   Selection,
 } from "@nextui-org/react";
-import { MdOutlineDone } from "react-icons/md";
 
 import { PreviewCard } from "./components/PreviewCard";
 import { AddMemberCard } from "./components/AddMemberCard";
@@ -71,14 +70,14 @@ export default function TeamMemberInvite(): JSX.Element {
     e.preventDefault();
 
     const descError = validateDescription(formData.description);
-    if (descError) {
-      setDescriptionError(
-        t("teamMember.form.validation.description", {
-          length: MIN_DESCRIPTION_LENGTH,
-        })
-      );
-      return;
-    }
+    // if (descError) {
+    //   setDescriptionError(
+    //     t("teamMember.form.validation.description", {
+    //       length: MIN_DESCRIPTION_LENGTH,
+    //     })
+    //   );
+    //   return;
+    // }
 
     if (!validateEmail(formData.email)) {
       setEmailError(t("translation:teamMember.form.validation.email"));

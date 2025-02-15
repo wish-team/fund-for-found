@@ -1,6 +1,6 @@
 // ImagePreview.tsx
 import React, { useRef, useEffect } from "react";
-import { Type } from "lucide-react";
+import { LuType } from  "react-icons/lu";
 import { Input } from "@nextui-org/react";
 import { useBannerStore } from "../store/bannerStore";
 
@@ -77,7 +77,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
             onClick={handleTitleClick}
           >
             <h1 className="text-4xl font-bold text-white">{title}</h1>
-            {isModal && <Type size={24} className="text-white" />}
+            {isModal && <LuType size={24} className="text-white" />}
           </div>
         )}
       </div>

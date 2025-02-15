@@ -28,7 +28,7 @@ const Card = () => {
   // Prefetch both possible routes
   useEffect(() => {
     router.prefetch("/steps/1");
-    router.prefetch("http://localhost:3000/login");
+    router.prefetch("/login");
   }, [router]);
 
   const handleStartClick = useCallback(async () => {
@@ -37,7 +37,8 @@ const Card = () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      router.push(session ? "/steps/1" : "http://localhost:3000/login");
+      console.log("url", window.location);
+      router.push(session ? "/steps/1" : "/login");
     } catch (error) {
       console.error("Error checking authentication:", error);
       router.push("/login");

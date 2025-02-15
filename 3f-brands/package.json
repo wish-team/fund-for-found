@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "NODE_NO_DEPRECATION=punycode next dev",
+    "build": "NODE_NO_DEPRECATION=punycode next build",
     "start": "next start",
     "json-server": "json-server --watch db.json --port 8000"
   },
@@ -42,7 +42,6 @@
     "geist": "^1.2.1",
     "i18next": "^24.2.1",
     "i18next-browser-languagedetector": "^8.0.2",
-    "lucide-react": "^0.460.0",
     "next": "^15.0.3",
     "postcss": "8.4.33",
     "qrcode.react": "^4.2.0",
@@ -56,6 +55,7 @@
     "swiper": "^11.1.15",
     "typescript": "5.3.3",
     "uuid": "^11.0.3",
+    "web-push": "^3.6.7",
     "zod": "^3.23.8",
     "zustand": "^5.0.3"
   },
@@ -64,6 +64,7 @@
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "@types/tailwindcss": "^3.0.11",
+    "cross-env": "^7.0.3",
     "encoding": "^0.1.13",
     "json-server": "^1.0.0-beta.3",
     "tailwindcss": "^3.4.16"

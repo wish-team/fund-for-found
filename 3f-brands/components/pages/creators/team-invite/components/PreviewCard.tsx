@@ -31,9 +31,12 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
     setIsDeleteModalOpen(false);
   };
 
-  // Translate the role
+  // Translate the role using the correct path
   const getTranslatedRole = (role: string) => {
-    return t(`teamMember.roles.${role.toLowerCase()}`);
+    const translationKey = role.toLowerCase() === "admin" 
+      ? "translation:teamMember.roles.admin" 
+      : "translation:teamMember.roles.teammate";
+    return t(translationKey);
   };
 
   return (

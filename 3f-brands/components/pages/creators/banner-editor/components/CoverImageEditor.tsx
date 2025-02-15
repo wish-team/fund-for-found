@@ -8,7 +8,7 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
-import { Pencil } from "lucide-react";
+import { IoPencilSharp } from "react-icons/io5";
 import { CoverImageEditorProps } from "../types";
 import { ACCEPTED_IMAGE_TYPES } from "../utils/constants";
 import { ImagePreview } from "./ImagePreview";
@@ -71,7 +71,7 @@ export const CoverImageEditor: React.FC<CoverImageEditorProps> = ({
                 className="absolute top-4 right-4 bg-light3 border border-primary200 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
                 color="primary"
                 variant="flat"
-                startContent={<Pencil size={16} />}
+                startContent={<IoPencilSharp size={16} />}
               >
                 {t("translation:banner.coverImage.editCover")}
               </Button>

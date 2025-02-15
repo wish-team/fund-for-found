@@ -1,18 +1,19 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { 
-  Modal, 
-  ModalContent, 
-  ModalHeader, 
-  ModalBody, 
-  ModalFooter, 
-  Button, 
-  Input 
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Input,
 } from "@nextui-org/react";
-import { FAQFormData, faqSchema } from '../types/accordion';
-import { useTranslation } from 'react-i18next';
-
+import { FAQFormData, faqSchema } from "../types/accordion";
+import { useTranslation } from "react-i18next";
+import { useFAQStore } from "../store/faqStore";
+import { ErrorMessage } from "./ErrorMessage";
 
 interface AddQuestionModalProps {
   isOpen: boolean;
@@ -23,15 +24,21 @@ interface AddQuestionModalProps {
 export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
   isOpen,
   onOpenChange,
-  onSave
+  onSave,
 }) => {
   const { t, i18n } = useTranslation();
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FAQFormData>({
-    resolver: zodResolver(faqSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FAQFormData>({
+    resolver: zodResolver(faqSchema),
   });
+  const { loadingStates, errors: faqErrors } = useFAQStore();
 
-  const isRTL = i18n.language === 'fa';
-  const containerDirection = isRTL ? 'rtl' : 'ltr';
+  const isRTL = i18n.language === "fa";
+  const containerDirection = isRTL ? "rtl" : "ltr";
 
   const onSubmit = (data: FAQFormData) => {
     onSave(data);
@@ -42,51 +49,66 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className={`bg-white border shadow-shadow1 p-2 rounded-lg max-w-[400px] sm:max-w-[500px] md:max-w-[715px] lg:max-w-[935px] w-full ${isRTL ? 'rtl' : 'ltr'}`}
+      className={`bg-white border shadow-shadow1 p-2 rounded-lg max-w-[400px] sm:max-w-[500px] md:max-w-[715px] lg:max-w-[935px] w-full ${
+        isRTL ? "rtl" : "ltr"
+      }`}
     >
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} dir={containerDirection}>
             <ModalHeader className="flex flex-col gap-1 text-gray3">
-              {t('translation:faq.modal.addTitle')}
+              {t("translation:faq.modal.addTitle")}
             </ModalHeader>
             <ModalBody>
               <div className="space-y-4">
                 <div>
                   <Input
-                    {...register('title')}
-                    placeholder={t('translation:faq.modal.questionPlaceholder')}
+                    {...register("title")}
+                    placeholder={t("translation:faq.modal.questionPlaceholder")}
                     classNames={{
-                      input: isRTL ? 'text-right' : 'text-left',
-                      inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
+                      input: isRTL ? "text-right" : "text-left",
+                      inputWrapper:
+                        "mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500",
                     }}
                     className="text-sm text-gray3 font-extralight"
                   />
                   {errors.title && (
                     <p className="text-red-500 text-sm mt-1">
-                      {t('translation:faq.validation.questionRequired')}
+                      {t("translation:faq.validation.questionRequired")}
                     </p>
                   )}
                 </div>
                 <div>
                   <Input
-                    {...register('content')}
-                    placeholder={t('translation:faq.modal.answerPlaceholder')}
+                    {...register("content")}
+                    placeholder={t("translation:faq.modal.answerPlaceholder")}
                     classNames={{
-                      input: isRTL ? 'text-right' : 'text-left',
-                      inputWrapper: 'mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500'
+                      input: isRTL ? "text-right" : "text-left",
+                      inputWrapper:
+                        "mt-4 shadow-shadow1 border border-light3 rounded-lg hover:border-purple-500 focus:border-purple-500",
                     }}
                     className="text-sm text-gray3 font-extralight"
                   />
                   {errors.content && (
                     <p className="text-red-500 text-sm mt-1">
-                      {t('translation:faq.validation.answerRequired')}
+                      {t("translation:faq.validation.answerRequired")}
                     </p>
                   )}
                 </div>
               </div>
             </ModalBody>
-            <ModalFooter className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} gap-2`}>
+
+            {faqErrors.create && (
+              <div className="px-6">
+                <ErrorMessage error={faqErrors.create} />
+              </div>
+            )}
+
+            <ModalFooter
+              className={`flex ${
+                isRTL ? "flex-row-reverse" : "flex-row"
+              } gap-2`}
+            >
               <Button
                 className="text-gray4 text-sm border border-light3 rounded-lg hover:bg-primary50 hover:border-purple-500"
                 variant="light"
@@ -94,15 +116,17 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                   reset();
                   onClose();
                 }}
+                disabled={loadingStates.create}
               >
-                {t('translation:faq.modal.cancel')}
+                {t("translation:faq.modal.cancel")}
               </Button>
               <Button
                 type="submit"
                 color="primary"
                 className="text-white text-sm rounded-lg hover:bg-primary400"
+                isLoading={loadingStates.create}
               >
-                {t('translation:faq.modal.save')}
+                {t("translation:faq.modal.save")}
               </Button>
             </ModalFooter>
           </form>

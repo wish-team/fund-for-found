@@ -1,17 +1,11 @@
-// src/components/pages/creators/FAQ/FAQSection.tsx
 import React from "react";
-import {
-  Accordion,
-  AccordionItem as NextUIAccordionItem,
-  Button,
-  useDisclosure,
-} from "@nextui-org/react";
-import { FaPlus, FaTrashCan, FaPencil } from "react-icons/fa6";
-
+import { Accordion, Button, useDisclosure } from "@nextui-org/react";
+import { FaPlus } from "react-icons/fa6";
 import { EditModal } from "./components/EditModal";
 import { AddQuestionModal } from "./components/AddQuestionModal";
 import DeleteConfirmationModal from "../../../shared/DeleteConfirmationModal";
 import CreatorsTitle from "../title/CreatorsTitle";
+import { FAQItem } from "./components/FAQItem";
 import { AccordionItemType, FAQFormData } from "./types/accordion";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useFAQStore } from "./store/faqStore";
@@ -19,75 +13,116 @@ import { useAuthStore } from "@/store/authStore";
 import { useTranslation } from "react-i18next";
 
 const FAQ: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const {
     accordionItems,
     selectedKeys,
     selectedItem,
+    isLoading,
+    error,
+    fetchFAQs,
     setSelectedItem,
     setSelectedKeys,
     addItem,
     updateItem,
     deleteItem,
-    initializeFAQ,
   } = useFAQStore();
 
   const user = useAuthStore((state) => state.user);
-
-  React.useEffect(() => {
-    // Initialize with default items if needed
-    if (accordionItems.length === 0) {
-      initializeFAQ([
-        {
-          id: "initial-1",
-          title: "Lorem ipsum dolor sit amet?",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        },
-      ]);
-    }
-  }, []);
 
   const editModal = useDisclosure();
   const addModal = useDisclosure();
   const deleteModal = useDisclosure();
   const [itemToDelete, setItemToDelete] = React.useState<string | null>(null);
 
-  const handleEdit = (item: AccordionItemType) => {
-    setSelectedItem(item);
-    editModal.onOpen();
-  };
+  // Memoized handlers
+  const handleEdit = React.useCallback(
+    (item: AccordionItemType) => {
+      setSelectedItem(item);
+      editModal.onOpen();
+    },
+    [setSelectedItem, editModal]
+  );
 
-  const handleCloseEdit = () => {
+  const handleCloseEdit = React.useCallback(() => {
     setSelectedItem(null);
     editModal.onClose();
-  };
+  }, [setSelectedItem, editModal]);
 
-  const handleAddQuestion = () => {
+  const handleAddQuestion = React.useCallback(() => {
     addModal.onOpen();
-  };
+  }, [addModal]);
 
-  const handleCloseAdd = () => {
-    setSelectedItem(null);
-    addModal.onClose();
-  };
+  const handleDeleteClick = React.useCallback(
+    (id: string) => {
+      setItemToDelete(id);
+      deleteModal.onOpen();
+    },
+    [deleteModal]
+  );
 
-  const handleAddSubmit = (data: FAQFormData) => {
-    const newItem = addItem({ title: data.title, content: data.content });
-    addModal.onClose();
-  };
+  const handleAddSubmit = React.useCallback(
+    (data: FAQFormData) => {
+      addItem({ title: data.title, content: data.content });
+      addModal.onClose();
+    },
+    [addItem, addModal]
+  );
 
-  const confirmDelete = () => {
+  const confirmDelete = React.useCallback(() => {
     if (itemToDelete) {
       deleteItem(itemToDelete);
       deleteModal.onClose();
       setItemToDelete(null);
     }
-  };
+  }, [itemToDelete, deleteItem, deleteModal]);
 
-  const handleDeleteClick = (id: string) => {
-    setItemToDelete(id);
-    deleteModal.onOpen();
-  };
+  // Memoized selection change handler
+  const handleSelectionChange = React.useCallback(
+    (keys: any) => {
+      setSelectedKeys(new Set(Array.from(keys).map(String)));
+    },
+    [setSelectedKeys]
+  );
+
+  // Fetch FAQs on mount
+  React.useEffect(() => {
+    fetchFAQs();
+  }, [fetchFAQs]);
+
+  // Memoized save handler for edit modal
+  const handleEditSave = React.useCallback(
+    (update: FAQFormData) => {
+      if (selectedItem) {
+        updateItem(selectedItem.id, update);
+        handleCloseEdit();
+      }
+    },
+    [selectedItem, updateItem, handleCloseEdit]
+  );
+
+  // Loading and error states
+  if (isLoading) {
+    return (
+      <AuthWrapper>
+        <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
+          <CreatorsTitle title={t("translation:faq.title")} />
+          <div>Loading...</div>
+        </section>
+      </AuthWrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <AuthWrapper>
+        <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
+          <CreatorsTitle title={t("translation:faq.title")} />
+          <div className="text-red-500">{error}</div>
+        </section>
+      </AuthWrapper>
+    );
+  }
 
   return (
     <AuthWrapper>
@@ -96,44 +131,19 @@ const FAQ: React.FC = () => {
         <Accordion
           variant="splitted"
           selectedKeys={selectedKeys}
-          onSelectionChange={(keys) =>
-            setSelectedKeys(new Set(Array.from(keys).map(String)))
-          }
+          onSelectionChange={handleSelectionChange}
         >
           {accordionItems.map((item) => (
-            <NextUIAccordionItem
+            <FAQItem
               key={item.id}
-              className="border rounded-lg shadow-shadow1 mb-2"
-              aria-label={item.title}
-              title={item.title}
-            >
-              <div>{item.content}</div>
-              <div className="flex justify-between mt-2">
-                {user && (
-                  <Button
-                    onPress={() => handleEdit(item)}
-                    size="sm"
-                    startContent={<FaPencil />}
-                    className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                  >
-                    {t("translation:faq.editQuestion")}
-                  </Button>
-                )}
-                {user && (
-                  <Button
-                    startContent={<FaTrashCan />}
-                    variant="bordered"
-                    className="border border-primary100 hover:bg-primary50 hover:border-purple-500 rounded-lg text-gray4 text-xs"
-                    onPress={() => handleDeleteClick(item.id)}
-                    size="sm"
-                  >
-                    {t("translation:faq.deleteQuestion")}
-                  </Button>
-                )}
-              </div>
-            </NextUIAccordionItem>
+              item={item}
+              onEdit={handleEdit}
+              onDelete={handleDeleteClick}
+              isAuthenticated={!!user}
+            />
           ))}
         </Accordion>
+
         {user && (
           <Button
             startContent={<FaPlus />}
@@ -148,12 +158,7 @@ const FAQ: React.FC = () => {
           isOpen={editModal.isOpen}
           onOpenChange={handleCloseEdit}
           item={selectedItem}
-          onSave={(update) => {
-            if (selectedItem) {
-              updateItem(selectedItem.id, update);
-              handleCloseEdit();
-            }
-          }}
+          onSave={handleEditSave}
         />
 
         <AddQuestionModal
@@ -174,4 +179,4 @@ const FAQ: React.FC = () => {
   );
 };
 
-export default FAQ;
+export default React.memo(FAQ);

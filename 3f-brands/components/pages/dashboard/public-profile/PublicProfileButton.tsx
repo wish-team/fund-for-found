@@ -15,13 +15,13 @@ const PublicProfileButton: React.FC<PublicProfileButtonProps> = ({
 
   return (
     <Button
-    variant="none"
+    
       endContent={<FaArrowRightLong />}
       onPress={() => router.push(`/creators/${userId}`)}
       className="w-full text-left text-gray2  mt-4 md:mt-0 font-medium px-4 transition-colors"
     >
 
-      {t('dashboard.PublicProfile')}
+      {t('translation:dashboard.PublicProfile')}
     </Button>
   );
 };
