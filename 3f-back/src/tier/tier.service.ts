@@ -22,15 +22,13 @@ export class TierService {
 
   // POST /tier/:brandId - Create a new tier
   async create(brandId: string, createTierDto: CreateTierDto) {
-    const { data, error } = await this.supabaseClient.from('tier').insert([
-      {
-        brand_id: brandId,
-        name: createTierDto.name,
-        description: createTierDto.description,
-        amount: createTierDto.amount,
-        tier_image: createTierDto.tier_image,
-      },
-    ]);
+    const { data, error } = await this.supabaseClient.from('tier').insert({
+      brand_id: brandId,
+      name: createTierDto.name,
+      description: createTierDto.description,
+      amount: createTierDto.amount,
+      // tier_image: createTierDto.tier_image,
+    });
 
     if (error) {
       throw new Error(error.message);
