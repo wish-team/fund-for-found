@@ -24,6 +24,14 @@ export class UserController {
     return this.userService.findOne(userId);
   }
 
+  // GET /user - Get me
+  @UseGuards(MyAuthGuard)
+  @Get()
+  findMe(@Req() request: any) {
+    const userId = request.user.id;
+    return this.userService.findMe(userId);
+  }
+
   // PATCH /user/:userId - Update details of a specific user
   @UseGuards(MyAuthGuard)
   @Patch()

@@ -10,6 +10,21 @@ export class UserService {
   async findOne(userId: string) {
     const { data, error } = await this.supabaseClient
       .from('user')
+      .select('user_id, user_first_name, user_last_name, country, user_image')
+      .eq('user_id', userId)
+      .single();
+
+    if (error || !data) {
+      throw new NotFoundException('User not found');
+    }
+
+    return data;
+  }
+
+  // GET /user - Get me
+  async findMe(userId: string) {
+    const { data, error } = await this.supabaseClient
+      .from('user')
       .select('*')
       .eq('user_id', userId)
       .single();
