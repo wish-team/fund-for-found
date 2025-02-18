@@ -12,3 +12,7 @@ switching network
 fee estimation for network
 reducuce commision 
 
+
+## important 
+
+process payment should not deliver to the wallet instantly! the brand should withdraw by himself!

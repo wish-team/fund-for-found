@@ -38,7 +38,7 @@ export const Contributions = () => {
                 layout="vertical"
                 tiers={tiers}
                 onEdit={editTier}
-                onDelete={deleteTier}
+                onDelete={(index) => deleteTier(index.toString())}
               />
             </div>
           </div>

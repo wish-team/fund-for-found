@@ -2,9 +2,12 @@ import { create } from "zustand";
 import { Tier, TierFormData } from "../types/tier";
 import { DEFAULT_IMAGE } from "../utils/constants";
 import { v4 as uuidv4 } from "uuid";
+import { TierService } from "@/services/tierService";
 
 interface TierState {
   tiers: Tier[];
+  isLoading: boolean;
+  error: string | null;
   isModalOpen: boolean;
   editingIndex: number | null;
   imagePreview: string | null;
@@ -12,6 +15,13 @@ interface TierState {
     show: boolean;
     index: number | null;
   };
+
+  // Actions
+  fetchTiers: () => Promise<void>;
+  createTier: (data: TierFormData) => Promise<void>;
+  updateTier: (id: string, data: Partial<TierFormData>) => Promise<void>;
+  deleteTier: (id: string) => Promise<void>;
+  setError: (error: string | null) => void;
 
   // Modal actions
   openModal: () => void;
@@ -26,7 +36,6 @@ interface TierState {
   // Tier management
   initializeTiers: () => void;
   handleSubmit: (data: TierFormData) => void;
-  deleteTier: (index: number) => void;
 
   // Delete confirmation
   showDeleteConfirmation: (index: number) => void;
@@ -36,6 +45,8 @@ interface TierState {
 
 export const useTierStore = create<TierState>((set, get) => ({
   tiers: [],
+  isLoading: false,
+  error: null,
   isModalOpen: false,
   editingIndex: null,
   imagePreview: null,
@@ -43,6 +54,60 @@ export const useTierStore = create<TierState>((set, get) => ({
     show: false,
     index: null,
   },
+
+  fetchTiers: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const tiers = await TierService.getTiers();
+      set({ tiers, isLoading: false });
+    } catch (error) {
+      set({ error: "Failed to fetch tiers", isLoading: false });
+    }
+  },
+
+  createTier: async (data: TierFormData) => {
+    set({ isLoading: true, error: null });
+    try {
+      const newTier = await TierService.createTier(data);
+      set((state) => ({
+        tiers: [...state.tiers, newTier],
+        isLoading: false,
+        isModalOpen: false,
+      }));
+    } catch (error) {
+      set({ error: "Failed to create tier", isLoading: false });
+    }
+  },
+
+  updateTier: async (id: string, data: Partial<TierFormData>) => {
+    set({ isLoading: true, error: null });
+    try {
+      const updatedTier = await TierService.updateTier(id, data);
+      set((state) => ({
+        tiers: state.tiers.map((tier) => (tier.id === id ? updatedTier : tier)),
+        isLoading: false,
+        isModalOpen: false,
+      }));
+    } catch (error) {
+      set({ error: "Failed to update tier", isLoading: false });
+    }
+  },
+
+  deleteTier: async (id: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      await TierService.deleteTier(id);
+      set((state) => ({
+        tiers: state.tiers.filter((tier) => tier.id !== id),
+        isLoading: false,
+        deleteConfirmation: { show: false, index: null },
+      }));
+    } catch (error) {
+      set({ error: "Failed to delete tier", isLoading: false });
+    }
+  },
+
+  setError: (error) => set({ error }),
 
   openModal: () => set({ isModalOpen: true }),
   closeModal: () => {
@@ -106,15 +171,6 @@ export const useTierStore = create<TierState>((set, get) => ({
       editingIndex: null,
       imagePreview: null,
     });
-  },
-
-  deleteTier: (index: number) => {
-    set((state) => ({
-      deleteConfirmation: {
-        show: true,
-        index,
-      },
-    }));
   },
 
   showDeleteConfirmation: (index: number) =>

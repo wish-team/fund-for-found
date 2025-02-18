@@ -28,7 +28,6 @@ export const useTranslations = (lng: string) => {
       }
     },
     staleTime: Infinity,
-    gcTime: 0, // Changed from cacheTime to gcTime
-    retry: false
+    gcTime: 0
   });
 };

@@ -1,11 +1,11 @@
 // utils/i18n/utils/i18n.ts
-'use client';
+"use client";
 
-import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { getOptions } from '../config/settings';
-import enTranslations from '../locales/en/translation.json';
+import i18next from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { getOptions } from "../config/settings";
+import enTranslations from "../locales/en/translation.json";
 
 const i18nInstance = i18next.createInstance();
 
@@ -17,22 +17,22 @@ if (!i18nInstance.isInitialized) {
       ...getOptions(),
       resources: {
         en: {
-          translation: enTranslations
-        }
+          translation: enTranslations,
+        },
       },
-      load: 'languageOnly',
-      fallbackLng: 'en',
-      preload: ['en'],
+      load: "languageOnly",
+      fallbackLng: "en",
+      preload: ["en"],
       react: {
-        useSuspense: false
+        useSuspense: false,
       },
       interpolation: {
-        escapeValue: false
+        escapeValue: false,
       },
       detection: {
-        order: ['localStorage', 'navigator'],
-        caches: ['localStorage']
-      }
+        order: ["localStorage", "navigator"],
+        caches: ["localStorage"],
+      },
     });
 }
 

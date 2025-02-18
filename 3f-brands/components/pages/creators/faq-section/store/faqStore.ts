@@ -20,6 +20,18 @@ interface FAQState {
   isLoading: boolean;
   error: string | null;
   fetchFAQs: () => Promise<void>;
+  loadingStates: {
+    fetch: boolean;
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  };
+  errors: {
+    fetch: string | null;
+    create: string | null;
+    update: string | null;
+    delete: string | null;
+  };
 }
 
 export const useFAQStore = create<FAQState>((set) => ({
@@ -28,13 +40,28 @@ export const useFAQStore = create<FAQState>((set) => ({
   selectedItem: null,
   isLoading: false,
   error: null,
+  loadingStates: {
+    fetch: false,
+    create: false,
+    update: false,
+    delete: false,
+  },
+  errors: {
+    fetch: null,
+    create: null,
+    update: null,
+    delete: null,
+  },
 
   setSelectedItem: (item) => set({ selectedItem: item }),
 
   setSelectedKeys: (keys) => set({ selectedKeys: keys }),
 
   fetchFAQs: async () => {
-    set({ isLoading: true, error: null });
+    set((state) => ({
+      loadingStates: { ...state.loadingStates, fetch: true },
+      errors: { ...state.errors, fetch: null },
+    }));
     try {
       const data = await faqApi.getAllFAQs();
       const formattedItems = data.map((item: any) => ({
@@ -44,9 +71,17 @@ export const useFAQStore = create<FAQState>((set) => ({
       }));
       set({ accordionItems: formattedItems });
     } catch (error) {
-      set({ error: (error as Error).message });
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "translation:faq.errors.unknown";
+      set((state) => ({
+        errors: { ...state.errors, fetch: errorMessage },
+      }));
     } finally {
-      set({ isLoading: false });
+      set((state) => ({
+        loadingStates: { ...state.loadingStates, fetch: false },
+      }));
     }
   },
 

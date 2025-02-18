@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CoinStrategy } from './strategy/coin-strategy.interface';
+import { tokenList, Token } from './token_list.config'; // Import the config
+
 
 @Injectable()
 export class CoinService {
   private readonly strategies: Map<string, CoinStrategy> = new Map();
+  private readonly tokens: Record<string, Token> = tokenList;
 
   constructor() {
     // Strategies will be registered dynamically via registerStrategy
@@ -32,5 +35,30 @@ export class CoinService {
       throw new Error(`No strategy found for coin: ${coin}`);
     }
     return strategy;
+  }
+  /**
+   * Retrieves the supported networks for the coin.
+   * @returns An array of supported network names.
+   */
+  getSupportedNetworks(coin: string): string[] {
+    const strategy = this.getStrategy(coin);
+    return strategy.getNetwork();
+  }
+
+  async getGasFee(coin: string, network: string): Promise<number> {
+    const strategy = this.getStrategy(coin);
+    return await strategy.getGasFee(network);
+  }
+
+  getTokenDetails(token: string): { name: string; symbol: string } | null {
+    const lowerToken = token.toLowerCase();
+    if (this.tokens[lowerToken]) {
+      const { name, symbol } = this.tokens[lowerToken];
+      return { name, symbol };
+    }
+    return null;
+  }
+  getAllTokens(): Token[] {
+    return Object.values(this.tokens);
   }
 }

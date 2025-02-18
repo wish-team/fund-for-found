@@ -1,3 +1,8 @@
+export interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
+
 export interface CoinStrategy {
   /**
    * Generate a derived address for the coin using a mnemonic and index.
@@ -5,7 +10,7 @@ export interface CoinStrategy {
    * @param index The index of the derived address.
    * @returns The derived address as a string.
    */
-  generateAddress(mnemonic: string, index: number): string;
+  generateAddress(mnemonic: string, index: number): DerivedCredentials;
 
   /**
    * Get the balance of a specific address.
@@ -28,4 +33,17 @@ export interface CoinStrategy {
     amount: string,
     privateKey: string,
   ): Promise<string>;
+
+  /**
+   * Retrieves the supported networks for the coin.
+   * @returns An array of supported network names.
+   */
+  getNetwork(): string[];
+
+  /**
+   * Retrieves the current gas or transaction fee for the specified network.
+   * @param network The network name (e.g., 'mainnet', 'testnet').
+   * @returns The fee as a number.
+   */
+  getGasFee(network: string): Promise<number>;
 }

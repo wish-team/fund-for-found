@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -6,9 +6,17 @@ import { Button } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AutocompleteInput } from "../../steps/step1/components/AutocompleteInput";
 import { MultiSelectInput } from "../../steps/step1/components/MultiSelectInput";
-import { getOptions, getRegistration, updateInfo } from "../../steps/step1/services/api";
+import {
+  getOptions,
+  getRegistration,
+  updateInfo,
+} from "../../steps/step1/services/api";
 import CreatorsTitle from "../../creators/title/CreatorsTitle";
-import { ExtendedFormData, SocialLink, extendedFormSchema } from "../../steps/step1/types";
+import {
+  ExtendedFormData,
+  SocialLink,
+  extendedFormSchema,
+} from "../../steps/step1/types";
 import { useFormStore } from "../../steps/step1/store/store";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -31,7 +39,7 @@ const Info: React.FC = () => {
     subcategories: [],
     brandTags: [],
   });
-  
+
   const [socialLinks, setSocialLinks] = React.useState<SocialLink[]>(
     formData.socialLinks || []
   );
@@ -50,14 +58,15 @@ const Info: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        
+
         // Fetch options
-        const [countries, categories, subcategories, brandTags] = await Promise.all([
-          getOptions("countries"),
-          getOptions("brandcategories"),
-          getOptions("subcategories"),
-          getOptions("brandTags"),
-        ]);
+        const [countries, categories, subcategories, brandTags] =
+          await Promise.all([
+            getOptions("countries"),
+            getOptions("brandcategories"),
+            getOptions("subcategories"),
+            getOptions("brandTags"),
+          ]);
 
         setOptions({
           countries,
@@ -71,7 +80,10 @@ const Info: React.FC = () => {
           const registrationData = await getRegistration(registrationId);
           Object.keys(registrationData).forEach((key) => {
             if (key !== "id") {
-              form.setValue(key as keyof ExtendedFormData, registrationData[key as keyof ExtendedFormData]);
+              form.setValue(
+                key as keyof ExtendedFormData,
+                registrationData[key as keyof ExtendedFormData]
+              );
             }
           });
         }
@@ -109,7 +121,7 @@ const Info: React.FC = () => {
   const handleSocialInputChange = (
     id: number,
     platform: string,
-    url: string,
+    url: string
   ) => {
     const updatedLinks = socialLinks.map((link) =>
       link.id === id ? { ...link, platform, url } : link
@@ -150,13 +162,17 @@ const Info: React.FC = () => {
   return (
     <section>
       <CreatorsTitle title="Info" />
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-6 grid">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 py-6 grid"
+      >
         <AutocompleteInput
           control={form.control}
           name="trackingCode"
           label="Use the below code in your analytics for track your page"
           placeholder="3F-5000021100F545X57P0012"
           allowCustomInput={true}
+          options={[]}
         />
 
         <AutocompleteInput
@@ -165,6 +181,7 @@ const Info: React.FC = () => {
           label="Link to your brand or organisation"
           placeholder="http://fundforfound.com/brand/@chanelb"
           allowCustomInput={true}
+          options={[]}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -172,12 +189,15 @@ const Info: React.FC = () => {
             control={form.control}
             name="name"
             label="Brand/Organisation Name"
+            placeholder="Enter your brand or organisation name"
             allowCustomInput={true}
+            options={[]}
           />
           <AutocompleteInput
             control={form.control}
             name="country"
             label="Country"
+            placeholder="Select country"
             options={options.countries}
           />
         </div>
@@ -187,12 +207,14 @@ const Info: React.FC = () => {
             control={form.control}
             name="category"
             label="Category"
+            placeholder="Select category"
             options={options.categories}
           />
           <AutocompleteInput
             control={form.control}
             name="subcategory"
             label="Subcategory"
+            placeholder="Select subcategory"
             options={options.subcategories}
           />
         </div>
@@ -201,7 +223,8 @@ const Info: React.FC = () => {
           control={form.control}
           name="brandTags"
           label="Brands"
-          options={options.brandTags}
+          placeholder="Select brands"
+          options={options.brandTags.map((tag) => tag.name)}
         />
 
         {socialLinks.map((link) => (
