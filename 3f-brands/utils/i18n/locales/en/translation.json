@@ -449,5 +449,32 @@
     "save": "Save",
     "reset": "Reset",
     "edit": "Edit"
+  },
+  "errors": {
+    "imageUpload": {
+      "size": "Image size exceeds maximum allowed size of {{size}}MB",
+      "type": "Please upload a valid image file (JPEG, PNG, GIF, or WebP)",
+      "generic": "Error uploading image"
+    },
+    "generic": "An error occurred"
+  },
+  "loading": {
+    "default": "Loading...",
+    "translations": "Loading translations..."
+  },
+  "auth": {
+    "error": {
+      "title": "Authentication Error",
+      "message": "There was a problem with authentication",
+      "retry": "Try Again"
+    },
+    "callback": {
+      "error": "Authentication callback error occurred"
+    }
+  },
+  "notFound": {
+    "title": "Not Found",
+    "message": "Could not find requested resource",
+    "backHome": "Back to Home"
   }
 }

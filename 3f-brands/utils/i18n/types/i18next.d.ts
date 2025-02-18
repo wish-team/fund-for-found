@@ -440,6 +440,33 @@ declare module "i18next" {
           reset: string;
           edit: string;
         };
+        loading: {
+          default: string;
+          translations: string;
+        };
+        errors: {
+          imageUpload: {
+            size: string;
+            type: string;
+            generic: string;
+          };
+          generic: string;
+        };
+        auth: {
+          error: {
+            title: string;
+            message: string;
+            retry: string;
+          };
+          callback: {
+            error: string;
+          };
+        };
+        notFound: {
+          title: string;
+          message: string;
+          backHome: string;
+        };
       };
     };
   }
