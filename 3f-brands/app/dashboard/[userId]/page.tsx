@@ -1,17 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Tabs,
-  Tab,
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-} from "@nextui-org/react";
+import { Tabs, Tab, Button, Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 import Info from "@/components/pages/dashboard/info/Info";
 import { Contributions } from "@/components/pages/dashboard/contributions/Contributions";
 import { IoMdSettings } from "react-icons/io";
@@ -21,10 +12,8 @@ import Team from "@/components/pages/dashboard/team/Team";
 import Updates from "@/components/pages/creators/updates-section/Updates";
 import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
 
-// Dynamically load useMediaQuery to ensure it works only on the client-side
-const useMediaQuery = dynamic(() => import("@/components/shared/hooks/useMediaQuery"), {
-  ssr: false,
-});
+// Import the hook directly
+import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
 
 const Expenses = () => {
   const { t } = useTranslation();
@@ -50,7 +39,7 @@ function FundForFoundDashboard() {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const isDesktop = useMediaQuery();
+  const isDesktop = useMediaQuery();  // Now directly using the hook
 
   const renderTabContent = () => {
     switch (selectedTab) {
@@ -163,5 +152,4 @@ function FundForFoundDashboard() {
   );
 }
 
-// Export the component dynamically with SSR disabled
-export default dynamic(() => Promise.resolve(FundForFoundDashboard), { ssr: false });
+export default FundForFoundDashboard;
