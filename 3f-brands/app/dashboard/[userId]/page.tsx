@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -40,7 +41,7 @@ const PayOut = () => {
   );
 };
 
-export default function FundForFoundDashboard() {
+function FundForFoundDashboard() {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -105,7 +106,7 @@ export default function FundForFoundDashboard() {
             onPress={() => setIsSidebarOpen(true)}
             className="rounded-e-lg z-50 border-l-4 border-primary bg-primary100"
             startContent={<IoMdSettings className="text-primary" size={20} />}
-          ></Button>
+          />
           <ProfileCard
             email="shirani@wishwork.org"
             onSettingsClick={() => console.log("Settings clicked")}
@@ -117,7 +118,7 @@ export default function FundForFoundDashboard() {
         {isDesktop && (
           <div className="w-64 shrink-0 max-h-[520px] mt-10 rounded-xl py-4 shadow-shadow1 border border-light3 sticky top-28">
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
-            FOUNF FOR FUND
+              FOUNF FOR FUND
             </h1>
             <PublicProfileButton />
             <NavigationTabs />
@@ -138,7 +139,7 @@ export default function FundForFoundDashboard() {
             <ModalContent>
               <ModalHeader className="flex flex-col gap-1">
                 <h1 className="text-xl text-primary text-center">
-                FOUNF FOR FUND
+                  FOUNF FOR FUND
                 </h1>
               </ModalHeader>
               <ModalBody>
@@ -156,3 +157,6 @@ export default function FundForFoundDashboard() {
     </div>
   );
 }
+
+// Export the component dynamically with SSR disabled
+export default dynamic(() => Promise.resolve(FundForFoundDashboard), { ssr: false });
