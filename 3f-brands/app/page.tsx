@@ -1,6 +1,5 @@
 import Title from "@/components/shared/Title";
 import Card from "@/components/pages/start/Card";
-import PushNotificationManager from "./components/PushNotificationManager";
 
 export default async function Index() {
   return (
@@ -17,7 +16,6 @@ export default async function Index() {
             descSize="text-base"
           />
           <Card />
-          {/* <PushNotificationManager /> */}
         </main>
       </div>
     </div>
