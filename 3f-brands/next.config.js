@@ -10,6 +10,9 @@ const nextConfig = {
         ? "https://luminous-begonia-6e7d76.netlify.app"
         : "http://localhost:3000",
   },
+  // Remove or adjust these if not required:
+  // assetPrefix: process.env.NODE_ENV === 'production' ? '/your-subdirectory' : '',
+  // basePath: process.env.NODE_ENV === 'production' ? '/your-subdirectory' : '',
 };
 
 module.exports = nextConfig;
