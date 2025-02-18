@@ -23,11 +23,12 @@
         "allowForLoopAfterthoughts": true
       }
     ],
-    "no-console": "warn",
+    "no-console": "off",
     "no-alert": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/no-explicit-any": "warn",
+    "react/no-unescaped-entities": "off"
   }
 }

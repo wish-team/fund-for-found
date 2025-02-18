@@ -1,7 +1,14 @@
 'use client'
 import { Header, GoogleSignIn, Partition, EmailSignIn } from '@/components/pages/login'
-import Select from "@/components/common/Select"
+import Select  from "@/components/common/Select"
+import Image from "next/image"
+
 const Page = () => {
+  const options = ['Option 1', 'Option 2', 'Option 3']
+  const handleChange = (value: string) => {
+    console.log('Selected:', value)
+  }
+
   return (
     <div>
       <Header />
@@ -68,13 +75,16 @@ const Page = () => {
         </div>
       </div>
 
-            <Select />
+      <Select options={options} onChange={handleChange} />
+
       <div className="flex justify-center p-8">
         <div className="w-80 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg transition duration-300 hover:bg-gray-100 hover:shadow-xl">
           <div className="relative">
-            <img
+            <Image
               src="https://via.placeholder.com/320x180"
               alt="Banner Image"
+              width={320}
+              height={180}
               className="h-44 w-full object-cover"
             />
             <div className="absolute left-2 top-2 rounded-md bg-black px-2 py-1 text-xs text-white">
