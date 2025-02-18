@@ -1,4 +1,5 @@
 "use client";
+
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,9 +18,13 @@ import { IoMdSettings } from "react-icons/io";
 import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
 import Step2 from "@/components/pages/dashboard/about/About";
 import Team from "@/components/pages/dashboard/team/Team";
-import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
 import Updates from "@/components/pages/creators/updates-section/Updates";
 import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
+
+// Dynamically load useMediaQuery to ensure it works only on the client-side
+const useMediaQuery = dynamic(() => import("@/components/shared/hooks/useMediaQuery"), {
+  ssr: false,
+});
 
 const Expenses = () => {
   const { t } = useTranslation();
