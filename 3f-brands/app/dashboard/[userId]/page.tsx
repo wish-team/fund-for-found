@@ -10,15 +10,15 @@ import {
   ModalHeader,
   ModalBody,
 } from "@nextui-org/react";
-import Info from "@/components/pages/dashboard/info/Info";
-import { Contributions } from "@/components/pages/dashboard/contributions/Contributions";
+import Info from "@/components/features/dashboard/info/Info";
+import { Contributions } from "@/components/features/dashboard/contributions/Contributions";
 import { IoMdSettings } from "react-icons/io";
-import ProfileCard from "@/components/pages/dashboard/profile/ProfileCard";
-import Step2 from "@/components/pages/dashboard/about/About";
-import Team from "@/components/pages/dashboard/team/Team";
+import ProfileCard from "@/components/features/dashboard/profile/ProfileCard";
+import Step2 from "@/components/features/dashboard/about/About";
+import Team from "@/components/features/dashboard/team/Team";
 import useMediaQuery from "@/components/shared/hooks/useMediaQuery";
-import Updates from "@/components/pages/creators/updates-section/Updates";
-import PublicProfileButton from "@/components/pages/dashboard/public-profile/PublicProfileButton";
+import Updates from "@/components/features/creators/updates-section/Updates";
+import PublicProfileButton from "@/components/features/dashboard/public-profile/PublicProfileButton";
 
 const Expenses = () => {
   const { t } = useTranslation();
@@ -88,7 +88,10 @@ export default function FundForFoundDashboard() {
       }}
     >
       <Tab key="info" title={t("translation:dashboard.tabs.info")} />
-      <Tab key="contribution-tiers" title={t("translation:dashboard.tabs.contributionTiers")} />
+      <Tab
+        key="contribution-tiers"
+        title={t("translation:dashboard.tabs.contributionTiers")}
+      />
       <Tab key="about" title={t("translation:dashboard.tabs.about")} />
       <Tab key="team" title={t("translation:dashboard.tabs.team")} />
       <Tab key="updates" title={t("translation:dashboard.tabs.updates")} />
@@ -117,7 +120,7 @@ export default function FundForFoundDashboard() {
         {isDesktop && (
           <div className="w-64 shrink-0 max-h-[520px] mt-10 rounded-xl py-4 shadow-shadow1 border border-light3 sticky top-28">
             <h1 className="text-xl text-center pt-6 text-primary mb-8">
-            FOUNF FOR FUND
+              FOUNF FOR FUND
             </h1>
             <PublicProfileButton />
             <NavigationTabs />
@@ -138,7 +141,7 @@ export default function FundForFoundDashboard() {
             <ModalContent>
               <ModalHeader className="flex flex-col gap-1">
                 <h1 className="text-xl text-primary text-center">
-                FOUNF FOR FUND
+                  FOUNF FOR FUND
                 </h1>
               </ModalHeader>
               <ModalBody>

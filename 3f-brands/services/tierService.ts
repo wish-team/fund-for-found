@@ -1,7 +1,7 @@
 import {
   Tier,
   TierFormData,
-} from "@/components/pages/creators/contributors/types/tier";
+} from "@/components/features/creators/contributors/types/tier";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 

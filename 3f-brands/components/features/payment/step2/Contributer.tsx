@@ -1,5 +1,5 @@
 import ContributorDropdown from "./components/ContributorDropdown";
-import { Tier } from '@/components/pages/creators/contributors/types/tier';
+import { Tier } from "@/components/features/creators/contributors/types/tier";
 
 interface ContributerProps {
   tierDetails: Tier;

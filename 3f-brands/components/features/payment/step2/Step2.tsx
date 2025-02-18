@@ -1,7 +1,7 @@
-import React from 'react';
-import { Tier } from '@/components/pages/creators/contributors/types/tier';
-import FAQSection from '../step1/components/FAQ';
-import Contributer from './Contributer';
+import React from "react";
+import { Tier } from "@/components/features/creators/contributors/types/tier";
+import FAQSection from "../step1/components/FAQ";
+import Contributer from "./Contributer";
 
 interface Step2Props {
   tierDetails: Tier;

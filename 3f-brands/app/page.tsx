@@ -1,5 +1,5 @@
 import Title from "@/components/shared/Title";
-import Card from "@/components/pages/start/Card";
+import Card from "@/components/features/start/Card";
 
 export default async function Index() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { RewardTier } from "../types";
-import { DEFAULT_IMAGE } from "@/components/pages/creators/contributors/utils/constants";
+import { DEFAULT_IMAGE } from "@/components/features/creators/contributors/utils/constants";
 
 interface RewardCardProps {
   tier: RewardTier;
