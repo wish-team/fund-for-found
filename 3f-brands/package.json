@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_NO_DEPRECATION=punycode next dev",
-    "build": "cross-env NODE_NO_DEPRECATION=punycode next build",
-    "start": "cross-env NODE_NO_DEPRECATION=punycode next start",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "json-server": "json-server --watch db.json --port 8000"
   },
   "dependencies": {
