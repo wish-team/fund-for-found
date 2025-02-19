@@ -112,8 +112,10 @@ export const useBannerStore = create<BannerState>()(
       },
 
       initializeStore: () => {
-        const { t } = useTranslation();
-        set({ title: t("translation:banner.coverImage.defaultTitle") });
+        set({
+          title: i18next.t("translation:banner.coverImage.defaultTitle"),
+          tempTitle: i18next.t("translation:banner.coverImage.defaultTitle"),
+        });
       },
     }),
     {
