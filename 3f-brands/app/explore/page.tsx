@@ -1,6 +1,6 @@
 // import { SearchComponent } from "@/components/pages/explore/components/SearchComponent"
 
-import CategoryDropdowns from "@/components/pages/explore/components/CategoryDropdowns";
+import CategoryDropdowns from "@/components/features/explore/components/CategoryDropdowns";
 
 const page = () => {
   return (

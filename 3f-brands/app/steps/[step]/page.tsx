@@ -1,15 +1,15 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { StepLayout } from "@/components/pages/start/step-indicator/components/StepLayout";
-import { Step } from "@/components/pages/start/step-indicator/types/steps";
+import { StepLayout } from "@/components/features/start/step-indicator/components/StepLayout";
+import { Step } from "@/components/features/start/step-indicator/types/steps";
 import Loader from "@/components/shared/loader/Loader";
 
 // Pre-load step components
-const Step1Form = React.lazy(() => import("@/components/pages/steps/step1"));
-const Step2 = React.lazy(() => import("@/components/pages/steps/step2"));
-const Step3 = React.lazy(() => import("@/components/pages/steps/Step3"));
-const Step4 = React.lazy(() => import("@/components/pages/steps/Step4"));
+const Step1Form = React.lazy(() => import("@/components/features/steps/step1"));
+const Step2 = React.lazy(() => import("@/components/features/steps/step2"));
+const Step3 = React.lazy(() => import("@/components/features/steps/Step3"));
+const Step4 = React.lazy(() => import("@/components/features/steps/Step4"));
 
 // Define your steps configuration
 const STEPS: Step[] = [
@@ -53,7 +53,7 @@ const Index: React.FC<PageProps> = ({ params }) => {
   };
 
   return (
-    <StepLayout 
+    <StepLayout
       currentStep={currentStep}
       steps={STEPS}
       showSubLabels={false} // Set to true if you want to show labels under circles

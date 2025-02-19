@@ -4,7 +4,7 @@ import { AddTierButton } from "../../creators/contributors/components/AddTierBut
 import { TierList } from "../../creators/contributors/components/TierList";
 import { TierModal } from "../../creators/contributors/components/TierModal";
 import DeleteConfirmationModal from "@/components/shared/DeleteConfirmationModal";
-import CreatorsTitle from "../../../pages/creators/title/CreatorsTitle";
+import CreatorsTitle from "../../creators/title/CreatorsTitle";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 
 export const Contributions = () => {
@@ -15,7 +15,7 @@ export const Contributions = () => {
     deleteTier,
     deleteConfirmation,
     hideDeleteConfirmation,
-    confirmDelete
+    confirmDelete,
   } = useTierStore();
 
   useEffect(() => {

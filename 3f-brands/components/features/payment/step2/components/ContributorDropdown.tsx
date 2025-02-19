@@ -11,13 +11,15 @@ import {
 } from "@nextui-org/react";
 import { useContributorStore } from "../store/contributorStore";
 import { NextStepButton } from "../../step1";
-import { Tier } from '@/components/pages/creators/contributors/types/tier';
+import { Tier } from "@/components/features/creators/contributors/types/tier";
 
 interface ContributorDropdownProps {
   tierDetails: Tier;
 }
 
-const ContributorDropdown: React.FC<ContributorDropdownProps> = ({ tierDetails }) => {
+const ContributorDropdown: React.FC<ContributorDropdownProps> = ({
+  tierDetails,
+}) => {
   const router = useRouter();
   const { selectedContributor, setSelectedContributor } = useContributorStore();
 
