@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ZOOM_SETTINGS, DEFAULT_IMAGE } from "../utils/constants";
 import i18next from "@/utils/i18n/utils/i18n";
+import { useTranslation } from "react-i18next";
 
 interface BannerState {
   image: string;
@@ -28,6 +29,7 @@ interface BannerState {
   saveBanner: () => void;
   resetBanner: () => void;
   updateBanner: (file: File, maxSizeMB: number) => Promise<void>;
+  initializeStore: () => void;
 }
 
 export const useBannerStore = create<BannerState>()(
@@ -35,7 +37,7 @@ export const useBannerStore = create<BannerState>()(
     (set, get) => ({
       // Persistent state
       image: DEFAULT_IMAGE,
-      title: i18next.t("translation:banner.coverImage.defaultTitle"),
+      title: "", // Initialize empty
       zoom: ZOOM_SETTINGS.default,
 
       // UI state (not persisted)
@@ -43,7 +45,7 @@ export const useBannerStore = create<BannerState>()(
       isTitleEditing: false, // Initialize title editing state
       error: undefined,
       tempImage: DEFAULT_IMAGE,
-      tempTitle: i18next.t("translation:banner.coverImage.defaultTitle"),
+      tempTitle: "", // Initialize empty
       tempZoom: ZOOM_SETTINGS.default,
 
       openEditor: () =>
@@ -82,7 +84,7 @@ export const useBannerStore = create<BannerState>()(
       resetBanner: () =>
         set({
           tempImage: DEFAULT_IMAGE,
-          tempTitle: i18next.t("translation:banner.coverImage.defaultTitle"),
+          tempTitle: "", // Initialize empty
           tempZoom: ZOOM_SETTINGS.default,
           error: undefined,
         }),
@@ -107,6 +109,11 @@ export const useBannerStore = create<BannerState>()(
         } catch (error) {
           set({ error: "Error processing image" });
         }
+      },
+
+      initializeStore: () => {
+        const { t } = useTranslation();
+        set({ title: t("translation:banner.coverImage.defaultTitle") });
       },
     }),
     {
