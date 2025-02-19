@@ -1,5 +1,8 @@
 process.noDeprecation = true;
 
+// Import the Node.js 'path' module at the top of your config file.
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,9 +13,11 @@ const nextConfig = {
         ? "https://luminous-begonia-6e7d76.netlify.app"
         : "http://localhost:3000",
   },
-  // Remove or adjust these if not required:
-  // assetPrefix: process.env.NODE_ENV === 'production' ? '/your-subdirectory' : '',
-  // basePath: process.env.NODE_ENV === 'production' ? '/your-subdirectory' : '',
+  webpack: (config, { isServer }) => {
+    // Alias punycode to force the use of the installed version.
+    config.resolve.alias.punycode = path.resolve(__dirname, "node_modules", "punycode");
+    return config;
+  },
 };
 
 module.exports = nextConfig;
