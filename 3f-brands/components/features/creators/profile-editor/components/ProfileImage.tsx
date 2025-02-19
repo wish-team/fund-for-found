@@ -19,8 +19,8 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
   const {t} = useTranslation()
 
   return (
-    <AuthWrapper>
-      {(user) => (
+    // <AuthWrapper>
+      // {(user) => (
         <div className="relative md:w-32 md:h-32 w-24 h-24 group">
           <div className="absolute inset-0 bg-primary rounded-2xl"></div>
           <div className="relative w-full h-full rounded-2xl overflow-hidden">
@@ -39,7 +39,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
               </div>
             )}
           </div>
-          {user && (
+          {/* {user && ( */}
             <button
               onClick={onEditClick}
               className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -49,9 +49,9 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
                 <span className="text-sm hidden md:block">{t('translation:editProfile.edit')}</span>
               </div>
             </button>
-          )}
+          {/* )} */}
         </div>
-      )}
-    </AuthWrapper>
+      // )}
+    // </AuthWrapper>
   );
 };
