@@ -1,4 +1,3 @@
-// CoverImageEditor.tsx
 import React, { useRef } from "react";
 import {
   Modal,
