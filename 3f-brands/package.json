@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "NODE_NO_DEPRECATION=punycode next dev",
-    "build": "NODE_NO_DEPRECATION=punycode next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "json-server": "json-server --watch db.json --port 8000"
   },

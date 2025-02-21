@@ -15,7 +15,8 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
       access_token,
       refresh_token,
     });
-
-    return '';
+    console.log('access_token', access_token);
+    console.log('refresh_token', refresh_token);
+    return access_token;
   }
 }
