@@ -1,4 +1,5 @@
-import React from 'react'
+import Image from "next/image";
+import React from "react";
 
 interface ProjectCardProps {
   backgroundImage: string
@@ -12,9 +13,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ backgroundImage, logo, descri
     <div className="flex justify-center p-8">
       <div className="w-80 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg transition duration-300 hover:bg-gray-100 hover:shadow-xl">
         <div className="relative">
-          <img src={backgroundImage} alt="Banner Image" className="h-44 w-full object-cover" />
+          <Image src={backgroundImage} alt="Banner Image" className="h-44 w-full object-cover" width={300} height={150} />
           <div className="absolute left-2 top-2 rounded-md bg-black px-2 py-1 text-xs text-white">
-            <img src={logo} alt="Logo" className="mr-1 inline h-6 w-6" />
+            <Image src={logo} alt="Logo" className="mr-1 inline h-6 w-6" width={24} height={24} />
             <span>Being Podcast</span>
           </div>
         </div>
