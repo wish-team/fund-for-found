@@ -1,35 +1,39 @@
 import { type NextRequest } from 'next/server'
-import { updateSession } from '@/utils/supabase/middleware'
 import { createClient } from '@/utils/supabase/server'
 
 export async function middleware(request: NextRequest) {
-  // Get the pathname of the request
   const path = request.nextUrl.pathname
 
-  // Create Supabase client
-  const supabase = createClient()
+  // Create Supabase client with the request
+  const supabase = createClient(request)
 
-  // Check if user is authenticated
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Fetch the user
+  const { data, error } = await supabase.auth.getUser()
 
-  // Define public routes that don't require authentication
+  if (error) {
+    console.error('Error fetching user:', error)
+    return new Response('Internal Server Error', { status: 500 })
+  }
+
+  if (!data) {
+    console.error('No data returned from getUser')
+    return new Response('Internal Server Error', { status: 500 })
+  }
+
+  const user = data.user
+
   const publicRoutes = ['/login', '/sign-up', '/forget-password', '/auth/callback']
   const isPublicRoute = publicRoutes.includes(path)
 
-  // Redirect logic
   if (!user && !isPublicRoute) {
-    // Redirect unauthenticated users to login page
     return Response.redirect(new URL('/login', request.url))
   }
 
   if (user && isPublicRoute) {
-    // Redirect authenticated users to protected page
     return Response.redirect(new URL('/protected', request.url))
   }
 
-  return await updateSession(request)
+  return new Response(null, { status: 200 }) // Return OK response
 }
 
 export const config = {
