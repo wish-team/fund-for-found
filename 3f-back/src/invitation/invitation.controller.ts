@@ -26,11 +26,11 @@ export class InvitationController {
 
   @Get('accept')
   async acceptInvitation(@Query('token') token: string, @Req() req: Request) {
-    const user = req.user; // Assuming authentication middleware attaches user info
-    if (!user)
-      throw new BadRequestException(
-        'You must be logged in to accept an invitation.',
-      );
-    return this.invitationService.acceptInvitation(token, user);
+    // const user = req.user; // Assuming authentication middleware attaches user info
+    // if (!user)
+    //   throw new BadRequestException(
+    //     'You must be logged in to accept an invitation.',
+    //   );
+    // return this.invitationService.acceptInvitation(token, user);
   }
 }

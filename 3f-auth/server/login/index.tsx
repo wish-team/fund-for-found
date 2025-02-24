@@ -22,7 +22,7 @@ const SignInWithPassword = async (formData: FormData) => {
 
 const SignInWithGoogle = async () => {
   const origin = (await headers()).get('origin')
-  
+
   const supabase = await createClient()
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -30,6 +30,7 @@ const SignInWithGoogle = async () => {
       redirectTo: origin ?? undefined
     }
   })
+  console.log(data, error)
 
   if (data.url) {
     redirect(data.url) // use the redirect API for your server framework

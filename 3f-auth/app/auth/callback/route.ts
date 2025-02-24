@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const next = searchParams.get('next') ?? '/'
 
   if (code) {
-    const supabase = await createClient()  // Await the createClient() call to get the resolved SupabaseClient
+    const supabase = await createClient() // Await the createClient() call to get the resolved SupabaseClient
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (error) {
@@ -17,6 +17,7 @@ export async function GET(request: Request) {
 
     if (data) {
       // Log the access token for debugging purposes
+
       console.log('Access token:', data.session)
 
       // Optionally, set a secure cookie with the token (or session)
@@ -36,5 +37,5 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   // Removed console.logs to satisfy the no-console ESLint rule
-  return NextResponse.json({ message: "Callback POST handled" });
+  return NextResponse.json({ message: 'Callback POST handled' })
 }
