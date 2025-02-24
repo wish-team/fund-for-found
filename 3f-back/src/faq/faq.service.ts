@@ -23,17 +23,11 @@ export class FaqService {
 
   // Add a new FAQ for a specific brand
   async create(brandId: string, createFaqDto: CreateFaqDto) {
-    const { data, error } = await this.supabaseClient
-      .from('faq')
-      .insert([
-        {
-          brand_id: brandId,
-          question: createFaqDto.question,
-          answer: createFaqDto.answer,
-        },
-      ])
-      .select()
-      .single();
+    const { data, error } = await this.supabaseClient.from('faq').insert({
+      brand_id: brandId,
+      question: createFaqDto.question,
+      answer: createFaqDto.answer,
+    });
 
     if (error) {
       throw new Error(error.message);
