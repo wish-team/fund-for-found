@@ -1,7 +1,6 @@
 'use client'
 import Title from "@/components/shared/Title";
 import Card from "@/components/pages/start/Card";
- 
 import { useState, useEffect } from 'react'
 import { subscribeUser, unsubscribeUser, sendNotification } from './actions'
  
