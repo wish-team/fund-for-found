@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL;
 
 export const faqApi = {
   getAllFAQs: async () => {
-    const response = await fetch(`${BASE_URL}/faq`);
+    const response = await fetch(`${BASE_URL}/faq/2fe19d5d-767b-4640-beba-d2321df887f9`);
     if (!response.ok) throw new Error('Failed to fetch FAQs');
     return response.json();
   },
