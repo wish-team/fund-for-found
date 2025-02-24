@@ -9,6 +9,7 @@ export class FaqService {
 
   // Get all FAQs for a specific brand
   async findAll(brandId: string) {
+    console.log(brandId);
     const { data, error } = await this.supabaseClient
       .from('faq')
       .select('*')
