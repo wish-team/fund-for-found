@@ -33,7 +33,6 @@ export class FaqController {
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createFaqDto: CreateFaqDto,
   ) {
-    
     return this.faqService.create(brandId, createFaqDto);
   }
 

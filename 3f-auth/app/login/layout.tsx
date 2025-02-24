@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'login page',
-  description: 'logineheeh',
+  title: 'Login Page',
+  description: 'Access your account securely with our login page.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
