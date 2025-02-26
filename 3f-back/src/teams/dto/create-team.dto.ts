@@ -1,9 +1,9 @@
-import { IsUUID, IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 
 export class CreateTeamDto {
-  @IsUUID()
+  @IsEmail()
   @IsNotEmpty()
-  user_id: string;
+  team_user_email: string;
 
   @IsString()
   @IsNotEmpty()
@@ -12,4 +12,7 @@ export class CreateTeamDto {
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @IsString()
+  team_user_image: string;
 }

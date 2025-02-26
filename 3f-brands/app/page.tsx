@@ -1,3 +1,4 @@
+'use client'
 import Title from "@/components/shared/Title";
 import Card from "@/components/pages/start/Card";
 import PushNotificationManager from "./components/PushNotificationManager";

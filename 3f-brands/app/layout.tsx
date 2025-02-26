@@ -15,6 +15,12 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "found for fund",
+  manifest: './manifest.ts',
+  themeColor: '#000000',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  icons: {
+    apple: '/icons/icon-192x192.png',
+  },
   description:
     "where brands and individuals are committed to offering you ongoing support",
 };

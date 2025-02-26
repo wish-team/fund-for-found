@@ -1,4 +1,4 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsInt, IsOptional } from 'class-validator';
 
 export class CreateTierDto {
   @IsString()
@@ -9,4 +9,8 @@ export class CreateTierDto {
 
   @IsInt()
   amount: number;
+
+  @IsString()
+  @IsOptional()
+  tier_image?: string;
 }

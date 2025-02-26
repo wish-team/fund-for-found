@@ -2,63 +2,54 @@ import {
   Controller,
   Get,
   Post,
-  Put,
-  Req,
   Delete,
   Param,
   Body,
   ParseUUIDPipe,
   ValidationPipe,
+  UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { SocialMediaService } from './social-media.service';
 import { CreateSocialMediaDto } from './dto/create-social-media.dto';
 import { UpdateSocialMediaDto } from './dto/update-social-media.dto';
+import { MyAuthGuard } from 'src/auth/guards/supabase.auth.guard';
 // Adjust if the guard is specific to the social media module
 
-@Controller('brands/:brand_id/social-media')
+@Controller('social_media')
 export class SocialMediaController {
   constructor(private readonly socialMediaService: SocialMediaService) {}
 
-  // GET /social-media - Get a list of all social media links
-  // @Get()
-  // findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
-  //   return this.socialMediaService.findAll(brandId);
-  // }
-
-  // GET /social-media/:id - Get details of a specific social media link by brand_id
-  @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.socialMediaService.findOne(id);
+  // GET /social-media/:brandId - Get all social media link by brand_id
+  @Get(':brandId')
+  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.socialMediaService.findAll(brandId);
   }
 
   // POST /social-media - Create a new social media link
-
-  @Post()
+  @UseGuards(MyAuthGuard)
+  @Post(':brandId')
   create(
-    @Req() request: any,
+    @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createSocialMediaDto: CreateSocialMediaDto,
   ) {
-    const userId = request.user?.id; // Extracted securely from the token
-    return this.socialMediaService.create({
-      ...createSocialMediaDto,
-      brand_id: userId,
-    });
+    return this.socialMediaService.create(brandId, createSocialMediaDto);
   }
 
-  // PUT /social-media/:id - Update a specific social media link
-
-  @Put(':id')
+  // PUT /social-media/:brandId - Update a specific social media link
+  @UseGuards(MyAuthGuard)
+  @Patch(':smId')
   update(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('smId', ParseUUIDPipe) smId: string,
     @Body(ValidationPipe) updateSocialMediaDto: UpdateSocialMediaDto,
   ) {
-    return this.socialMediaService.update(id, updateSocialMediaDto);
+    return this.socialMediaService.update(smId, updateSocialMediaDto);
   }
 
-  // DELETE /social-media/:id - Delete a specific social media link
-
-  @Delete(':id')
-  delete(@Param('id', ParseUUIDPipe) id: string) {
-    return this.socialMediaService.delete(id);
+  // DELETE /social-media/:brandId - Delete a specific social media link
+  @UseGuards(MyAuthGuard)
+  @Delete(':smId')
+  delete(@Param('smId', ParseUUIDPipe) smId: string) {
+    return this.socialMediaService.delete(smId);
   }
 }

@@ -7,7 +7,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 export class TeamsService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // GET all team members for a specific brand
+  // GET /team/:brandId - Get all team members for a specific brand
   async findAllByBrandId(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('team')
@@ -21,21 +21,17 @@ export class TeamsService {
     return data;
   }
 
-  // POST a new team member to a brand
+  // POST /brands/:brandId/teams - Add a new team member to a brand
   async create(brandId: string, createTeamDto: CreateTeamDto) {
-    const { user_id, role, description } = createTeamDto;
-    const { data, error } = await this.supabaseClient
-      .from('team')
-      .insert([
-        {
-          brand_id: brandId,
-          user_id: user_id,
-          role: role,
-          description: description,
-        },
-      ])
-      .select()
-      .single();
+    const { data, error } = await this.supabaseClient.from('team').insert([
+      {
+        brand_id: brandId,
+        user_id: createTeamDto.team_user_email,
+        role: createTeamDto.role,
+        description: createTeamDto.description,
+        team_user_image: createTeamDto.team_user_image,
+      },
+    ]);
 
     if (error) {
       throw new Error(`Error adding team member: ${error.message}`);
@@ -44,17 +40,17 @@ export class TeamsService {
     return data;
   }
 
-  // PATCH (update) the role of a specific team member for a brand
-  async update(brandId: string, userId: string, updateTeamDto: UpdateTeamDto) {
-    const { role, description } = updateTeamDto;
-
+  // PATCH /team/:teamId - Update the role of a specific team member for a brand
+  async update(teamId: string, updateTeamDto: UpdateTeamDto) {
     const { data, error } = await this.supabaseClient
       .from('team')
-      .update({ role: role, description: description })
-      .eq('brand_id', brandId)
-      .eq('user_id', userId)
-      .select()
-      .single();
+      .update({
+        team_user_email: updateTeamDto.team_user_email,
+        role: updateTeamDto.role,
+        description: updateTeamDto.description,
+        team_user_image: updateTeamDto.team_user_image,
+      })
+      .eq('team_id', teamId);
 
     if (error || !data) {
       throw new NotFoundException('Team member not found or update failed');
@@ -63,15 +59,12 @@ export class TeamsService {
     return data;
   }
 
-  // DELETE a specific team member from a brand
-  async delete(brandId: string, userId: string) {
+  // DELETE /team/:teamId - Remove a specific team member from a brand
+  async delete(teamId: string) {
     const { data, error } = await this.supabaseClient
       .from('team')
       .delete()
-      .eq('brand_id', brandId)
-      .eq('user_id', userId)
-      .select()
-      .single();
+      .eq('team_id', teamId);
 
     if (error || !data) {
       throw new NotFoundException('Team member not found or delete failed');

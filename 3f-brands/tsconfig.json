@@ -22,10 +22,19 @@
     "paths": {
       "@/*": ["./*"]
     },
-    // Add these new options
     "strictNullChecks": false,
     "noImplicitAny": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.cjs"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.cjs"
+  ],
+  "exclude": ["node_modules"],
+  "content": [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
+  ]
 }

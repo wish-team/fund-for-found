@@ -12,4 +12,8 @@ export class UpdateTierDto {
   @IsInt()
   @IsOptional()
   amount?: number;
+
+  @IsString()
+  @IsOptional()
+  tier_image: string;
 }

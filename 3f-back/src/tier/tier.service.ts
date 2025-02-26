@@ -7,25 +7,12 @@ import { UpdateTierDto } from './dto/update-tier.dto'; // Assuming you have a DT
 export class TierService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // GET /tiers - Get a list of all tiers
-  async findAll() {
-    const { data, error } = await this.supabaseClient.from('tier').select('*');
-
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    return data;
-  }
-
-  // GET /tiers/:tier_id - Get details of a specific tier
-  async findOne(tier_id: string) {
+  // GET /tier/:brandId - Get all tiers for a specific brand
+  async findAll(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('tier')
       .select('*')
-      .eq('tier_id', tier_id)
-      .single();
-
+      .eq('brand_id', brandId);
     if (error || !data) {
       throw new NotFoundException('Tier not found');
     }
@@ -33,20 +20,15 @@ export class TierService {
     return data;
   }
 
-  // POST /tiers - Create a new tier
-  async create(createTierDto: CreateTierDto & { brand_id: string }) {
-    const { data, error } = await this.supabaseClient
-      .from('tier')
-      .insert([
-        {
-          brand_id: createTierDto.brand_id,
-          name: createTierDto.name,
-          description: createTierDto.description,
-          amount: createTierDto.amount,
-        },
-      ])
-      .select()
-      .single();
+  // POST /tier/:brandId - Create a new tier
+  async create(brandId: string, createTierDto: CreateTierDto) {
+    const { data, error } = await this.supabaseClient.from('tier').insert({
+      brand_id: brandId,
+      name: createTierDto.name,
+      description: createTierDto.description,
+      amount: createTierDto.amount,
+      // tier_image: createTierDto.tier_image,
+    });
 
     if (error) {
       throw new Error(error.message);
@@ -55,16 +37,17 @@ export class TierService {
     return data;
   }
 
-  // PUT /tiers/:tier_id - Update a specific tier
-  async update(tier_id: string, updateTierDto: UpdateTierDto) {
+  // PATCH /tier/:tierId - Update a specific tier
+  async update(tierId: string, updateTierDto: UpdateTierDto) {
     const { data, error } = await this.supabaseClient
       .from('tier')
       .update({
         name: updateTierDto.name,
         description: updateTierDto.description,
         amount: updateTierDto.amount,
+        tier_image: updateTierDto.tier_image,
       })
-      .eq('tier_id', tier_id)
+      .eq('tier_id', tierId)
       .select()
       .single();
 
@@ -72,15 +55,15 @@ export class TierService {
       throw new NotFoundException('Tier not found or update failed');
     }
 
-    return data;
+    return data ?? { "it's updated": true };
   }
 
-  // DELETE /tiers/:tier_id - Delete a specific tier
-  async delete(tier_id: string) {
+  // DELETE /tier/:tierId - Delete a specific tier
+  async delete(tierId: string) {
     const { data, error } = await this.supabaseClient
       .from('tier')
       .delete()
-      .eq('tier_id', tier_id)
+      .eq('tier_id', tierId)
       .select()
       .single();
 

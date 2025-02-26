@@ -14,7 +14,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.style.setProperty('--font-family', fontFamily);
   }, [fontFamily]);
 
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>utils i18n component langoage provide loading</div>;
 
   return (
     <div dir={direction()} className="font-sans">
