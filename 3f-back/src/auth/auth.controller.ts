@@ -23,28 +23,32 @@ export class AuthController {
     // Set cookies
     res.cookie('access_token_nestjs', body.accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: 1000 * 60 * 15,
+      secure: true, // Set to true for HTTPS
+      sameSite: 'none', // Allow cross-site cookies
+      maxAge: 1000 * 60 * 15, // 15 minutes
     });
     res.cookie('refresh_token_nestjs', body.refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: true, // Set to true for HTTPS
+      sameSite: 'none', // Allow cross-site cookies
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     });
+
     console.log('access_token_nestjs', body.accessToken);
     console.log('refresh_token_nestjs', body.refreshToken);
+
     const safeUser = {
       id: body.user?.id,
       email: body.user?.email,
     };
+
     // End the response manually; do not return any additional data
     return res.status(200).json({ success: true, user: safeUser });
   }
+
   @Get('check-tokens')
   checkTokens(@Req() req: Request) {
-    console.log(req);
+    console.log(req.cookies); // Log the cookies received in the request
     return { message: 'Received cookies', cookies: req.cookies };
   }
 }
