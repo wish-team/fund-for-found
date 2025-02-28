@@ -21,19 +21,20 @@ export class AuthController {
       throw new HttpException('Invalid session data', HttpStatus.BAD_REQUEST);
     }
     // Set cookies
-    res.cookie('access_token_nestjs', body.accessToken, {
+    const x = res.cookie('access_token_nestjs', body.accessToken, {
       httpOnly: true,
       secure: true, // Set to true for HTTPS
       sameSite: 'none', // Allow cross-site cookies
       maxAge: 1000 * 60 * 15, // 15 minutes
     });
-    res.cookie('refresh_token_nestjs', body.refreshToken, {
+    const y = res.cookie('refresh_token_nestjs', body.refreshToken, {
       httpOnly: true,
       secure: true, // Set to true for HTTPS
       sameSite: 'none', // Allow cross-site cookies
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     });
-
+    console.log('x', x);
+    console.log('y', y);
     console.log('access_token_nestjs', body.accessToken);
     console.log('refresh_token_nestjs', body.refreshToken);
 
