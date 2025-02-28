@@ -21,13 +21,13 @@ export class AuthController {
       throw new HttpException('Invalid session data', HttpStatus.BAD_REQUEST);
     }
     // Set cookies
-    res.cookie('access_token', body.accessToken, {
+    res.cookie('access_token_nestjs', body.accessToken, {
       httpOnly: true,
       secure: false,
       sameSite: 'lax',
       maxAge: 1000 * 60 * 15,
     });
-    res.cookie('refresh_token', body.refreshToken, {
+    res.cookie('refresh_token_nestjs', body.refreshToken, {
       httpOnly: true,
       secure: false,
       sameSite: 'lax',
