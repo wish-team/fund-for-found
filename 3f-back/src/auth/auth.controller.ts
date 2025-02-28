@@ -33,7 +33,8 @@ export class AuthController {
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
-
+    console.log('access_token_nestjs', body.accessToken);
+    console.log('refresh_token_nestjs', body.refreshToken);
     const safeUser = {
       id: body.user?.id,
       email: body.user?.email,
