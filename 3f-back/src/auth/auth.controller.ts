@@ -17,7 +17,6 @@ export class AuthController {
     @Body() body: { accessToken: string; refreshToken: string; user: any },
     @Res() res: Response,
   ) {
-    console.log('here');
     if (!body.accessToken || !body.refreshToken) {
       throw new HttpException('Invalid session data', HttpStatus.BAD_REQUEST);
     }
@@ -44,8 +43,6 @@ export class AuthController {
   }
   @Get('check-tokens')
   checkTokens(@Req() req: Request) {
-    console.log('here');
-    console.log('Cookies:', req.cookies); // Should print cookies if everything is set correctly
     return { message: 'Received cookies', cookies: req.cookies };
   }
 }

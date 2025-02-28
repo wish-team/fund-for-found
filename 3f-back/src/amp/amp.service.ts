@@ -33,7 +33,6 @@ export class AmpService {
         { headers },
       );
       const response = await lastValueFrom(response$);
-      console.log(response);
       return response.data;
     } catch (error) {
       this.logger.error(
@@ -57,7 +56,6 @@ export class AmpService {
         );
         const response = await lastValueFrom(response$);
         const result = response.data;
-        console.log(result);
 
         if (result.data && result.data.status === 'paid') {
           this.logger.log('Payment successful');

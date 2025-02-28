@@ -25,7 +25,6 @@ export class InvitationService {
 
     // Send email (replace with your email service)
     const inviteUrl = `https://yourapp.com/invite/accept?token=${token}`;
-    console.log(`Send this link via email: ${inviteUrl}`);
   }
 
   // Accept an invitation
