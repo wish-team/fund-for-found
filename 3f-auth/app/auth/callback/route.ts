@@ -1,35 +1,34 @@
+'use server'
+
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  // if "next" is in param, use it as the redirect URL
   const next = searchParams.get('next') ?? '/'
 
   if (code) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
-
-    if (error) {
-      console.error('Error exchanging code for session:', error.message)
+    if (!error && data?.session) {
+      // Forward the session data to your backend
+      await fetch(`${process.env.NESTJS_API_URL}/auth/store-tokens`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accessToken: data.session.access_token,
+          refreshToken: data.session.refresh_token,
+          user: data.session.user,
+        }),
+        credentials: 'include', // if needed for cookie passing
+      })
+      // Then redirect to your front-end page
+      return NextResponse.redirect(`${origin}${next}`)
+    } else {
+      // handle error
       return NextResponse.redirect(`${origin}/auth/auth-code-error`)
     }
-
-    if (data) {
-      // Log the access token for debugging purposes
-      console.log('Access token:', data.session)
-
-      // Optionally, set a secure cookie with the token (or session)
-      const response = NextResponse.redirect(`${origin}${next}`)
-      response.cookies.set('access_token', data.session?.access_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-      })
-      return response
-    }
   }
-
-  console.error('OAuth code is missing or invalid.')
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }

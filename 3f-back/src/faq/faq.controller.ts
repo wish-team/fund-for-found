@@ -22,6 +22,7 @@ export class FaqController {
   // GET /faq/:brandId - Get all FAQs for a specific brand
   @Get(':brandId')
   findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    console.log('here');
     return this.faqService.findAll(brandId);
   }
 

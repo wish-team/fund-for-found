@@ -1,4 +1,3 @@
-// src/components/pages/creators/FAQ/FAQSection.tsx
 import React from "react";
 import { Accordion, Button, useDisclosure } from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa6";

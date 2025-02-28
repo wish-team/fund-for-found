@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Step2FormData, SocialInput } from "../types";
 
 export const useStep2Form = () => {
@@ -6,11 +6,11 @@ export const useStep2Form = () => {
     socialLinks: [],
   });
 
-  const updateSocialLinks = (links: SocialInput[]) => {
+  const updateSocialLinks = useCallback((links: SocialInput[]) => {
     setFormData((prev) => ({ ...prev, socialLinks: links }));
-  };
+  }, []);
 
-  const submitForm = async () => {
+  const submitForm = useCallback(async () => {
     try {
       const response = await fetch("/api/steps/2", {
         method: "POST",
@@ -21,7 +21,7 @@ export const useStep2Form = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error(`Failed to submit form: ${response.statusText}`);
       }
 
       return await response.json();
@@ -29,7 +29,7 @@ export const useStep2Form = () => {
       console.error("Error submitting form:", error);
       throw error;
     }
-  };
+  }, [formData]);
 
   return {
     formData,

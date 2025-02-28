@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CoinStrategy } from './coin-strategy.interface';
 import * as bip32 from 'bip32';
 import * as bitcoin from 'bitcoinjs-lib';
@@ -9,10 +14,16 @@ import axios from 'axios';
 import * as ECPairFactory from 'ecpair';
 import * as ecc from 'tiny-secp256k1';
 
+interface DerivedCredentials {
+  derivedAddress: string;
+  derivedPrivateKey: string;
+}
+
 @Injectable()
 export class BitcoinStrategy implements CoinStrategy {
   private readonly network: bitcoin.Network;
   private readonly ECPair: ReturnType<typeof ECPairFactory.ECPairFactory>;
+  private readonly logger = new Logger(BitcoinStrategy.name);
 
   constructor() {
     const networkType = process.env.BTC_NETWORK || 'testnet';
@@ -25,7 +36,7 @@ export class BitcoinStrategy implements CoinStrategy {
     this.ECPair = ECPairFactory.ECPairFactory(ecc);
   }
 
-  generateAddress(mnemonic: string, index: number): string {
+  generateAddress(mnemonic: string, index: number): DerivedCredentials {
     if (!mnemonic) {
       throw new Error('Mnemonic not provided.');
     }
@@ -49,7 +60,7 @@ export class BitcoinStrategy implements CoinStrategy {
     }
 
     console.log(`Derived Bitcoin address: ${address}`);
-    return address;
+    return { derivedAddress: address, derivedPrivateKey: 'test' };
   }
 
   async getBalance(address: string): Promise<string> {
@@ -160,6 +171,43 @@ export class BitcoinStrategy implements CoinStrategy {
     } catch (error) {
       console.error('Error sending transaction:', error.message);
       throw new Error('Failed to send transaction.');
+    }
+  }
+  getNetwork(): string[] {
+    const networks = ['mainnet', 'testnet'];
+    return networks.filter(
+      (net) =>
+        net ===
+        (this.network === bitcoin.networks.bitcoin ? 'mainnet' : 'testnet'),
+    );
+  }
+  async getGasFee(network: string): Promise<number> {
+    if (!['mainnet', 'testnet'].includes(network)) {
+      throw new BadRequestException(
+        `Unsupported network '${network}'. Use 'mainnet' or 'testnet'.`,
+      );
+    }
+
+    const apiBase =
+      network === 'mainnet'
+        ? 'https://api.blockcypher.com/v1/btc/main'
+        : 'https://api.blockcypher.com/v1/btc/test3';
+
+    try {
+      const response = await axios.get(`${apiBase}/`);
+      // BlockCypher provides high_fee_per_kb, medium_fee_per_kb, low_fee_per_kb
+      // We'll use medium_fee_per_kb and convert it to satoshis per byte
+      const feePerKb: number = response.data.medium_fee_per_kb;
+      const feePerByte = Math.ceil(feePerKb / 1000);
+      this.logger.debug(
+        `Fetched fee rate for ${network}: ${feePerByte} satoshis/byte`,
+      );
+      return feePerByte;
+    } catch (error) {
+      this.logger.error('Error fetching fee rate:', error.message);
+      throw new InternalServerErrorException(
+        'Failed to fetch fee rate from the network.',
+      );
     }
   }
 }
