@@ -7,8 +7,8 @@ export default function DebugTokens() {
 
   async function testTokenSending() {
     try {
-      const response = await fetch(`https://fund-for-found-y4d1.onrender.com/auth/check-tokens`, {
-        method: 'GET',
+      const response = await fetch(`http://localhost:3010/brand`, {
+        method: 'POST',
         credentials: 'include',
       })
       const data = await response.json()

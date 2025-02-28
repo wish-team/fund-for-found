@@ -24,7 +24,7 @@ const SignInWithPassword = async (formData: FormData) => {
 const SignInWithGoogle = async () => {
   const origin = (await headers()).get('origin')
   const supabase = await createClient()
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { data } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: `${origin}/auth/callback`,

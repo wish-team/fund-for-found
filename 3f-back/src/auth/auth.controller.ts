@@ -21,35 +21,29 @@ export class AuthController {
       throw new HttpException('Invalid session data', HttpStatus.BAD_REQUEST);
     }
     // Set cookies
-    const x = res.cookie('access_token_nestjs', body.accessToken, {
+    res.cookie('access_token_nestjs', body.accessToken, {
       httpOnly: true,
-      secure: true, // Set to true for HTTPS
-      sameSite: 'none', // Allow cross-site cookies
-      maxAge: 1000 * 60 * 15, // 15 minutes
+      secure: true,
+      sameSite: 'none',
+      maxAge: 1000 * 60 * 15,
     });
-    const y = res.cookie('refresh_token_nestjs', body.refreshToken, {
+    res.cookie('refresh_token_nestjs', body.refreshToken, {
       httpOnly: true,
-      secure: true, // Set to true for HTTPS
-      sameSite: 'none', // Allow cross-site cookies
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+      secure: true,
+      sameSite: 'none',
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
-    console.log('x', x);
-    console.log('y', y);
-    console.log('access_token_nestjs', body.accessToken);
-    console.log('refresh_token_nestjs', body.refreshToken);
 
     const safeUser = {
       id: body.user?.id,
       email: body.user?.email,
     };
 
-    // End the response manually; do not return any additional data
     return res.status(200).json({ success: true, user: safeUser });
   }
 
   @Get('check-tokens')
   checkTokens(@Req() req: Request) {
-    console.log(req.cookies); // Log the cookies received in the request
     return { message: 'Received cookies', cookies: req.cookies };
   }
 }
