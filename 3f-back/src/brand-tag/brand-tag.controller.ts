@@ -11,37 +11,37 @@ import { BrandTagService } from './brand-tag.service';
 import { CreateBrandTagDto } from './dto/create-brand-tag.dto';
 import { UpdateBrandTagDto } from './dto/update-brand-tag.dto';
 
-@Controller('brand-tags')
+@Controller('brand-tag')
 export class BrandTagController {
   constructor(private readonly brandTagService: BrandTagService) {}
 
-  // GET /brand-tags/:brandId
+  // GET /brand-tags/:brandId - Get all tags for a brand
   @Get(':brandId')
-  async getTags(@Param('brandId') brandId: string) {
-    return this.brandTagService.getTagsByBrand(brandId);
+  getBrandTags(@Param('brandId') brandId: string) {
+    return this.brandTagService.getBrandTags(brandId);
   }
 
-  // POST /brand-tags/:brandId
+  // POST /brand-tags/:brandId - Create tag(s) for a brand
   @Post(':brandId')
-  async create(
+  createBrandTag(
     @Param('brandId') brandId: string,
     @Body() createBrandTagDto: CreateBrandTagDto[],
   ) {
     return this.brandTagService.createBrandTag(brandId, createBrandTagDto);
   }
 
-  // PATCH /brand-tags/:tagId
+  // PATCH /brand-tags/:tagId - Update a tag
   @Patch(':tagId')
-  async update(
+  updateBrandTag(
     @Param('tagId') tagId: string,
     @Body() updateBrandTagDto: UpdateBrandTagDto,
   ) {
     return this.brandTagService.updateBrandTag(tagId, updateBrandTagDto);
   }
 
-  // DELETE /brand-tags/:tagId
+  // DELETE /brand-tags/:tagId - Delete a tag
   @Delete(':tagId')
-  async delete(@Param('tagId') tagId: string) {
+  deleteBrandTag(@Param('tagId') tagId: string) {
     return this.brandTagService.deleteBrandTag(tagId);
   }
 }

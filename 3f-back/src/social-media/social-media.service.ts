@@ -8,7 +8,7 @@ export class SocialMediaService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
   // GET /social-media/:brandId - Get a specific social media link by ID
-  async findAll(brandId: string) {
+  async findAllSocialMedia(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .select('*')
@@ -44,7 +44,10 @@ export class SocialMediaService {
   }
 
   // PUT /social-media/:brandId - Update a specific social media link
-  async update(smId: string, updateSocialMediaDto: UpdateSocialMediaDto) {
+  async updateSocialMedia(
+    smId: string,
+    updateSocialMediaDto: UpdateSocialMediaDto,
+  ) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .update([
@@ -62,7 +65,7 @@ export class SocialMediaService {
   }
 
   // DELETE /social-media/:brandId - Delete a specific social media link
-  async delete(smId: string) {
+  async deleteSocialMedia(smId: string) {
     const { data, error } = await this.supabaseClient
       .from('social_media')
       .delete()

@@ -22,41 +22,41 @@ export class BrandController {
 
   // GET /brand - Get a list of all brand
   @Get()
-  findAll() {
-    return this.brandService.findAll();
+  findAllBrands() {
+    return this.brandService.findAllBrands();
   }
 
   // GET /brand/:brandId - Get details of a specific brand
   @Get(':brandId')
-  findOne(@Param('brandId', ParseUUIDPipe) brandId: string) {
-    return this.brandService.findOne(brandId);
+  findOneBrand(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.brandService.findOneBrand(brandId);
   }
 
   // POST /brand - Create a new brand
   @UseGuards(MyAuthGuard)
   @Post()
-  initiateCreating(
+  brandInitiation(
     @Req() request,
     @Body(ValidationPipe) createBrandDto: CreateBrandDto,
   ) {
     const owner_id = request.user.id;
-    return this.brandService.initiateCreating(owner_id, createBrandDto);
+    return this.brandService.brandInitiation(owner_id, createBrandDto);
   }
 
   // PUT /brand/:brandId - Update a specific brand
   @UseGuards(MyAuthGuard)
   @Patch(':brandId')
-  update(
+  updateBrand(
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) updateBrandDto: UpdateBrandDto,
   ) {
-    return this.brandService.update(brandId, updateBrandDto);
+    return this.brandService.updateBrand(brandId, updateBrandDto);
   }
 
   // DELETE /brand/:brandId - Delete a specific brand
   @UseGuards(MyAuthGuard)
   @Delete(':brandId')
-  delete(@Param('brandId', ParseUUIDPipe) brandId: string) {
-    return this.brandService.delete(brandId);
+  deleteBrand(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.brandService.deleteBrand(brandId);
   }
 }

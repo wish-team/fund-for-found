@@ -14,7 +14,7 @@ export class BrandService {
   ) {}
 
   // GET /brand - Get a list of all brand
-  async findAll() {
+  async findAllBrands() {
     const { data, error } = await this.supabaseClient
       .from('brand_details_view')
       .select(
@@ -29,7 +29,7 @@ export class BrandService {
   }
 
   // GET /brand/:brandId - Get details of a specific brand
-  async findOne(brandId: string) {
+  async findOneBrand(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('brand_details_view')
       .select('*')
@@ -43,7 +43,7 @@ export class BrandService {
     return data;
   }
 
-  async initiateCreating(owner_id: string, createBrandDto: CreateBrandDto) {
+  async brandInitiation(owner_id: string, createBrandDto: CreateBrandDto) {
     // Step 1: Insert the brand and get its ID
     const { data, error } = await this.supabaseClient
       .from('brand')
@@ -82,7 +82,7 @@ export class BrandService {
   }
 
   // PUT /brand/:brandId - Update a specific brand
-  async update(brandId: string, updateBrandDto: UpdateBrandDto) {
+  async updateBrand(brandId: string, updateBrandDto: UpdateBrandDto) {
     const { data, error } = await this.supabaseClient
       .from('brand')
       .update([
@@ -103,7 +103,7 @@ export class BrandService {
   }
 
   // DELETE /brand/:brandId - Delete a specific brand
-  async delete(brandId: string) {
+  async deleteBrand(brandId: string) {
     const { error } = await this.supabaseClient
       .from('brand')
       .delete()

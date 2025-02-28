@@ -22,14 +22,14 @@ export class SocialMediaController {
 
   // GET /social-media/:brandId - Get all social media link by brand_id
   @Get(':brandId')
-  findAll(@Param('brandId', ParseUUIDPipe) brandId: string) {
-    return this.socialMediaService.findAll(brandId);
+  findAllSocialMedia(@Param('brandId', ParseUUIDPipe) brandId: string) {
+    return this.socialMediaService.findAllSocialMedia(brandId);
   }
 
   // POST /social-media - Create a new social media link
   @UseGuards(MyAuthGuard)
   @Post(':brandId')
-  create(
+  createSocialMedia(
     @Param('brandId', ParseUUIDPipe) brandId: string,
     @Body(ValidationPipe) createSocialMediaDto: CreateSocialMediaDto[],
   ) {
@@ -42,17 +42,20 @@ export class SocialMediaController {
   // PUT /social-media/:brandId - Update a specific social media link
   @UseGuards(MyAuthGuard)
   @Patch(':smId')
-  update(
+  updateSocialMedia(
     @Param('smId', ParseUUIDPipe) smId: string,
     @Body(ValidationPipe) updateSocialMediaDto: UpdateSocialMediaDto,
   ) {
-    return this.socialMediaService.update(smId, updateSocialMediaDto);
+    return this.socialMediaService.updateSocialMedia(
+      smId,
+      updateSocialMediaDto,
+    );
   }
 
   // DELETE /social-media/:brandId - Delete a specific social media link
   @UseGuards(MyAuthGuard)
   @Delete(':smId')
-  delete(@Param('smId', ParseUUIDPipe) smId: string) {
-    return this.socialMediaService.delete(smId);
+  deleteSocialMedia(@Param('smId', ParseUUIDPipe) smId: string) {
+    return this.socialMediaService.deleteSocialMedia(smId);
   }
 }
