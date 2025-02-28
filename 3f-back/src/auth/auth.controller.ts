@@ -17,6 +17,7 @@ export class AuthController {
     @Body() body: { accessToken: string; refreshToken: string; user: any },
     @Res() res: Response,
   ) {
+    console.log('here');
     if (!body.accessToken || !body.refreshToken) {
       throw new HttpException('Invalid session data', HttpStatus.BAD_REQUEST);
     }
