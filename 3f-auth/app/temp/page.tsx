@@ -1,58 +1,29 @@
 'use client'
 
-import * as React from 'react'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@radix-ui/react-select'
+import { useState } from 'react'
 
-export default function SelectDemo() {
-  const [selectedValue, setSelectedValue] = React.useState('')
-  const [textInput, setTextInput] = React.useState('')
+export default function DebugTokens() {
+  const [responseData, setResponseData] = useState(null)
+
+  async function testTokenSending() {
+    try {
+      const response = await fetch('http://localhost:3010/auth/check-tokens', {
+        method: 'GET',
+        credentials: 'include',
+      })
+      const data = await response.json()
+      setResponseData(data)
+      console.log('Response:', data)
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   return (
-    <div className="flex flex-col gap-2 w-full h-full">
-      <Select onValueChange={(value) => setSelectedValue(value)}>
-        <SelectTrigger className="w-[180px] rounded border border-gray-300 bg-gray-100 text-black">
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent className="rounded border border-gray-300 bg-white shadow-md">
-          <SelectGroup>
-            <SelectLabel className="px-2 py-1 text-gray-700">Fruits</SelectLabel>
-            <SelectItem className="cursor-pointer px-2 py-1 hover:bg-gray-200" value="apple">
-              Apple
-            </SelectItem>
-            <SelectItem className="cursor-pointer px-2 py-1 hover:bg-gray-200" value="banana">
-              Banana
-            </SelectItem>
-            <SelectItem className="cursor-pointer px-2 py-1 hover:bg-gray-200" value="blueberry">
-              Blueberry
-            </SelectItem>
-            <SelectItem className="cursor-pointer px-2 py-1 hover:bg-gray-200" value="grapes">
-              Grapes
-            </SelectItem>
-            <SelectItem className="cursor-pointer px-2 py-1 hover:bg-gray-200" value="pineapple">
-              Pineapple
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-
-      {/* Conditionally render the text input below the select component */}
-      {selectedValue === 'pineapple' && (
-        <input
-          type="text"
-          placeholder="Type here..."
-          value={textInput}
-          onChange={(e) => setTextInput(e.target.value)}
-          className="w-full rounded border border-gray-300 p-2"
-        />
-      )}
+    <div>
+      <h1>Test Token Sending</h1>
+      <button onClick={testTokenSending}>Check Tokens</button>
+      {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>}
     </div>
   )
 }
