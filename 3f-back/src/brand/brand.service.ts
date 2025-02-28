@@ -99,8 +99,8 @@ export class BrandService {
       .update([
         {
           brand_name: updateBrandDto.brand_name,
-          brand_image: updateBrandDto.brand_image,
-          brand_background_image: updateBrandDto.brand_background_image,
+          main_image: updateBrandDto.main_image,
+          background_image: updateBrandDto.background_image,
           about_brand: updateBrandDto.about_brand,
           brand_country: updateBrandDto.brand_country,
         },
