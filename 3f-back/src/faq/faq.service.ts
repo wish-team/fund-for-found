@@ -7,7 +7,7 @@ import { UpdateFaqDto } from './dto/update-faq.dto';
 export class FaqService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // Get all FAQs for a specific brand
+  // GET /faq/:brandId - Get all FAQs for a specific brand
   async findAll(brandId: string) {
     const { data, error } = await this.supabaseClient
       .from('faq')
@@ -21,7 +21,7 @@ export class FaqService {
     return data;
   }
 
-  // Add a new FAQ for a specific brand
+  // POST /faq/:brandId  - Add a new FAQ for a specific brand
   async create(brandId: string, createFaqDto: CreateFaqDto) {
     const { data, error } = await this.supabaseClient.from('faq').insert({
       brand_id: brandId,
@@ -36,7 +36,7 @@ export class FaqService {
     return data ?? { message: 'The faq is created successfully' };
   }
 
-  // Update a specific FAQ of a brand
+  // PUT /faq/:faqId - Update a specific FAQ of a brand
   async update(faqId: string, updateFaqDto: UpdateFaqDto) {
     const { data, error } = await this.supabaseClient
       .from('faq')
@@ -44,18 +44,16 @@ export class FaqService {
         question: updateFaqDto.question,
         answer: updateFaqDto.answer,
       })
-      .eq('faq_id', faqId)
-      .select()
-      .single();
+      .eq('faq_id', faqId);
 
-    if (error || !data) {
+    if (error) {
       throw new NotFoundException('FAQ not found or update failed');
     }
 
-    return data;
+    return data ?? { message: 'FAQ updated successfully' };
   }
 
-  // Delete a specific FAQ of a brand
+  // DELETE /faq/:faqId - Delete a specific FAQ of a brand
   async delete(faqId: string) {
     const { error } = await this.supabaseClient
       .from('faq')

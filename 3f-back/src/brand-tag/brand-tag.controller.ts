@@ -25,7 +25,7 @@ export class BrandTagController {
   @Post(':brandId')
   async create(
     @Param('brandId') brandId: string,
-    @Body() createBrandTagDto: CreateBrandTagDto,
+    @Body() createBrandTagDto: CreateBrandTagDto[],
   ) {
     return this.brandTagService.createBrandTag(brandId, createBrandTagDto);
   }

@@ -7,5 +7,6 @@ import { BrandTagController } from './brand-tag.controller';
   imports: [SupabaseModule.injectClient()],
   providers: [BrandTagService],
   controllers: [BrandTagController],
+  exports: [BrandTagService],
 })
 export class BrandTagModule {}

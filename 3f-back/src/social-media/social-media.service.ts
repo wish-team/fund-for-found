@@ -22,19 +22,22 @@ export class SocialMediaService {
   }
 
   // POST /social-media/:brandId - Create a new social media link
-  async create(brandId: string, createSocialMediaDto: CreateSocialMediaDto) {
+  async createSocialMedia(
+    brandId: string,
+    createSocialMediaDto: CreateSocialMediaDto[],
+  ) {
+    const socialMediaData = createSocialMediaDto.map(({ name, link }) => ({
+      brand_id: brandId,
+      name,
+      link,
+    }));
+
     const { data, error } = await this.supabaseClient
       .from('social_media')
-      .insert([
-        {
-          brand_id: brandId,
-          name: createSocialMediaDto.name.toLowerCase(),
-          link: createSocialMediaDto.link.toLowerCase(),
-        },
-      ]);
+      .insert(socialMediaData);
 
     if (error) {
-      throw new NotFoundException('social media does not created');
+      throw new NotFoundException('Social media does not created');
     }
 
     return data ?? { message: 'Social media created successfully' };

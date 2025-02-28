@@ -7,5 +7,6 @@ import { SocialMediaController } from './social-media.controller';
   imports: [SupabaseModule.injectClient()],
   controllers: [SocialMediaController],
   providers: [SocialMediaService],
+  exports: [SocialMediaService],
 })
 export class SocialMediaModule {}

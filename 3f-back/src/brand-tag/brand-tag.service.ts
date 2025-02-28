@@ -22,11 +22,15 @@ export class BrandTagService {
   }
 
   // POST /brand-tags/:brandId
-  async createBrandTag(brandId, createBrandTagDto: CreateBrandTagDto) {
-    const { data, error } = await this.supabaseClient.from('brand_tag').insert({
+  async createBrandTag(brandId, createBrandTagDto: CreateBrandTagDto[]) {
+    const brandTagData = createBrandTagDto.map((tag) => ({
       brand_id: brandId,
-      tag_name: createBrandTagDto.tag_name,
-    });
+      tag_name: tag.tag_name,
+    }));
+
+    const { data, error } = await this.supabaseClient
+      .from('brand_tag')
+      .insert(brandTagData);
 
     if (error) {
       throw new Error(error.message);

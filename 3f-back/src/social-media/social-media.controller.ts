@@ -31,9 +31,12 @@ export class SocialMediaController {
   @Post(':brandId')
   create(
     @Param('brandId', ParseUUIDPipe) brandId: string,
-    @Body(ValidationPipe) createSocialMediaDto: CreateSocialMediaDto,
+    @Body(ValidationPipe) createSocialMediaDto: CreateSocialMediaDto[],
   ) {
-    return this.socialMediaService.create(brandId, createSocialMediaDto);
+    return this.socialMediaService.createSocialMedia(
+      brandId,
+      createSocialMediaDto,
+    );
   }
 
   // PUT /social-media/:brandId - Update a specific social media link
