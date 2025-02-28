@@ -33,7 +33,6 @@ export class AuthController {
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
-    console.log('Stored tokens', body.accessToken, body.refreshToken);
 
     const safeUser = {
       id: body.user?.id,
@@ -44,6 +43,7 @@ export class AuthController {
   }
   @Get('check-tokens')
   checkTokens(@Req() req: Request) {
+    console.log(req);
     return { message: 'Received cookies', cookies: req.cookies };
   }
 }
