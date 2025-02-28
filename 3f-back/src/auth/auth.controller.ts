@@ -33,6 +33,7 @@ export class AuthController {
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
+    console.log('Stored tokens', body.accessToken, body.refreshToken);
 
     const safeUser = {
       id: body.user?.id,
