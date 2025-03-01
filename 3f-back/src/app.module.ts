@@ -19,6 +19,8 @@ import { AmpModule } from './amp/amp.module';
 import { TeamModule } from './team/team.module';
 import { InvitationController } from './invitation/invitation.controller';
 import { InvitationModule } from './invitation/invitation.module';
+import { BlockModule } from './block/block.module';
+import { CollectionModule } from './collection/collection.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { InvitationModule } from './invitation/invitation.module';
     AmpModule,
     TeamModule,
     InvitationModule,
+    BlockModule,
+    CollectionModule,
   ],
   controllers: [AppController, InvitationController],
   providers: [AppService],
