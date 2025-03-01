@@ -6,18 +6,19 @@ import { createClient } from '@/utils/supabase/server'
 
 const SignUpWithPassword = async (formData: FormData) => {
   const supabase = await createClient()
-  const data = {
+  const structureFormData = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    options: {
+      emailRedirectTo: 'http://localhost:3000',
+    },
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  const { error } = await supabase.auth.signUp(structureFormData)
 
   if (error) {
-    console.log(error)
     redirect('/error')
   }
-
   revalidatePath('/', 'layout')
   redirect('/')
 }
