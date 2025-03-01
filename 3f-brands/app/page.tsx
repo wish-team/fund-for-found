@@ -1,7 +1,6 @@
 'use client'
 import Title from "@/components/shared/Title";
-import Card from "@/components/pages/start/Card";
-import PushNotificationManager from "./components/PushNotificationManager";
+import Card from "@/components/features/start/Card";
 
 export default async function Index() {
   return (

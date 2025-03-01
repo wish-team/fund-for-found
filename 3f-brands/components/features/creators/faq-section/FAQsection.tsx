@@ -104,28 +104,28 @@ const FAQ: React.FC = () => {
   // Loading and error states
   if (isLoading) {
     return (
-      <AuthWrapper>
+      // <AuthWrapper>
         <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
           <CreatorsTitle title={t("translation:faq.title")} />
           <div>Loading...</div>
         </section>
-      </AuthWrapper>
+      // </AuthWrapper>
     );
   }
 
   if (error) {
     return (
-      <AuthWrapper>
+      // <AuthWrapper>
         <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
           <CreatorsTitle title={t("translation:faq.title")} />
           <div className="text-red-500">{error}</div>
         </section>
-      </AuthWrapper>
+      // </AuthWrapper>
     );
   }
 
   return (
-    <AuthWrapper>
+    // <AuthWrapper>
       <section className="flex flex-col mx-auto text-gray3 text-sm pb-8">
         <CreatorsTitle title={t("translation:faq.title")} />
         <Accordion
@@ -144,7 +144,7 @@ const FAQ: React.FC = () => {
           ))}
         </Accordion>
 
-        {user && (
+        {/* {user && ( */}
           <Button
             startContent={<FaPlus />}
             onPress={handleAddQuestion}
@@ -152,7 +152,7 @@ const FAQ: React.FC = () => {
           >
             {t("translation:faq.addQuestion")}
           </Button>
-        )}
+        {/* )} */}
 
         <EditModal
           isOpen={editModal.isOpen}
@@ -175,7 +175,7 @@ const FAQ: React.FC = () => {
           message={t("translation:faq.modal.delete.message")}
         />
       </section>
-    </AuthWrapper>
+    // </AuthWrapper>
   );
 };
 

@@ -14,8 +14,8 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useAuthStore } from "@/store/authStore";
-import { useProfileStore } from "../../pages/creators/profile-editor/store/profileStore";
-import { getFirstLetter } from "../../pages/creators/profile-editor/utils/imageUtils";
+import { useProfileStore } from "../../features/creators/profile-editor/store/profileStore";
+import { getFirstLetter } from "../../features/creators/profile-editor/utils/imageUtils";
 import { useTranslation } from "react-i18next";
 
 interface AvatarDropdownProps {

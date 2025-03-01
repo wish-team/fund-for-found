@@ -1,9 +1,9 @@
 "use client";
 
 import React, { Suspense, useEffect, useState } from "react";
-import { StepLayout } from "@/components/pages/start/step-indicator/components/StepLayout";
-import { Step } from "@/components/pages/start/step-indicator/types/steps";
-import { Tier } from "@/components/pages/creators/contributors/types/tier";
+import { StepLayout } from "@/components/features/start/step-indicator/components/StepLayout";
+import { Step } from "@/components/features/start/step-indicator/types/steps";
+import { Tier } from "@/components/features/creators/contributors/types/tier";
 
 interface PaymentComponentProps {
   tierDetails: Tier;
@@ -11,15 +11,15 @@ interface PaymentComponentProps {
 
 // Pre-load payment step components with proper typing
 const PaymentInfo = React.lazy(
-  () => import("@/components/pages/payment/step1/Step1")
+  () => import("@/components/features/payment/step1/Step1")
 ) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
 
 const Review = React.lazy(
-  () => import("@/components/pages/payment/step2/Step2")
+  () => import("@/components/features/payment/step2/Step2")
 ) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
 
 const Confirmation = React.lazy(
-  () => import("@/components/pages/payment/step3/Step3")
+  () => import("@/components/features/payment/step3/Step3")
 ) as React.LazyExoticComponent<React.ComponentType<PaymentComponentProps>>;
 
 const PAYMENT_STEPS: Step[] = [
