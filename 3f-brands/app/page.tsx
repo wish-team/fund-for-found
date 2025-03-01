@@ -18,7 +18,6 @@ export default async function Index() {
             descSize="text-base"
           />
           <Card />
-          {/* <PushNotificationManager /> */}
         </main>
       </div>
     </div>

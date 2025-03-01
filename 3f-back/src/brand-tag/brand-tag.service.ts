@@ -7,8 +7,8 @@ import { UpdateBrandTagDto } from './dto/update-brand-tag.dto';
 export class BrandTagService {
   constructor(private readonly supabaseClient: SupabaseClient) {}
 
-  // GET /brand-tags/:brandId
-  async getTagsByBrand(brand_id: string) {
+  // GET /brand-tags/:brandId - Get all tags for a brand
+  async getBrandTags(brand_id: string) {
     const { data, error } = await this.supabaseClient
       .from('brand_tag')
       .select('*')
@@ -21,35 +21,39 @@ export class BrandTagService {
     return data;
   }
 
-  // POST /brand-tags/:brandId
-  async createBrandTag(brandId, createBrandTagDto: CreateBrandTagDto) {
-    const { data, error } = await this.supabaseClient.from('brand_tag').insert({
+  // POST /brand-tags/:brandId - Create tag(s) for a brand
+  async createBrandTag(brandId, createBrandTagDto: CreateBrandTagDto[]) {
+    const brandTagData = createBrandTagDto.map((tag) => ({
       brand_id: brandId,
-      tag_name: createBrandTagDto.tag_name,
-    });
+      tag_name: tag.tag_name,
+    }));
+
+    const { data, error } = await this.supabaseClient
+      .from('brand_tag')
+      .insert(brandTagData);
 
     if (error) {
       throw new Error(error.message);
     }
 
-    return data;
+    return data ?? { message: 'Tag(s) created successfully' };
   }
-  // PATCH /brand-tags/:tagId
+
+  // PATCH /brand-tags/:tagId - Update a tag
   async updateBrandTag(tagId: string, updateBrandTagDto: UpdateBrandTagDto) {
     const { data, error } = await this.supabaseClient
       .from('brand_tag')
       .update(updateBrandTagDto)
-      .eq('tag_id', tagId)
-      .select()
-      .single();
+      .eq('tag_id', tagId);
 
     if (error) {
       throw new Error(error.message);
     }
 
-    return data;
+    return data ?? { message: 'Tag updated successfully' };
   }
-  // DELETE /brand-tags/:tagId
+
+  // DELETE /brand-tags/:tagId - Delete a tag
   async deleteBrandTag(tagId: string) {
     const { error } = await this.supabaseClient
       .from('brand_tag')

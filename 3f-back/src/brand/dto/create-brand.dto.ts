@@ -16,11 +16,11 @@ export class CreateBrandDto {
 
   @IsString()
   @IsOptional()
-  brand_image?: string;
+  main_image?: string;
 
   @IsString()
   @IsOptional()
-  brand_background_image?: string;
+  background_image?: string;
 
   @IsString()
   @IsNotEmpty()
