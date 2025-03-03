@@ -9,12 +9,17 @@ const SignUpWithPassword = async (formData: FormData) => {
   const structureFormData = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+  }
+  console.log(formData.get('firstname'))
+  const { error } = await supabase.auth.signUp({
+    ...structureFormData,
     options: {
       emailRedirectTo: 'http://localhost:3000',
+      data: {
+        username: formData.get('firstname') as string,
+      },
     },
-  }
-
-  const { error } = await supabase.auth.signUp(structureFormData)
+  })
 
   if (error) {
     redirect('/error')
