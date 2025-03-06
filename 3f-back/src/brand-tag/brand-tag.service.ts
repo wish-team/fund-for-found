@@ -25,7 +25,7 @@ export class BrandTagService {
   async createBrandTag(brandId, createBrandTagDto: CreateBrandTagDto[]) {
     const brandTagData = createBrandTagDto.map((tag) => ({
       brand_id: brandId,
-      tag_name: tag.tag_name,
+      tag_name: tag,
     }));
 
     const { data, error } = await this.supabaseClient
