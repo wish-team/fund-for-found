@@ -4,10 +4,12 @@ import { UpdateBrandDto } from './dto/update-brand.dto';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { BrandTagService } from 'src/brand-tag/brand-tag.service';
 import { SocialMediaService } from 'src/social-media/social-media.service';
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 
 @Injectable()
 export class BrandService {
   constructor(
+    @InjectSupabaseClient('connection1')
     private readonly supabaseClient: SupabaseClient,
     private readonly brandTagService: BrandTagService,
     private readonly socialMediaService: SocialMediaService,

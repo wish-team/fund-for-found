@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { BaseSupabaseAuthGuard } from 'nestjs-supabase-js';
+import {
+  BaseSupabaseAuthGuard,
+  InjectSupabaseClient,
+} from 'nestjs-supabase-js';
 import { Request } from 'express';
-import { jwtDecode } from 'jwt-decode'; // Requires "esModuleInterop": true in tsconfig.json
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable()
 export class MyAuthGuard extends BaseSupabaseAuthGuard {
-  constructor(supabaseClient: SupabaseClient) {
-    super(supabaseClient);
+  constructor(
+    @InjectSupabaseClient('connection1') supabaseClient1: SupabaseClient,
+  ) {
+    super(supabaseClient1);
   }
 
   protected extractTokenFromRequest(request: Request): string | undefined {

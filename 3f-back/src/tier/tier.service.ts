@@ -2,10 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateTierDto } from './dto/create-tier.dto'; // Assuming you have a DTO
 import { UpdateTierDto } from './dto/update-tier.dto'; // Assuming you have a DTO
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 
 @Injectable()
 export class TierService {
-  constructor(private readonly supabaseClient: SupabaseClient) {}
+  constructor(
+    @InjectSupabaseClient('connection1')
+    private readonly supabaseClient: SupabaseClient,
+  ) {}
 
   // GET /tier/:brandId - Get all tiers for a specific brand
   async findAll(brandId: string) {

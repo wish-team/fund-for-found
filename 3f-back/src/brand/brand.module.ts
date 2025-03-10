@@ -6,7 +6,11 @@ import { BrandTagModule } from '../brand-tag/brand-tag.module';
 import { SocialMediaModule } from '../social-media/social-media.module';
 
 @Module({
-  imports: [SupabaseModule.injectClient(), BrandTagModule, SocialMediaModule],
+  imports: [
+    SupabaseModule.injectClient('connection1'),
+    BrandTagModule,
+    SocialMediaModule,
+  ],
   controllers: [BrandController],
   providers: [BrandService],
 })

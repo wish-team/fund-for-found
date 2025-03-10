@@ -8,8 +8,8 @@ const SignInWithPassword = async (formData: FormData) => {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const supabase = await createClient()
-
-  const { error } = await supabase.auth.signInWithPassword({
+  console.log(email, password)
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
@@ -17,7 +17,7 @@ const SignInWithPassword = async (formData: FormData) => {
   if (error) {
     return redirect('/login?message=Could not authenticate user')
   }
-
+  console.log(data)
   return redirect('/protected')
 }
 

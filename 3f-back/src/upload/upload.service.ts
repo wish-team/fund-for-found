@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 
 @Injectable()
 export class UploadService {
-  constructor(private readonly supabaseClient: SupabaseClient) {}
+  constructor(
+    @InjectSupabaseClient('connection1')
+    private readonly supabaseClient: SupabaseClient,
+  ) {}
 
   // HELPERS
 

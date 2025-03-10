@@ -11,7 +11,7 @@ const SignUpWithPassword = async (formData: FormData) => {
     password: formData.get('password') as string,
   }
   console.log(formData.get('firstname'))
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     ...structureFormData,
     options: {
       emailRedirectTo: 'http://localhost:3000',
@@ -24,6 +24,7 @@ const SignUpWithPassword = async (formData: FormData) => {
   if (error) {
     redirect('/error')
   }
+  console.log(data)
   revalidatePath('/', 'layout')
   redirect('/')
 }

@@ -4,7 +4,7 @@ import { SupabaseModule } from 'nestjs-supabase-js';
 import { UploadService } from './upload.service';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   controllers: [UploadController],
   providers: [UploadService],
 })

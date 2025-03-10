@@ -1,10 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { UpdateUserDto } from './dto/update-user.dto';
-
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 @Injectable()
 export class UserService {
-  constructor(private readonly supabaseClient: SupabaseClient) {}
+  constructor(
+    @InjectSupabaseClient('connection1')
+    private readonly supabaseClient: SupabaseClient,
+  ) {}
 
   // GET /user/:userId - Get details of a specific user
   async findOne(userId: string) {

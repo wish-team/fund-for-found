@@ -4,7 +4,7 @@ import { TierService } from './tier.service';
 import { TierController } from './tier.controller';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   controllers: [TierController],
   providers: [TierService],
 })

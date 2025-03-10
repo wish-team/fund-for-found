@@ -4,7 +4,7 @@ import { BlockService } from './block.service';
 import { BlockController } from './block.controller';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   providers: [BlockService],
   controllers: [BlockController],
   exports: [BlockService],

@@ -2,10 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateSocialMediaDto } from './dto/create-social-media.dto';
 import { UpdateSocialMediaDto } from './dto/update-social-media.dto';
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 
 @Injectable()
 export class SocialMediaService {
-  constructor(private readonly supabaseClient: SupabaseClient) {}
+  constructor(
+    @InjectSupabaseClient('connection1')
+    private readonly supabaseClient: SupabaseClient,
+  ) {}
 
   // GET /social-media/:brandId - Get a specific social media link by ID
   async findAllSocialMedia(brandId: string) {

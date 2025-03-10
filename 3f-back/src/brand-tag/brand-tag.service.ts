@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { CreateBrandTagDto } from './dto/create-brand-tag.dto';
 import { UpdateBrandTagDto } from './dto/update-brand-tag.dto';
-
+import { InjectSupabaseClient } from 'nestjs-supabase-js';
 @Injectable()
 export class BrandTagService {
-  constructor(private readonly supabaseClient: SupabaseClient) {}
+  constructor(
+    @InjectSupabaseClient('connection1')
+    private readonly supabaseClient: SupabaseClient,
+  ) {}
 
   // GET /brand-tags/:brandId - Get all tags for a brand
   async getBrandTags(brand_id: string) {

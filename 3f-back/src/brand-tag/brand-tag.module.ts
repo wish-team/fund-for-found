@@ -4,7 +4,7 @@ import { SupabaseModule } from 'nestjs-supabase-js';
 import { BrandTagController } from './brand-tag.controller';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   providers: [BrandTagService],
   controllers: [BrandTagController],
   exports: [BrandTagService],

@@ -4,7 +4,7 @@ import { CollectionService } from './collection.service';
 import { CollectionController } from './collection.controller';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   providers: [CollectionService],
   controllers: [CollectionController],
   exports: [CollectionService],

@@ -4,7 +4,7 @@ import { FaqController } from './faq.controller';
 import { FaqService } from './faq.service';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   controllers: [FaqController],
   providers: [FaqService],
 })

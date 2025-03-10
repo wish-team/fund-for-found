@@ -4,7 +4,7 @@ import { SocialMediaService } from './social-media.service';
 import { SocialMediaController } from './social-media.controller';
 
 @Module({
-  imports: [SupabaseModule.injectClient()],
+  imports: [SupabaseModule.injectClient('connection1')],
   controllers: [SocialMediaController],
   providers: [SocialMediaService],
   exports: [SocialMediaService],
