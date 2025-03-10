@@ -43,7 +43,8 @@ export const UserAvatar = () => {
   };
 
   const handleNavigation = (userId: string, path: string) => {
-    router.push(path.replace("[id]", userId).replace("[userId]", userId));
+    const finalPath = path.replace("[id]", userId).replace("[userId]", userId);
+    router.push(finalPath);
   };
 
   if (!user) return null;

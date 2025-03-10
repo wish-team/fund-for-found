@@ -17,6 +17,12 @@ export const metadata = {
   title: "found for fund",
   description:
     "where brands and individuals are committed to offering you ongoing support",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  themeColor: "#644FC1",
 };
 
 // Lazy load non-critical components

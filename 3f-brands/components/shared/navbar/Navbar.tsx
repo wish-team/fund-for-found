@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Navbar,
   NavbarContent,
@@ -9,7 +10,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
   Button,
   Input,
   Modal,
@@ -76,13 +76,13 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
         data: { user },
       } = await supabase.auth.getUser();
       if (user) {
-        router.push(process.env.NEXT_PUBLIC_APP_URL || "/dashboard");
+        router.push("/dashboard");
       } else {
-        window.location.href = "https://auth.fundforfound.com/login";
+        router.push("/login");
       }
     } catch (error) {
       console.error("Authentication error:", error);
-      window.location.href = "https://auth.fundforfound.com/login";
+      router.push("/login");
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +92,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
     try {
       setIsLoading(true);
       await supabase.auth.signOut();
-      router.push(process.env.NEXT_PUBLIC_APP_URL || "/");
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
@@ -120,7 +120,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       {
         key: "home",
         label: t("translation:navbar.home"),
-        href: process.env.NEXT_PUBLIC_APP_URL || "/",
+        href: "/",
       },
       {
         key: "explore",
@@ -154,7 +154,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   // Render functions
   const renderLogo = () => (
     <NavbarBrand>
-      <Link href={process.env.NEXT_PUBLIC_APP_URL || "/"}>
+      <Link href="/">
         <Image src={logo} alt="Logo" priority className="h-8 w-auto" />
       </Link>
     </NavbarBrand>
@@ -167,14 +167,27 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
     >
       {menuItems.slice(0, 4).map((item) => (
         <NavbarItem key={item.key} isActive={pathname === item.href}>
-          <Link
-            color="foreground"
-            href={item.href}
-            aria-current={pathname === item.href ? "page" : undefined}
-            className={pathname === item.href ? "font-semibold" : ""}
-          >
-            {item.label}
-          </Link>
+          {item.href.startsWith("http") ? (
+            <a
+              href={item.href}
+              className={`${
+                pathname === item.href ? "font-semibold" : ""
+              } text-foreground`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <Link
+              href={item.href}
+              className={`${
+                pathname === item.href ? "font-semibold" : ""
+              } text-foreground`}
+            >
+              {item.label}
+            </Link>
+          )}
         </NavbarItem>
       ))}
     </NavbarContent>
@@ -336,20 +349,35 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
     <NavbarMenu>
       {menuItems.map((item, index) => (
         <NavbarMenuItem key={item.key}>
-          <Link
-            color={
-              index === menuItems.length - 1
-                ? "danger"
-                : pathname === item.href
-                ? "primary"
-                : "foreground"
-            }
-            className="w-full"
-            href={item.href}
-            size="lg"
-          >
-            {item.label}
-          </Link>
+          {item.href.startsWith("http") ? (
+            <a
+              href={item.href}
+              className={`w-full ${
+                index === menuItems.length - 1
+                  ? "text-danger"
+                  : pathname === item.href
+                  ? "text-primary"
+                  : "text-foreground"
+              }`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <Link
+              href={item.href}
+              className={`w-full ${
+                index === menuItems.length - 1
+                  ? "text-danger"
+                  : pathname === item.href
+                  ? "text-primary"
+                  : "text-foreground"
+              }`}
+            >
+              {item.label}
+            </Link>
+          )}
         </NavbarMenuItem>
       ))}
     </NavbarMenu>
