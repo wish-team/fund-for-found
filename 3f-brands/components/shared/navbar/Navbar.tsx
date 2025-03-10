@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -16,6 +16,7 @@ import {
   ModalContent,
   ModalBody,
   Spinner,
+  NavbarBrand,
 } from "@nextui-org/react";
 import { LuX } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
@@ -26,6 +27,8 @@ import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
 import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useAuthStore } from "@/store/authStore";
+import { AuthButton } from "@/components/shared/auth/AuthButton";
+import { UserAvatar } from "@/components/shared/avatar/UserAvatar";
 
 // Type definitions
 interface NavigationBarProps {
@@ -36,6 +39,7 @@ interface AuthStore {
   user: User | null;
   supabase: SupabaseClient;
   initialLoading: boolean;
+  initializeAuth: () => Promise<void>;
 }
 
 interface MenuItem {
@@ -57,7 +61,12 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useTranslation();
-  const { user, supabase, initialLoading } = useAuthStore() as AuthStore;
+  const { user, supabase, initialLoading, initializeAuth } =
+    useAuthStore() as AuthStore;
+
+  useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
 
   // Authentication handlers
   const handleStartClick = useCallback(async () => {
@@ -144,11 +153,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
 
   // Render functions
   const renderLogo = () => (
-    <NavbarContent>
+    <NavbarBrand>
       <Link href={process.env.NEXT_PUBLIC_APP_URL || "/"}>
         <Image src={logo} alt="Logo" priority className="h-8 w-auto" />
       </Link>
-    </NavbarContent>
+    </NavbarBrand>
   );
 
   const renderDesktopNav = () => (
@@ -310,39 +319,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
         </>
       )}
 
-      <NavbarItem>
-        <AuthWrapper
-          loadingComponent={
-            <Button isLoading variant="flat" className="min-w-[120px]">
-              <Spinner size="sm" />
-            </Button>
-          }
-        >
-          {(user: User | null) =>
-            user ? (
-              <AvatarDropdown
-                userName={
-                  user.user_metadata?.name ||
-                  t("translation:navbar.defaultUser")
-                }
-                userEmail={user.email || ""}
-                onLogout={handleLogout}
-                isLoading={isLoading}
-              />
-            ) : (
-              <Button
-                color="primary"
-                variant="solid"
-                onClick={handleStartClick}
-                isLoading={isLoading}
-                className="font-medium"
-              >
-                {t("translation:navbar.signIn")}
-              </Button>
-            )
-          }
-        </AuthWrapper>
-      </NavbarItem>
+      <NavbarItem>{user ? <UserAvatar /> : <AuthButton />}</NavbarItem>
 
       <NavbarMenuToggle
         aria-label={

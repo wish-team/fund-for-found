@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     if (code) {
       // Await the cookies promise
       const cookieStore = await cookies();
-      
+
       const supabase = createServerClient(
         supabaseConfig.url,
         supabaseConfig.anonKey,
@@ -34,9 +34,10 @@ export async function GET(request: Request) {
       await supabase.auth.exchangeCodeForSession(code);
     }
 
-    return NextResponse.redirect(`${origin}/protected`);
+    // Redirect to home page after successful authentication
+    return NextResponse.redirect(`${origin}/`);
   } catch (error) {
-    console.error('Auth callback error:', error);
+    console.error("Auth callback error:", error);
     return NextResponse.redirect(`${origin}/auth/error`);
   }
 }
