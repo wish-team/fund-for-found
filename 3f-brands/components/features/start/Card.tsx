@@ -38,10 +38,14 @@ const Card = () => {
         data: { session },
       } = await supabase.auth.getSession();
       console.log("url", window.location);
-      router.push(session ? "/steps/1" : "/login");
+      if (session) {
+        router.push("/steps/1");
+      } else {
+        window.location.href = "https://auth.fundforfound.com/login";
+      }
     } catch (error) {
       console.error("Error checking authentication:", error);
-      router.push("/login");
+      window.location.href = "https://auth.fundforfound.com/login";
     } finally {
       setIsLoading(false);
     }

@@ -49,9 +49,10 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
     } else {
       try {
         await supabase.auth.signOut();
-        router.push(`${process.env.NEXT_PUBLIC_APP_URL}/login` || "/login");
+        window.location.href = "https://auth.fundforfound.com/login";
       } catch (error) {
         console.error("Error logging out:", error);
+        window.location.href = "https://auth.fundforfound.com/login";
       }
     }
   };

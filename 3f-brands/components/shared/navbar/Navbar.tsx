@@ -20,7 +20,7 @@ import {
 import { LuX } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
-import { User, SupabaseClient } from '@supabase/supabase-js';
+import { User, SupabaseClient } from "@supabase/supabase-js";
 
 import logo from "@/app/images/logo.svg";
 import AvatarDropdown from "./Avatar";
@@ -63,14 +63,17 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   const handleStartClick = useCallback(async () => {
     try {
       setIsLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user) {
-        router.push(process.env.NEXT_PUBLIC_APP_URL || '/dashboard');
+        router.push(process.env.NEXT_PUBLIC_APP_URL || "/dashboard");
       } else {
-        router.push(`${process.env.NEXT_PUBLIC_APP_URL}/login` || '/login');
+        window.location.href = "https://auth.fundforfound.com/login";
       }
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error("Authentication error:", error);
+      window.location.href = "https://auth.fundforfound.com/login";
     } finally {
       setIsLoading(false);
     }
@@ -80,9 +83,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
     try {
       setIsLoading(true);
       await supabase.auth.signOut();
-      router.push(process.env.NEXT_PUBLIC_APP_URL || '/');
+      router.push(process.env.NEXT_PUBLIC_APP_URL || "/");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +95,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   const handleSearch = useCallback(
     (term: string) => {
       if (!term.trim()) return;
-      
+
       const searchQuery = encodeURIComponent(term.trim());
       router.push(`/explore?q=${searchQuery}`);
       setIsSearchModalOpen(false);
@@ -128,7 +131,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       {
         key: "loginSignup",
         label: t("translation:navbar.loginSignup"),
-        href: `${process.env.NEXT_PUBLIC_APP_URL}/login` || "/login",
+        href: "https://auth.fundforfound.com/login",
       },
     ],
     [t]
@@ -143,12 +146,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
   const renderLogo = () => (
     <NavbarContent>
       <Link href={process.env.NEXT_PUBLIC_APP_URL || "/"}>
-        <Image
-          src={logo}
-          alt="Logo"
-          priority
-          className="h-8 w-auto"
-        />
+        <Image src={logo} alt="Logo" priority className="h-8 w-auto" />
       </Link>
     </NavbarContent>
   );
@@ -196,7 +194,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       }}
       placeholder={t("translation:navbar.searchPlaceholder")}
       size="sm"
-      startContent={<FiSearch className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />}
+      startContent={
+        <FiSearch className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+      }
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       onKeyDown={(e) => {
@@ -214,9 +214,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       <div
         className={`
           fixed inset-0 z-50 transition-all duration-300 ease-in-out
-          ${isSearchFocused
-            ? "opacity-100 visible bg-black/50 backdrop-blur-sm flex items-start pt-32 justify-center"
-            : "opacity-0 invisible"}
+          ${
+            isSearchFocused
+              ? "opacity-100 visible bg-black/50 backdrop-blur-sm flex items-start pt-32 justify-center"
+              : "opacity-0 invisible"
+          }
           max-md:hidden
         `}
       >
@@ -254,9 +256,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
         }}
       >
         <ModalContent>
-          <ModalBody className="p-4">
-            {renderSearchInput()}
-          </ModalBody>
+          <ModalBody className="p-4">{renderSearchInput()}</ModalBody>
         </ModalContent>
       </Modal>
     );
@@ -313,11 +313,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       <NavbarItem>
         <AuthWrapper
           loadingComponent={
-            <Button
-              isLoading
-              variant="flat"
-              className="min-w-[120px]"
-            >
+            <Button isLoading variant="flat" className="min-w-[120px]">
               <Spinner size="sm" />
             </Button>
           }
@@ -325,7 +321,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
           {(user: User | null) =>
             user ? (
               <AvatarDropdown
-                userName={user.user_metadata?.name || t("translation:navbar.defaultUser")}
+                userName={
+                  user.user_metadata?.name ||
+                  t("translation:navbar.defaultUser")
+                }
                 userEmail={user.email || ""}
                 onLogout={handleLogout}
                 isLoading={isLoading}
@@ -346,7 +345,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className = "" }) => {
       </NavbarItem>
 
       <NavbarMenuToggle
-        aria-label={isMenuOpen ? t("translation:navbar.closeMenu") : t("translation:navbar.openMenu")}
+        aria-label={
+          isMenuOpen
+            ? t("translation:navbar.closeMenu")
+            : t("translation:navbar.openMenu")
+        }
         className="sm:hidden"
       />
     </NavbarContent>
