@@ -30,7 +30,7 @@ export const useCategoryFilter = (brandsPerPage: number = 9) => {
   const fetchCategories = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get<Brand[]>("https://fund-for-found-y4d1.onrender.com/brand");
+      const response = await axios.get<Brand[]>("/api/brands");
       const brands = response.data;
 
       // Log the first brand to see image URLs
