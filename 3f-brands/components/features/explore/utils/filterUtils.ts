@@ -13,30 +13,24 @@ export const filterBrands = (
   if (searchTerm) {
     results = results.filter(
       (brand) =>
-        brand.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        brand.description.toLowerCase().includes(searchTerm.toLowerCase())
+        brand.brand_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
   // Filter by country
   if (selectedCountry !== "All Countries") {
-    results = results.filter((brand) => brand.country === selectedCountry);
+    results = results.filter((brand) => brand.brand_country === selectedCountry);
   }
 
-  // Filter by selected subcategories
+  // Filter by selected tags (subcategories)
   results = results.filter((brand) => {
     // If no subcategories are selected, return all brands
     if (Object.keys(selectedSubcategories).length === 0) return true;
 
-    // Check if the brand belongs to any of the selected subcategories
-    return categories.some((category) => {
-      if (selectedSubcategories[category.name]) {
-        return category.subcategories
-          .find((sub) => sub.name === selectedSubcategories[category.name])
-          ?.brands.includes(brand);
-      }
-      return false;
-    });
+    // Check if the brand has any of the selected tags
+    return Object.values(selectedSubcategories).some(tag => 
+      brand.brand_tags.includes(tag)
+    );
   });
 
   return results;
@@ -45,7 +39,7 @@ export const filterBrands = (
 export const getUniqueCountries = (brands: Brand[]): string[] => {
   return [
     "All Countries",
-    ...Array.from(new Set(brands.map((brand) => brand.country))),
+    ...Array.from(new Set(brands.map((brand) => brand.brand_country))),
   ];
 };
 
