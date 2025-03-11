@@ -12,7 +12,7 @@ import { useCategoryFilter } from "../hooks/useCategoryFilter";
 import { ActiveFilters } from "./ActiveFilters";
 import { SearchCountryFilter } from "./SearchCountryFilter";
 import { BrandDisplay } from "./BrandDisplay";
-import Loader from "@/components/shared/loader/Loader";
+import { ExploreSkeleton } from "./ExploreSkeleton";
 
 const BRANDS_PER_PAGE = 9;
 
@@ -54,11 +54,7 @@ export const CategoryDropdowns: React.FC = () => {
 
   // Loading state
   if (isLoading) {
-    return (
-      <div className="w-full min-h-[100vh] grid place-content-center">
-        <Loader />
-      </div>
-    );
+    return <ExploreSkeleton />;
   }
 
   // Error state
