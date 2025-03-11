@@ -7,6 +7,9 @@ const path = require("path");
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@nextui-org/react"],
+  images: {
+    domains: ['ginjmrvsyfbvxccpdqhq.supabase.co'],
+  },
   env: {
     NEXT_PUBLIC_APP_URL:
       process.env.NODE_ENV === "production"

@@ -26,55 +26,71 @@ export const useCategoryFilter = (brandsPerPage: number = 9) => {
   // Extract unique countries from all brands
   const [countries, setCountries] = useState<string[]>([]);
 
-  // Fetch categories from API
+  // Fetch brands from API and organize into categories
   const fetchCategories = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:8000/categories");
+      const response = await axios.get<Brand[]>("https://fund-for-found-y4d1.onrender.com/brand");
+      const brands = response.data;
 
-      // Ensure we're getting the correct data structure
-      let categoriesData = [];
-      if (response.data && Array.isArray(response.data)) {
-        categoriesData = response.data;
-        setCategories(response.data);
-      } else if (
-        response.data.categories &&
-        Array.isArray(response.data.categories)
-      ) {
-        categoriesData = response.data.categories;
-        setCategories(response.data.categories);
-      } else {
-        throw new Error("Invalid data structure");
-      }
+      // Log the first brand to see image URLs
+      console.log('First brand data:', brands[0]);
 
-      // Extract all brands and unique countries
-      const brandsFromCategories = categoriesData.flatMap((category) =>
-        category.subcategories.flatMap((subcategory) => subcategory.brands)
-      );
+      // Set all brands
+      setAllBrands(brands);
 
-      setAllBrands(brandsFromCategories);
-      setCountries(getUniqueCountries(brandsFromCategories));
+      // Extract unique countries from brands
+      const uniqueCountries = Array.from(new Set(brands.map((brand: Brand) => brand.brand_country)));
+      setCountries(["All Countries", ...uniqueCountries]);
 
+      // Extract unique tags and create categories
+      const tagCategories = brands.reduce((acc: Category[], brand: Brand) => {
+        brand.brand_tags.forEach(tag => {
+          const existingCategory = acc.find(cat => cat.name === tag);
+          if (!existingCategory) {
+            acc.push({
+              name: tag,
+              subcategories: [{
+                name: tag,
+                brands: [brand]
+              }]
+            });
+          } else {
+            existingCategory.subcategories[0].brands.push(brand);
+          }
+        });
+        return acc;
+      }, []);
+
+      setCategories(tagCategories);
       setIsLoading(false);
     } catch (err) {
-      setError("Failed to fetch categories. Please try again later.");
+      setError("Failed to fetch brands. Please try again later.");
       setIsLoading(false);
-      console.error("Error fetching categories:", err);
+      console.error("Error fetching brands:", err);
     }
   };
 
   // Memoized search and filter results
-  const filteredBrands = useMemo(
-    () =>
-      filterBrands(
-        allBrands,
-        searchTerm,
-        selectedCountry,
-        selectedSubcategories,
-        categories
-      ),
-    [allBrands, searchTerm, selectedCountry, selectedSubcategories, categories]
-  );
+  const filteredBrands = useMemo(() => {
+    return allBrands.filter(brand => {
+      // Filter by search term
+      const matchesSearch = searchTerm === "" || 
+        brand.brand_name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Filter by country
+      const matchesCountry = selectedCountry === "All Countries" || 
+        brand.brand_country === selectedCountry;
+
+      // Filter by selected subcategories (tags)
+      const matchesTag = Object.values(selectedSubcategories).length === 0 || 
+        Object.values(selectedSubcategories).some(tag => 
+          brand.brand_tags.includes(tag)
+        );
+
+      return matchesSearch && matchesCountry && matchesTag;
+    });
+  }, [allBrands, searchTerm, selectedCountry, selectedSubcategories]);
 
   // Paginated results
   const paginatedResults = useMemo(

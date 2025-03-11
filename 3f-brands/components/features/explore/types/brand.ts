@@ -1,9 +1,12 @@
 export interface Brand {
-  name: string;
-  description: string;
-  country: string;
-  contributors: number;
-  moneyRaised: number;
+  brand_id: string;
+  brand_name: string;
+  background_image: string | null;
+  main_image: string | null;
+  brand_country: string;
+  brand_tags: string[];
+  total_contributions: number;
+  total_contributed_amount: number;
 }
 
 export interface Subcategory {
