@@ -8,19 +8,17 @@ import {
   Button,
 } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
-import { useCategoryFilter } from "../hooks/useCategoryFilter";
+import { useExploreStore } from "@/store/exploreStore";
 import { ActiveFilters } from "./ActiveFilters";
 import { SearchCountryFilter } from "./SearchCountryFilter";
 import { BrandDisplay } from "./BrandDisplay";
 import { ExploreSkeleton } from "./ExploreSkeleton";
-
-const BRANDS_PER_PAGE = 9;
+import { BRANDS_PER_PAGE } from "../utils/constants";
 
 export const CategoryDropdowns: React.FC = () => {
   const searchParams = useSearchParams();
   const {
     categories,
-    isLoading,
     error,
     countries,
     filteredBrands,
@@ -29,7 +27,7 @@ export const CategoryDropdowns: React.FC = () => {
     selectedSubcategories,
     selectedCountry,
     searchTerm,
-    fetchCategories,
+    fetchBrands,
     setSearchTerm,
     setSelectedCountry,
     setCurrentPage,
@@ -37,25 +35,16 @@ export const CategoryDropdowns: React.FC = () => {
     handleRemoveSubcategoryFilter,
     handleRemoveCountryFilter,
     handleRemoveSearchFilter,
-  } = useCategoryFilter(BRANDS_PER_PAGE);
+  } = useExploreStore();
 
-   // Set initial search term from URL
-   useEffect(() => {
+  // Set initial search term from URL and fetch brands
+  useEffect(() => {
     const searchFromUrl = searchParams.get("search");
     if (searchFromUrl) {
       setSearchTerm(searchFromUrl);
     }
-  }, [searchParams]);
-
-  // Fetch categories on component mount
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  // Loading state
-  if (isLoading) {
-    return <ExploreSkeleton />;
-  }
+    fetchBrands();
+  }, [searchParams, setSearchTerm, fetchBrands]);
 
   // Error state
   if (error) {
@@ -137,6 +126,7 @@ export const CategoryDropdowns: React.FC = () => {
         currentPage={currentPage}
         brandsPerPage={BRANDS_PER_PAGE}
         onPageChange={setCurrentPage}
+        hasActiveFilters={searchTerm !== '' || selectedCountry !== 'All Countries' || Object.keys(selectedSubcategories).length > 0}
       />
     </div>
   );

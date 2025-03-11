@@ -15,6 +15,7 @@ interface BrandDisplayProps {
   currentPage: number;
   brandsPerPage: number;
   onPageChange: (page: number) => void;
+  hasActiveFilters: boolean; // New prop to check if any filters are active
 }
 
 export const BrandDisplay: React.FC<BrandDisplayProps> = ({
@@ -23,6 +24,7 @@ export const BrandDisplay: React.FC<BrandDisplayProps> = ({
   currentPage,
   brandsPerPage,
   onPageChange,
+  hasActiveFilters,
 }) => {
   // Pagination render item function for desktop
   const renderPaginationItem = ({
@@ -83,7 +85,7 @@ export const BrandDisplay: React.FC<BrandDisplayProps> = ({
     );
   };
 
-  if (filteredBrands.length === 0) {
+  if (filteredBrands.length === 0 && hasActiveFilters) {
     return (
       <div className="bg-gray-100 border rounded-lg p-6 my-8 text-center">
         <p className="text-gray-600 text-lg">
@@ -91,6 +93,10 @@ export const BrandDisplay: React.FC<BrandDisplayProps> = ({
         </p>
       </div>
     );
+  }
+
+  if (filteredBrands.length === 0) {
+    return null;
   }
 
   return (

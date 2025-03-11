@@ -1,13 +1,5 @@
-// import { SearchComponent } from "@/components/pages/explore/components/SearchComponent"
+import ExploreClientPage from "@/components/features/explore/components/ExploreClientPage";
 
-import CategoryDropdowns from "@/components/features/explore/components/CategoryDropdowns";
-
-const page = () => {
-  return (
-    <div>
-      <CategoryDropdowns />
-      {/* <CategoryDropdowns /> */}
-    </div>
-  );
-};
-export default page;
+export default function ExplorePage() {
+  return <ExploreClientPage />;
+}
