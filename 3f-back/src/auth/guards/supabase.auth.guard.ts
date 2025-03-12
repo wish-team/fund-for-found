@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import {
   BaseSupabaseAuthGuard,
@@ -15,7 +15,9 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     super(supabaseClient1);
   }
 
-  protected extractTokenFromRequest(request: Request): string | undefined {
+  protected extractTokenFromRequest(
+    @Req() request: Request,
+  ): string | undefined {
     const cookie = request.cookies;
     const header = request.headers;
     const cookies = header ?? cookie;
