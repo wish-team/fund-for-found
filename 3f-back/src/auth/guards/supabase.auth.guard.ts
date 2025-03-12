@@ -19,6 +19,8 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     const cookie = request.cookies;
     const header = request.headers;
     const cookies = header ?? cookie;
+    console.log(cookies);
+
     const part0 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.0'];
     const part1 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.1'];
     const part2 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token'];
@@ -31,9 +33,8 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     const combined = part0 && part1 ? part0 + part1 : part2;
 
     const token = combined.startsWith('base64-') ? combined.slice(7) : combined;
-    console.log(token);
+
     const decoded: any = jwtDecode(token, { header: true });
-    console.log(decoded);
 
     this.supabaseClient.auth.setSession({
       access_token: decoded.access_token,
