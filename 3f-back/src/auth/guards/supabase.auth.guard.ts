@@ -31,8 +31,9 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     const combined = part0 && part1 ? part0 + part1 : part2;
 
     const token = combined.startsWith('base64-') ? combined.slice(7) : combined;
-
+    console.log(token);
     const decoded: any = jwtDecode(token, { header: true });
+    console.log(decoded);
 
     this.supabaseClient.auth.setSession({
       access_token: decoded.access_token,
