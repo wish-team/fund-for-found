@@ -21,7 +21,7 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     const cookie = request.cookies;
     const header = request.headers;
     const cookies = header ?? cookie;
-    console.log('here:', header);
+    console.log('here:', request);
 
     const part0 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.0'];
     const part1 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.1'];
