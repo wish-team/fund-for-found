@@ -4,7 +4,6 @@ import {
   BaseSupabaseAuthGuard,
   InjectSupabaseClient,
 } from 'nestjs-supabase-js';
-import { Request } from 'express';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable()
@@ -15,17 +14,15 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
     super(supabaseClient1);
   }
 
-  protected extractTokenFromRequest(
-    @Req() request: Request,
-  ): string | undefined {
-    const cookie = request.cookies;
+  protected extractTokenFromRequest(@Req() request): string | undefined {
+    // const cookie = request.cookies;
     const header = request.headers;
-    const cookies = header ?? cookie;
-    console.log('here:', request);
+    // const cookies = header;
+    console.log('here:', header);
 
-    const part0 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.0'];
-    const part1 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token.1'];
-    const part2 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token'];
+    const part0 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token.0'];
+    const part1 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token.1'];
+    const part2 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token'];
     // If neither the Google parts nor the email token is available, return undefined.
     if (!((part0 && part1) || part2)) {
       return undefined;
