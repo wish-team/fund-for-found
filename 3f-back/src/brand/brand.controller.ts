@@ -33,7 +33,7 @@ export class BrandController {
   }
 
   // POST /brand - Create a new brand
-  // @UseGuards(MyAuthGuard)
+  @UseGuards(MyAuthGuard)
   @Post()
   brandInitiation(
     @Req() request,
