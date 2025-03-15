@@ -39,7 +39,6 @@ export class BrandController {
     @Req() request,
     @Body(ValidationPipe) createBrandDto: CreateBrandDto,
   ) {
-    console.log(request.headers);
     const owner_id = request.user.id;
     return this.brandService.brandInitiation(owner_id, createBrandDto);
   }

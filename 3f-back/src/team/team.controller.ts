@@ -37,6 +37,7 @@ export class TeamController {
 
   @Post('webhook/user-signup')
   handleUserSignup(@Body() payload: any) {
+    console.log('here');
     return this.teamService.handleUserSignup(payload);
   }
 }
