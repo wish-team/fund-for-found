@@ -15,14 +15,13 @@ export class MyAuthGuard extends BaseSupabaseAuthGuard {
   }
 
   protected extractTokenFromRequest(@Req() request): string | undefined {
-    // const cookie = request.cookies;
+    const cookie = request.cookies;
     const header = request.headers;
-    // const cookies = header;
-    console.log('here:', header);
+    const cookies = header ?? cookie;
 
-    const part0 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token.0'];
-    const part1 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token.1'];
-    const part2 = header['sb-ginjmrvsyfbvxccpdqhq-auth-token'];
+    const part0 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token-0'];
+    const part1 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token-1'];
+    const part2 = cookies['sb-ginjmrvsyfbvxccpdqhq-auth-token'];
     // If neither the Google parts nor the email token is available, return undefined.
     if (!((part0 && part1) || part2)) {
       return undefined;
