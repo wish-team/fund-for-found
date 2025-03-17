@@ -3,7 +3,8 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/utils/i18n/utils/i18n";
 import { LanguageProvider } from "@/utils/i18n";
@@ -51,7 +52,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           <LanguageProvider>{children}</LanguageProvider>
         </I18nextProvider>
       </NextUIProvider>
-      <Toaster position="top-right" />
+      <ToastContainer position="top-right" />
     </QueryClientProvider>
   );
 }

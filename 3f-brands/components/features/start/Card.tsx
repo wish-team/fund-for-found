@@ -39,7 +39,7 @@ const Card = () => {
       } = await supabase.auth.getSession();
       console.log("url", window.location);
       if (session) {
-        router.push("/steps/1");
+        router.push("/create-brand");
       } else {
         window.location.href = "https://auth.fundforfound.com/login";
       }
