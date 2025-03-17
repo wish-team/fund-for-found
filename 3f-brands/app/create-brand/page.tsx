@@ -97,9 +97,7 @@ export default function CreateBrandPage() {
         data.owner_id = "placeholder_id";
       }
       
-      console.log("Submitting data:", data);
       const result = await createBrand(data);
-      console.log("API response:", result);
       
       if (result.success) {
         toast.success("Brand created successfully!", {

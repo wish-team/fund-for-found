@@ -2,7 +2,6 @@
 
 import { BrandFormData } from "../types/brandForm";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseConfig } from "@/utils/supabase/config";
@@ -14,22 +13,13 @@ export async function createBrand(formData: BrandFormData) {
     
     // Check if we have auth tokens and user info
     const cookieStore = await cookies();
-    
-    // Debug: Log all available cookies
-    console.log("Available cookies:", cookieStore.getAll().map(c => c.name));
+
     
     // Get auth tokens
     const authToken0 = cookieStore.get("sb-ginjmrvsyfbvxccpdqhq-auth-token")?.value;
     const accessToken = cookieStore.get("sb-ginjmrvsyfbvxccpdqhq-auth-token.0")?.value;
     const refreshToken = cookieStore.get("sb-ginjmrvsyfbvxccpdqhq-auth-token.1")?.value;
     
-    
-    console.log("Auth tokens:", { 
-      hasAuthToken0: !!authToken0,
-      hasAccessToken: !!accessToken, 
-      hasRefreshToken: !!refreshToken 
-    });
-
     // Create Supabase client to get session
     const supabase = createServerClient(
       supabaseConfig.url,
@@ -58,7 +48,6 @@ export async function createBrand(formData: BrandFormData) {
     
     // Get access token from session if available
     const sessionToken = session?.access_token;
-    console.log("Has session token:", !!sessionToken);
     
     // Use the most reliable token source
     const token = sessionToken || accessToken || authToken0;
